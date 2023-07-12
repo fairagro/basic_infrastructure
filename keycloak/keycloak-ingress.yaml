@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: keycloak
+  namespace: fairagro
+  labels:
+    app: keycloak
+spec:
+  tls:
+    - hosts:
+      - keycloak.corki.bonares.de
+  rules:
+  - host: keycloak.corki.bonares.de
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: keycloak
+            port:
+              number: 8080
