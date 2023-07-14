@@ -7,7 +7,7 @@ clusters:
 contexts:
 - context:
     cluster: cluster.local
-    namespace: argocd
+    namespace: fairagro
     user: kubernetes-admin
   name: kubernetes-admin@cluster.local
 current-context: kubernetes-admin@cluster.local

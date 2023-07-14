@@ -5,6 +5,7 @@ if (-not ($MyInvocation.InvocationName -eq '.' -or $MyInvocation.Line -eq '')) {
 
 # The actual config to apply. Should probably be specified using command line options. 
 $k8s_cluster = "corki"
+$k8s_namespace = "fairagro"
 $kubectl_version = "1_24_15"
 $helm_version = "3_12_1"
 $binary_path = "$env:USERPROFILE\local"
@@ -22,3 +23,6 @@ Set-Alias -Name helm -Value "${binary_path}\helm_v${helm_version}.exe"
 
 # Create Powershell autocompletion for kubectl
 kubectl completion powershell | Out-String | Invoke-Expression
+
+# Set default namespace
+kubectl config set-context --current --namespace=$k8s_namespace
