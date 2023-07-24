@@ -521,7 +521,7 @@ startupProbe: # the entrypoint copies 600MB data to the NFS volumes which may ta
   initialDelaySeconds: 0
   periodSeconds: 10
   timeoutSeconds: 5
-  failureThreshold: 60
+  failureThreshold: 100
   successThreshold: 1
 
 
