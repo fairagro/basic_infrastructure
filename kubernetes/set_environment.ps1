@@ -21,8 +21,9 @@ $env:KUBECONFIG = "${script_path}\${k8s_cluster}.yaml"
 Set-Alias -Name kubectl -Value "${binary_path}\kubectl_v${kubectl_version}.exe"
 Set-Alias -Name helm -Value "${binary_path}\helm_v${helm_version}.exe"
 
-# Create Powershell autocompletion for kubectl
+# Create Powershell autocompletion for kubectl and helm
 kubectl completion powershell | Out-String | Invoke-Expression
+helm completion powershell | Out-String | Invoke-Expression
 
 # Set default namespace
 kubectl config set-context --current --namespace=$k8s_namespace
