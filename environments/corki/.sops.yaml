@@ -1,0 +1,6 @@
+# creation rules are evaluated sequentially, the first match wins
+creation_rules:
+  - path_regex: \.enc\.yaml$
+    pgp: >-
+      CC7B10CE8D78010ABB043F8DB1C462E90012ECFE,
+      8A855F4BC7B2D45497D18FCCB4674FEDECC76C42
