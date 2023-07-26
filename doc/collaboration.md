@@ -28,7 +28,7 @@ OnlyOffice was known for bugs and security issues in the past.
 ## GroupOffice
 
 GroupOffice is a so-called Groupware software and offers a brought range of office collaboration tools. This includes Email, Chat, Helpdesk and even CRM; file sharing is also included. Unfortunately, key functionalities like document editing are only available for payment, though it is quite cheap: 200 Euros per year for unlimited users (if hosted on premise).
-There is a brought range of products that are similar to GroupOffice: EGroupware (https://www.egroupware.org), Kopano (https://kopano.com), FengOffice (https://fengoffice.com) and Zimbra (https://www.zimbra.com)...
+There is a brought range of products that are similar to GroupOffice: EGroupware (<https://www.egroupware.org>), Kopano (<https://kopano.com>), FengOffice (<https://fengoffice.com>) and Zimbra (<https://www.zimbra.com>)...
 
 ## CryptPad
 
