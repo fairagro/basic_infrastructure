@@ -1,6 +1,7 @@
 # fairagro-playground
 
 ## Using go-template with Powershell
+
 E.g:
 
 <code>
