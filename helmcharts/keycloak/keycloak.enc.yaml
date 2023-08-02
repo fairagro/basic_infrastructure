@@ -1,0 +1,30 @@
+keycloak:
+    adminPassword: ENC[AES256_GCM,data:WIuLzog=,iv:yl9tlx+/fRoc0C/9hi2alRVD+0L62jomNG/Hk9fk/Do=,tag:gX2mrQI7nRi2Thw7AHyyAw==,type:str]
+database:
+    password: ENC[AES256_GCM,data:knGHjqmpcwKe1sp6wGisCNsslDhp+qZp7d7TcUhNgoDy6R9KC3YAFPSJwNpEazrzdhQ8wkPMDzV/5bzBg7XUOw==,iv:xnjq8z964LGUWqepF0KopUi8au7ZVJY3CSy21CI3Uys=,tag:N0v9uox1/E3SlDOdvWoaYA==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1neq3m9ppute5cruh8xfndh4fgyh2k73hmjp9gss70cml9qv9f3aq72htnt
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA2NFVYZTdRYlBzZjMwR1lS
+            NUlYbVREV3dKbnhNZmoydGsvYWFCT3dFUmhRCkF2ZHNDMlh3ZVdaVmQ3OG9obzMx
+            ellGY3huK1ZTN3ZzSjY2ZkxSL0ZuUTQKLS0tIDRrK0tSRkc3RVZPV1BDYnBtMlhO
+            UEF2OWlhNlZmdkJBZENiWktaQ3BIY2cKfZEv06EnhUryAWUL9NnxCRjz17AlJRTU
+            bKpIPqusii1JodegYA4uM8H3dYPNZUfAkP6teWWCrni7OX6ig2nGpw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2023-08-02T15:47:47Z"
+    mac: ENC[AES256_GCM,data:Xcuagl3K6OqNQRt48FdalPtR3PSKH7ofM26vo3p3hgLiPESJ7psLod6CPRJ34ZSCd8iRGH8CExHRUavBPtml52vN9l4h/sxL8DeIPpKZhN8WHH6ArwnG6QxJ7njJ1q0RE7HGRaWIodnF2iryGUYVsStLltPeIwz1x1dvD93uKrI=,iv:qEIVD2hH2pnG0AStrOpUf6V0zBX2UJjfRUxOmQwIUsw=,tag:7MahT8k0FcQk4kv4SMkiFA==,type:str]
+    pgp:
+        - created_at: "2023-08-02T15:26:39Z"
+          enc: "-----BEGIN PGP MESSAGE-----\r\n\r\nhF4D5jdJleHfCY0SAQdAS+FD9weOFBoqiTwxYHvrG7XJB7Mhmn7TljVJlRx+iH8w\r\nW2hXZQpc0T/w2a4grKnwgj3rDnvrLZEH15MbQ6ndxq+3JZOue94uy5vgmAZ4pSFX\r\n1GgBCQIQDuJhURkhV9eBcExBDV9gzctH0WzUXrGrZojuV/O9Pij6R+uxcJ5I1r9T\r\nukMrgoq/dHfbBADSYdWvxGAoZUhOoTbwxxfuM54ApVhjEZ6HeT71yWGgQpUGercO\r\njNq3RFQvnTDx4Q==\r\n=6dzi\r\n-----END PGP MESSAGE-----\r\n"
+          fp: CC7B10CE8D78010ABB043F8DB1C462E90012ECFE
+        - created_at: "2023-08-02T15:47:47Z"
+          enc: "-----BEGIN PGP MESSAGE-----\r\n\r\nhF4DzQk5AhVr6NgSAQdAK0na0g2QjXz9EiexDRHsoW4jPG6L7IZ9IMZcANe5LxYw\r\nFvbrio99jIJo/SSJDBIq4K3j/SZOd/CRap5qxd+x7X8IpI0FI1KJW/iygZo2YmuZ\r\n1GgBCQIQn4kLcb7HEejNkR7qsJd7RpncS+10bhfmW+c8KfGEImT+b9mrmd69lThT\r\nYI59zQ1nqZ9JjKPGpb0z45x7+mmymKx4gFgbPx9syObe4ebHqlY/vM1wyylHtq9j\r\ncPVjG/3D9Kk3rw==\r\n=0AkX\r\n-----END PGP MESSAGE-----\r\n"
+          fp: 6DDC38F9CF6C474AAE44986958F3B75FE4838AA1
+    unencrypted_suffix: _unencrypted
+    version: 3.7.3
