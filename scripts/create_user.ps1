@@ -104,6 +104,9 @@ spec:
     usages:
         - client auth
 "@ | kubectl create --kubeconfig $admin_config -f -
+            if ($LASTEXITCODE -ne 0) {
+                throw "Failed to issue certificate request. Exiting..."
+            }
 
             # approve certificate request
             kubectl certificate approve $username --kubeconfig $admin_config
