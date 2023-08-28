@@ -11,7 +11,7 @@ repositories:
 
 releases:
   - name: keycloak
-    namespace: fairagro
+    namespace: fairagro-keycloak
     createNamespace: true
     chart: helmcharts/keycloak
     missingFileHandler: Error
@@ -20,7 +20,7 @@ releases:
     secrets:
       - environments/{{ .Environment.Name }}/secrets/keycloak.enc.yaml
   - name: nextcloud
-    namespace: nextcloud
+    namespace: fairagro-nextcloud
     createNamespace: true
     chart: nextcloud/nextcloud
     values:
