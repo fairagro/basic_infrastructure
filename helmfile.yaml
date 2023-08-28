@@ -1,4 +1,4 @@
-helmBinary: '{{ requiredEnv "HELMFILE_HELM_PATH" }}'
+#helmBinary: '{{ requiredEnv "HELMFILE_HELM_PATH" }}'
 
 repositories:
   - name: nextcloud
@@ -6,7 +6,7 @@ repositories:
 
 releases:
   - name: keycloak
-    namespace: fairagro-test
+    namespace: fairagro
     createNamespace: true
     chart: helmcharts/keycloak
     missingFileHandler: Error
