@@ -71,8 +71,6 @@ repoServer:
       value: /usr/local/bin/helm
     - name: SOPS_AGE_KEY_FILE
       value: /helm-secrets-private-keys/key.txt
-    - name: HELMFILE_ENV
-      value: elise_fairagro
 
   # -- Init containers to add to the repo server pods
   initContainers: # []
@@ -114,6 +112,8 @@ repoServer:
       env:
         - name: SOPS_AGE_KEY_FILE
           value: /helm-secrets-private-keys/key.txt
+        - name: HELMFILE_ENV
+          value: elise_fairagro
       securityContext:
         runAsNonRoot: true
         runAsUser: 999
