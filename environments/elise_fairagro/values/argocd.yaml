@@ -112,8 +112,6 @@ repoServer:
       env:
         - name: SOPS_AGE_KEY_FILE
           value: /helm-secrets-private-keys/key.txt
-        - name: HELMFILE_ENV
-          value: elise_fairagro
       securityContext:
         runAsNonRoot: true
         runAsUser: 999
