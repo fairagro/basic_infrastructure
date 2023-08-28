@@ -105,6 +105,26 @@ repoServer:
         - mountPath: /custom-tools
           name: custom-tools
 
+  extraContainers:
+    - name: helmfile-plugin
+      image: travisghansen/argo-cd-helmfile:latest
+      command: [/var/run/argocd/argocd-cmp-server]
+      env:
+        - name: SOPS_AGE_KEY_FILE
+          value: /helm-secrets-private-keys/key.txt
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 999
+      volumeMounts:
+        - mountPath: /helm-secrets-private-keys/
+          name: helm-secrets-private-keys
+        - mountPath: /var/run/argocd
+          name: var-files
+        - mountPath: /home/argocd/cmp-server/plugins
+          name: plugins
+        - mountPath: /tmp
+          name: helmfile-cmp-tmp
+
   # -- Additional volumeMounts to the repo server main container
   volumeMounts: # []
     - mountPath: /custom-tools
@@ -123,3 +143,5 @@ repoServer:
     - name: helm-secrets-private-keys
       secret:
         secretName: helm-secrets-private-keys
+    - name: helmfile-cmp-tmp
+      emptyDir: {}
