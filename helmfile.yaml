@@ -1,3 +1,10 @@
+environments:
+  elise_fairagro: {}
+  corki_fairgaro: {}
+  draven_fairagro: {}
+
+---
+
 repositories:
   - name: nextcloud
     url: https://nextcloud.github.io/helm/
@@ -9,14 +16,14 @@ releases:
     chart: helmcharts/keycloak
     missingFileHandler: Error
     values:
-      - environments/{{ requiredEnv "HELMFILE_ENV" }}/values/keycloak.yaml
+      - environments/{{ .Environment.Name }}/values/keycloak.yaml
     secrets:
-      - environments/{{ requiredEnv "HELMFILE_ENV" }}/secrets/keycloak.enc.yaml
+      - environments/{{ .Environment.Name }}/secrets/keycloak.enc.yaml
   - name: nextcloud
     namespace: nextcloud
     createNamespace: true
     chart: nextcloud/nextcloud
     values:
-      - environments/{{ requiredEnv "HELMFILE_ENV" }}/values/nextcloud.yaml
+      - environments/{{ .Environment.Name }}/values/nextcloud.yaml
     secrets:
-      - environments/{{ requiredEnv "HELMFILE_ENV" }}/secrets/nextcloud.enc.yaml
+      - environments/{{ .Environment.Name }}/secrets/nextcloud.enc.yaml
