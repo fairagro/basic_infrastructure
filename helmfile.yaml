@@ -12,3 +12,11 @@ releases:
       - environments/{{ requiredEnv "HELMFILE_ENV" }}/values/keycloak.yaml
     secrets:
       - environments/{{ requiredEnv "HELMFILE_ENV" }}/secrets/keycloak.enc.yaml
+  - name: nextcloud
+    namespace: nextcloud
+    createNamespace: true
+    chart: nextcloud/nextcloud
+    values:
+      - environments/{{ requiredEnv "HELMFILE_ENV" }}/values/nextcloud.yaml
+    secrets:
+      - environments/{{ requiredEnv "HELMFILE_ENV" }}/secrets/nextcloud.enc.yaml
