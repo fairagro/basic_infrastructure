@@ -69,8 +69,7 @@ repoServer:
       value: "true"
     - name: HELM_SECRETS_HELM_PATH
       value: /usr/local/bin/helm
-    - name: HELM_SECRETS_LOAD_GPG_KEYS
-      # Multiple keys can be separated by space
+    - name: SOPS_AGE_KEY_FILE
       value: /helm-secrets-private-keys/key.txt
 
   # -- Init containers to add to the repo server pods
