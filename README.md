@@ -128,3 +128,4 @@ to a corresponding secret file that has to be encrypted using
 execution of `helm`/`helmfile`. If you use VisualStudio Code you
 can install the 'vscode-sops' plugin that will automatically
 encrypt all files according to the '.sops.yaml' file.
+
