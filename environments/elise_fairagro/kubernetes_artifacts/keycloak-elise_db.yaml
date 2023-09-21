@@ -1,0 +1,34 @@
+# kubernetes endpoint and type of object definition
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+# name of the postgres cluster / this could be build from input from the intranet website
+  name: keycloak-elise
+spec:
+# teamIds can be defined for the hole cluster and are there to group cluster e.g. by working group
+  teamId: fairagro
+# size of the database in GByte
+  volume:
+    size: 10Gi
+  resources:
+    limits:
+      cpu: "1"
+      memory: 2Gi
+    requests:
+      cpu: "1"
+      memory: 2Gi
+# number of replicas, this can improve performance and failsafe
+  numberOfInstances: 2
+# list of users and there rights
+  users:
+    # database owner
+    keycloak:
+    - superuser
+    - createdb
+# database and owner definition 
+# databases: name->owner
+  databases:
+    keycloak: keycloak
+# postgresql database version
+  postgresql:
+    version: "15"
