@@ -15,11 +15,11 @@ Invoke-Expression "${sops_env} 'argocd login %ARGOCD_SERVER% --insecure --grpc-w
 
 # Install keycloak app
 argocd app create keycloak `
-    --repo git@github.com:fairagro/basic_infrastructure.git `
+    --repo "git@github.com:fairagro/basic_infrastructure.git" `
     --revision HEAD `
-    --path "${project_path}\helmcharts\zalf-keycloak" `
-    --dest-server https://kubernetes.default.svc `
+    --path "helmcharts/zalf-keycloak" `
+    --dest-server "https://kubernetes.default.svc" `
     --project fairagro `
     --dest-namespace fairagro-keycloak `
-    --values "${environment_path}\values\zalf-keycloak.yaml" `
-    --values "${environment_path}\values\zalf-keycloak.enc.yaml"
+    --values "../../environments/${environment}/values/zalf-keycloak.yaml" `
+    --values "../../environments/${environment}/secrets/zalf-keycloak.enc.yaml"
