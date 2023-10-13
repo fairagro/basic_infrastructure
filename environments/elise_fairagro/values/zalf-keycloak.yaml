@@ -7,7 +7,8 @@ replicaCount: 1
 ingress:
   enabled: true
   className: ""
-  annotations: {}
+  annotations:
+    {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
@@ -16,8 +17,8 @@ ingress:
         - path: /
           pathType: Prefix
   tls:
-   - hosts:
-       - keycloak.elise.bonares.de
+    - hosts:
+        - keycloak.elise.bonares.de
 
 resources:
   limits:
