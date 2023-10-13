@@ -1,13 +1,11 @@
 param (
-    [Parameter(Mandatory = $true)] [string] $cluster,
-    [Parameter(Mandatory = $true)] [string] $project,
-    [string] $environment= "${cluster}_${project}",
+    [Parameter(Mandatory = $true)] [string] $environment,
     [string] $kubectl_version = "1.27.3",
     [string] $helm_version = "3.12.1",
     [string] $sops_version = "3.7.3",
     [string] $argocd_version = "2.8.4",
     [string] $binary_path = "$env:USERPROFILE\local",
-    [string] $user_kubeconfig = "$env:USERPROFILE\.k8s_config\${cluster}_${project}.yaml"
+    [string] $docker_desktop_kubectl = "C:\Program Files\Docker\Docker\Resources\bin\kubectl.exe"
 )
 
 # This script needs to be dot-sourced to be effective. So check this
@@ -22,19 +20,27 @@ $environment_path = Join-Path $environments_path -ChildPath $environment
 
 # Check that the context is actually known
 if (-not (Test-Path -Path $environment_path -PathType Container)) {
-    throw "The environement directory for cluster ${cluster}, project ${project} does not exist. Exiting..."
+    throw "The environement directory for environement ${environment} does not exist. Exiting..."
 }
 
-# set KUBECONFIG environment variable to the actual cluster config file
-$env:KUBECONFIG = $user_kubeconfig
+if ($environment -eq "local_dev") {
+    Remove-Item Env:\KUBECONFIG -ErrorAction SilentlyContinue
+    Set-Alias -Name kubectl -Value $docker_desktop_kubectl
+} else {
+    # set KUBECONFIG environment variable to the actual cluster config file
+    $kubeconfig = New-TemporaryFile
+    sops -d "${inventory_path}/credentials/admin.enc.yaml" > "$kubeconfig"
+    $env:KUBECONFIG = $kubeconfig
+
+    $kubectl_binary_path = Join-Path $binary_path -ChildPath "kubectl-v${kubectl_version}.exe"
+    Set-Alias -Name kubectl -Value $kubectl_binary_path
+}
 
 # make the desired kubectl and helm versions available in terms of the commands 'kubectl' and 'helm'
-$kubectl_binary_path = Join-Path $binary_path -ChildPath "kubectl-v${kubectl_version}.exe"
 $helm_binary_path = Join-Path $binary_path -ChildPath "helm-v${helm_version}.exe"
 $sops_binary_path = Join-Path $binary_path -ChildPath "sops-v${sops_version}.exe"
 $argocd_binary_path = Join-Path $binary_path -ChildPath "argocd-v${argocd_version}.exe"
 $helmfile_binary_path = Join-Path $binary_path -ChildPath "helmfile.exe"
-Set-Alias -Name kubectl -Value $kubectl_binary_path
 Set-Alias -Name helm -Value $helm_binary_path
 Set-Alias -Name sops -Value $sops_binary_path
 Set-Alias -Name argocd -Value $argocd_binary_path
@@ -47,7 +53,7 @@ $env:HELMFILE_ENV = $environment
 $env:HELMFILE_HELM_PATH = $helm_binary_path
 
 # import all public keyfiles into gpg keyring so sops can find them
-$public_key_path = Join-Path $environment_path -ChildPath "public_keys"
+$public_key_path = Join-Path $environment_path -ChildPath "public_gpg_keys"
 Get-ChildItem -File -Path $public_key_path -Filter "*.asc" | ForEach-Object { gpg --import $_.FullName }
 
 # Create Powershell autocompletion for kubectl and helm

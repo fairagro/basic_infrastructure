@@ -1,7 +1,5 @@
 param (
-    [Parameter(Mandatory = $true)] [string] $cluster,
-    [Parameter(Mandatory = $true)] [string] $project,
-    [string] $environment= "${cluster}_${project}"
+    [Parameter(Mandatory = $true)] [string] $environment
 )
 
 # figure out some paths
@@ -11,7 +9,7 @@ $environment_path = Join-Path $environments_path -ChildPath $environment
 
 # Login to argocd
 $sops_env = "sops exec-env ${environment_path}\credentials\argocd_secrets.enc.yaml"
-Invoke-Expression "${sops_env} 'argocd login %ARGOCD_SERVER% --insecure --grpc-web --username=%ARGOCD_ADMIN_USER% --password=%ARGOCD_ADMIN_PASSWORD%'"
+Invoke-Expression "${sops_env} 'argocd login %ARGOCD_SERVER% --insecure --grpc-web-root-path %ARGOCD_PREFIX% --username=%ARGOCD_ADMIN_USER% --password=%ARGOCD_ADMIN_PASSWORD%'"
 
 # Install keycloak app
 argocd app create keycloak `
@@ -22,4 +20,4 @@ argocd app create keycloak `
     --project fairagro `
     --dest-namespace fairagro-keycloak `
     --values "../../environments/${environment}/values/zalf-keycloak.yaml" `
-    --values "../../environments/${environment}/secrets/zalf-keycloak.enc.yaml"
+    --values "../../environments/${environment}/values/zalf-keycloak.enc.yaml"
