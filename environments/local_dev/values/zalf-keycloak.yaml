@@ -1,0 +1,36 @@
+# Default values for keycloak.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+clusterDomain: "docker-desktop"
+replicaCount: 1
+httpRelativePath: "/keycloak"
+
+ingress:
+  enabled: true
+  annotations:
+    {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+
+  hostname: kubernetes.docker.internal
+  path: /keycloak
+  pathType: Prefix
+  tls: true
+  selfSigned: true
+
+resources:
+  limits:
+    cpu: 2.0
+    memory: 2Gi
+  requests:
+    cpu: 1.0
+    memory: 1Gi
+
+keycloak:
+  adminUser: admin
+# database:
+#   type: postgres
+#   host: keycloak.paas-brachland.draven.cluster.zalf.de
+#   port: 30493
+#   username: keycloak
