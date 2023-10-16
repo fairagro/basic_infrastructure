@@ -8,8 +8,7 @@ $environments_path = Join-Path $project_path "environments"
 $environment_path = Join-Path $environments_path -ChildPath $environment
 
 # Login to argocd
-$sops_env = "sops exec-env ${environment_path}\credentials\argocd_secrets.enc.yaml"
-Invoke-Expression "${sops_env} 'argocd login %ARGOCD_SERVER% --insecure --grpc-web-root-path %ARGOCD_PREFIX% --username=%ARGOCD_ADMIN_USER% --password=%ARGOCD_ADMIN_PASSWORD%'"
+sops exec-env "${environment_path}\credentials\argocd_secrets.enc.yaml" 'argocd login %ARGOCD_SERVER% --insecure --grpc-web-root-path %ARGOCD_PREFIX% --username=%ARGOCD_ADMIN_USER% --password=%ARGOCD_ADMIN_PASSWORD%'
 
 # Install keycloak app
 argocd app create keycloak `
