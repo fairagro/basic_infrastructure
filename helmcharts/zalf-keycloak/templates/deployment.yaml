@@ -33,17 +33,16 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: ["/usr/bin/bash"]
-          # args:
-          #   - "start"
-          #   - "--db {{ .Values.database.type }}"
-          #   - "--db-url-host {{ .Values.database.host }}"
-          #   - "--db-url-port {{ .Values.database.port }}"
-          #   - "--db-username {{ .Values.database.username }}"
-          #   - "--db-password $POSTGRES_PASSWORD"
-          #   - "--hostname {{ (.Values.ingress.hosts | first).host }}"
-          #   - "--health-enabled true"
-          #   - "--metrics-enabled true"
+          args:
+            - "start"
+            - "--db {{ .Values.database.type }}"
+            - "--db-url-host {{ .Values.database.host }}"
+            - "--db-url-port {{ .Values.database.port }}"
+            - "--db-username {{ .Values.database.username }}"
+            - "--db-password $POSTGRES_PASSWORD"
+            - "--hostname {{ (.Values.ingress.hosts | first).host }}"
+            - "--health-enabled true"
+            - "--metrics-enabled true"
           env:
             - name: KEYCLOAK_ADMIN
               value: {{ .Values.keycloak.adminUser }}
