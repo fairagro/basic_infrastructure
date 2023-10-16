@@ -7,17 +7,18 @@ replicaCount: 1
 httpRelativePath: "/keycloak"
 
 ingress:
-  enabled: true
   annotations:
     {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
-
-  hostname: kubernetes.docker.internal
-  path: /keycloak
-  pathType: Prefix
-  tls: true
-  selfSigned: true
+  hosts:
+    - host: kubernetes.docker.internal
+      paths:
+        - path: /keycloak
+          pathType: Prefix
+  tls:
+    - hosts:
+        - kubernetes.docker.internal
 
 resources:
   limits:
