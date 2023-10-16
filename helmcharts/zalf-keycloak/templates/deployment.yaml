@@ -42,7 +42,7 @@ spec:
             - "--db-password $POSTGRES_PASSWORD"
             - "--hostname {{ (.Values.ingress.hosts | first).host }}"
             - "--health-enabled true"
-            - "--verbose"
+            - "--metrics-enabled true"
           env:
             - name: KEYCLOAK_ADMIN
               value: {{ .Values.keycloak.adminUser }}
