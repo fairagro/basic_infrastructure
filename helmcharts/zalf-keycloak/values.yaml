@@ -25,7 +25,8 @@ serviceAccount:
 
 podAnnotations: {}
 
-podSecurityContext: {}
+podSecurityContext:
+  {}
   # fsGroup: 2000
 
 securityContext:
@@ -44,7 +45,8 @@ service:
 ingress:
   enabled: true
   className: ""
-  annotations: {}
+  annotations:
+    {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
@@ -53,8 +55,8 @@ ingress:
         - path: /
           pathType: Prefix
   tls:
-   - hosts:
-       - keycloak-helm.corki.bonares.de
+    - hosts:
+        - keycloak-helm.corki.bonares.de
 
 resources:
   limits:
