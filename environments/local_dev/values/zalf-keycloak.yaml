@@ -46,6 +46,6 @@ keycloak:
 #     PGPASSWORD="$POSTGRES_PASSWORD" psql --host 127.0.0.1 -U postgres -d postgres -p 5432
 database:
   type: postgres
-  host: fairagro-keycloak-postgres-postgresql-client
+  host: fairagro-keycloak-postgres-postgresql
   port: 5432
   username: postgres
