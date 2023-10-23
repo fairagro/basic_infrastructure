@@ -29,7 +29,7 @@ if ($environment -eq "local_dev") {
 } else {
     # set KUBECONFIG environment variable to the actual cluster config file
     $kubeconfig = New-TemporaryFile
-    sops -d "${environment_path}/credentials/project_admin.enc.yaml" > "$kubeconfig"
+    sops -d "${environment_path}\redentials\project_admin.enc.yaml" > "$kubeconfig"
     $env:KUBECONFIG = $kubeconfig
 
     $kubectl_binary_path = Join-Path $binary_path -ChildPath "kubectl-v${kubectl_version}.exe"
