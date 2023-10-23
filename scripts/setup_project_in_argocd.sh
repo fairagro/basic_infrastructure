@@ -1,6 +1,24 @@
 #!/usr/bin/env bash
 
 environment=$1
+age_secret_key=$2
+
+restore_sops_vars() {
+    export SOPS_AGE_KEY=$SOPS_AGE_KEY_BACKUP
+    unset SOPS_AGE_KEY_BACKUP
+}
+
+if test -z ${age_secret_key}
+then
+    echo "Age secret key for secret decryption is not set. Assuming a private gpg key is available."
+else
+    echo "Preparing specified age secret key ..."
+    export SOPS_AGE_KEY_BACKUP=$SOPS_AGE_KEY
+    export SOPS_AGE_KEY=$age_secret_key
+
+    # Ensure we reset the original environment variables after script exits...
+    trap 'restore_sops_vars' RETURN
+fi
 
 # figure out some paths
 mydir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
