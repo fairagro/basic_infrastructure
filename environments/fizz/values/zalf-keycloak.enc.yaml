@@ -1,0 +1,36 @@
+keycloak:
+    adminPassword: ENC[AES256_GCM,data:yzXgaBSY2y5BjA8wYJZQcC0xcgffWSzovGfo4UQkLS9FgX95brX3z9A=,iv:Vb5X/VUPiVS/Rtb6bvt4XzwUuyH4DUvyBSSjsS8K7Bk=,tag:OqnAej8Qih94URZsHkLJ/w==,type:str]
+database:
+    password: ENC[AES256_GCM,data:KSeaBaQX6mp5teh3yyZOIE0RTzqG/peUboFn8Zofwu+TOViVlgC2CGO+xIikMeCwxhQsMqILQjJ9EKK7oHdrgg==,iv:10N95i4MB17jXCuYJSd8Q/MEYvvnL+ilZXQMqFlRDQw=,tag:wzI7USpNZEpYn7SIledwDw==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1y4qxre3ln75narkln7edt9mg9ar7vsws5ykx8kcsda3s8af2jqqqdtx7z2
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBiNmJGVFFKYWVqWU5ETWpm
+            U2dVVWdmM2VUZGhEeHFVdTZ2RlBQWGVzdVRJCk0rN2VWZEtHK0hMaGdKZzQvUVVP
+            S0QrT2kyRHZsWm9CYUdKdi9XZjNCdk0KLS0tIDRUTnY1ZFVvblZHTE5mVEpGaFpM
+            MEQzWGtrbVAwOXUvdkRUTjJoVDVKc0kKAaBWIK9bjGO8w8J+E4Ug9gl68u/1YMOS
+            2l9JTxeBFiSZKPQTy0P9ni2mRdPTvUO71N6ue6EPUA8ayfTVzyGo4g==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2023-10-23T13:25:47Z"
+    mac: ENC[AES256_GCM,data:+c82Bhg1fXlE4sdf6l3u6GoDJoE1kkc9agoPpSiYCSXLt32spjRGUcv80lMr4Id8X1SDZ7dfov5SZ5ByY4c66WcZzHZ63smYNwyxwEwMf1w3fd0E6NP3TQ/k5AC0PBLmuhy0fTvHqbb5KPhSxB9z8v7YvutsugJ6UZLK+olK/ME=,iv:advGOpmiA/YxYJlwvWfbsMdlyLOT86ZtoCcdnq1gbU4=,tag:hiVaG7NxHuArBmnwQs3ong==,type:str]
+    pgp:
+        - created_at: "2023-10-23T13:27:59Z"
+          enc: "-----BEGIN PGP MESSAGE-----\r\n\r\nhQIMA3FtoE4fF3lxARAAh/x4Py8Zj1FILCXbN/Vh+FZKAKsRDldxkkmVIiYy/19q\r\nieb23PWBAMRrjkCI8Z7iAciplW3lpwJmTCv/qbcOJQVARsDLFBmWtjML9ohVsa+3\r\ngAeoyt1zc1XkwztgbW0+R4dsVz1PPC+W1AezufMLedNf5nso5uLXYvsXNgW7ZlbI\r\nR91utI+lMFzFSYvHfGMCuspND3PCKr+KGRAZdSxjV5QQeUfZ91Cx4FJHihBl3V0l\r\n9TQQNtYxl+FuJetbgRzOu4M+vU+kFi4zdT/bDvq69sLbL6XAUI6bRmX/bQghdSDD\r\n33wUUMOV/trFrItKdAIgVDafJhbh2+3LDFH6Re5szwsYV67sNBkLmYnMebJEaBBD\r\nVqrjJjIjR1ZEL7itlslGGXaq8yR4gHb7XfJdbjeYGJs9ITRQYU/yOssKRaZZRmkk\r\n87o/E5rdryDAOvaPM+GEWCahXLYAUDv+81n9gpPnyYK+JgZrM4Xxpi7wVJPMLDZQ\r\nXUVFi4/RBiaXQ5D0BlMFPZuvVScH3GiXqR5BSb/WIlaHGTUmqKYBpFSS9ePz4sfh\r\n+g/yAKq4Ulr5iLfIsYxWr3F/lG1O6blTARgBDqr3QXTHx6fPg/UW7pyAHK3c9poe\r\nDxTlwgrvLsB6fal2sbjRwK1kMtPkvgF6ce7spP99yD0KajBnLAz3tTV8c/7/6r3S\r\nUQFE6TgcaaUvIA4Q71ymdO8yoeSAWZygfujMBDYI/qm7wb/+81y3SRXabNVTCM2m\r\n1UqCepO293X/GmUZZez+gP0hxqwRYAkqAgitA2lOTfJtDQ==\r\n=qJQB\r\n-----END PGP MESSAGE-----\r\n"
+          fp: DC8231FEA934DB14D402E72D3B6555ADB3910EAE
+        - created_at: "2023-10-23T13:27:59Z"
+          enc: "-----BEGIN PGP MESSAGE-----\r\n\r\nhQGMAzD2NYmhq+4pAQwAy3lDd8X8mgfwXh35yu6UIsZORl/lcnxqekdZ3SHMsYlj\r\nu0UD45ZHi4uO+UuXVhqdF2NvYG/Af5WOkxnm8UAg15ibcgh3iR+gjqr9ToCRuryA\r\nV+sV9ofAvKEje9Uz8YNBB95FghD5CYSXMK3XmdkHdGg18CU9+b3C1sQUJlEEACzG\r\nBN29wEXqQ2SCLDXQi7u66kEa9HUN8hMFuCzp18eM8nDHZoWIlbJ+IZyO35JXuaR1\r\nmdY2a4hXmYZ387dm/dBTlawUO67a8wf9jFhm1iv4VNDlDhIuBTPgGh01xKeMS+0L\r\n+VBOukGV4smjLJOlWC7n9mr5tZkaropkmmqxjQJb0MVIBdJrAueoMxmVpHnS0s6L\r\nCxVohhP7/m0e0895/V1IOUOqZvaG343GIyvv5vWfFJgQDf5nOet+g2VFn9b+hVce\r\nYnf9LhyYS3xwtIQleCUXAA4cJ0rlAnjllRr6jdKIJz67QF0W649DQuIsTJrN0YS5\r\n5yttVBWGjyYiXjjcGgED0lEBT7sQ5zO0PNwoHPuoceJlXJ5NP49QLdwxR7cg/Kqu\r\nNiFBsB3FriOsa/rFSRKgVFmTnHAyPydV/DEEKRUAQZ7XmX4fgqQdFmsGj3nsxFvH\r\nJA4=\r\n=0SYA\r\n-----END PGP MESSAGE-----\r\n"
+          fp: 74CCFCF1D43B0DB742CC2602A103D9F46B9D2E02
+        - created_at: "2023-10-23T13:27:59Z"
+          enc: "-----BEGIN PGP MESSAGE-----\r\n\r\nhF4D5jdJleHfCY0SAQdAB+sRyDbrxW5bEK5wtkz8ibuTHWCFycSn9kVMhy0JC0Qw\r\nePSJZX/1Sz/Q78D+hEIYJTcqY5THC9tfviXxCm78NMjQel+JCLfzKiSqVZ0dRQAE\r\n1FsBCQIQfWUuvLqqWa9nxuX8CCKq4g5dWXeHaHiLlNy5LT3z6bPxPIu1T2q7HRie\r\nn4ZwGkFZS5aurdxN1wEFwkeVetrlDnrBVarsX4xUqK2tpfKjUwJHmVCatGm1\r\n=A0YQ\r\n-----END PGP MESSAGE-----\r\n"
+          fp: CC7B10CE8D78010ABB043F8DB1C462E90012ECFE
+        - created_at: "2023-10-23T13:27:59Z"
+          enc: "-----BEGIN PGP MESSAGE-----\r\n\r\nhF4DWYQsjg0n8MQSAQdAtqUD9tGI/wOc7+RcobROx0GjjpHbgNI5yAbZFimujXAw\r\ngq28zxCl9szbW16c6xQR3b54bCQlqXr+zhVxJiWMfxvucvRviimuDc90k1tb+rp1\r\n1FsBCQIQH7ISmOHMMzsViohKQrUeAA6qauAIBgvGQHyt32yLITJv7baAfyMq5RJC\r\n+bBDw389puTqbtJH7pPg2DssI470y0aR+l/7zqGY9CjkZ4YyTJ5CT2Qyoy0V\r\n=z6ZQ\r\n-----END PGP MESSAGE-----\r\n"
+          fp: 22E1B5B742AA7D66DB7FA859E5DB947DBEA3A7F4
+    unencrypted_suffix: _unencrypted
+    version: 3.7.3
