@@ -41,7 +41,7 @@ spec:
             - "--db-url-port {{ .Values.database.port }}"
             - "--db-username {{ .Values.database.username }}"
             - "--db-password $POSTGRES_PASSWORD"
-            - "  {{ (.Values.ingress.hosts | first).host }}"
+            - "--hostname {{ (.Values.ingress.hosts | first).host }}"
             - "--health-enabled true"
             - "--metrics-enabled true"
           env:
