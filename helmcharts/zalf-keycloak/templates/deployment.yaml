@@ -33,17 +33,17 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: ["/bin/sleep", "infinity"]
-          # args:
-          #   - "start"
-          #   - "--db {{ .Values.database.type }}"
-          #   - "--db-url-host {{ .Values.database.host }}"
-          #   - "--db-url-port {{ .Values.database.port }}"
-          #   - "--db-username {{ .Values.database.username }}"
-          #   - "--db-password $POSTGRES_PASSWORD"
-          #   - "--hostname {{ (.Values.ingress.hosts | first).host }}"
-          #   - "--health-enabled true"
-          #   - "--metrics-enabled true"
+          # command: ["/bin/sleep", "infinity"]
+          args:
+            - "start"
+            - "--db {{ .Values.database.type }}"
+            - "--db-url-host {{ .Values.database.host }}"
+            - "--db-url-port {{ .Values.database.port }}"
+            - "--db-username {{ .Values.database.username }}"
+            - "--db-password $POSTGRES_PASSWORD"
+            - "  {{ (.Values.ingress.hosts | first).host }}"
+            - "--health-enabled true"
+            - "--metrics-enabled true"
           env:
             - name: KEYCLOAK_ADMIN
               value: {{ .Values.keycloak.adminUser }}
@@ -63,16 +63,16 @@ spec:
             - name: keycloak
               containerPort: {{ coalesce .Values.service.targetPort .Values.service.port }}
               protocol: TCP
-          # livenessProbe:
-          #   httpGet:
-          #     path: /health/live
-          #     port: keycloak
-          #   initialDelaySeconds: 30
-          # readinessProbe:
-          #   httpGet:
-          #     path: /health/ready
-          #     port: keycloak
-          #   initialDelaySeconds: 30
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: keycloak
+            initialDelaySeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: keycloak
+            initialDelaySeconds: 30
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
