@@ -31,7 +31,7 @@ data:
       'oidc_login_provider_url' => '{{ .Values.oidc_login_provider_url }}',
 
       // Client ID and secret registered with the provider
-      'oidc_login_client_id' => '{{ oidc_login_client_id }}',
+      'oidc_login_client_id' => '{{ .Values.oidc_login_client_id }}',
       'oidc_login_client_secret' => '{{ .Values.oidc_login_client_secret }}',
 
       // Automatically redirect the login page to the provider
