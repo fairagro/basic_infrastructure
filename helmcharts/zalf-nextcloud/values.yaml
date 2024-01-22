@@ -1,0 +1,47 @@
+# oidc_login_provider_url: "https://keycloak.corki.bonares.de/realms/fairagro"
+# #oidc_login_logout_url: "https://keycloak.corki.bonares.de/realms/fairagro/protocol/openid-connect/logout"
+# oidc_login_logout_url: "https://nextcloud.corki.bonares.de/login"
+# oidc_login_client_secret: "eoqeT1vQfBDoEDOEMEkRKul6BAF4aYSN"
+oidc_login_client_id: nextcloud
+
+# ## Liveness and readiness probe values
+# ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
+# ##
+nextcloud:
+  livenessProbe:
+    enabled: true
+    initialDelaySeconds: 0
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
+    successThreshold: 1
+  readinessProbe:
+    enabled: true
+    initialDelaySeconds: 0
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
+    successThreshold: 1
+  startupProbe: # the entrypoint copies 600MB data to the NFS volumes which may take some time
+    enabled: true
+    initialDelaySeconds: 0
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 100
+    successThreshold: 1
+
+  # ## Enable persistence using Persistent Volume Claims
+  # ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
+  # ##
+  persistence:
+    # #   # Nextcloud Data (/var/www/html)
+    enabled: true
+    # #   annotations: {}
+    # #   ## nextcloud data Persistent Volume Storage Class
+    # #   ## If defined, storageClassName: <storageClass>
+    # #   ## If set to "-", storageClassName: "", which disables dynamic provisioning
+    # #   ## If undefined (the default) or set to null, no storageClassName spec is
+    # #   ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+    # #   ##   GKE, AWS & OpenStack)
+    # #   ##
+    storageClass: nfs-client
