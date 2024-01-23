@@ -27,7 +27,7 @@ nextcloud:
     initialDelaySeconds: 0
     periodSeconds: 10
     timeoutSeconds: 5
-    failureThreshold: 100
+    failureThreshold: 500
     successThreshold: 1
 
   # ## Enable persistence using Persistent Volume Claims
