@@ -1,0 +1,41 @@
+# kubernetes endpoint and type of object definition
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+# name of the postgres cluster / this could be build from input from the intranet website
+  name: nextcloud-postgresql
+spec:
+# teamIds can be defined for the hole cluster and are there to group cluster e.g. by working group
+# must be configured in the postgres-operator yaml before using them here.
+  teamId: "fairagro"
+# size of the database in GByte
+  volume:
+    size: 10Gi
+  resources:
+    requests:
+      cpu: "1"
+      memory: 2Gi
+    limits:
+      memory: 2Gi
+      cpu: "1"
+# number of replicas, this can improve performance and failsafe
+  numberOfInstances: 2
+# list of users and there rights
+  users:
+    # database owner
+    nextcloud:
+    - superuser
+    - createdb
+
+# database and owner definition 
+# databases: name->owner
+  databases:
+    nextcloud: nextcloud
+  preparedDatabases:
+    nextcloud:
+      schemas:
+        public: {}
+
+# postgresql database version
+  postgresql:
+    version: "15"

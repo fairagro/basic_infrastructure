@@ -34,6 +34,9 @@ nextcloud:
     failureThreshold: 500
     successThreshold: 1
 
+  internalDatabase:
+    enabled: false
+
   # ## Enable persistence using Persistent Volume Claims
   # ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
   # ##
