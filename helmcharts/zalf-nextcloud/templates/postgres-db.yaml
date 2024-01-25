@@ -8,6 +8,11 @@ spec:
 # teamIds can be defined for the hole cluster and are there to group cluster e.g. by working group
 # must be configured in the postgres-operator yaml before using them here.
   teamId: "fairagro"
+# we only want to access postgres internally from within the cluster. So deactivate all loadbalancers.
+  enableMasterLoadBalancer: false
+  enableMasterPoolerLoadBalancer: false
+  enableReplicaLoadBalancer: false
+  enableReplicaPoolerLoadBalancer: false
 # size of the database in GByte
   volume:
     size: 10Gi
