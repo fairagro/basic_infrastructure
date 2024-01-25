@@ -52,3 +52,14 @@ nextcloud:
     # #   ##   GKE, AWS & OpenStack)
     # #   ##
     storageClass: nfs-client
+
+  externalDatabase:
+    enabled: true
+    type: postgresql
+    host: fairagro-postgresql-nextcloud
+    database: nextcloud
+    existingSecret:
+      enabled: true
+      secretName: nextcloud.nextcloud-postgresql.credentials.postgresql.acid.zalan.do
+      usernameKey: username
+      passwordKey: password
