@@ -3,7 +3,7 @@ apiVersion: "acid.zalan.do/v1"
 kind: postgresql
 metadata:
 # name of the postgres cluster / this could be build from input from the intranet website
-  name: nextcloud-postgresql
+  name: fairagro-postgresql-nextcloud
 spec:
 # teamIds can be defined for the hole cluster and are there to group cluster e.g. by working group
 # must be configured in the postgres-operator yaml before using them here.
