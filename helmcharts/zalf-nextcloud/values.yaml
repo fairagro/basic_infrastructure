@@ -34,9 +34,6 @@ nextcloud:
     failureThreshold: 500
     successThreshold: 1
 
-  internalDatabase:
-    enabled: false
-
   # ## Enable persistence using Persistent Volume Claims
   # ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
   # ##
@@ -53,6 +50,9 @@ nextcloud:
     # #   ##
     storageClass: nfs-client
 
+  internalDatabase:
+    enabled: false
+
   externalDatabase:
     enabled: true
     type: postgresql
@@ -63,3 +63,6 @@ nextcloud:
       secretName: nextcloud.fairagro-postgresql-nextcloud.credentials.postgresql.acid.zalan.do
       usernameKey: username
       passwordKey: password
+
+  extraEnv:
+    PGSSLMODE: require
