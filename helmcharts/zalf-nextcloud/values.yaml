@@ -64,5 +64,7 @@ nextcloud:
       usernameKey: username
       passwordKey: password
 
-  extraEnv:
-    PGSSLMODE: require
+    # extraEnv:
+    #   PGSSLMODE: require
+    #   PGSSLCERT: /etc/tls/tls.crt
+    #   PGSSLKEY: /etc/tls/tls.key
