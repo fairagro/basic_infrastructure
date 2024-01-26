@@ -12,6 +12,16 @@ oidc_login_client_id: nextcloud
 # ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
 # ##
 nextcloud:
+  image:
+    # Here we're actually using a hack:
+    # The nextcloud helm chart does not support specifying an image digest hash. So we rely on the fact
+    # that the image name is built by concatenating the repository name and the tag, using a colon as separator.
+    # Now we can simply add the @sha256 to the repository name and specify the image digest hash in the tag.
+    # This works as long as the repository name is only referenced within the chart for generating the image name.
+    repository: nextcloud@sha256
+    tag: 1e7e6b675ed79f3ac935fbd9f42ad98758d9b50013a4f38f6e5e6d94dd44fc68 # 27.1.6-fpm-alpine, amd64
+    pullPolicy: IfNotPresent
+
   livenessProbe:
     enabled: true
     initialDelaySeconds: 0
