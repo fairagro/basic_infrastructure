@@ -58,7 +58,7 @@ nextcloud:
     # #   ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     # #   ##   GKE, AWS & OpenStack)
     # #   ##
-    storageClass: nfs-client
+    storageClass: smb
 
   internalDatabase:
     enabled: false
