@@ -19,7 +19,9 @@ nextcloud:
     # Now we can simply add the @sha256 to the repository name and specify the image digest hash in the tag.
     # This works as long as the repository name is only referenced within the chart for generating the image name.
     repository: nextcloud@sha256
-    tag: 1e7e6b675ed79f3ac935fbd9f42ad98758d9b50013a4f38f6e5e6d94dd44fc68 # 27.1.6-fpm-alpine, amd64
+    # I would prefer to go for the fpm-alpine version, because it has much less vulnerabilities.
+    # This requires to install nginx as sidecar container. But currently I receive HTTP 500 when trying this.
+    tag: 0b04a2e2c14672a2fe56ca668a633ed8fc9d2d882df83fdfc6114773f4713a74 # 28.0.2-apache
     pullPolicy: IfNotPresent
 
   nextcloud: {}
@@ -66,12 +68,12 @@ nextcloud:
     # #   ##
     storageClass: nfs-client
 
-  nginx:
-    enabled: true
-    image:
-      repository: nginx@sha256
-      tag: cb0953165f59b5cf2227ae979a49a2284956d997fad4ed7a338eebc6aef3e70b # 1.25.4-alpine2.18
-      pullPolicy: IfNotPresent
+  # nginx:
+  #   enabled: true
+  #   image:
+  #     repository: nginx@sha256
+  #     tag: cb0953165f59b5cf2227ae979a49a2284956d997fad4ed7a338eebc6aef3e70b # 1.25.4-alpine2.18
+  #     pullPolicy: IfNotPresent
 
   internalDatabase:
     enabled: false
