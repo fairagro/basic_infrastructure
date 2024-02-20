@@ -28,27 +28,27 @@ nextcloud:
     #   runAsGroup: 1001
     #   fsGroup: 1001
 
-    livenessProbe:
-      enabled: true
-      initialDelaySeconds: 0
-      periodSeconds: 10
-      timeoutSeconds: 5
-      failureThreshold: 3
-      successThreshold: 1
-    readinessProbe:
-      enabled: true
-      initialDelaySeconds: 0
-      periodSeconds: 10
-      timeoutSeconds: 5
-      failureThreshold: 3
-      successThreshold: 1
-    startupProbe: # the entrypoint copies 600MB data to the NFS volumes which may take some time
-      enabled: true
-      initialDelaySeconds: 0
-      periodSeconds: 10
-      timeoutSeconds: 5
-      failureThreshold: 500
-      successThreshold: 1
+  livenessProbe:
+    enabled: true
+    initialDelaySeconds: 0
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
+    successThreshold: 1
+  readinessProbe:
+    enabled: true
+    initialDelaySeconds: 0
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
+    successThreshold: 1
+  startupProbe: # the entrypoint copies 600MB data to the NFS volumes which may take some time
+    enabled: true
+    initialDelaySeconds: 0
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 500
+    successThreshold: 1
 
   # ## Enable persistence using Persistent Volume Claims
   # ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/

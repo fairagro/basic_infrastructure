@@ -58,6 +58,7 @@ for file in "$public_key_path"/*.asc; do
 done
 
 # Create Bash autocompletion for kubectl and helm
+source /etc/bash_completion
 source <(kubectl completion bash)
 source <(helm completion bash)
 source <(helmfile completion bash)
