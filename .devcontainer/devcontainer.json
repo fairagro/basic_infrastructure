@@ -69,7 +69,7 @@
 		"connect.to.fizz": [
 			"bash",
 			"-c",
-			"echo 'source /workspaces/fairagro-playground/scripts/set_context.sh fizz' >> ~/.bashrc"
+			"echo 'source /workspaces/basic_infrastructure/scripts/set_context.sh fizz' >> ~/.bashrc"
 		]
 	},
 
