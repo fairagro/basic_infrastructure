@@ -69,7 +69,7 @@ nextcloud:
   nginx:
     enabled: true
     image:
-      repository: nginx@sha
+      repository: nginx@sha256
       tag: cb0953165f59b5cf2227ae979a49a2284956d997fad4ed7a338eebc6aef3e70b # 1.25.4-alpine2.18
       pullPolicy: IfNotPresent
 
