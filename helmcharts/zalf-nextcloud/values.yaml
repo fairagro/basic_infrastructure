@@ -23,10 +23,10 @@ nextcloud:
     pullPolicy: IfNotPresent
 
   nextcloud:
-    securityContext:
-      runAsUser: 1001
-      runAsGroup: 1001
-      fsGroup: 1001
+    # securityContext:
+    #   runAsUser: 1001
+    #   runAsGroup: 1001
+    #   fsGroup: 1001
 
     livenessProbe:
       enabled: true
@@ -64,7 +64,7 @@ nextcloud:
     # #   ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     # #   ##   GKE, AWS & OpenStack)
     # #   ##
-    storageClass: smb
+    storageClass: nfs-client
 
   internalDatabase:
     enabled: false
