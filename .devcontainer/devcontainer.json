@@ -64,29 +64,13 @@
 	},
 
 	"postCreateCommand": {
-		"install.govc": [
-			"bash",
-			"-c",
-			"curl -L -o - https://github.com/vmware/govmomi/releases/download/v0.34.2/govc_Linux_x86_64.tar.gz | sudo tar -C /usr/local/bin -xvzf - govc"
-		],
-		// We need to be able to create bcrypt hashes. Therefore we need the tool htpasswd from apache2-utils. 
-		"install.apt.packages": [
-			"bash",
-			"-c",
-			"sudo apt-get install -y --no-install-recommends apache2-utils=2.4.56-1~deb11u2"
-		],
 		// This command could be questionable: it requires to enter your gpg passphrase every time you start a shell
 		// in the container. Also you might not always want to connect to fizz. Nevertheless, for me it works fine.
 		"connect.to.fizz": [
 			"bash",
 			"-c",
-			"echo 'source /workspaces/misc/kubernetes/cluster-create/03a_load_kubeconf.sh fizz' >> ~/.bashrc"
+			"echo 'source /workspaces/fairagro-playground/scripts/set_context.sh fizz' >> ~/.bashrc"
 		]
-	},
-
-	"containerEnv": {
-		"KUBECLUSTER_KUBESPRAY_PATH": "/workspaces/misc/ansible/kubespray",
-		"KUBECLUSTER_INVENTORY_PATH": "/workspaces/misc/kubernetes/cluster-inventories"
 	},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
