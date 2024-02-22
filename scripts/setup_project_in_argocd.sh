@@ -46,5 +46,5 @@ argocd app create nextcloud \
     --dest-server "https://kubernetes.default.svc" \
     --project fairagro \
     --dest-namespace fairagro-nextcloud \
-    --values "../../environments/${environment}/values/zalf-nexcloud.yaml" \
+    --values "../../environments/${environment}/values/zalf-nextcloud.yaml" \
     --values "../../environments/${environment}/values/zalf-nextcloud.enc.yaml"
