@@ -314,6 +314,14 @@ nextcloud:
     #   runAsGroup: 1001
     #   fsGroup: 1001
 
+  resources:
+    limits:
+      cpu: 2
+      memory: 4Gi
+    requests:
+      cpu: 2
+      memory: 4Gi
+
   livenessProbe:
     enabled: true
     initialDelaySeconds: 0
@@ -372,6 +380,16 @@ nextcloud:
       secretName: nextcloud.fairagro-postgresql-nextcloud.credentials.postgresql.acid.zalan.do
       usernameKey: username
       passwordKey: password
+
+  cronjob:
+    enabled: true
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
 
     # extraEnv:
     #   PGSSLMODE: require
