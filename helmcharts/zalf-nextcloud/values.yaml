@@ -25,6 +25,11 @@ nextcloud:
     pullPolicy: IfNotPresent
 
   nextcloud:
+    podSecurityContext:
+      runAsUser: 33
+      runAsGroup: 33
+      runAsNonRoot: true
+      readOnlyRootFilesystem: false
     configs:
       cron.config.php: |-
         <?php
@@ -395,6 +400,11 @@ nextcloud:
       requests:
         cpu: 100m
         memory: 128Mi
+    securityContext:
+      runAsUser: 33
+      runAsGroup: 33
+      runAsNonRoot: true
+      readOnlyRootFilesystem: true
 
     # extraEnv:
     #   PGSSLMODE: require
