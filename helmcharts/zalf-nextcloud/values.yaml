@@ -406,13 +406,7 @@ nextcloud:
         cpu: 100m
         memory: 128Mi
     securityContext:
-      runAsUser: 33
-      runAsGroup: 33
-      runAsNonRoot: true
       readOnlyRootFilesystem: true
-      capabilities:
-        add:
-          - CAP_SETGID
 
     # extraEnv:
     #   PGSSLMODE: require
