@@ -25,11 +25,6 @@ nextcloud:
     pullPolicy: IfNotPresent
 
   nextcloud:
-    podSecurityContext:
-      runAsUser: 33
-      runAsGroup: 33
-      runAsNonRoot: true
-      readOnlyRootFilesystem: false
     configs:
       phone.config.php: |-
         <?php
@@ -324,10 +319,11 @@ nextcloud:
             fi
         done
 
-    # securityContext:
-    #   runAsUser: 1001
-    #   runAsGroup: 1001
-    #   fsGroup: 1001
+    securityContext:
+      runAsUser: 33
+      runAsGroup: 33
+      runAsNonRoot: true
+      readOnlyRootFilesystem: false
 
   resources:
     limits:
