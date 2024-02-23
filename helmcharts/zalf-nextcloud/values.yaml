@@ -26,6 +26,11 @@ nextcloud:
 
   nextcloud:
     configs:
+      cron.config.php: |-
+        <?php
+        $CONFIG = array (
+          'maintenance_window_start' => 1,     // run background jobs at 1am
+        );
       proxy.config.php: |-
         <?php
         $CONFIG = array (
