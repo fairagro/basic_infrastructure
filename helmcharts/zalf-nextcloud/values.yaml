@@ -21,10 +21,16 @@ nextcloud:
     repository: nextcloud@sha256
     # I would prefer to go for the fpm-alpine version, because it has much less vulnerabilities.
     # This requires to install nginx as sidecar container. But currently I receive HTTP 500 when trying this.
-    tag: 0b04a2e2c14672a2fe56ca668a633ed8fc9d2d882df83fdfc6114773f4713a74 # 28.0.2-apache
+    #tag: 0b04a2e2c14672a2fe56ca668a633ed8fc9d2d882df83fdfc6114773f4713a74 # 28.0.2-apache
+    tag: d0d13d935eaa9219bfa89fd8213b3ede6431e04685f0a25f6f764f5e5dcfe990 # 28.0.2-fpm-alpine
     pullPolicy: IfNotPresent
 
   nextcloud:
+    podSecurityContext:
+      runAsUser: 33
+      runAsGroup: 33
+      runAsNonRoot: true
+      readOnlyRootFilesystem: false
     configs:
       phone.config.php: |-
         <?php
@@ -319,12 +325,6 @@ nextcloud:
             fi
         done
 
-    securityContext:
-      runAsUser: 33
-      runAsGroup: 33
-      runAsNonRoot: true
-      readOnlyRootFilesystem: false
-
   resources:
     limits:
       cpu: 2
@@ -371,12 +371,12 @@ nextcloud:
     # #   ##
   #  storageClass: nfs-client
 
-  # nginx:
-  #   enabled: true
-  #   image:
-  #     repository: nginx@sha256
-  #     tag: cb0953165f59b5cf2227ae979a49a2284956d997fad4ed7a338eebc6aef3e70b # 1.25.4-alpine2.18
-  #     pullPolicy: IfNotPresent
+  nginx:
+    enabled: true
+    image:
+      repository: nginx@sha256
+      tag: cb0953165f59b5cf2227ae979a49a2284956d997fad4ed7a338eebc6aef3e70b # 1.25.4-alpine2.18
+      pullPolicy: IfNotPresent
 
   internalDatabase:
     enabled: false
