@@ -14,6 +14,11 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 data:
 # These are additional settings added by zalf-nextcloud chart
+  cron.config.php: |-
+    <?php
+    $CONFIG = array (
+      'maintenance_window_start' => 1,     // run background jobs at 1am
+    );
   proxy.config.php: |-
     <?php
     $CONFIG = array (
