@@ -406,6 +406,9 @@ nextcloud:
         cpu: 100m
         memory: 128Mi
     securityContext:
+      runAsUser: 0
+      runAsGroup: 0
+      runAsNonRoot: false
       readOnlyRootFilesystem: true
 
     # extraEnv:
