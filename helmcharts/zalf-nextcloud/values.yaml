@@ -29,6 +29,7 @@ nextcloud:
     podSecurityContext:
       runAsUser: 33
       runAsGroup: 33
+      fsGroup: 33
       runAsNonRoot: true
       readOnlyRootFilesystem: false
     configs:
