@@ -27,9 +27,9 @@ nextcloud:
 
   nextcloud:
     podSecurityContext:
-      runAsUser: 82
-      runAsGroup: 82
-      fsGroup: 82
+      runAsUser: 101 # this is the nginx user in the nginx container
+      runAsGroup: 101
+      fsGroup: 101
       runAsNonRoot: true
       readOnlyRootFilesystem: false
     configs:
