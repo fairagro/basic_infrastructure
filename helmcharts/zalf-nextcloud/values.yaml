@@ -357,7 +357,9 @@ nextcloud:
     successThreshold: 1
 
   extraEnv:
+    # This solves the SSL encryption issue when connecting to the postgresql database
     HOME: null
+    PGSSLMODE: require
 
   # ## Enable persistence using Persistent Volume Claims
   # ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
