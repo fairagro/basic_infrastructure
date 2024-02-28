@@ -26,12 +26,12 @@ nextcloud:
     pullPolicy: IfNotPresent
 
   nextcloud:
-    podSecurityContext:
-      runAsUser: 101 # this is the nginx user in the nginx container
-      runAsGroup: 101
-      fsGroup: 101
-      runAsNonRoot: true
-      readOnlyRootFilesystem: false
+    # podSecurityContext:
+    #   runAsUser: 101 # this is the nginx user in the nginx container
+    #   runAsGroup: 101
+    #   fsGroup: 101
+    #   runAsNonRoot: true
+    #   readOnlyRootFilesystem: false
     configs:
       phone.config.php: |-
         <?php
@@ -403,11 +403,11 @@ nextcloud:
       requests:
         cpu: 100m
         memory: 128Mi
-    securityContext:
-      runAsUser: 0
-      runAsGroup: 0
-      runAsNonRoot: false
-      readOnlyRootFilesystem: true
+    # securityContext:
+    #   runAsUser: 0
+    #   runAsGroup: 0
+    #   runAsNonRoot: false
+    #   readOnlyRootFilesystem: true
 
     # extraEnv:
     #   PGSSLMODE: require
