@@ -356,6 +356,9 @@ nextcloud:
     failureThreshold: 500
     successThreshold: 1
 
+  extraEnv:
+    HOME: null
+
   # ## Enable persistence using Persistent Volume Claims
   # ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
   # ##
