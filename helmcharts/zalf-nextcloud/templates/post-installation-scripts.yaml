@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nextcloud-post-installation-scripts
+data:
+  post-installtion.sh: |-
+    #!/bin/bash
+
+    # install NextcloudOffice plugin
+    su -s /bin/sh www-data -c "php occ app:install richdocuments"
+
+    # add missing database indices
+    su -s /bin/sh www-data -c "php occ db:add-missing-indices"
