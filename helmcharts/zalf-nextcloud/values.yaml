@@ -25,18 +25,6 @@ nextcloud:
     tag: d0d13d935eaa9219bfa89fd8213b3ede6431e04685f0a25f6f764f5e5dcfe990 # 28.0.2-fpm-alpine
     pullPolicy: IfNotPresent
 
-  lifecycle:
-    postStartCommand:
-      # add missing database indices
-      [
-        "su",
-        "-s",
-        "/bin/sh",
-        "www-data",
-        "-c",
-        "php occ db:add-missing-indices",
-      ]
-
   nextcloud:
     # podSecurityContext:
     #   runAsUser: 101 # this is the nginx user in the nginx container
