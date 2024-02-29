@@ -25,6 +25,18 @@ nextcloud:
     tag: d0d13d935eaa9219bfa89fd8213b3ede6431e04685f0a25f6f764f5e5dcfe990 # 28.0.2-fpm-alpine
     pullPolicy: IfNotPresent
 
+  lifecycle:
+    postStartCommand:
+      # add missing database indices
+      [
+        "su",
+        "-s",
+        "/bin/sh",
+        "www-data",
+        "-c",
+        "php occ db:add-missing-indices",
+      ]
+
   nextcloud:
     # podSecurityContext:
     #   runAsUser: 101 # this is the nginx user in the nginx container
@@ -38,6 +50,18 @@ nextcloud:
       # according to https://meta.discourse.org/t/trouble-bootstrapping-with-rds-could-not-open-certificate-file/289367
       - name: PGSSLCERT
         value: /tmp/postgresql.crt
+
+    extraVoulmesMounts:
+      - name: configmap-volume
+        mountPath: /docker-entrypoint-hooks.d/post-installation/post-installtion.sh
+        readOnly: true
+        subPath: post-installtion.sh
+    extraVolumes:
+      - name: post-installation-scripts
+        configMap:
+          defaultMode: 0750
+          name: nextcloud-post-installation-scripts
+
     configs:
       phone.config.php: |-
         <?php
@@ -275,62 +299,6 @@ nextcloud:
       #       'oidc_login_code_challenge_method' => '',
       #     );
       # {{- end }}
-      install_or_activate_nextcloud_apps.sh: |-
-        #!/bin/bash
-
-        # Array of Nextcloud app names to install (from command line arguments)
-        apps=( "$@" )
-
-        # Nextcloud installation details
-        nextcloud_path="/var/www/html"
-        nextcloud_occ_command="php $nextcloud_path/occ"
-        nextcloud_url="http://localhost/status.php"
-
-        # Function to check if Nextcloud is running
-        function is_nextcloud_running() {
-            curl -s --head "$nextcloud_url" | grep "200 OK" > /dev/null
-        }
-
-        echo "Waiting for Nextcloud to be running..."
-        until is_nextcloud_running; do
-            sleep 1
-        done
-
-        # Query installed apps
-        nextcloud_installed_apps="$($nextcloud_occ_command app:list)"
-
-        # Loop through the apps array and install/update each app
-        for app in "${apps[@]}"
-        do
-            echo "Checking $app..."
-            app_status="$(echo "$nextcloud_installed_apps" | sed -n -e "/^[^:]*:$/h;/$app/{x;p}")"
-            if [[ -z $app_status ]]; then
-                echo "Installing $app..."
-                install_status="$($nextcloud_occ_command app:install $app)"
-                if [[ $install_status =~ "installed" ]]; then
-                    echo "Installed $app"
-                else
-                    echo "Failed to install $app"
-                fi
-            else
-                echo "$app is already installed. Checking for updates..."
-                update_status="$($nextcloud_occ_command app:update $app)"
-                if [[ $update_status =~ "updated" ]]; then
-                    echo "Updated $app"
-                else
-                    echo "$app is up to date"
-                fi
-            fi
-            if [[ $app_status =~ "Disabled" ]]; then
-                echo "Enabling $app..."
-                enable_status="$($nextcloud_occ_command app:enable $app)"
-                if [[ $enable_status =~ "enabled" ]]; then
-                    echo "Enabled $app"
-                else
-                    echo "Failed to enable $app"
-                fi
-            fi
-        done
 
   resources:
     limits:
