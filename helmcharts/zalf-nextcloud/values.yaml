@@ -32,6 +32,10 @@ nextcloud:
     #   fsGroup: 101
     #   runAsNonRoot: true
     #   readOnlyRootFilesystem: false
+    extraEnv:
+      # This solves the SSL encryption issue when connecting to the postgresql database
+      HOME: null
+      PGSSLMODE: require
     configs:
       phone.config.php: |-
         <?php
@@ -355,11 +359,6 @@ nextcloud:
     timeoutSeconds: 5
     failureThreshold: 500
     successThreshold: 1
-
-  extraEnv:
-    # This solves the SSL encryption issue when connecting to the postgresql database
-    HOME: null
-    PGSSLMODE: require
 
   # ## Enable persistence using Persistent Volume Claims
   # ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
