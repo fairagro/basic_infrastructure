@@ -4,10 +4,10 @@ metadata:
   name: nextcloud-post-installation-scripts
 data:
   post-installtion.sh: |-
-    #!/bin/bash
+    #!/bin/sh
 
     # install NextcloudOffice plugin
-    su -s /bin/sh www-data -c "php occ app:install richdocuments"
+    su -s /bin/sh www-data -c "php /var/www/html/occ app:install richdocuments"
 
     # add missing database indices
-    su -s /bin/sh www-data -c "php occ db:add-missing-indices"
+    su -s /bin/sh www-data -c "php /var/www/html/occ db:add-missing-indices"

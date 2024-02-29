@@ -42,7 +42,7 @@ nextcloud:
 
     extraVolumeMounts:
       - name: post-installation-scripts
-        mountPath: /docker-entrypoint-hooks.d/post-installation/post-installtion.sh
+        mountPath: /docker-entrypoint-hooks.d/post-installation/post-installation.sh
         readOnly: true
         subPath: post-installtion.sh
     extraVolumes:
