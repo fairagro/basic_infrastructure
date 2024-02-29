@@ -34,8 +34,10 @@ nextcloud:
     #   readOnlyRootFilesystem: false
     extraEnv:
       # This solves the SSL encryption issue when connecting to the postgresql database
-      #HOME: null
-      PGSSLMODE: require
+      - name: HOME
+        value: null
+      - name: PGSSLMODE
+        value: require
     configs:
       phone.config.php: |-
         <?php
