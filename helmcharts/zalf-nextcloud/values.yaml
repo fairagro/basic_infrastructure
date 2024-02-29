@@ -32,6 +32,7 @@ nextcloud:
     #   fsGroup: 101
     #   runAsNonRoot: true
     #   readOnlyRootFilesystem: false
+    #   fsGroupChangePolicy: OnRootMismatch
     extraEnv:
       # Fix the postgres connection issue
       # "could not open certificate file "/root/.postgresql/postgresql.crt": Permission denied"
@@ -39,7 +40,7 @@ nextcloud:
       - name: PGSSLCERT
         value: /tmp/postgresql.crt
 
-    extraVoulmesMounts:
+    extraVolumeMounts:
       - name: configmap-volume
         mountPath: /docker-entrypoint-hooks.d/post-installation/post-installtion.sh
         readOnly: true
