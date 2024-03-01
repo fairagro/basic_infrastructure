@@ -11,7 +11,9 @@ data:
 
     # Set allowed CollaboraOffice hosts to talk to nextcloud
     {{- $collabora_host := (index .Values "collabora-online").collabora.server_name }}
-    su -s /bin/sh www-data -c "php /var/www/html/occ config:app:set richdocuments wopi_allowlist --value={{ $collabora_host }}"
+    #su -s /bin/sh www-data -c "php /var/www/html/occ config:app:set richdocuments wopi_allowlist --value={{ $collabora_host }}"
+    su -s /bin/sh www-data -c "php /var/www/html/occ config:app:set richdocuments wopi_allowlist --value=0.0.0.0/0"
+
 
     # add missing database indices
     su -s /bin/sh www-data -c "php /var/www/html/occ db:add-missing-indices"
