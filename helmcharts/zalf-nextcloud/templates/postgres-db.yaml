@@ -2,20 +2,21 @@
 apiVersion: "acid.zalan.do/v1"
 kind: postgresql
 metadata:
-# name of the postgres cluster / this could be build from input from the intranet website
+  # name of the postgres cluster / this could be build from input from the intranet website
   name: fairagro-postgresql-nextcloud
 spec:
-# teamIds can be defined for the hole cluster and are there to group cluster e.g. by working group
-# must be configured in the postgres-operator yaml before using them here.
+  # teamIds can be defined for the hole cluster and are there to group cluster e.g. by working group
+  # must be configured in the postgres-operator yaml before using them here.
   teamId: "fairagro"
-# we only want to access postgres internally from within the cluster. So deactivate all loadbalancers.
+  # we only want to access postgres internally from within the cluster. So deactivate all loadbalancers.
   enableMasterLoadBalancer: false
   enableMasterPoolerLoadBalancer: false
   enableReplicaLoadBalancer: false
   enableReplicaPoolerLoadBalancer: false
-# size of the database in GByte
+  # size of the database in GByte
   volume:
     size: 10Gi
+    storageClass: nfs-csi-delete
   resources:
     requests:
       cpu: "1"
@@ -23,17 +24,17 @@ spec:
     limits:
       memory: 2Gi
       cpu: "1"
-# number of replicas, this can improve performance and failsafe
+  # number of replicas, this can improve performance and failsafe
   numberOfInstances: 2
-# list of users and there rights
+  # list of users and there rights
   users:
     # database owner
     nextcloud:
-    - superuser
-    - createdb
+      - superuser
+      - createdb
 
-# database and owner definition 
-# databases: name->owner
+  # database and owner definition
+  # databases: name->owner
   databases:
     nextcloud: nextcloud
   preparedDatabases:
@@ -41,8 +42,8 @@ spec:
       schemas:
         public: {}
 
-# postgresql database version
+  # postgresql database version
   postgresql:
     version: "15"
     parameters:
-        password_encryption: scram-sha-256
+      password_encryption: scram-sha-256

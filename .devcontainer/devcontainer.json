@@ -64,6 +64,11 @@
 	},
 
 	"postCreateCommand": {
+		"install.software": [
+			"bash",
+			"-c",
+			"apt update && apt install iputils-ping"
+		],
 		// This command could be questionable: it requires to enter your gpg passphrase every time you start a shell
 		// in the container. Also you might not always want to connect to fizz. Nevertheless, for me it works fine.
 		"connect.to.fizz": [
