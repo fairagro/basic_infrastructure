@@ -4,6 +4,7 @@ metadata:
   name: collabora-coolwsd-config
 data:
   coolwsd.xml: |-
+    {{- $nextcloud_host := .Values.nextcloud.nextcloud.host }}
     <!-- -*- nxml-child-indent: 4; tab-width: 4; indent-tabs-mode: nil -*- -->
     <config>
 
@@ -245,6 +246,10 @@ data:
                 <locking desc="Locking settings">
                     <refresh desc="How frequently we should re-acquire a lock with the storage server, in seconds (default 15 mins) or 0 for no refresh" type="int" default="900">900</refresh>
                 </locking>
+
+                <host allow="true" desc="Regex pattern of hostname to allow or deny.">
+                  {{ $nextcloud_host }}
+                </host>
 
                 <alias_groups desc="default mode is 'first' it allows only the first host when groups are not defined. set mode to 'groups' and define group to allow multiple host and its aliases" mode="first">
                 <!-- If you need to use multiple wopi hosts, please change the mode to "groups" and
