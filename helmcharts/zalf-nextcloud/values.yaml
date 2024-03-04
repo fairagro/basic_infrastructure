@@ -48,19 +48,11 @@ nextcloud:
         mountPath: /docker-entrypoint-hooks.d/post-installation/post-installation.sh
         readOnly: true
         subPath: post-installtion.sh
-      - name: crontab
-        mountPath: /var/spool/cron/crontabs/www-data
-        readOnly: true
-        subPath: www-data
     extraVolumes:
       - name: post-installation-scripts
         configMap:
           defaultMode: 0750
           name: nextcloud-post-installation-scripts
-      - name: crontab
-        configMap:
-          defaultMode: 0644
-          name: nextcloud-crontab
 
     configs:
       phone.config.php: |-

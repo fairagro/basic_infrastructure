@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: nextcloud-crontab
-data:
-  # This is a special crontab that appends '--define apc.enable_cli=1' to the 'cron.php' call.
-  # This is needed when enabling APCu for caching.
-  www-data: |-
-    */5 * * * * php -f /var/www/html/cron.php --define apc.enable_cli=1
