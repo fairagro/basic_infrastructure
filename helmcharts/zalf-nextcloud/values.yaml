@@ -386,12 +386,12 @@ nextcloud:
     #   PGSSLCERT: /etc/tls/tls.crt
     #   PGSSLKEY: /etc/tls/tls.key
 
-redis:
-  enabled: true
-  image:
-    registry: docker.io
-    repository: bitnami/redis # bitnami redis as this is what the nextcloud helm chart uses by default
-    digest: sha256:413ba6ab7104ced40c1047451680f0679b235684a14a7db4a05a5990ff4e1e67 # 7.2.4-debian-12-r9
-  auth:
+  redis:
     enabled: true
-    #password: 'changeme'
+    image:
+      registry: docker.io
+      repository: bitnami/redis # bitnami redis as this is what the nextcloud helm chart uses by default
+      digest: sha256:413ba6ab7104ced40c1047451680f0679b235684a14a7db4a05a5990ff4e1e67 # 7.2.4-debian-12-r9
+    auth:
+      enabled: true
+      #password: 'changeme'
