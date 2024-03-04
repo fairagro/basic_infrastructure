@@ -90,9 +90,11 @@ nextcloud:
 
     mail:
       enabled: true
-      domain: fairagro.net
       smtp:
         host: smtp.hostinger.com
+        secure: starttls
+        port: 587
+        authtype: LOGIN
 
     configs:
       phone.config.php: |-
