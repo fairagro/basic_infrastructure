@@ -29,13 +29,13 @@ nextcloud:
     pullPolicy: IfNotPresent
 
   nextcloud:
-    # podSecurityContext:
-    #   runAsUser: 101 # this is the nginx user in the nginx container
-    #   runAsGroup: 101
-    #   fsGroup: 101
-    #   runAsNonRoot: true
-    #   readOnlyRootFilesystem: false
-    #   fsGroupChangePolicy: OnRootMismatch
+    podSecurityContext:
+      #   runAsUser: 101 # this is the nginx user in the nginx container
+      #   runAsGroup: 101
+      #   fsGroup: 101
+      #   runAsNonRoot: true
+      #   readOnlyRootFilesystem: false
+      fsGroupChangePolicy: OnRootMismatch
     extraEnv:
       # Fix the postgres connection issue
       # "could not open certificate file "/root/.postgresql/postgresql.crt": Permission denied"
