@@ -396,3 +396,13 @@ nextcloud:
       enabled: true
       password: ~
     architecture: standalone
+    master:
+      resources:
+        requests:
+          cpu: 1
+          memory: 512Mi
+        limits:
+          cpu: 1
+          memory: 512Mi
+      persistence:
+        enabled: false
