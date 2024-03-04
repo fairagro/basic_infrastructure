@@ -147,6 +147,10 @@ nextcloud:
     nextcloud:
         username: admin
         password: admin
+        mail:
+            smtp:
+                name: nextcloud@fairagro.net
+                password: Lynnettewilltrek6ABOVEthe2buyout.
     redis:
         auth:
             password: redis
