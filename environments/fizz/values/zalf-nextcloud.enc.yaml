@@ -5,6 +5,10 @@ nextcloud:
     nextcloud:
         username: ENC[AES256_GCM,data:9/0FGSw=,iv:6MjtgXZVu8eH1nJakqP37uEZuU+zKXL1QqwXVbAXXhQ=,tag:9SX8Q1+1oyErIlpY8ml4eg==,type:str]
         password: ENC[AES256_GCM,data:ACba8Co=,iv:yr8sPmbQEX37ZHbwjPkI3L4ugubHi5b6Se4LbjjC91k=,tag:cYPtcmwyZN6Act3Pyt0hsQ==,type:str]
+        mail:
+            smtp:
+                name: ENC[AES256_GCM,data:AhGP/mgUrym0,iv:o2ZJCZv4JYtWR8V0yaVnGX1zb7NeqmCXabnmUMTK6wc=,tag:RW1TxzFHQPgE9dl1+cx+GA==,type:str]
+                password: ENC[AES256_GCM,data:/6amguXrs3qLRiweDySmjlMFggFHlDzC5AHSwFpPU/AXV0fatviuDiSo16xgq1fs,iv:6ivhIslA9KdbeNI14SoHfcmqlSXlq0PvmdMDy9dgPt4=,tag:MFGBpVrg/MMvmEctyZlKUg==,type:str]
     redis:
         auth:
             password: ENC[AES256_GCM,data:6e+UvA4=,iv:SbFZmmpYVthnmLLarXdCK0yBVwwHBrXzPSCneD9C3S4=,tag:8rwWTo7Xp8stECUNac5STw==,type:str]
@@ -27,8 +31,8 @@ sops:
             Yy9CUGlBZFBydDZ4cDFJRHV5YlVHZGsKrwuHJKP8CPNUYm2dxRdetS6Bfw4T3DPv
             T5N9nCbGGPszBQmJjFiGaOJ+Fo81OBcQwodRXjlHl+pG5E8aQbwmpg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-03-04T12:05:16Z"
-    mac: ENC[AES256_GCM,data:xNiCshBwA1ss5wn48RSnwUNqvCjR6edsIvRIVzal9Y9yNqRVKHkM7RButQ4x9aW2EznPzrq1H+HNqtXbSDzpSfz4LltEb7Q090qpVgjUC6FSa2/32xTEj3onE06AR8jdnwJA4ql6Ahu8kJQgTXrPhES5nqk2GpkfOmd2L+UNmAM=,iv:kpJk+B1QEm3SfBTQ+2GXipmbLbCSWkMmcJdhY/u3A38=,tag:aDQluSplyoACFwr3r4vD5w==,type:str]
+    lastmodified: "2024-03-04T14:47:15Z"
+    mac: ENC[AES256_GCM,data:eq7EjOz/kb0S/pBqModizrueIN7xhRAUgM/c2G0utrQ+xR7bpHy7BBV2ps5PrQYu7V6yUKuTwAvqZIf48rDre8jVE0QEi9MjFsGC/72DkejplYhZUTGAg/Iun6wuSNKmOEx2BsGS/VauASqDYLcPwUJr/vl1FIAkiVsg+ET0WEs=,iv:VYZm4itEpkNhikIp3TyAJ6qnVH3LvSqzJjscxdK1A4w=,tag:qGhERYY18lPCsMcY5U0+QA==,type:str]
     pgp:
         - created_at: "2024-01-23T13:13:11Z"
           enc: "-----BEGIN PGP MESSAGE-----\r\n\r\nhQIMA3FtoE4fF3lxAQ//VRjvsnRdc36oU5ISclIGDjWqDPRIfWTkvq0oypPw2Sn5\r\nQ1ebmBvXi4u5wXQyUoC2a3B+/tF3T7kJ/JC9HXmsF3JF4lRm9RG4h/80Y/8OD6mK\r\nbSfNZOjYKaOiY8sivrDjpMYpm7ZTAsUCh+qqZoVPGXnRpaJqWMNi0B5AURO9g/nr\r\ngP5ByzeizXuneup2n5/ptNhmzlc5D5RhgcRRbtR2QJ34QRe+ZUkuAsjkZYg/eZ+B\r\ncv56T17131Mr5xqAvkzGu6GM0W5GNIl+Uw4jzdEk3zhNeMgMfYigIXMRO3JhPVr0\r\n71f+uLMCZOxZnesCjsKK+XinX2CKhCJ27sl8mQqjjDqQXDAhwT50f3m0aXJLVoRo\r\nGG4iAONAlq4fMPoayDW36vnfuMyYsarFWDPKvRoL5aPRKNtf2xRhF1oNT7NKmRKm\r\nGdy3TXjvV7ASGflL3RjqgzchgSgqSV+7g7lzE3uLMXUrO5p7w0k0ej9hH3D42byt\r\nEbBvKT/s6BePse4cu8voIeIUtEOQqnQVbYdJ5JjFUogssr7OnIL5+vo5BVwYdd2h\r\nqVcsK82LHjOZMzACK+2kwF2pjMY77OnKX5PR0pTIh523joJC/P8bh0CbypepufSu\r\n4M8H4vM34v4YSXwNSxjXE4hnoP8MsJUOG+t8XDWTZBPX2RAeRMHhxEfq559JLHnS\r\nXgGyrs+9aREVPsV0SwrCY6Si3IIOjUdbX0S5G/65ek20GizLStw1eQnpjc8ukFnU\r\ngqFUQc5iYX1T9idDatG1WRoi2zi5K7JO0VyS9uBD3QHCqtUosLYmaQzThFDg4TM=\r\n=APFO\r\n-----END PGP MESSAGE-----\r\n"

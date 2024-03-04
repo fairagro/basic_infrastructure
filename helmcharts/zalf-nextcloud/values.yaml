@@ -54,6 +54,12 @@ nextcloud:
           defaultMode: 0750
           name: nextcloud-post-installation-scripts
 
+    mail:
+      enabled: true
+      domain: fairagro.net
+      smtp:
+        host: smtp.hostinger.com
+
     configs:
       phone.config.php: |-
         <?php
