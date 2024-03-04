@@ -10,7 +10,7 @@ data:
     su -s /bin/sh www-data -c "php /var/www/html/occ app:install richdocuments"
 
     # Set allowed CollaboraOffice hosts to talk to nextcloud
-    su -s /bin/sh www-data -c "php /var/www/html/occ config:app:set richdocuments wopi_allowlist --value={{ allowed_collabora_ips }}"
+    su -s /bin/sh www-data -c "php /var/www/html/occ config:app:set richdocuments wopi_allowlist --value={{ .Values.allowed_collabora_ips }}"
 
     # add missing database indices
     su -s /bin/sh www-data -c "php /var/www/html/occ db:add-missing-indices"
