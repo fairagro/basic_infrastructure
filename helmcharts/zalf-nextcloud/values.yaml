@@ -63,6 +63,8 @@ nextcloud:
         }
 
   nextcloud:
+    datadir: /nextcloud_data
+
     podSecurityContext:
       #   runAsUser: 101 # this is the nginx user in the nginx container
       #   runAsGroup: 101
@@ -361,7 +363,7 @@ nextcloud:
     initialDelaySeconds: 0
     periodSeconds: 10
     timeoutSeconds: 5
-    failureThreshold: 500
+    failureThreshold: 300
     successThreshold: 1
 
   # ## Enable persistence using Persistent Volume Claims
@@ -370,15 +372,12 @@ nextcloud:
   persistence:
     # #   # Nextcloud Data (/var/www/html)
     enabled: true
-    # #   annotations: {}
-    # #   ## nextcloud data Persistent Volume Storage Class
-    # #   ## If defined, storageClassName: <storageClass>
-    # #   ## If set to "-", storageClassName: "", which disables dynamic provisioning
-    # #   ## If undefined (the default) or set to null, no storageClassName spec is
-    # #   ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
-    # #   ##   GKE, AWS & OpenStack)
-    # #   ##
     storageClass: nfs-csi-delete
+    # we setup an additional volume for the nextcloud data according to the hardening guide:
+    # https://docs.nextcloud.com/server/28/admin_manual/installation/harden_server.html
+    nextcloudData:
+      enabled: true
+      storageClass: nfs-csi-delete
 
   nginx:
     enabled: true
@@ -423,11 +422,6 @@ nextcloud:
     #   runAsNonRoot: false
     #   readOnlyRootFilesystem: true
 
-    # extraEnv:
-    #   PGSSLMODE: require
-    #   PGSSLCERT: /etc/tls/tls.crt
-    #   PGSSLKEY: /etc/tls/tls.key
-
   redis:
     enabled: true
     image:
@@ -448,3 +442,45 @@ nextcloud:
           memory: 512Mi
       persistence:
         enabled: false
+
+#################################
+### Collabora Online Settings ###
+#################################
+collabora-online:
+  image:
+    repository: collabora/code@sha256
+    tag: e0c7ff3cf4ccd49a590980cf83f46f8efd9456f9d173f92d1acfd3f41be09319 # 23.05.9.1.1
+    pullPolicy: IfNotPresent
+
+  autoscaling:
+    enabled: false
+
+  securityContext:
+    capabilities:
+      add:
+        - MKNOD
+
+  collabora:
+    aliasgroups:
+      - host: ~
+    extra_params: --o:ssl.enable=false --o:ssl.termination=true
+    server_name: ~
+
+  resources:
+    limits:
+      cpu: "1800m"
+      memory: "2000Mi"
+    requests:
+      cpu: "1800m"
+      memory: "2000Mi"
+
+  ingress:
+    enabled: true
+    className: nginx-internal
+    annotations:
+      nginx.ingress.kubernetes.io/upstream-hash-by: "$arg_WOPISrc"
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+      nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+      nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+    hosts: ~
+    tls: ~
