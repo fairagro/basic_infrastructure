@@ -119,7 +119,7 @@ nextcloud:
         $CONFIG = array (
           'default_phone_region' => 'DE',
           'overwriteprotocol' => 'https',
-          'check_data_directory_permissions' => false,
+          //'check_data_directory_permissions' => false,
         );
       cron.config.php: |-
         <?php
