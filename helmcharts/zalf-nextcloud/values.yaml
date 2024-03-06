@@ -74,6 +74,8 @@ nextcloud:
       allowPrivilegeEscalation: false
       privileged: false
       # capabilities:
+      #   add:
+      #     - CAP_SETUID
       #   drop:
       #     - ALL
 
