@@ -84,10 +84,10 @@ nextcloud:
         mountPath: /docker-entrypoint-hooks.d/post-installation/post-installation.sh
         readOnly: true
         subPath: post-installation.sh
-      - name: installation-scripts
-        mountPath: /docker-entrypoint-hooks.d/pre-installation/pre-installation.sh
-        readOnly: true
-        subPath: pre-installation.sh
+      # - name: installation-scripts
+      #   mountPath: /docker-entrypoint-hooks.d/pre-installation/pre-installation.sh
+      #   readOnly: true
+      #   subPath: pre-installation.sh
     extraVolumes:
       - name: installation-scripts
         configMap:
@@ -379,9 +379,9 @@ nextcloud:
     storageClass: nfs-csi-delete
     # we setup an additional volume for the nextcloud data according to the hardening guide:
     # https://docs.nextcloud.com/server/28/admin_manual/installation/harden_server.html
-    nextcloudData:
-      enabled: true
-      storageClass: nfs-csi-delete
+    # nextcloudData:
+    #   enabled: true
+    #   storageClass: nfs-csi-delete
 
   nginx:
     enabled: true
