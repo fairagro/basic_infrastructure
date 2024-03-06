@@ -1,6 +1,28 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
+  name: nextcloud-nextcloud
+  {{- with .Values.nextcloud.persistence.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  accessModes:
+    - {{ .Values.nextcloud.persistence.accessMode | default "ReadWriteOnce" | quote }}
+  resources:
+    requests:
+      storage: {{ .Values.nextcloud.persistence.size | default "8Gi" | quote }}
+  {{- with .Values.nextcloud.persistence.storageClass }}
+  {{- if (eq "-" .) }}
+  storageClassName: ""
+  {{- else }}
+  storageClassName: "{{ . }}"
+  {{- end }}
+  {{- end }}
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
   name: nextcloud-nextcloud-data
   {{- with .Values.nextcloud.persistence.nextcloudData.annotations }}
   annotations:

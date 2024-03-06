@@ -99,6 +99,8 @@ nextcloud:
       #   mountPath: /docker-entrypoint-hooks.d/pre-installation/pre-installation.sh
       #   readOnly: true
       #   subPath: pre-installation.sh
+      - name: persistence
+        mountPoint: /var/www/html
       - name: datadir
         mountPath: /nextcloud_data
     extraVolumes:
@@ -106,6 +108,9 @@ nextcloud:
         configMap:
           defaultMode: 0750
           name: nextcloud-installation-scripts
+      - name: persistence
+        PersistentVolumeClaim:
+          claimName: nextcloud-nextcloud
       - name: datadir
         PersistentVolumeClaim:
           claimName: nextcloud-nextcloud-data
@@ -387,17 +392,17 @@ nextcloud:
   # ## Enable persistence using Persistent Volume Claims
   # ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
   # ##
+  # Note: we create the nextcloud pvcs manually from the data specified here, even though
+  # persistence and nextcloudData are not enabled. If they were enabled, the nextcloud chart
+  # itself would created the PVCs. But then we had no influence on the permissions of the mountpoints.
   persistence:
     # #   # Nextcloud Data (/var/www/html)
-    enabled: true
+    enabled: false
     storageClass: nfs-csi-delete
     # we setup an additional volume for the nextcloud data according to the hardening guide:
     # https://docs.nextcloud.com/server/28/admin_manual/installation/harden_server.html
     # NOTE: I did not succeed to set the required permissions 0770 for the additional nextcloud
     # data mount. So I disabled it for now.
-    # Note: we create the nextcloud data pvc manually from the data specified here, even though
-    # it's not enable. If it was enabled, the nextcloud chart itself would created the PVC. But
-    # then we had no influence on the permissions of the mountpoint.
     nextcloudData:
       enabled: false
       storageClass: nfs-csi-delete
