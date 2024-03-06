@@ -1,0 +1,1507 @@
+---
+# Source: zalf-nextcloud/charts/nextcloud/charts/redis/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+automountServiceAccountToken: true
+metadata:
+  name: nextcloud-redis
+  namespace: "fairagro-nextcloud"
+  labels:
+    app.kubernetes.io/name: redis
+    helm.sh/chart: redis-17.13.2
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: zalf-nextcloud/charts/collabora-online/templates/secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: nextcloud-collabora-online
+  labels:
+    helm.sh/chart: collabora-online-1.1.11
+    app.kubernetes.io/name: collabora-online
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/version: "23.05.8.4.1"
+    app.kubernetes.io/managed-by: Helm
+data:
+  username: RU5DW0FFUzI1Nl9HQ00sZGF0YTp6TmJuZXJnPSxpdjpYc3pSK0EyRU5oT0dNOW1nR08zeHZDYS9mTnBidWlZQzdOSzNtdVFzTDlrPSx0YWc6NngwUzEzRmMrZzlneFRpRTM4N2VsUT09LHR5cGU6c3RyXQ==
+  password: RU5DW0FFUzI1Nl9HQ00sZGF0YTp2UFErdWdVPSxpdjpiUkVuWUVzVi9ZbXV2SVRXaWRUZG1jVi9LVE9DbkswbUNjVlJzWVZkVWlRPSx0YWc6UVpyQ2M2N2pJMFRwRFo3NUhqcjJKUT09LHR5cGU6c3RyXQ==
+---
+# Source: zalf-nextcloud/charts/nextcloud/charts/redis/templates/secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: nextcloud-redis
+  namespace: "fairagro-nextcloud"
+  labels:
+    app.kubernetes.io/name: redis
+    helm.sh/chart: redis-17.13.2
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/managed-by: Helm
+type: Opaque
+data:
+  redis-password: "RU5DW0FFUzI1Nl9HQ00sZGF0YTo2ZStVdkE0PSxpdjpTYkZabW1wWVZ0aG5tTExhclhkQ0sweUJWd3dIQnJYelBTQ25lRDlDM1M0PSx0YWc6OHJ3V1RvN1hwOHN0RUNVTmFjNVNUdz09LHR5cGU6c3RyXQ=="
+---
+# Source: zalf-nextcloud/charts/nextcloud/templates/secrets.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: nextcloud
+  labels:
+    app.kubernetes.io/name: nextcloud
+    helm.sh/chart: nextcloud-4.5.12
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/managed-by: Helm
+type: Opaque
+data:
+  nextcloud-username: "RU5DW0FFUzI1Nl9HQ00sZGF0YTo5LzBGR1N3PSxpdjo2TWp0Z1haVnU4ZUgxbkpha3FQMzd1RVp1VSt6S1hMMVFxd1hWYkFYWGhRPSx0YWc6OVNYOFExKzFveUVySWxwWThtbDRlZz09LHR5cGU6c3RyXQ=="
+  nextcloud-password: "RU5DW0FFUzI1Nl9HQ00sZGF0YTpBQ2JhOENvPSxpdjp5cjhzUG1iUUVYMzdaSGJ3alBrSTNMNHVndWJIaTViNlNlNExiampDOTFrPSx0YWc6Y1lQdGNtd3laTjZBY3QzUHl0MGhzUT09LHR5cGU6c3RyXQ=="
+  nextcloud-token: "MFdOUEFKeE9BQQ=="
+  smtp-username: "RU5DW0FFUzI1Nl9HQ00sZGF0YTpBcTZvbVpFNktndkJpY2tKWHBONTQxZE5jSEN4N3c9PSxpdjpXQisvZHUwRHJ3S2VuMkVNS09XU1VNb2NRUjJud0ExdjI5M0RaaGdDMXI0PSx0YWc6T3IyOU9ON082eHNhWWJGUy9JeWVQZz09LHR5cGU6c3RyXQ=="
+  smtp-password: "RU5DW0FFUzI1Nl9HQ00sZGF0YTozQnRlcjgyZ2JVcWpiNGEvK24wWnpOQ1pZZXZQQmNYbkc3OCtQaGZtOGtNcyxpdjoxS3JEQmtVMGJZVE1OVVBCY0h5cERWYUR4UDdVYWppYllLdEtiZXdQaEg0PSx0YWc6OWh3b1NyZExMTDdiY1N6RjBUZXNEdz09LHR5cGU6c3RyXQ=="
+  smtp-host: "c210cC5ob3N0aW5nZXIuY29t"
+---
+# Source: zalf-nextcloud/templates/tls-secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: nextcloud-tls-secret
+type: kubernetes.io/tls
+stringData:
+  # You can include additional key value pairs as you do with Opaque Secrets
+  tls.crt:  ENC[AES256_GCM,data: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,iv:0io9+4J/XVRWdcEWYpvzU7mpqCu/D8hP0LzyMykB8V4=,tag:AwLLpp4V+8WPXOaDEz9m1w==,type:str]
+  tls.key:  ENC[AES256_GCM,data:J621hqikhEa3VoSUsE5pwuDVaMRkxQ7VEdrhBX/SBRLQ58gwq/MfTZgreqidAmpocacARNskXD97kbscgWU3tKHsqZh3kxzWeTHS6OzjOR8RMo3z8ca8KQzQl0Od6KxtqJsmVq1Mers0ceIMI4xCyMcHtPWT2oW3ie9ARNiPTndl/FKQd6X55zkmv7o3JHMHy9vhZai2jp7lbN6L1U4sxG8IQG162JBGqitUle00wUWKjsBFnyDoCmcV52wjTAoiZYF1fF+yyeSGqTw+didnJS6dAgczWfMtpw66FEVFxTIZ89jFgw0zbHqyEq3CuG4wkEGDrCys9U6r0+l5gOo7lBy7yyzcfTPNInHz7byeOj+xN4b9eCRf1XvCXV28XV2/LPvjZLx9NYNwnqOw2EM/W6SFzWAHHObZN2kHSDOBVEZKVeJsLbowprohVZPgkWmYqU09mpNazqSAxo7xSOTdLz7pdO+PX60yq1U+zou+cZ/gLi0VQ458eAd8k8NR6cmWKW1QYuIS0RjgyT4L15rn5Gw2hZb9whtsxMyx6mJ846jOzwg8+wFcfitH6UqSciWYuFdOlXgSKN8VTTCiJ3Qy8GTnaM4mQagWGw7RpQKQ/OF52zea7e96Ku5xDeL7FSrsS8WocUirLj3puBfSqpdNx6g++ORFM2FyR0HfqzRT7EZIthFhJIgchkgtu/jj9nswvykZex4ET3A2dQJUYkJ7exXho/ffwtgcjF319W4uReLJirP12+IUf2LaeXZgSM/7BEgTICKJ9O9pL8O3JxVoBobJtgS7//Mla2WIbnl7+RltT0TFoBLmvGO8iWWNUqzdNxRDCiuF0dvPQi+EVYOAEgcpwy1nnOnrknlvAo5TbghS389Hrasc//3a+9mYhpSIDA4j+HzjSCbTlNce+Ggd8QJhRicVXSbBUmMap4gSkCE76kJkvIr3Mpoe2v0OmpvClXwWyevfvdzT/pN8dzkjetcQADvtxYe9TKdMLwO4+5Jgji0iCafkSlJCykFE2Zja2Uf5c++MUJrA5HD2CuGC2i1vvK24PunkdEhzJlhNgP33ieHlMaIxa5Jt7do9oOQGgdBOWB7ngI34bPD6mQ8SlWDGsxEpPqZ2LnSBR0abvxXSH8rFusPWdum37X7vHjnQIZ4Ut5qULm2BDG8sQGcszQhiXvHOonM7fUqq0Iuv9l6kPxJDQ5XsE/6EVo4r3X1xo7+GpchgOGLQXR2vImGhUGWgz6HUQHpC7BkX0qq1eZ5Ir6oVU7BQSE38s6yhNSj0gEzvpXGH+WFeFvL8WP6rZ4fr23uLyAnnv4nbAGINKX/VoriIL47JkIrdFOMC75JP1TybwhmCYJ6fN80NF2J9ydxgy/5ieRcy3s6J0uMXFSF+w2IqGe5DCNG1PokfII456AuZYET45M98w5C26UKUhw7Q9BbXTHyYCT9ES8ecEnUggHkgh4DbDEIdysQIiDJlSUCnNe+JxLsxdIHSJkrtfsyPEJAVM2WpUvS+MRkkH4UFPq9K2Of8/VT5zgGAFcGS48M48OHyhuMlCQwAocWnTOmKekvIefPhRVBYDiJWLan2Io2IC/bu8tqJdK3fffPqXviehYzMTaLhw/nscgkNLFv9h843ptD1gIbEDIMD4yU2qPjQJMsUXvJWZmdhiCihDLbG4PdhDiui9W/vnPaD3mEsxtv6vByQnDocgEmlBU15Eauv9PRvzoCYmyz+ItSsMKeJ3uD0talVZXx1oS0UHhG+u8Oan2LsaROSrtHD8NySczFgWUurQDzJqpVK/1/bEjDv6nWfzFjBtdbL1HLr+aDmhuHT/hZyzpLBAJLnsaKKSOVBlfPo4/76nEUQZrqjgPI+dEF8lDd+eB9kdT/zUm0zk5eef9YBvaN7kJVSMd9RVStM0rDIrrDhTUYCLZAejjehdf3N3RgqiBZ9vn+lZVPfhZuJwPjbsW1+qiGx4Ekw/xGRoFnFW7kXxyXU4N/t/BAO/3Ks3HOsMhT9onK2AKZLnPAJltmRjOiQCwjOzw0H+HhJNNBmvfFOKG0l/it6Jm7T4AGNAwINSl8Aw1mgBt0hkbBl3DaKhDqEFyq1Niv8a8JZZ4Pvy4dndTP+hOluxjPrSPQ/2nByohXqgi8qE8TtxiIF5yIftQ/ImL1E2da2chfdKHwSx1JfTCqWyA7KFqys92eRHhq7xHDpV1PPltBhsFIlz35bwFhYfYQD+yp7++B4vZ7oUHjJ,iv:vNj5rrPHBnBnlLXDFGvZNf3Aysl6J/WDYJ3KHFxoOkw=,tag:hkb+ORTCBngLzcXZf+CheQ==,type:str]
+---
+# Source: zalf-nextcloud/templates/tls-secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: collabora-tls-secret
+type: kubernetes.io/tls
+stringData:
+  # You can include additional key value pairs as you do with Opaque Secrets
+  tls.crt:  ENC[AES256_GCM,data:WRNP5c/UtZMbKqdIiILYYfj2muer3OAd/HYFLl4T2woFgVzHUG2/FNee+2gqmAq+CKzZnPT3rYiqkNZ8K7Pu8wzPW1ySNtDEtQDc62PYdtgyZ4vf2S//ysTgD0HMcaFyso4FgpCKFgzUFJwcNyvLhNqeje7ODRJ7YJslDMdOb7Pwm5b4zEaTNiGJw6X3vqlF0ehXKnIgZmnLRy3WcgIENWfPr4HzQB2yxh8z++Y36a/I9CSzXm9C+MS99+P8JzbuyuLLXbMbaCesThUmOJkSIBueRV9oh21uKjHuIGQd9b7fniruT0H1+JZZLTMswX1YZTo6MOb8QrZX6FB+4ej6up8lBRS9NP7TfA5PclTxzV3/OrU5pBwu0W2b+o/pj0ElAtuDN4X5OldKmoYVB9QzfZ7CsaMBH5wabs+jO/J7IY5RGOMN7DkUq3wMeb0DprALiAV6tmnC3ash+FTDPVkTuMLtoYKsz3RBlfWbVbw7K/UGI64fojgnOc4q5nkVc54oDDOWfz45rItFXEjlPsLwu0df1Ds3Fqz7S+goJQwqW59Wu8zWl1rz6Abuh8Sf6d3esxFfq/GUfFnf8lKDbqaAJY4bXfpeEUNxYd79blF1TM84wzKG6lLhzza4vHoIrRV2GmfIfYK8rOt5rdjTFkXxKniCLnUcYhM8zxuRPd7pf8WUJvge7fYHHknU5JZ69vACwPjPoJ8GOnflfaK+dmqojXVPB2PTYi825cjWcijOCKYAMAd8WQntWTbX9imwwEji6hpSr64tLsFE4Is8nGbrfk74s/W/jfp+ZwnyzkAXgzWQqdcnIVQl7i3uBtMbIhu9tnh+rREic0eER3aunP0qGmH0Pc6/YKYIIer8WpM1H7jJ0o1rF8WEokZ29EBF4R43UCzow88NxnfW31vrGOqJi4lKT+hQCjZbwdV5IZ9w9oRr5do7HDypaSikcTb8a6ZPncNi27nCTdBnnH1RnyLMM1Fg/xXTI6dxaA4tFRa6DT7oHrfeNF7xkGN+jZh56DKA4oNUxO1pD0RwmdvA1cfLAZdMI1zmTSDowQBm12GW0lGaIkFrhI0jnF/9YpGpS6L9+PMQzOz6EyX2awbDWLQIg1IgGSRDY7mxxPSoPeaFtsIUZTYP+swNkV0GYIuhDWnb+JyYz3i6rcWscoTb7YH77BGevOpjtqGq3o173kszMrcIGYcXY6wKc7vrhd6v/hmkKEWsNT8IEfIlOPq2aphjegmHGpJNGs4aSnDQ7rYIinv6QRjFDpv8uDUezyIpU8kWUhTELPB60Gg4DfG23XVeGAg4MgpDBwq3esiYebmJw1tpCppO5rY8xz2wHcxI5jGgLdBjmt1zqbCusSZxefNwI/BdAjl3xDrIEpHmcsK5dQ+CYT0mXdTNhXuO0HRuYYxHQiCpfx3oPJRm3t09Jpohs2qJhTofM17btb1d6paqqFJRIbV+i5wwXvWXJzyEuTAqqCVyQgUYB98zhlajPCNioWBgOfktrYylnh9Ki9uiKyWHgatVxQwgM7YiXS6oHoqIarJ9mdqfNBnyDbjVjAQIEx4YddYRGAlwXrukmVaRbh5oE+Q0MuovPcyW/buRGtOH382yDW7wVhMdVHuZ9eB6eMQDkKCEJ+AZh5oWT02I/W2sSCYZSqmUk7F5h/UOG2qxH3VEahM/nZcvnrN7aNFYLdJLcIIwlhg1Lk/2ZB1uok6h1zL6WuBqZmxStrZv8N0gHGQUMTio+67uoWCSpBCNmvVLbJBkK/lm75XQ0RhDhVgh43MkdDXh+iEuACtHzz42jAzdzVRM8bjqI+iphj1FdUOnbIs3PlF0bY+DbbxfwT7Xreu86WH0oFAlWswi6Re5WdySs7znfazZLqBPcYxWzCR7qch5nPbP5cbUlMVbLccxn9IGPP/UopyaAcdULpCKv5607dNnd+vwX0P95nFI691cOs9AguxYxzGVV/conCi80biJWN2VwmWAXWIN/6cdpYFB1rbZYiqFY7ttrZc7HPznD3L/y8Mt5FnQq97d1ttE/c6eSsvFAPhtNx/TRXK4N3JVTbxD2DUIVxZiZ76xMNjkiMs4ok5jdoRG4z4m91aHuBqjjwmYQlOT1kcKLjLDKhlfPm+xmNflNEsl22A57EXaqpVrRkpcjHHmDvAhqN4HbGND0fAhJj4cmmls9/nW6bZwd3DWXYTmSabTva/bIUJFTGgC6/y50T4VNZ9XgNOAyAlhsngq71U69c5hVkEtiE6hnetfYkMxW4cX3zTzJBeQPsJsByV3I96t0WERVFrRnX4iWSnitzuCSE4Z/GG9zZ/kT4nPWqjm0YDB7lgRePdD1oyO22dYAyNuL+lH8hu7o6/zv9w/y0kl+Kns0DDJY+/To6J+ZI+ZKUe9NdMYfb3nCnMkzmWWHSfyhL2GqGCqr/+x97oxGgToiWsWmGwKpdx7LSyni/1gcuvVrSY7A3Kt7WJFGAVV+wgJXPK7YcblwiLJbXcv7EWDaMwzRNfZ4fiA7qjc5sbTyP5xPqMF+jkt8VcmZw3Iip6XGL2cAE7nl41moFNnjby6H8BtELTa/70h204DG91NjzcQR9eZpLNK4OV0whDDt3IKQUknpakFjnuwP9QsRbo6B7WQzWOoc2OOnXmsgfBRR3ATbLCqBBsvn7Xe/aZFQVfneHxvjdAr8GVy1eX//SJlsqtlek7kO+/E7GVl452sdY8ZCcX9jtjlxppu7g2dcRu+CsNaxPQmgsP6aViEE7vAp4ZzQcexjii28deSLLe2p4oyzv2H+fddDpTIPgcrnwtncRWY1RsR+0h5PoOLr+oZcVA1jHW2ZYZpIeAGdZW6b6Um/rjjYwWh7x0AV0xkNeoSEFHmi3tWQcKrE+VQKKsoI2LBBQqMSZ31GKq8OoImgSuHQ8AIZ/4rT3joiuYsXAOFRYpERoK2Ok5szKALQNRW7plIuzEb3Rt/ifck89q+F9Mw5I90viMZLd2aZwjgpVvNvrJc2ROT54/eMj+8WhGF7JXvN3c5206R6bxUBcZymRilZNMdMFH7egp288sJzq39LfVGa465wdOiiVuxaAzZA81I0sJPtBfi3XxRHHMQR10kfMvA1m8BVNiY7G+Q26p7yAAOn9/X2K0jwd79ma11p0ODwx2DlXmlNSjgXnrC9yDwhY5BCuerLbel4JR4OszHAc7o7/yD99oa19E8BUhTwoEFTAYk9VmuZu1qwlZo1xHx2sYa7YoIlckE+Ppn/1/Iq54VwxADSSE37TLusrCUd+V2bZXtpbpz/HsiUhk5RMWJ1r8QLa9ShlNkaqjkWrQixt3il4BG9nQEpuqbHMdiLwvKzmeyEYK7GqzrgMOKXdIZXoKNnMzxoVnhlT60RJyW449iHLjpkjhIHU55N+Mqfh1K64L3pEWDfFVMrKeRXdXdqQrTB0wQQQNbvZzp1y6QnEG6MEBa9JsKncTQy0JqfttzVB6OboHyKj2GWYD17EuRzZoXtrHaD0OkgoFVLeg7Ptg4tdQzyrszZg7pRYERg4/IroG6UOainUyJVgonnONzNXT1iHZvcdkdFJRKkd0mUT0dS8I+qlwEQ8PnBiKCThhWnNOBqKYZNlpOZRiXiGlgXhQtb/L+OBafIFoKTpSS57uTuRQn6QyGUi+XaY2IDm9FtrUrmidJZBv8N2NrI+7BE6+taSmXsuDbztOfgs+B+3DluIpNE/MitFhiRDPa4kAvy5UEQni4jWWm1xVyyJM/K7DNKD86n9ALTTGKso/tN178de+3stT+tVYp4kTeQFlerzIfKj//42ADGcKbJr6Cc2omo5eDj9cLFjj6PpBgDsDgfzgMcO9mjwpNKgPWfw+4Bvb3j48Pl8NoGR39G6PdMxr/mUTFIB593QvNHsfxwNF9j16PiZhKLYlr67+xlmmTgCeqRw8qU63f9o3zmuFf5YBg8DNc3HNdB/jkGSFefk57lBYT8tTYU/3RPqfmwrSXq5FEB7jtBdoP+DZvudZ5mezBeH3w9Kzpy7E1PG37+6nM07hFhNqGZpU8L5AOdZN8MgMnj9W/jSXGJCkQNJW4AYcTOYTIHRGGXkx482s+MD/dNPcq4haGR5OFz6FC3yk9m+vLKiOA2MXY7J6/QAR6wqLl3qDu7S1rZfM5i1D9ngzQn1IrfNwzXwSLHNFBuxTaff/4kVrjBbunK54uu6xPI1LPK9R0r8k+uWciN6o932TmnutU13J5vVESsLq9khyAG+uuld7KiwfqE1N9BJ9RoWQqrtFQ69OhDsz3JdO1ylFA+WDoJByvCKFlQ/+GXLjaUm2gUKB9TM6adopPLLwJtt5UaC9AV1GmWiHgcwbzHpXkSggdKJDLhrXw2nY4jV6I43zZGpyv0/vZQ6Kr1o7rk2Mu+L7QCUPeh0xzFeB41ck0Qx3hhUSdYw0zkD8B7vHpsvMflmFByTGDIbQ4+JoAl6iwgUtA4nhAWtKDAZdmLZM4/5f2HjDKK3Ky9gsPELAdQI1NdzZ4pqdo4d/7wzsobe5KKF732v6cwuMTaooNYsBW8NwVFP0gDIpDe4KLB/gHVmjKNVG9+s+gfjnP4Kv+awJlD7jUgNTPiDO5dgqhBXVCZrE9mCawpQc9M/HnO8qtt6v26fxqy7celkHyzg+6dR6v90POrRKOdvR39JKiJ5n5+4gxL1Xn3DHVzObZHhvM6Uu4Q++eYDhc4MNe8flUHR6NrymxFR0MlZ4HKMR62hX/2FWpSwNJUNvhXJFX6j+2RNSYhLeFEOFEeGeKnCIOFHNxhtpe/+Z2J68aQiEz+kAlw7lHBHosmdwS/eayZlThKnn9sG5ltem0LwbJA7Ckw+2Z1jkhNEw+mSJBfyOQA64pqr0s0Ms5eJw8fJf7X0GuTEIRU9rTIPvnMR3fPM6nZ5EmPMA9QbTkwO2PWM/04e64tov7woNSPDTpPbUa5SX1bKpxP/j5XESFcUm45MuIs6lTKc/RC+Fy2Nbynfuj54tX7D9hrReLZGIOWSjUaQsdknuUDG29Ny5YCKWrsmeKtAJWKNvZl82w+oFpOBfmKPPwDtTmqQZ0NBVa7nKqgt4X63hTkLS8E811P28OgL0tQMj2oEE0Hayopq5qEFf8xugqlphH3ZhC+SXzIlGfPMYubVloL1oaouOKaZIDHqyV8XIjkJGyE5+4glswCKQAdr309tzgYD/3AzHRL91mIXPX9w5Y9VCKgqcnPXWABNG2WwJWRnW8bsrf7TWQszqiYF8aOdNeNDGaMoYLYpqHipYjYLzJ8JvuwIGj1kLRLqqyFWh3ubjXDNPwZe7D/DIkaaiPeGToUU6UW3Jh4X1/3omiWfi4ZR+Qi9iZEbUbwZrQbZsQoqoXizOug5ULfDaQCOJNeqHUYNSU65Ke3lKIiIhI/G2jPr/JMiRHG/zVBm/V9JNVPGJlhM1oZ6N8kc5mBJKk3QGdvExivjNJ79aKgQae6hFM01NJsbSaft3fi5ua7oa0otIkNqS7V/2smAyChOR+j6sYe5w4JmEbnRVa9hH1D341gtCuoaH8kyubS0ptbfbCoRwEakw3TOphXanCcZKq44oanwizn4vRJFIwaiUW7mIlW6wXZq+P8rGjGmV7RYnAIdcoo/oYj4bSsvzIqZXHnDL+cISYGO1Gp+bNHoDlbMd8ZNJ2YYrCgEyCoVuTdh6FqWRlNfdCCBkXLVJsBOkY2snywPpznx1H4IzRBQn1IWkej5xK+AfOOWyPUxge7VM999951Co0lMIO8xJTwnoWirtru11aV7Z2BYZ48XEi16J8XENAlZn9etqdF3IfDADgyX6tQPM5aem0AeClR93TDsHbl29uEYIOkLdciRFI5Bi0A8eBtx+imC4EkRSmdo0bL4eaYe6nWCXWpnrqoA9zuxg2+pKkFsh/yEfOIVsyl2w8kCdUOojUxTW0XY00bfF5VPs8pf3sLCKlMC3obv7v9yeFJw37qSGex6Q7oGyIABIHknyB6hRlxtN9ldvSCVQZkcViXr59BjLpkmrewPU/xY1KWJO7Cg4Lc/fPeKAxbDThMKjMWkGwM0iMBPtvfdeE5mDKHvtEhV3n96s9S0mEUZaDOf5X/bDD77uvO8hhNs55DLIDzhlIzXVS4iSOPFJrRx/InSh3lOR1HJxv8IVdJ5iVC+KlMe+OTZR6fo7WzztkTCkfVj/Z6rzrqxbMoVhkMKqnbAAdlcjXvNp8WejQGu/n+4Y1mgSNMnf8W6fYN3C8KciaPbOwd+bs8S0Gxf48Ngc/YwXNfPzgZYtkTxf4BIJ66VabxSin4zpp1XvIlIYP4YnJFL/sH3DjpYigV0U9HDmmB5AbPn9kraj/ZtSbVvYqc5cwGWJCD6TZ+F0z9rzZei23vsugQ7mWUHFExHkjBwdRDUIwAybgg/Y4T1R9vfd6qHCnKCLCaKR9PSw0nPZp/t0c2FPGk4eZiONAsAgp3FCfABXqcqHgXcOXGxbDcSKyHf7jg93bJF/J9ala4sDX5by8wNmv5hXauJ3sZuUT+wHZyctZnxCk1t7zjwzas83dZWUL2eWhDMEwEuYUxZlhlhHOgVlCE4o94s4xOAbeyO/R8Eh2OH5LCUYrlzITgXyCtdOJDZM173YBy1nT9QoqH0cbEEDwTp4n9m4EUX+7Ylu80CWrP35oz0EOG3oBDrVhYeMcy+MrW3sIYICt23GT0EhrXoQrGZmIDdt/rhHSW68goGrjESsO2LIiAAdvOxDsXX9sR5v+EuHzfklB+zxhOPDLv+03QDQimKo9ccQF+aTazYhASemlNWi+QdZsVcU56EVOZgoLevH52wfT7r/s08a2WGu01u+AMQ2m0sNq3tgQ9GSvvHdpmmtokVCer25DL990amC8nRzeem9okuWkzEyeGPywsXP871+13LJResgefjyn/aSdOtvl1TPox3PxHeLykmeeFfNtcIxijdzYK0G14djOLd7a9i4t8OWaRFjoCQgQ+II8jS31qe2tvvbl03xJxfqxHLEP8pwkO6QNFey1CznBivV0V5t+GtmrBF+sC4aLysfsHB9s4hlcL1R2rZids52lxMRDGiEF6RbezIyLHnst58V6vu4g2CsIAiW/IA8CtpcsZrRfszbnw3wNVBm7xEBsdP7tWdbdXFxBKlYZrJNd532Kb5twPayHlBA8i+JtPFJtuDUkT70C8CZnPn8LRAd9JfVOlosd/ghfgkVxn63uFKvDKQ4Y+jd+KzKIuDSo2R7cZFOBxy91goIOkHuaD8vTkXjuwlAP12nv7V7esBD2B+wH6NnAxO6GFllGmfW1iA55ZZKxqSILZVRY6WbdeANsaYxlGsFHqD9tJHtiRnCW60mTcSURDhV+I174ks1+A9hdp4fo2eTHmajl9gFrZoxoCfBrwDy+m+D3uaw11WLRRQBVnrrHVb0ZFoiclBNWG+6Dx8pKG2ieplSCBpTxCD7Jbxe0qPZNCWAhQPvCmN0Gr4wDwjJuizzVNPR07r7/eS+m+3xVpzk1UngYIoy9I+Kp2/m8rJS6JZZ4nRb2mRabTN6G1PJOLNixU/BbEchlzzyJgr/MpEwQNXD6bln4kxx6VoWJcsgkTmE+9b4cc72LUOcoe7c04zVXDTArj1inPpmnV3xJ4kAFGita2aeB9kNxomjo55Pe4N4aaBXvvRNWI/TNO/4QgKMJmmBpB0KD3o2GoNssglAS6fFLmQmwR+1Kexli8/GmDmlKBdwgxHi0MrUs4uo31u8sl2c/XhtpZmAsAzSC1lGuaCqCBja3iaXhaILHBtYbuAoHoGtUb4Llm5T0fhPvs6j+elTPiVPww5g5CQyvyPskE1ZEFBuif0gkC8d+YV2WbAge0lh7/Gknvt7qA4hLgQ8A9rVUnurg3PtgRLMcui4ax0/63ddh8i0U05rDpEoEG2g6yosOjQQeT/k2fWUEJa/mBI/oDZ8JNcQB9Ye+wALuUekNjL8UBSHqpI8u2Tybu2Vk280OjGBloRaBU/eIS+vgPHDm/rpXf+fItjdZlJjt3LDpQSMtTwF5Hliny2YfN2uXR2SwmXcCqX/DypbgJg+1a3RR0mXUAYfeo+cFtQg3xDzcs/0mC0jj54uDCe6AG5m9x+/Q0oaUQTfdLcuz7nSJDxancXNUK47rdwe535tNLeR9t0lTQHyuH1CFe18K5PmqwDm9QUjgZJysdjknvWbpDR582458QrWmLhyzR2gBcjwfGlF7DvNWLU/wKioum0e/yZQfzBAsXAi2HchfPSafu1srJn59AbW4E52BQRObc1aQXqmCqAyZHuFFkJbKBMIieAUg3F7mK4ZKEIr49mzCKmNyfnLsIS1bGO5p9QP0rP4NfVPr5hkv8WVhZ9PrPns1d0HuZMwatK0+A96bJKbYH1kbyIGEEgR39dmkiRtN1wdxuSc+wI+v47BUmvLk/waxXaUgx0Qfj/Go1AQBZlnsDS0xWCqblxsU57sN92hDD5+HgYOvcr1P4AB3vVvEqNGnzeybtBhdeSJ4R7h8Gsnu7gKwh5SuCqCdEyy1e5V8z93xuSxzCswOQetQMSO5kmhpPeYWf8yuqjquAYROKD8c5CFdK53wsnQHc210qlklRmI0UkV3maFpNqKSQGT5R2vNbKfqbyAuA7Wm1O+JFS2CSsyimVrc8dg9Csnu6jrMAkcevpTVsUgVSLcUpLoK2pGdLrdO3BJGiV/IBL3goV3SjU7mj/5l9B15ZzbvJ7h3EVyDzbfr2ntkJqjssiqgCo1pnA5FsxGKNC8QKNWm0rC3aPvC7fhCUrEvjYfguXnl6QAdEoy5Uvm0JqLhwjP89EylVDlsLpz00ZVxAIgbK/NdDsM4WockimrwS8YL7ZyFYIpx1X5sWd0ssdTLtlEzgdI0fZqlbYW0WC914LNr9Dq374i6FcQzQmdzg+xOFjKmn4y/I4U0wxLoqI+WFkAPDkDUiNfKR9YNEtUQ3+JeLObFT9CxkqJDuJAcm6R82HU0sqPzioNDZF671miSIGWvevJAUWC9dz5rsBjptFypLId7/7+H3MCNm1c8MAhnJJRQ4zQihMs7qeVn4TbiLWIuPSCDUsXI6TtmdyQCdCHNbdzZbY1PTOe1+sIJOgRThJGFsOcDfCvjeKaDQygvDhYKfd+TGrgq5FnR6h7pGmouAejPxyKNeJHQ987Ar3Ak5SxoDNkjtsq5kWfILn+2Zf7kyHatQSE5s/Bh++aDuzKzpSv/HUkq08IPmnJuTR4d9H5JpUb8VMjNGouyfD7VSsLuu4BCcOPljjQlnmiIkquzM/VituZezNoooyqqDWtFs4XlqA7KZgyNtyrT159zSJJTkcSw73MjuGbn4Ig8SemvH1sRkgdLvwK8DOpWOdB7TerlTHFKMSPlPoGzQRFS3aXLVS2BsV8MvSS9BK0Q71P4UWc03ewzDQ1VIcnyP9xwShLtRHSJI03rIxa5DULeoYqX7FJJVEWOQ6k5AqCO6hh8jPcAR7MwM2FlOkZoUSWIsUqVWvIAeLq8gTtHPQyWGjWZNMoyjGZHPrBg2J/krTk8PJrCU9mgqsiH+a1j8ctp3swrzHo/OHkLaeYzlcaeODPlg6r1NIA4Dh793K4iM0IsosenePwO09+w7RBlJTRE2MWjgAxep1DR170MSdp30Ve3yQ==,iv:EQ9XmjxN6WREMMrWmTBBvLtDzECHqiJHuAIHunEu7h4=,tag:Ycd50WhShe9zQDNdeNxKCA==,type:str]
+  tls.key:  ENC[AES256_GCM,data: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,iv:Yta6PNgT2J6tXQErStgUTR9Nowvmh+WptwVLCvKlH+k=,tag:CSHL23UCLNhPlBL1xpHSfg==,type:str]
+---
+# Source: zalf-nextcloud/charts/collabora-online/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nextcloud-collabora-online
+  annotations:
+    confighash: config-a665a6e7517c03bd6655c294d77bd047
+  labels:
+    helm.sh/chart: collabora-online-1.1.11
+    app.kubernetes.io/name: collabora-online
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/version: "23.05.8.4.1"
+    app.kubernetes.io/managed-by: Helm
+data:
+  extra_params: --o:ssl.enable=false --o:ssl.termination=true
+  server_name: collabora.corki.bonares.de
+  aliasgroup1: https://nextcloud.corki.bonares.de:443
+---
+# Source: zalf-nextcloud/charts/nextcloud/charts/redis/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nextcloud-redis-configuration
+  namespace: "fairagro-nextcloud"
+  labels:
+    app.kubernetes.io/name: redis
+    helm.sh/chart: redis-17.13.2
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/managed-by: Helm
+data:
+  redis.conf: |-
+    # User-supplied common configuration:
+    # Enable AOF https://redis.io/topics/persistence#append-only-file
+    appendonly yes
+    # Disable RDB persistence, AOF persistence already enabled.
+    save ""
+    # End of common configuration
+  master.conf: |-
+    dir /data
+    # User-supplied master configuration:
+    rename-command FLUSHDB ""
+    rename-command FLUSHALL ""
+    # End of master configuration
+  replica.conf: |-
+    dir /data
+    # User-supplied replica configuration:
+    rename-command FLUSHDB ""
+    rename-command FLUSHALL ""
+    # End of replica configuration
+---
+# Source: zalf-nextcloud/charts/nextcloud/charts/redis/templates/health-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nextcloud-redis-health
+  namespace: "fairagro-nextcloud"
+  labels:
+    app.kubernetes.io/name: redis
+    helm.sh/chart: redis-17.13.2
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/managed-by: Helm
+data:
+  ping_readiness_local.sh: |-
+    #!/bin/bash
+
+    [[ -f $REDIS_PASSWORD_FILE ]] && export REDIS_PASSWORD="$(< "${REDIS_PASSWORD_FILE}")"
+    [[ -n "$REDIS_PASSWORD" ]] && export REDISCLI_AUTH="$REDIS_PASSWORD"
+    response=$(
+      timeout -s 15 $1 \
+      redis-cli \
+        -h localhost \
+        -p $REDIS_PORT \
+        ping
+    )
+    if [ "$?" -eq "124" ]; then
+      echo "Timed out"
+      exit 1
+    fi
+    if [ "$response" != "PONG" ]; then
+      echo "$response"
+      exit 1
+    fi
+  ping_liveness_local.sh: |-
+    #!/bin/bash
+
+    [[ -f $REDIS_PASSWORD_FILE ]] && export REDIS_PASSWORD="$(< "${REDIS_PASSWORD_FILE}")"
+    [[ -n "$REDIS_PASSWORD" ]] && export REDISCLI_AUTH="$REDIS_PASSWORD"
+    response=$(
+      timeout -s 15 $1 \
+      redis-cli \
+        -h localhost \
+        -p $REDIS_PORT \
+        ping
+    )
+    if [ "$?" -eq "124" ]; then
+      echo "Timed out"
+      exit 1
+    fi
+    responseFirstWord=$(echo $response | head -n1 | awk '{print $1;}')
+    if [ "$response" != "PONG" ] && [ "$responseFirstWord" != "LOADING" ] && [ "$responseFirstWord" != "MASTERDOWN" ]; then
+      echo "$response"
+      exit 1
+    fi
+  ping_readiness_master.sh: |-
+    #!/bin/bash
+
+    [[ -f $REDIS_MASTER_PASSWORD_FILE ]] && export REDIS_MASTER_PASSWORD="$(< "${REDIS_MASTER_PASSWORD_FILE}")"
+    [[ -n "$REDIS_MASTER_PASSWORD" ]] && export REDISCLI_AUTH="$REDIS_MASTER_PASSWORD"
+    response=$(
+      timeout -s 15 $1 \
+      redis-cli \
+        -h $REDIS_MASTER_HOST \
+        -p $REDIS_MASTER_PORT_NUMBER \
+        ping
+    )
+    if [ "$?" -eq "124" ]; then
+      echo "Timed out"
+      exit 1
+    fi
+    if [ "$response" != "PONG" ]; then
+      echo "$response"
+      exit 1
+    fi
+  ping_liveness_master.sh: |-
+    #!/bin/bash
+
+    [[ -f $REDIS_MASTER_PASSWORD_FILE ]] && export REDIS_MASTER_PASSWORD="$(< "${REDIS_MASTER_PASSWORD_FILE}")"
+    [[ -n "$REDIS_MASTER_PASSWORD" ]] && export REDISCLI_AUTH="$REDIS_MASTER_PASSWORD"
+    response=$(
+      timeout -s 15 $1 \
+      redis-cli \
+        -h $REDIS_MASTER_HOST \
+        -p $REDIS_MASTER_PORT_NUMBER \
+        ping
+    )
+    if [ "$?" -eq "124" ]; then
+      echo "Timed out"
+      exit 1
+    fi
+    responseFirstWord=$(echo $response | head -n1 | awk '{print $1;}')
+    if [ "$response" != "PONG" ] && [ "$responseFirstWord" != "LOADING" ]; then
+      echo "$response"
+      exit 1
+    fi
+  ping_readiness_local_and_master.sh: |-
+    script_dir="$(dirname "$0")"
+    exit_status=0
+    "$script_dir/ping_readiness_local.sh" $1 || exit_status=$?
+    "$script_dir/ping_readiness_master.sh" $1 || exit_status=$?
+    exit $exit_status
+  ping_liveness_local_and_master.sh: |-
+    script_dir="$(dirname "$0")"
+    exit_status=0
+    "$script_dir/ping_liveness_local.sh" $1 || exit_status=$?
+    "$script_dir/ping_liveness_master.sh" $1 || exit_status=$?
+    exit $exit_status
+---
+# Source: zalf-nextcloud/charts/nextcloud/charts/redis/templates/scripts-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nextcloud-redis-scripts
+  namespace: "fairagro-nextcloud"
+  labels:
+    app.kubernetes.io/name: redis
+    helm.sh/chart: redis-17.13.2
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/managed-by: Helm
+data:
+  start-master.sh: |
+    #!/bin/bash
+
+    [[ -f $REDIS_PASSWORD_FILE ]] && export REDIS_PASSWORD="$(< "${REDIS_PASSWORD_FILE}")"
+    if [[ -f /opt/bitnami/redis/mounted-etc/master.conf ]];then
+        cp /opt/bitnami/redis/mounted-etc/master.conf /opt/bitnami/redis/etc/master.conf
+    fi
+    if [[ -f /opt/bitnami/redis/mounted-etc/redis.conf ]];then
+        cp /opt/bitnami/redis/mounted-etc/redis.conf /opt/bitnami/redis/etc/redis.conf
+    fi
+    ARGS=("--port" "${REDIS_PORT}")
+    ARGS+=("--requirepass" "${REDIS_PASSWORD}")
+    ARGS+=("--masterauth" "${REDIS_PASSWORD}")
+    ARGS+=("--include" "/opt/bitnami/redis/etc/redis.conf")
+    ARGS+=("--include" "/opt/bitnami/redis/etc/master.conf")
+    exec redis-server "${ARGS[@]}"
+---
+# Source: zalf-nextcloud/charts/nextcloud/templates/config.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nextcloud-config
+  labels:
+    app.kubernetes.io/name: nextcloud
+    helm.sh/chart: nextcloud-4.5.12
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/managed-by: Helm
+data:
+  cron.config.php: |-
+    <?php
+    $CONFIG = array (
+      'maintenance_window_start' => 1,     // run background jobs at 1am
+    );
+    
+  misc.config.php: |-
+    <?php
+    $CONFIG = array (
+      'default_phone_region' => 'DE',
+      'overwriteprotocol' => 'https',
+      'check_data_directory_permissions' => false,
+    );
+    
+  .htaccess: |-
+    # line below if for Apache 2.4
+    <ifModule mod_authz_core.c>
+    Require all denied
+    </ifModule>
+    # line below if for Apache 2.2
+    <ifModule !mod_authz_core.c>
+    deny from all
+    </ifModule>
+    # section for Apache 2.2 and 2.4
+    <ifModule mod_autoindex.c>
+    IndexIgnore *
+    </ifModule>
+  redis.config.php: |-
+    <?php
+    if (getenv('REDIS_HOST')) {
+      $CONFIG = array (
+        'memcache.distributed' => '\OC\Memcache\Redis',
+        'memcache.locking' => '\OC\Memcache\Redis',
+        'redis' => array(
+          'host' => getenv('REDIS_HOST'),
+          'port' => getenv('REDIS_HOST_PORT') ?: 6379,
+          'password' => getenv('REDIS_HOST_PASSWORD'),
+        ),
+      );
+    }
+  apache-pretty-urls.config.php: |-
+    <?php
+    $CONFIG = array (
+      'htaccess.RewriteBase' => '/',
+    );
+  apcu.config.php: |-
+    <?php
+    $CONFIG = array (
+      'memcache.local' => '\OC\Memcache\APCu',
+    );
+  apps.config.php: |-
+    <?php
+    $CONFIG = array (
+      "apps_paths" => array (
+          0 => array (
+                  "path"     => OC::$SERVERROOT."/apps",
+                  "url"      => "/apps",
+                  "writable" => false,
+          ),
+          1 => array (
+                  "path"     => OC::$SERVERROOT."/custom_apps",
+                  "url"      => "/custom_apps",
+                  "writable" => true,
+          ),
+      ),
+    );
+  autoconfig.php: |-
+    <?php
+    $autoconfig_enabled = false;
+    if (getenv('SQLITE_DATABASE')) {
+        $AUTOCONFIG["dbtype"] = "sqlite";
+        $AUTOCONFIG["dbname"] = getenv('SQLITE_DATABASE');
+        $autoconfig_enabled = true;
+    } elseif (getenv('MYSQL_DATABASE') && getenv('MYSQL_USER') && getenv('MYSQL_PASSWORD') && getenv('MYSQL_HOST')) {
+        $AUTOCONFIG["dbtype"] = "mysql";
+        $AUTOCONFIG["dbname"] = getenv('MYSQL_DATABASE');
+        $AUTOCONFIG["dbuser"] = getenv('MYSQL_USER');
+        $AUTOCONFIG["dbpass"] = getenv('MYSQL_PASSWORD');
+        $AUTOCONFIG["dbhost"] = getenv('MYSQL_HOST');
+        $autoconfig_enabled = true;
+    } elseif (getenv('POSTGRES_DB') && getenv('POSTGRES_USER') && getenv('POSTGRES_PASSWORD') && getenv('POSTGRES_HOST')) {
+        $AUTOCONFIG["dbtype"] = "pgsql";
+        $AUTOCONFIG["dbname"] = getenv('POSTGRES_DB');
+        $AUTOCONFIG["dbuser"] = getenv('POSTGRES_USER');
+        $AUTOCONFIG["dbpass"] = getenv('POSTGRES_PASSWORD');
+        $AUTOCONFIG["dbhost"] = getenv('POSTGRES_HOST');
+        $autoconfig_enabled = true;
+    }
+    if ($autoconfig_enabled) {
+        $AUTOCONFIG["directory"] = getenv('NEXTCLOUD_DATA_DIR') ?: "/var/www/html/data";
+    }
+  smtp.config.php: |-
+    <?php
+    if (getenv('SMTP_HOST') && getenv('MAIL_FROM_ADDRESS') && getenv('MAIL_DOMAIN')) {
+      $CONFIG = array (
+        'mail_smtpmode' => 'smtp',
+        'mail_smtphost' => getenv('SMTP_HOST'),
+        'mail_smtpport' => getenv('SMTP_PORT') ?: (getenv('SMTP_SECURE') ? 465 : 25),
+        'mail_smtpsecure' => getenv('SMTP_SECURE') ?: '',
+        'mail_smtpauth' => getenv('SMTP_NAME') && getenv('SMTP_PASSWORD'),
+        'mail_smtpauthtype' => getenv('SMTP_AUTHTYPE') ?: 'LOGIN',
+        'mail_smtpname' => getenv('SMTP_NAME') ?: '',
+        'mail_smtppassword' => getenv('SMTP_PASSWORD') ?: '',
+        'mail_from_address' => getenv('MAIL_FROM_ADDRESS'),
+        'mail_domain' => getenv('MAIL_DOMAIN'),
+      );
+    }
+---
+# Source: zalf-nextcloud/charts/nextcloud/templates/nginx-config.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nextcloud-nginxconfig
+  labels:
+    app.kubernetes.io/name: nextcloud
+    helm.sh/chart: nextcloud-4.5.12
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/managed-by: Helm
+data:
+  default.conf: |-
+    upstream php-handler {
+        server 127.0.0.1:9000;
+    }
+
+    server {
+        listen 80;
+
+        # HSTS settings
+        # WARNING: Only add the preload option once you read about
+        # the consequences in https://hstspreload.org/. This option
+        # will add the domain to a hardcoded list that is shipped
+        # in all major browsers and getting removed from this list
+        # could take several months.
+        #add_header Strict-Transport-Security "max-age=15768000; includeSubDomains; preload;" always;
+
+        # set max upload size
+        client_max_body_size 10G;
+        fastcgi_buffers 64 4K;
+
+        # Enable gzip but do not remove ETag headers
+        gzip on;
+        gzip_vary on;
+        gzip_comp_level 4;
+        gzip_min_length 256;
+        gzip_proxied expired no-cache no-store private no_last_modified no_etag auth;
+        gzip_types application/atom+xml application/javascript application/json application/ld+json application/manifest+json application/rss+xml application/vnd.geo+json application/vnd.ms-fontobject application/x-font-ttf application/x-web-app-manifest+json application/xhtml+xml application/xml font/opentype image/bmp image/svg+xml image/x-icon text/cache-manifest text/css text/plain text/vcard text/vnd.rim.location.xloc text/vtt text/x-component text/x-cross-domain-policy;
+
+        # Pagespeed is not supported by Nextcloud, so if your server is built
+        # with the `ngx_pagespeed` module, uncomment this line to disable it.
+        #pagespeed off;
+
+        # HTTP response headers borrowed from Nextcloud `.htaccess`
+        add_header Referrer-Policy                      "no-referrer"       always;
+        add_header X-Content-Type-Options               "nosniff"           always;
+        add_header X-Download-Options                   "noopen"            always;
+        add_header X-Frame-Options                      "SAMEORIGIN"        always;
+        add_header X-Permitted-Cross-Domain-Policies    "none"              always;
+        add_header X-Robots-Tag                         "noindex, nofollow" always;
+        add_header X-XSS-Protection                     "1; mode=block"     always;
+
+        # Remove X-Powered-By, which is an information leak
+        fastcgi_hide_header X-Powered-By;
+
+        # Path to the root of your installation
+        root /var/www/html;
+
+        # Specify how to handle directories -- specifying `/index.php$request_uri`
+        # here as the fallback means that Nginx always exhibits the desired behaviour
+        # when a client requests a path that corresponds to a directory that exists
+        # on the server. In particular, if that directory contains an index.php file,
+        # that file is correctly served; if it doesn't, then the request is passed to
+        # the front-end controller. This consistent behaviour means that we don't need
+        # to specify custom rules for certain paths (e.g. images and other assets,
+        # `/updater`, `/ocm-provider`, `/ocs-provider`), and thus
+        # `try_files $uri $uri/ /index.php$request_uri`
+        # always provides the desired behaviour.
+        index index.php index.html /index.php$request_uri;
+
+        # Rule borrowed from `.htaccess` to handle Microsoft DAV clients
+        location = / {
+            if ( $http_user_agent ~ ^DavClnt ) {
+                return 302 /remote.php/webdav/$is_args$args;
+            }
+        }
+
+        location = /robots.txt {
+            allow all;
+            log_not_found off;
+            access_log off;
+        }
+
+        # Make a regex exception for `/.well-known` so that clients can still
+        # access it despite the existence of the regex rule
+        # `location ~ /(\.|autotest|...)` which would otherwise handle requests
+        # for `/.well-known`.
+        location ^~ /.well-known {
+            # The following 6 rules are borrowed from `.htaccess`
+
+            location = /.well-known/carddav     { return 301 /remote.php/dav/; }
+            location = /.well-known/caldav      { return 301 /remote.php/dav/; }
+            # Anything else is dynamically handled by Nextcloud
+            location ^~ /.well-known            { return 301 /index.php$uri; }
+
+            try_files $uri $uri/ =404;
+        }
+
+        # Rules borrowed from `.htaccess` to hide certain paths from clients
+        location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)(?:$|/)  { return 404; }
+        location ~ ^/(?:\.|autotest|occ|issue|indie|db_|console)              { return 404; }
+
+        # Ensure this block, which passes PHP files to the PHP process, is above the blocks
+        # which handle static assets (as seen below). If this block is not declared first,
+        # then Nginx will encounter an infinite rewriting loop when it prepends `/index.php`
+        # to the URI, resulting in a HTTP 500 error response.
+        location ~ \.php(?:$|/) {
+            # Required for legacy support
+            rewrite ^/(?!index|remote|public|cron|core\/ajax\/update|status|ocs\/v[12]|updater\/.+|oc[ms]-provider\/.+|.+\/richdocumentscode\/proxy) /index.php$request_uri;
+
+            fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+            set $path_info $fastcgi_path_info;
+
+            try_files $fastcgi_script_name =404;
+
+            include fastcgi_params;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            fastcgi_param PATH_INFO $path_info;
+            #fastcgi_param HTTPS on;
+
+            fastcgi_param modHeadersAvailable true;         # Avoid sending the security headers twice
+            fastcgi_param front_controller_active true;     # Enable pretty urls
+            fastcgi_pass php-handler;
+
+            fastcgi_intercept_errors on;
+            fastcgi_request_buffering off;
+        }
+
+        location ~ \.(?:css|js|svg|gif)$ {
+            try_files $uri /index.php$request_uri;
+            expires 6M;         # Cache-Control policy borrowed from `.htaccess`
+            access_log off;     # Optional: Don't log access to assets
+        }
+
+        location ~ \.woff2?$ {
+            try_files $uri /index.php$request_uri;
+            expires 7d;         # Cache-Control policy borrowed from `.htaccess`
+            access_log off;     # Optional: Don't log access to assets
+        }
+
+        location / {
+            try_files $uri $uri/ /index.php$request_uri;
+        }
+    }
+  zz-custom.conf: |-
+    types {
+      text/javascript js mjs;
+    }
+---
+# Source: zalf-nextcloud/templates/additional-config.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nextcloud-additional-config
+data:
+  proxy.config.php: |
+    <?php
+    $CONFIG = array (
+      'trusted_proxies' => array(
+        0 => '127.0.0.1',
+        1 => '10.233.64.0/18',
+      ),
+      'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
+    );
+---
+# Source: zalf-nextcloud/templates/installation-scripts.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nextcloud-installation-scripts
+data:
+  # pre-installation.sh: |
+  #   #!/bin/sh
+
+  #   # change permissions of nextcloud data directory so nextcloud does not complain
+  #   chmod -R 0770 /nextcloud_data
+  post-installation.sh: |
+    #!/bin/sh
+
+    # install NextcloudOffice plugin
+    php /var/www/html/occ app:install richdocuments
+
+    # Set allowed CollaboraOffice hosts to talk to nextcloud
+    php /var/www/html/occ config:app:set richdocuments wopi_allowlist --value=10.233.64.0/18
+
+    # add missing database indices
+    php /var/www/html/occ db:add-missing-indices
+---
+# Source: zalf-nextcloud/charts/nextcloud/templates/nextcloud-data-pvc.yaml
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: nextcloud-nextcloud-data
+  labels:
+    app.kubernetes.io/name: nextcloud
+    helm.sh/chart: nextcloud-4.5.12
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: app
+spec:
+  accessModes:
+    - "ReadWriteOnce"
+  resources:
+    requests:
+      storage: "8Gi"
+  storageClassName: "nfs-csi-delete"
+---
+# Source: zalf-nextcloud/charts/nextcloud/templates/nextcloud-pvc.yaml
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: nextcloud-nextcloud
+  labels:
+    app.kubernetes.io/name: nextcloud
+    helm.sh/chart: nextcloud-4.5.12
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: app
+spec:
+  accessModes:
+    - "ReadWriteOnce"
+  resources:
+    requests:
+      storage: "8Gi"
+  storageClassName: "nfs-csi-delete"
+---
+# Source: zalf-nextcloud/charts/collabora-online/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: nextcloud-collabora-online
+  labels:
+    helm.sh/chart: collabora-online-1.1.11
+    app.kubernetes.io/name: collabora-online
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/version: "23.05.8.4.1"
+    app.kubernetes.io/managed-by: Helm
+    type: main
+spec:
+  type: ClusterIP
+  ports:
+    - port: 9980
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: collabora-online
+    app.kubernetes.io/instance: nextcloud
+    type: main
+---
+# Source: zalf-nextcloud/charts/nextcloud/charts/redis/templates/headless-svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: nextcloud-redis-headless
+  namespace: "fairagro-nextcloud"
+  labels:
+    app.kubernetes.io/name: redis
+    helm.sh/chart: redis-17.13.2
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    
+spec:
+  type: ClusterIP
+  clusterIP: None
+  ports:
+    - name: tcp-redis
+      port: 6379
+      targetPort: redis
+  selector:
+    app.kubernetes.io/name: redis
+    app.kubernetes.io/instance: nextcloud
+---
+# Source: zalf-nextcloud/charts/nextcloud/charts/redis/templates/master/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: nextcloud-redis-master
+  namespace: "fairagro-nextcloud"
+  labels:
+    app.kubernetes.io/name: redis
+    helm.sh/chart: redis-17.13.2
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: master
+spec:
+  type: ClusterIP
+  internalTrafficPolicy: Cluster
+  sessionAffinity: None
+  ports:
+    - name: tcp-redis
+      port: 6379
+      targetPort: redis
+      nodePort: null
+  selector:
+    app.kubernetes.io/name: redis
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/component: master
+---
+# Source: zalf-nextcloud/charts/nextcloud/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: nextcloud
+  labels:
+    app.kubernetes.io/name: nextcloud
+    helm.sh/chart: nextcloud-4.5.12
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: app
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8080
+    targetPort: 80
+    protocol: TCP
+    name: http
+  selector:
+    app.kubernetes.io/name: nextcloud
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/component: app
+---
+# Source: zalf-nextcloud/charts/collabora-online/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nextcloud-collabora-online
+  labels:
+    helm.sh/chart: collabora-online-1.1.11
+    app.kubernetes.io/name: collabora-online
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/version: "23.05.8.4.1"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  minReadySeconds: 0
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: collabora-online
+      app.kubernetes.io/instance: nextcloud
+      type: main
+  template:
+    metadata:
+      annotations:
+        confighash: config-a665a6e7517c03bd6655c294d77bd047
+        cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+      labels:
+        app.kubernetes.io/name: collabora-online
+        app.kubernetes.io/instance: nextcloud
+        type: main
+    spec:
+      terminationGracePeriodSeconds: 60
+      serviceAccountName: default
+      securityContext:
+        {}
+      containers:
+        - name: collabora-online
+          securityContext:
+            capabilities:
+              add:
+              - MKNOD
+          image: "collabora/code@sha256:e0c7ff3cf4ccd49a590980cf83f46f8efd9456f9d173f92d1acfd3f41be09319"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 9980
+              protocol: TCP
+          startupProbe:
+            httpGet:
+              path: /
+              port: 9980
+              scheme: HTTP
+            failureThreshold: 30
+            periodSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 9980
+              scheme: HTTP
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            timeoutSeconds: 30
+            successThreshold: 1
+            failureThreshold: 4
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 9980
+              scheme: HTTP
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            timeoutSeconds: 30
+            successThreshold: 1
+            failureThreshold: 2
+
+          envFrom:
+            - configMapRef:
+                name: nextcloud-collabora-online
+          env:
+            - name: username
+              valueFrom:
+                secretKeyRef:
+                  name: nextcloud-collabora-online
+                  key: username
+            - name: password
+              valueFrom:
+                secretKeyRef:
+                  name: nextcloud-collabora-online
+                  key: password
+          resources:
+            limits:
+              cpu: 1800m
+              memory: 2000Mi
+            requests:
+              cpu: 1800m
+              memory: 2000Mi
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: tmp
+          emptyDir: {}
+---
+# Source: zalf-nextcloud/charts/nextcloud/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nextcloud
+  labels:
+    app.kubernetes.io/name: nextcloud
+    helm.sh/chart: nextcloud-4.5.12
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: app
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: nextcloud
+      app.kubernetes.io/instance: nextcloud
+      app.kubernetes.io/component: app
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: nextcloud
+        app.kubernetes.io/instance: nextcloud
+        app.kubernetes.io/component: app
+        nextcloud-redis-client: "true"
+      annotations:
+        nextcloud-config-hash: 65cf0d00562a788c95421b2ff6a6752018becbcbac30deed6dbf065eacf1a697
+        php-config-hash: 44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a
+        nginx-config-hash: 8e79a4aec4d278ae4a6409470adb4ed800aaa4978019698278f465fb3498a3a6
+    spec:
+      containers:
+        - name: nextcloud
+          image: nextcloud@sha256:d0d13d935eaa9219bfa89fd8213b3ede6431e04685f0a25f6f764f5e5dcfe990
+          imagePullPolicy: IfNotPresent
+          env:
+            
+            - name: POSTGRES_HOST
+              value: "fairagro-postgresql-nextcloud"
+            - name: POSTGRES_DB
+              value: "nextcloud"
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: nextcloud.fairagro-postgresql-nextcloud.credentials.postgresql.acid.zalan.do
+                  key: username
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: nextcloud.fairagro-postgresql-nextcloud.credentials.postgresql.acid.zalan.do
+                  key: password
+            - name: NEXTCLOUD_ADMIN_USER
+              valueFrom:
+                secretKeyRef:
+                  name: nextcloud
+                  key: nextcloud-username
+            - name: NEXTCLOUD_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: nextcloud
+                  key: nextcloud-password
+            - name: NEXTCLOUD_TRUSTED_DOMAINS
+              value: nextcloud.corki.bonares.de
+            - name: NEXTCLOUD_DATA_DIR
+              value: "/nextcloud_data"
+            - name: MAIL_FROM_ADDRESS
+              value: "nextcloud"
+            - name: MAIL_DOMAIN
+              value: "fairagro.net"
+            - name: SMTP_SECURE
+              value: "starttls"
+            - name: SMTP_PORT
+              value: "587"
+            - name: SMTP_AUTHTYPE
+              value: "LOGIN"
+            - name: SMTP_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: nextcloud
+                  key: smtp-host
+            - name: SMTP_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: nextcloud
+                  key: smtp-username
+            - name: SMTP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: nextcloud
+                  key: smtp-password
+            - name: REDIS_HOST
+              value: nextcloud-redis-master
+            - name: REDIS_HOST_PORT
+              value: "6379"
+            - name: REDIS_HOST_PASSWORD
+              value: ENC[AES256_GCM,data:6e+UvA4=,iv:SbFZmmpYVthnmLLarXdCK0yBVwwHBrXzPSCneD9C3S4=,tag:8rwWTo7Xp8stECUNac5STw==,type:str]
+            - name: PGSSLCERT
+              value: /tmp/postgresql.crt
+          resources:
+            limits:
+              cpu: 2
+              memory: 4Gi
+            requests:
+              cpu: 2
+              memory: 4Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+          volumeMounts:
+            - name: nextcloud-main
+              mountPath: /var/www/
+              subPath: root
+            - name: nextcloud-main
+              mountPath: /var/www/html
+              subPath: html
+            - name: nextcloud-data
+              mountPath: /nextcloud_data
+              subPath: data
+            - name: nextcloud-main
+              mountPath: /var/www/html/config
+              subPath: config
+            - name: nextcloud-main
+              mountPath: /var/www/html/custom_apps
+              subPath: custom_apps
+            - name: nextcloud-main
+              mountPath: /var/www/tmp
+              subPath: tmp
+            - name: nextcloud-main
+              mountPath: /var/www/html/themes
+              subPath: themes
+            - name: nextcloud-config
+              mountPath: /var/www/html/config/cron.config.php
+              subPath: cron.config.php
+            - name: nextcloud-config
+              mountPath: /var/www/html/config/misc.config.php
+              subPath: misc.config.php
+            - name: nextcloud-config
+              mountPath: /var/www/html/config/.htaccess
+              subPath: .htaccess
+            - name: nextcloud-config
+              mountPath: /var/www/html/config/apache-pretty-urls.config.php
+              subPath: apache-pretty-urls.config.php
+            - name: nextcloud-config
+              mountPath: /var/www/html/config/apcu.config.php
+              subPath: apcu.config.php
+            - name: nextcloud-config
+              mountPath: /var/www/html/config/apps.config.php
+              subPath: apps.config.php
+            - name: nextcloud-config
+              mountPath: /var/www/html/config/autoconfig.php
+              subPath: autoconfig.php
+            - name: nextcloud-config
+              mountPath: /var/www/html/config/redis.config.php
+              subPath: redis.config.php
+            - name: nextcloud-config
+              mountPath: /var/www/html/config/smtp.config.php
+              subPath: smtp.config.php
+            - mountPath: /docker-entrypoint-hooks.d/post-installation/post-installation.sh
+              name: installation-scripts
+              readOnly: true
+              subPath: post-installation.sh
+            - mountPath: /var/www/html/config/proxy.config.php
+              name: additional-config
+              subPath: proxy.config.php
+        - name: nextcloud-nginx
+          image: "nginxinc/nginx-unprivileged@sha256:a2e2a031969b6fc6107537901a04c354b38e1708ba3a5e1042b390277b55780e"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              protocol: TCP
+              containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /status.php
+              port:  80
+              httpHeaders:
+              - name: Host
+                value: "nextcloud.corki.bonares.de"
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /status.php
+              port:  80
+              httpHeaders:
+              - name: Host
+                value: "nextcloud.corki.bonares.de"
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
+          startupProbe:
+            httpGet:
+              path: /status.php
+              port:  80
+              httpHeaders:
+              - name: Host
+                value: "nextcloud.corki.bonares.de"
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 300
+
+          resources:
+            {}
+          volumeMounts:
+            - name: nextcloud-main
+              mountPath: /var/www/
+              subPath: root
+            - name: nextcloud-main
+              mountPath: /var/www/html
+              subPath: html
+            - name: nextcloud-data
+              mountPath: /nextcloud_data
+              subPath: data
+            - name: nextcloud-main
+              mountPath: /var/www/html/config
+              subPath: config
+            - name: nextcloud-main
+              mountPath: /var/www/html/custom_apps
+              subPath: custom_apps
+            - name: nextcloud-main
+              mountPath: /var/www/tmp
+              subPath: tmp
+            - name: nextcloud-main
+              mountPath: /var/www/html/themes
+              subPath: themes
+            - name: nextcloud-nginx-config
+              mountPath: /etc/nginx/conf.d/
+            - mountPath: /docker-entrypoint-hooks.d/post-installation/post-installation.sh
+              name: installation-scripts
+              readOnly: true
+              subPath: post-installation.sh
+            - mountPath: /var/www/html/config/proxy.config.php
+              name: additional-config
+              subPath: proxy.config.php
+        - name: nextcloud-cron
+          image: nextcloud@sha256:d0d13d935eaa9219bfa89fd8213b3ede6431e04685f0a25f6f764f5e5dcfe990
+          imagePullPolicy: IfNotPresent
+          command:
+          - /cron.sh
+          env:
+            
+            - name: POSTGRES_HOST
+              value: "fairagro-postgresql-nextcloud"
+            - name: POSTGRES_DB
+              value: "nextcloud"
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: nextcloud.fairagro-postgresql-nextcloud.credentials.postgresql.acid.zalan.do
+                  key: username
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: nextcloud.fairagro-postgresql-nextcloud.credentials.postgresql.acid.zalan.do
+                  key: password
+            - name: NEXTCLOUD_ADMIN_USER
+              valueFrom:
+                secretKeyRef:
+                  name: nextcloud
+                  key: nextcloud-username
+            - name: NEXTCLOUD_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: nextcloud
+                  key: nextcloud-password
+            - name: NEXTCLOUD_TRUSTED_DOMAINS
+              value: nextcloud.corki.bonares.de
+            - name: NEXTCLOUD_DATA_DIR
+              value: "/nextcloud_data"
+            - name: MAIL_FROM_ADDRESS
+              value: "nextcloud"
+            - name: MAIL_DOMAIN
+              value: "fairagro.net"
+            - name: SMTP_SECURE
+              value: "starttls"
+            - name: SMTP_PORT
+              value: "587"
+            - name: SMTP_AUTHTYPE
+              value: "LOGIN"
+            - name: SMTP_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: nextcloud
+                  key: smtp-host
+            - name: SMTP_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: nextcloud
+                  key: smtp-username
+            - name: SMTP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: nextcloud
+                  key: smtp-password
+            - name: REDIS_HOST
+              value: nextcloud-redis-master
+            - name: REDIS_HOST_PORT
+              value: "6379"
+            - name: REDIS_HOST_PASSWORD
+              value: ENC[AES256_GCM,data:6e+UvA4=,iv:SbFZmmpYVthnmLLarXdCK0yBVwwHBrXzPSCneD9C3S4=,tag:8rwWTo7Xp8stECUNac5STw==,type:str]
+            - name: PGSSLCERT
+              value: /tmp/postgresql.crt
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          volumeMounts:
+            - name: nextcloud-main
+              mountPath: /var/www/
+              subPath: root
+            - name: nextcloud-main
+              mountPath: /var/www/html
+              subPath: html
+            - name: nextcloud-data
+              mountPath: /nextcloud_data
+              subPath: data
+            - name: nextcloud-main
+              mountPath: /var/www/html/config
+              subPath: config
+            - name: nextcloud-main
+              mountPath: /var/www/html/custom_apps
+              subPath: custom_apps
+            - name: nextcloud-main
+              mountPath: /var/www/tmp
+              subPath: tmp
+            - name: nextcloud-main
+              mountPath: /var/www/html/themes
+              subPath: themes
+            - name: nextcloud-config
+              mountPath: /var/www/html/config/cron.config.php
+              subPath: cron.config.php
+            - name: nextcloud-config
+              mountPath: /var/www/html/config/misc.config.php
+              subPath: misc.config.php
+            - name: nextcloud-config
+              mountPath: /var/www/html/config/.htaccess
+              subPath: .htaccess
+            - name: nextcloud-config
+              mountPath: /var/www/html/config/apache-pretty-urls.config.php
+              subPath: apache-pretty-urls.config.php
+            - name: nextcloud-config
+              mountPath: /var/www/html/config/apcu.config.php
+              subPath: apcu.config.php
+            - name: nextcloud-config
+              mountPath: /var/www/html/config/apps.config.php
+              subPath: apps.config.php
+            - name: nextcloud-config
+              mountPath: /var/www/html/config/autoconfig.php
+              subPath: autoconfig.php
+            - name: nextcloud-config
+              mountPath: /var/www/html/config/redis.config.php
+              subPath: redis.config.php
+            - name: nextcloud-config
+              mountPath: /var/www/html/config/smtp.config.php
+              subPath: smtp.config.php
+            - mountPath: /docker-entrypoint-hooks.d/post-installation/post-installation.sh
+              name: installation-scripts
+              readOnly: true
+              subPath: post-installation.sh
+            - mountPath: /var/www/html/config/proxy.config.php
+              name: additional-config
+              subPath: proxy.config.php
+      volumes:
+        - name: nextcloud-main
+          persistentVolumeClaim:
+            claimName: nextcloud-nextcloud
+        - name: nextcloud-data
+          persistentVolumeClaim:
+            claimName: nextcloud-nextcloud-data
+        - name: nextcloud-config
+          configMap:
+            name: nextcloud-config
+        - name: nextcloud-nginx-config
+          configMap:
+            name: nextcloud-nginxconfig
+        - configMap:
+            defaultMode: 488
+            name: nextcloud-installation-scripts
+          name: installation-scripts
+        - configMap:
+            name: nextcloud-additional-config
+          name: additional-config
+      securityContext:
+        fsGroup: 82
+        fsGroupChangePolicy: OnRootMismatch
+---
+# Source: zalf-nextcloud/charts/nextcloud/charts/redis/templates/master/application.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: nextcloud-redis-master
+  namespace: "fairagro-nextcloud"
+  labels:
+    app.kubernetes.io/name: redis
+    helm.sh/chart: redis-17.13.2
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: master
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: redis
+      app.kubernetes.io/instance: nextcloud
+      app.kubernetes.io/component: master
+  serviceName: nextcloud-redis-headless
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: redis
+        helm.sh/chart: redis-17.13.2
+        app.kubernetes.io/instance: nextcloud
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/component: master
+      annotations:
+        checksum/configmap: 0b1cd599d1ef3203fbe8ef91f163e3c87210cebd997262eaec3bdfd3087de139
+        checksum/health: 9ca90249ceb13ba97bf70029735dc5559ddb6a79972d6ddc4e65caccfffb7751
+        checksum/scripts: 695624a9eacd555a9588ff57d12d9e3cc6c09973cf07945fb7165113a55b69c6
+        checksum/secret: d6981dc48ee3b486781fef7904d796374bb4c2ec228b05b73f9c56901f0a3b58
+    spec:
+      
+      securityContext:
+        fsGroup: 1001
+      serviceAccountName: nextcloud-redis
+      automountServiceAccountToken: true
+      affinity:
+        podAffinity:
+          
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app.kubernetes.io/name: redis
+                    app.kubernetes.io/instance: nextcloud
+                    app.kubernetes.io/component: master
+                topologyKey: kubernetes.io/hostname
+              weight: 1
+        nodeAffinity:
+          
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: redis
+          image: docker.io/bitnami/redis@sha256:413ba6ab7104ced40c1047451680f0679b235684a14a7db4a05a5990ff4e1e67
+          imagePullPolicy: "IfNotPresent"
+          securityContext:
+            runAsUser: 1001
+          command:
+            - /bin/bash
+          args:
+            - -c
+            - /opt/bitnami/scripts/start-scripts/start-master.sh
+          env:
+            - name: BITNAMI_DEBUG
+              value: "false"
+            - name: REDIS_REPLICATION_MODE
+              value: master
+            - name: ALLOW_EMPTY_PASSWORD
+              value: "no"
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: nextcloud-redis
+                  key: redis-password
+            - name: REDIS_TLS_ENABLED
+              value: "no"
+            - name: REDIS_PORT
+              value: "6379"
+          ports:
+            - name: redis
+              containerPort: 6379
+          livenessProbe:
+            initialDelaySeconds: 20
+            periodSeconds: 5
+            # One second longer than command timeout should prevent generation of zombie processes.
+            timeoutSeconds: 6
+            successThreshold: 1
+            failureThreshold: 5
+            exec:
+              command:
+                - sh
+                - -c
+                - /health/ping_liveness_local.sh 5
+          readinessProbe:
+            initialDelaySeconds: 20
+            periodSeconds: 5
+            timeoutSeconds: 2
+            successThreshold: 1
+            failureThreshold: 5
+            exec:
+              command:
+                - sh
+                - -c
+                - /health/ping_readiness_local.sh 1
+          resources:
+            limits:
+              cpu: 1
+              memory: 512Mi
+            requests:
+              cpu: 1
+              memory: 512Mi
+          volumeMounts:
+            - name: start-scripts
+              mountPath: /opt/bitnami/scripts/start-scripts
+            - name: health
+              mountPath: /health
+            - name: redis-data
+              mountPath: /data
+            - name: config
+              mountPath: /opt/bitnami/redis/mounted-etc
+            - name: redis-tmp-conf
+              mountPath: /opt/bitnami/redis/etc/
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: start-scripts
+          configMap:
+            name: nextcloud-redis-scripts
+            defaultMode: 0755
+        - name: health
+          configMap:
+            name: nextcloud-redis-health
+            defaultMode: 0755
+        - name: config
+          configMap:
+            name: nextcloud-redis-configuration
+        - name: redis-tmp-conf
+          emptyDir: {}
+        - name: tmp
+          emptyDir: {}
+        - name: redis-data
+          emptyDir: {}
+---
+# Source: zalf-nextcloud/charts/collabora-online/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nextcloud-collabora-online
+  labels:
+    helm.sh/chart: collabora-online-1.1.11
+    app.kubernetes.io/name: collabora-online
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/version: "23.05.8.4.1"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+    nginx.ingress.kubernetes.io/upstream-hash-by: $arg_WOPISrc
+spec:
+  ingressClassName: nginx-internal
+  tls:
+    - hosts:
+        - "collabora.corki.bonares.de"
+      secretName: collabora-tls-secret
+  rules:
+    - host: "collabora.corki.bonares.de"
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: nextcloud-collabora-online
+                port:
+                  number: 9980
+---
+# Source: zalf-nextcloud/charts/nextcloud/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nextcloud
+  labels:
+    app.kubernetes.io/name: nextcloud
+    helm.sh/chart: nextcloud-4.5.12
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: app
+    app: nextcloud
+  annotations:
+    nginx.ingress.kubernetes.io/cors-allow-headers: X-Forwarded-For
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/server-snippet: |-
+      server_tokens off;
+      proxy_hide_header X-Powered-By;
+      rewrite ^/.well-known/webfinger /index.php/.well-known/webfinger last;
+      rewrite ^/.well-known/nodeinfo /index.php/.well-known/nodeinfo last;
+      rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
+      rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
+      location = /.well-known/carddav {
+        return 301 $scheme://$host/remote.php/dav;
+      }
+      location = /.well-known/caldav {
+        return 301 $scheme://$host/remote.php/dav;
+      }
+      location = /robots.txt {
+        allow all;
+        log_not_found off;
+        access_log off;
+      }
+      location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
+        deny all;
+      }
+      location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
+        deny all;
+      }
+spec:
+  ingressClassName: nginx-internal
+  rules:
+  - host: nextcloud.corki.bonares.de
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nextcloud
+            port:
+              number: 8080
+  tls:
+    - hosts:
+      - nextcloud.corki.bonares.de
+      secretName: nextcloud-tls-secret
+---
+# Source: zalf-nextcloud/templates/postgres-db.yaml
+# kubernetes endpoint and type of object definition
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  # name of the postgres cluster / this could be build from input from the intranet website
+  name: fairagro-postgresql-nextcloud
+spec:
+  # teamIds can be defined for the hole cluster and are there to group cluster e.g. by working group
+  # must be configured in the postgres-operator yaml before using them here.
+  teamId: "fairagro"
+  # we only want to access postgres internally from within the cluster. So deactivate all loadbalancers.
+  enableMasterLoadBalancer: false
+  enableMasterPoolerLoadBalancer: false
+  enableReplicaLoadBalancer: false
+  enableReplicaPoolerLoadBalancer: false
+  # size of the database in GByte
+  volume:
+    size: 10Gi
+    storageClass: nfs-csi-delete
+  resources:
+    requests:
+      cpu: "1"
+      memory: 2Gi
+    limits:
+      memory: 2Gi
+      cpu: "1"
+  # number of replicas, this can improve performance and failsafe
+  numberOfInstances: 2
+  # list of users and there rights
+  users:
+    # database owner
+    nextcloud:
+      - superuser
+      - createdb
+
+  # database and owner definition
+  # databases: name->owner
+  databases:
+    nextcloud: nextcloud
+  preparedDatabases:
+    nextcloud:
+      schemas:
+        public: {}
+
+  # postgresql database version
+  postgresql:
+    version: "15"
+    parameters:
+      password_encryption: scram-sha-256

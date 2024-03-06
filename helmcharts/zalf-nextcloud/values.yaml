@@ -4,8 +4,9 @@
 # oidc_login_client_secret: "eoqeT1vQfBDoEDOEMEkRKul6BAF4aYSN"
 oidc_login_client_id: nextcloud
 
-# This should be set yo the 'kube_pods_subnet' variable in the kubespray group_vars file 'k8s-cluster.yml'.
+# These should be set yo the 'kube_pods_subnet' variable in the kubespray group_vars file 'k8s-cluster.yml'.
 allowed_collabora_ips: ~
+allowed_reverse_proxy_ips: ~
 
 # tls:
 #   certificate:
@@ -95,6 +96,9 @@ nextcloud:
         mountPath: /docker-entrypoint-hooks.d/post-installation/post-installation.sh
         readOnly: true
         subPath: post-installation.sh
+      - name: additional-config
+        mountPath: /var/www/html/config/proxy.config.php
+        subPath: proxy.config.php
       # - name: installation-scripts
       #   mountPath: /docker-entrypoint-hooks.d/pre-installation/pre-installation.sh
       #   readOnly: true
@@ -104,6 +108,9 @@ nextcloud:
         configMap:
           defaultMode: 0750
           name: nextcloud-installation-scripts
+      - name: additional-config
+        configMap:
+          name: nextcloud-additional-config
 
     mail:
       enabled: true
@@ -114,27 +121,27 @@ nextcloud:
         authtype: LOGIN
 
     configs:
-      misc.config.php: |-
+      misc.config.php: |
         <?php
         $CONFIG = array (
           'default_phone_region' => 'DE',
           'overwriteprotocol' => 'https',
           'check_data_directory_permissions' => false,
         );
-      cron.config.php: |-
+      cron.config.php: |
         <?php
         $CONFIG = array (
           'maintenance_window_start' => 1,     // run background jobs at 1am
         );
-      proxy.config.php: |-
-        <?php
-        $CONFIG = array (
-          'trusted_proxies' => array(
-            0 => '127.0.0.1',
-            1 => '10.0.0.0/8',
-          ),
-          'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
-        );
+      # proxy.config.php: |
+      #   <?php
+      #   $CONFIG = array (
+      #     'trusted_proxies' => array(
+      #       0 => '127.0.0.1',
+      #       1 => '10.0.0.0/8',
+      #     ),
+      #     'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
+      #   );
       # {{- if and .Values.oidc_login_provider_url .Values.oidc_login_logout_url .Values.oidc_login_client_secret }}
       #   oidc.config.php: |-
       #     <?php
