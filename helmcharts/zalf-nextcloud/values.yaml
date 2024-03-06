@@ -80,16 +80,16 @@ nextcloud:
         value: /tmp/postgresql.crt
 
     extraVolumeMounts:
-      - name: post-installation-scripts
+      - name: installation-scripts
         mountPath: /docker-entrypoint-hooks.d/post-installation/post-installation.sh
         readOnly: true
         subPath: post-installation.sh
-      - name: pre-installation-scripts
+      - name: installation-scripts
         mountPath: /docker-entrypoint-hooks.d/pre-installation/pre-installation.sh
         readOnly: true
         subPath: pre-installation.sh
     extraVolumes:
-      - name: post-installation-scripts
+      - name: installation-scripts
         configMap:
           defaultMode: 0750
           name: nextcloud-installation-scripts
