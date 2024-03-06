@@ -22,6 +22,7 @@ nextcloud:
     # Now we can simply add the @sha256 to the repository name and specify the image digest hash in the tag.
     # This works as long as the repository name is only referenced within the chart for generating the image name.
     repository: nextcloud@sha256
+    favor: fpm
     # I would prefer to go for the fpm-alpine version, because it has much less vulnerabilities.
     # This requires to install nginx as sidecar container. But currently I receive HTTP 500 when trying this.
     #tag: 0b04a2e2c14672a2fe56ca668a633ed8fc9d2d882df83fdfc6114773f4713a74 # 28.0.2-apache
@@ -64,6 +65,20 @@ nextcloud:
 
   nextcloud:
     #datadir: /nextcloud_data
+
+    securityContext:
+      runAsUser: 82
+      runAsGroup: 82
+      runAsNonRoot: true
+      readOnlyRootFilesystem: false
+      allowPrivilegeEscalation: false
+      privileged: false
+      capabilities:
+        drop:
+          - ALL
+
+    podSecurityContext:
+      fsGroup: 82
 
     # securityContext:
     #   #   runAsUser: 101 # this is the nginx user in the nginx container
