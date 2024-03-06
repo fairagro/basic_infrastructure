@@ -84,11 +84,15 @@ nextcloud:
         mountPath: /docker-entrypoint-hooks.d/post-installation/post-installation.sh
         readOnly: true
         subPath: post-installtion.sh
+      - name: pre-installation-scripts
+        mountPath: /docker-entrypoint-hooks.d/pre-installation/pre-installation.sh
+        readOnly: true
+        subPath: pre-installtion.sh
     extraVolumes:
       - name: post-installation-scripts
         configMap:
           defaultMode: 0750
-          name: nextcloud-post-installation-scripts
+          name: nextcloud-installation-scripts
 
     mail:
       enabled: true
@@ -378,7 +382,6 @@ nextcloud:
     nextcloudData:
       enabled: true
       storageClass: nfs-csi-delete
-      mode: 0770
 
   nginx:
     enabled: true
