@@ -7,7 +7,7 @@ data:
     #!/bin/sh
 
     # change permissions of nextcloud data directory so nextcloud does not complain
-    chmod -R 0770 /nextcloud_data
+    su -s /bin/sh -c "chmod -R 0770 /nextcloud_data"
   post-installation.sh: |-
     #!/bin/sh
 
