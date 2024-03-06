@@ -67,8 +67,8 @@ nextcloud:
     #datadir: /nextcloud_data
 
     securityContext:
-      runAsUser: 82
-      runAsGroup: 82
+      # runAsUser: 82
+      # runAsGroup: 82
       runAsNonRoot: true
       readOnlyRootFilesystem: false
       allowPrivilegeEscalation: false
@@ -79,6 +79,7 @@ nextcloud:
 
     podSecurityContext:
       fsGroup: 82
+      fsGroupChangePolicy: OnRootMismatch
 
     # securityContext:
     #   #   runAsUser: 101 # this is the nginx user in the nginx container
@@ -118,10 +119,12 @@ nextcloud:
         authtype: LOGIN
 
     configs:
-      phone.config.php: |-
+      misc.config.php: |-
         <?php
         $CONFIG = array (
           'default_phone_region' => 'DE',
+          'overwriteprotocol' => 'https',
+          'check_data_directory_permissions' => false,
         );
       cron.config.php: |-
         <?php
@@ -136,11 +139,6 @@ nextcloud:
             1 => '10.0.0.0/8',
           ),
           'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
-        );
-      protocol.config.php: |-
-        <?php
-        $CONFIG = array (
-          'overwriteprotocol' => 'https'
         );
       # {{- if and .Values.oidc_login_provider_url .Values.oidc_login_logout_url .Values.oidc_login_client_secret }}
       #   oidc.config.php: |-
