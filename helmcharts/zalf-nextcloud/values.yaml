@@ -378,6 +378,7 @@ nextcloud:
     nextcloudData:
       enabled: true
       storageClass: nfs-csi-delete
+      mode: 0770
 
   nginx:
     enabled: true
