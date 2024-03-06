@@ -64,7 +64,7 @@ nextcloud:
         }
 
   nextcloud:
-    #datadir: /nextcloud_data
+    datadir: /nextcloud_data
 
     securityContext:
       # runAsUser: 82
@@ -83,13 +83,6 @@ nextcloud:
       fsGroup: 82
       fsGroupChangePolicy: OnRootMismatch
 
-    # securityContext:
-    #   #   runAsUser: 101 # this is the nginx user in the nginx container
-    #   #   runAsGroup: 101
-    #   fsGroup: 82
-    #   #   runAsNonRoot: true
-    #   #   readOnlyRootFilesystem: false
-    #   fsGroupChangePolicy: OnRootMismatch
     extraEnv:
       # Fix the postgres connection issue
       # "could not open certificate file "/root/.postgresql/postgresql.crt": Permission denied"
@@ -102,10 +95,10 @@ nextcloud:
         mountPath: /docker-entrypoint-hooks.d/post-installation/post-installation.sh
         readOnly: true
         subPath: post-installation.sh
-      # - name: installation-scripts
-      #   mountPath: /docker-entrypoint-hooks.d/pre-installation/pre-installation.sh
-      #   readOnly: true
-      #   subPath: pre-installation.sh
+      - name: installation-scripts
+        mountPath: /docker-entrypoint-hooks.d/pre-installation/pre-installation.sh
+        readOnly: true
+        subPath: pre-installation.sh
     extraVolumes:
       - name: installation-scripts
         configMap:
@@ -396,9 +389,9 @@ nextcloud:
     # https://docs.nextcloud.com/server/28/admin_manual/installation/harden_server.html
     # NOTE: I did not succeed to set the required permissions 0770 for the additional nextcloud
     # data mount. So I disabled it for now.
-    # nextcloudData:
-    #   enabled: true
-    #   storageClass: nfs-csi-delete
+    nextcloudData:
+      enabled: true
+      storageClass: nfs-csi-delete
 
   nginx:
     enabled: true

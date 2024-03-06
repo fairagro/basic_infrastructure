@@ -3,11 +3,11 @@ kind: ConfigMap
 metadata:
   name: nextcloud-installation-scripts
 data:
-  # pre-installation.sh: |-
-  #   #!/bin/sh
+  pre-installation.sh: |-
+    #!/bin/sh
 
-  #   # change permissions of nextcloud data directory so nextcloud does not complain
-  #   su -s /bin/sh -c "chmod -R 0770 /nextcloud_data"
+    # change permissions of nextcloud data directory so nextcloud does not complain
+    chmod -R 0770 {{ .Values.nextcloud.datadir }}
   post-installation.sh: |-
     #!/bin/sh
 
