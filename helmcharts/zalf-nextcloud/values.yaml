@@ -73,9 +73,9 @@ nextcloud:
       readOnlyRootFilesystem: false
       allowPrivilegeEscalation: false
       privileged: false
-      capabilities:
-        drop:
-          - ALL
+      # capabilities:
+      #   drop:
+      #     - ALL
 
     podSecurityContext:
       fsGroup: 82
