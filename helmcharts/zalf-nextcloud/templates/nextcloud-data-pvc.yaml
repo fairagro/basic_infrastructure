@@ -2,7 +2,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: nextcloud-nextcloud-data
-  {{- with .Values.nexcloud.persistence.nextcloudData.annotations }}
+  {{- with .Values.nextcloud.persistence.nextcloudData.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
