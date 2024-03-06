@@ -83,11 +83,11 @@ nextcloud:
       - name: post-installation-scripts
         mountPath: /docker-entrypoint-hooks.d/post-installation/post-installation.sh
         readOnly: true
-        subPath: post-installtion.sh
+        subPath: post-installation.sh
       - name: pre-installation-scripts
         mountPath: /docker-entrypoint-hooks.d/pre-installation/pre-installation.sh
         readOnly: true
-        subPath: pre-installtion.sh
+        subPath: pre-installation.sh
     extraVolumes:
       - name: post-installation-scripts
         configMap:

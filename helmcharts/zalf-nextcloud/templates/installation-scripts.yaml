@@ -8,7 +8,7 @@ data:
 
     # change permissions of nextcloud data directory so nextcloud does not complain
     chmod -R 0770 /nextcloud_data
-  post-installtion.sh: |-
+  post-installation.sh: |-
     #!/bin/sh
 
     # install NextcloudOffice plugin
