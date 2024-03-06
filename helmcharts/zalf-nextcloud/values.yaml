@@ -63,7 +63,7 @@ nextcloud:
         }
 
   nextcloud:
-    datadir: /nextcloud_data
+    #datadir: /nextcloud_data
 
     securityContext:
       #   runAsUser: 101 # this is the nginx user in the nginx container
@@ -379,6 +379,8 @@ nextcloud:
     storageClass: nfs-csi-delete
     # we setup an additional volume for the nextcloud data according to the hardening guide:
     # https://docs.nextcloud.com/server/28/admin_manual/installation/harden_server.html
+    # NOTE: I did not succeed to set the required permissions 0770 for the additional nextcloud
+    # data mount. So I disabled it for now.
     # nextcloudData:
     #   enabled: true
     #   storageClass: nfs-csi-delete
