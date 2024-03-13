@@ -8,6 +8,8 @@ oidc_login_client_id: nextcloud
 allowed_collabora_ips: ~
 allowed_reverse_proxy_ips: ~
 
+postgres_storageClass: ~
+
 # tls:
 #   certificate:
 #   key:

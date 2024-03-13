@@ -16,7 +16,7 @@ spec:
   # size of the database in GByte
   volume:
     size: 10Gi
-    storageClass: nfs-csi-delete
+    storageClass: "{{ .Values.postgres_storageClass }}"
   resources:
     requests:
       cpu: "1"
