@@ -417,7 +417,6 @@ nextcloud:
         }
     securityContext:
       runAsNonRoot: true
-      readOnlyRootFilesystem: false
       allowPrivilegeEscalation: false
       privileged: false
       capabilities:
