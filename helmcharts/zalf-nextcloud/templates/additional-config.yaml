@@ -11,5 +11,4 @@ data:
         1 => '{{ .Values.allowed_reverse_proxy_ips }}',
       ),
       'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
-      //'config_is_read_only' => true,
     );

@@ -3,11 +3,33 @@ kind: ConfigMap
 metadata:
   name: nextcloud-installation-scripts
 data:
-  # pre-installation.sh: |
-  #   #!/bin/sh
+  wait-for-postgresql.php: |
+    #!/usr/bin/env php
 
-  #   # change permissions of nextcloud data directory so nextcloud does not complain
-  #   chmod -R 0770 {{ .Values.nextcloud.nextcloud.datadir }}
+    <?php
+    // Database connection string
+    $dsn = "pgsql:host=" . $_ENV['POSTGRES_HOST'] . ";dbname=" . $_ENV['POSTGRES_DB'] . ";user=" . $_ENV['POSTGRES_USER'] . ";password=" . $_ENV['POSTGRES_PASSWORD'];
+    // Maximum number of connection attempts
+    $max_attempts = 300;
+
+    $attempt = 1;
+    $connected = false;
+    // Wait until the database is ready
+    while (!$connected) {
+      try {
+        $pdo = new PDO($dsn);
+        $connected = true;
+      } catch (PDOException $e) {
+        sleep(1);
+        $attempt++;
+      }
+    }
+
+    if (!$connected) {
+      // We could not connect, exit with a non-zero code indicating failure
+      exit(1);
+    }
+    ?>
   post-installation.sh: |
     #!/bin/sh
 
