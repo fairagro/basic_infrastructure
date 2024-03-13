@@ -413,8 +413,16 @@ nextcloud:
       default: true
       custom: |-
         types {
-          text/javascript js mjs;
+          text/javascript mjs;
         }
+    securityContext:
+      runAsNonRoot: true
+      readOnlyRootFilesystem: false
+      allowPrivilegeEscalation: false
+      privileged: false
+      capabilities:
+        add:
+          - CAP_NET_BIND_SERVICE
 
   internalDatabase:
     enabled: false
