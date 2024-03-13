@@ -68,6 +68,7 @@ nextcloud:
 
   nextcloud:
     datadir: /nextcloud_data
+    containerPort: 8080
 
     securityContext:
       # runAsUser: 82
