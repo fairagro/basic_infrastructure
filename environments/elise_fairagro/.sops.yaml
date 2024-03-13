@@ -1,5 +1,0 @@
-creation_rules:
-  - pgp: CC7B10CE8D78010ABB043F8DB1C462E90012ECFE
-    age: age1q6rxgyn83rgjr6zaws764syhy6f25hanlv0y3sq00f95lrjprdzs9v2zv2
-    path_regex: .*\.enc\.yaml
-
