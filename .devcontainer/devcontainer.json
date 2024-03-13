@@ -5,13 +5,13 @@
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"image": "mcr.microsoft.com/devcontainers/base:0.202.10-bullseye",
 	"features": {
-		"ghcr.io/devcontainers/features/docker-in-docker:2.9.2": {
+		"ghcr.io/devcontainers/features/docker-in-docker:2.10.1": {
 			"moby": true,
 			"azureDnsAutoDetection": true,
 			"installDockerBuildx": true,
 			"dockerDashComposeVersion": "v2"
 		},
-		"ghcr.io/devcontainers/features/kubectl-helm-minikube:1.1.6": {
+		"ghcr.io/devcontainers/features/kubectl-helm-minikube:1.1.7": {
 			"version": "1.29.1",
 			"helm": "3.14.0",
 			"minikube": "none"
