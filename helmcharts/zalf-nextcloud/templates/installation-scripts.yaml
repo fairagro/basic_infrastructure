@@ -6,8 +6,7 @@ data:
   wait-for-postgresql.sh: |
     #!/usr/bin/env sh
 
-    php_code=$(cat << EOF
-    <?php
+    php_code=$(cat <<'EOF'
     // Database connection string
     $dsn = "pgsql:host=" . $_ENV['POSTGRES_HOST'] . ";dbname=" . $_ENV['POSTGRES_DB'] . ";user=" . $_ENV['POSTGRES_USER'] . ";password=" . $_ENV['POSTGRES_PASSWORD'];
     // Maximum number of connection attempts
@@ -31,7 +30,6 @@ data:
       echo "Failure to connect to the postgresql database";
       exit(1);
     }
-    ?>
     EOF
     )
 
