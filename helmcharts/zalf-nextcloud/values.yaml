@@ -100,9 +100,9 @@ nextcloud:
         readOnly: true
         subPath: post-installation.sh
       - name: installation-scripts
-        mountPath: /docker-entrypoint-hooks.d/pre-installation/wait-for-postgresql.php
+        mountPath: /docker-entrypoint-hooks.d/pre-installation/wait-for-postgresql.sh
         readOnly: true
-        subPath: wait-for-postgresql.php
+        subPath: wait-for-postgresql.sh
       - name: additional-config
         mountPath: /var/www/html/config/proxy.config.php
         subPath: proxy.config.php
