@@ -3,9 +3,10 @@ kind: ConfigMap
 metadata:
   name: nextcloud-installation-scripts
 data:
-  wait-for-postgresql.php: |
-    #!/usr/bin/env php
+  wait-for-postgresql.sh: |
+    #!/usr/bin/env sh
 
+    php_code=$(cat << EOF
     <?php
     // Database connection string
     $dsn = "pgsql:host=" . $_ENV['POSTGRES_HOST'] . ";dbname=" . $_ENV['POSTGRES_DB'] . ";user=" . $_ENV['POSTGRES_USER'] . ";password=" . $_ENV['POSTGRES_PASSWORD'];
@@ -31,8 +32,12 @@ data:
       exit(1);
     }
     ?>
+    EOF
+    )
+
+    php -r "$php_code"
   post-installation.sh: |
-    #!/bin/sh
+    #!/usr/bin/env sh
 
     # install NextcloudOffice plugin
     php /var/www/html/occ app:install richdocuments
