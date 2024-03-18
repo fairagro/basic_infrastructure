@@ -69,6 +69,12 @@
 			"-c",
 			"apt update && apt install iputils-ping"
 		],
+		// In case we've accidently checked secrets into git, we need to git-filter-repo.
+		"install.git-filter-repo": [
+			"bash",
+			"-c",
+			"sudo wget https://raw.githubusercontent.com/newren/git-filter-repo/main/git-filter-repo -P /usr/local/bin && sudo chmod +x /usr/local/bin/git-filter-repo"
+		],
 		// This command could be questionable: it requires to enter your gpg passphrase every time you start a shell
 		// in the container. Also you might not always want to connect to fizz. Nevertheless, for me it works fine.
 		"connect.to.fizz": [
