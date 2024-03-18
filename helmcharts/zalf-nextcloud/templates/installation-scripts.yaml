@@ -15,7 +15,7 @@ data:
     $attempt = 1;
     $connected = false;
     // Wait until the database is ready
-    while (!$connected) {
+    while (!$connected && $attempt <= $max_attempts) {
       try {
         $pdo = new PDO($dsn);
         $connected = true;
