@@ -19,7 +19,7 @@ data:
       try {
         $pdo = new PDO($dsn);
         $connected = true;
-        echo "Successfully connected to the postgresql database"
+        echo "Successfully connected to the postgresql database";
       } catch (PDOException $e) {
         sleep(1);
         $attempt++;
@@ -27,7 +27,7 @@ data:
     }
 
     if (!$connected) {
-      echo "Failure to connect to the postgresql database"
+      echo "Failure to connect to the postgresql database";
       exit(1);
     }
     ?>
