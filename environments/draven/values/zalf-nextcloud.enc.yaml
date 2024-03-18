@@ -12,9 +12,9 @@ nextcloud:
             smtp:
                 name: ENC[AES256_GCM,data:P8eolaLaOrolk5eG9YnK6xfZfkEYUw==,iv:IE1+Wxr7DSo0/sPTUtk6M1HB5Kg8x8WzTdW8l9pWAzo=,tag:G2D2olyrqNFq2t3CXOgmXA==,type:str]
                 password: ENC[AES256_GCM,data:KoY/bzxE0B3sNCfIGh6YuObg4QvEIJSxIYn79whL9nXr,iv:vQnbc2VLmv5ao1y7I1SAi69TO2HTa1DO6usA1jH5L+o=,tag:6DBPzdGVLNxW0uIr+ay8Tw==,type:str]
-        redis:
-            auth:
-                password: ENC[AES256_GCM,data:Rkkt2lgxh9Tfr1CC1szUbdukEu0KqQwlHPFQTKqOvPIOmUv3NoevaUrv6rY4oxkhfw==,iv:QwMIfv5neKRZ0y2x3pvbZN139f0GX3iSGxbGgvWu5xo=,tag:GWT8BSRahhnlZlJzL5eIEg==,type:str]
+    redis:
+        auth:
+            password: ENC[AES256_GCM,data:oby1MJYXTCBPq2TtdB7qDxLcC0QeYxDxAwSCVsMCM39G2OLNiaOwiTMEIgDmO6PAPw==,iv:6Va3MP0NiFcS8haZD+mxq977OGCv5F7R2Iu/mdKcT9g=,tag:gQQxEg8kgOAZvpR4TCa+NQ==,type:str]
 collabora-online:
     collabora:
         username: ENC[AES256_GCM,data:lhuPSLE=,iv:oj8Xz3mI3Kbfe5Lx2k6UKYYaBeE/1cgbCnv4U/jsiXU=,tag:KMiLglswHlen0egIY0JQdQ==,type:str]
@@ -34,8 +34,8 @@ sops:
             M3laUDBsb3JzMlNBNG1mcmtPQlZDcDQKrL3jRAXkOmzFZ3e0y81twhehqr3wIE+6
             kyzfabhy8+xH1v7wJY90PEU3TwzQGcJNTJMx9SYu1TA5sQTIQ0vFhw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-03-13T13:46:26Z"
-    mac: ENC[AES256_GCM,data:H3QnKMblrUHBnQost2KvOlscQNuVv/3Q6VhXXl+H6mIEO4iiHJ1yWG+hsD0I24r7iG7URzB0MUmixpm9XCLGFt9/6sTb68+js6P3x+1UuwRTlPWsgaipEA5n/2NsDSjuZSDokCqfYl5k/IpAY2dEkRX1IkB2oYNkhgBJjmF6y78=,iv:GcC6ExgevXLXtj+kNIH2TMcii0RTRYCy8RD8BOht2g8=,tag:qji7QFimUX63GP5T+1vUmw==,type:str]
+    lastmodified: "2024-03-18T12:42:26Z"
+    mac: ENC[AES256_GCM,data:t6smJlmTqlu/kt0OFyNXdIoq0jqukORd9dao0HToY9AOU3iH/obrDKIlyOyrrKehLwK4gHTpHgFAYF51RQtNMrQ/t8orLfUoHSS43nEa42sVbcB3o2vLi6HKWebesA+PVOeaKR6ygi/6EfDyH2hxzlBxPdu+xaAWonH713O7dLg=,iv:6I8MalMBD+cnonF0UWrT5JtjVkyqfEdorKbvLPL+j4Y=,tag:RzLUtO8fcHba7Av5EI946Q==,type:str]
     pgp:
         - created_at: "2024-03-13T13:46:26Z"
           enc: |-
