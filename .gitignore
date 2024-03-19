@@ -3,3 +3,5 @@ draven_admin.yaml
 elise_admin.yaml
 **/admin.conf
 **/.decrypted~*
+helmcharts/*/charts/*
+helmcharts/*/Chart.lock
