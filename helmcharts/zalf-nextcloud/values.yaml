@@ -111,6 +111,9 @@ nextcloud:
       - name: additional-config
         mountPath: /var/www/html/config/proxy.config.php
         subPath: proxy.config.php
+      - name: additional-config
+        mountPath: /var/www/html/config/trusted_domains.config.php
+        subPath: trusted_domains.config.php
     extraVolumes:
       - name: installation-scripts
         configMap:

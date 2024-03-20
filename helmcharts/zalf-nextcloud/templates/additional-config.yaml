@@ -12,3 +12,17 @@ data:
       ),
       'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
     );
+  trusted_domains.config.php: |
+    <?php
+    $CONFIG = array (
+      'trusted_proxies' => array(
+{{- $idx := 0 -}}
+{{- if .Values.nextcloud_internal_ingress.fqdn }}
+        0 => '{{ .Values.nextcloud_internal_ingress.fqdn }}'
+{{- $idx := $idx + 1 -}}
+{{- end }}
+{{- if .Values.nextcloud_external_ingress.fqdn }}
+        1 => '{{ .Values.nextcloud_external_ingress.fqdn }}',
+{{- end }}
+      ),
+    );
