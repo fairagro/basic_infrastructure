@@ -15,7 +15,7 @@ data:
   trusted_domains.config.php: |
     <?php
     $CONFIG = array (
-      'trusted_proxies' => array(
+      'trusted_domains' => array(
 {{- $idx := 0 | int -}}
 {{- if .Values.nextcloud_internal_ingress.fqdn }}
         {{ $idx }} => '{{ .Values.nextcloud_internal_ingress.fqdn }}',
