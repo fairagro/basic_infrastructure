@@ -19,7 +19,7 @@ data:
 {{- $idx := 0 -}}
 {{- if .Values.nextcloud_internal_ingress.fqdn }}
         {{ $idx }} => '{{ .Values.nextcloud_internal_ingress.fqdn }}'
-{{- $idx := $idx + 1 -}}
+{{- $idx := add $idx 1 -}}
 {{- end }}
 {{- if .Values.nextcloud_external_ingress.fqdn }}
         {{ $idx }} => '{{ .Values.nextcloud_external_ingress.fqdn }}',
