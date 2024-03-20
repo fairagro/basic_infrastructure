@@ -18,7 +18,7 @@ data:
       'trusted_proxies' => array(
 {{- $idx := 0 -}}
 {{- if .Values.nextcloud_internal_ingress.fqdn }}
-        {{ $idx }} => '{{ .Values.nextcloud_internal_ingress.fqdn }}'
+        {{ $idx }} => '{{ .Values.nextcloud_internal_ingress.fqdn }}',
 {{- $idx := add $idx 1 -}}
 {{- end }}
 {{- if .Values.nextcloud_external_ingress.fqdn }}
