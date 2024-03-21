@@ -16,7 +16,8 @@ data:
     <?php
     $CONFIG = array (
       'trusted_domains' => array(
-{{- $idx := 0 | int -}}
+        0 => 'nextcloud-test.fairagro.net',
+{{- $idx := 1 | int -}}
 {{- if .Values.nextcloud_internal_ingress.fqdn }}
         {{ $idx }} => '{{ .Values.nextcloud_internal_ingress.fqdn }}',
 {{- $idx = add1 $idx -}}
