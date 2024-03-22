@@ -75,6 +75,13 @@
 			"-c",
 			"sudo wget https://raw.githubusercontent.com/newren/git-filter-repo/main/git-filter-repo -P /usr/local/bin && sudo chmod +x /usr/local/bin/git-filter-repo"
 		],
+		// The cert-manager command line tool. Actually there is a corresponding dev container feature (cmctl-asdf)
+		// but I did not manage to get it to work.
+		"install.cmctl": [
+			"bash",
+			"-c",
+			"sudo wget https://github.com/cert-manager/cmctl/releases/latest/download/cmctl_linux_amd64 -O /usr/local/bin/cmctl && sudo chmod +x /usr/local/bin/cmctl"
+		],
 		// This command could be questionable: it requires to enter your gpg passphrase every time you start a shell
 		// in the container. Also you might not always want to connect to fizz. Nevertheless, for me it works fine.
 		"connect.to.fizz": [
