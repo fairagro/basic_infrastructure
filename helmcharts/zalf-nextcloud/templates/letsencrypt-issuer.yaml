@@ -5,8 +5,8 @@ metadata:
 spec:
   acme:
     # The ACME server URL
-    server: https://acme-staging-v02.api.letsencrypt.org/directory # staging
-    #server: https://acme-v02.api.letsencrypt.org/directory            # production
+    #server: https://acme-staging-v02.api.letsencrypt.org/directory # staging
+    server: https://acme-v02.api.letsencrypt.org/directory # production
     # Email address used for ACME registration
     email: carsten.scharfenberg@zalf.de
     # Name of a secret used to store the ACME account private key
