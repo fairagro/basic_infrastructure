@@ -67,7 +67,7 @@
 		"install.software": [
 			"bash",
 			"-c",
-			"apt update && apt install iputils-ping"
+			"apt update && apt install iputils-ping ncat"
 		],
 		// In case we've accidently checked secrets into git, we need to git-filter-repo.
 		"install.git-filter-repo": [
