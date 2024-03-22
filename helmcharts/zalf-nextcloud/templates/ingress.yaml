@@ -57,8 +57,8 @@ kind: Ingress
 metadata:
   annotations:
     cert-manager.io/issuer: letsencrypt
-    acme.cert-manager.io/http01-edit-in-place: "true"
-    ingress.kubernetes.io/force-ssl-redirect: "true"
+    #acme.cert-manager.io/http01-edit-in-place: "true"
+    #ingress.kubernetes.io/force-ssl-redirect: "true"
     nginx.ingress.kubernetes.io/proxy-body-size: 128m
     nginx.ingress.kubernetes.io/cors-allow-headers: X-Forwarded-For
     nginx.ingress.kubernetes.io/enable-cors: "true"
