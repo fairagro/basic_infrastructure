@@ -8,7 +8,7 @@ spec:
     #server: https://acme-staging-v02.api.letsencrypt.org/directory # staging
     server: https://acme-v02.api.letsencrypt.org/directory # production
     # Email address used for ACME registration
-    email: carsten.scharfenberg@zalf.de
+    email: "{{ .Values.cert_email_receiver }}"
     # Name of a secret used to store the ACME account private key
     privateKeySecretRef:
       name: cert-issuer-letsencrypt
@@ -29,9 +29,9 @@ spec:
     # The ACME server URL
     server: https://acme.sectigo.com/v2/OV
     # Email address used for ACME registration
-    email: carsten.scharfenberg@zalf.de
+    email: "{{ .Values.cert_email_receiver }}"
     externalAccountBinding:
-      keyID: OqJJqONZBNIdYFekHDIDRQ
+      keyID: "{{ .Values.geant_acme_key_id }}"
       keySecretRef:
         name: geant-acme-account-secret
         key: secret
