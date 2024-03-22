@@ -100,14 +100,17 @@ nextcloud:
         value: /tmp/postgresql.crt
 
     extraVolumeMounts:
+      # Script to install additional apps and configure nextcloud
       - name: installation-scripts
         mountPath: /docker-entrypoint-hooks.d/post-installation/post-installation.sh
         readOnly: true
         subPath: post-installation.sh
+      # Wait until the postgres database is available, otherwise nextcloud setup will fail
       - name: installation-scripts
         mountPath: /docker-entrypoint-hooks.d/pre-installation/wait-for-postgresql.sh
         readOnly: true
         subPath: wait-for-postgresql.sh
+      # Some additional templated config files
       - name: additional-config
         mountPath: /var/www/html/config/proxy.config.php
         subPath: proxy.config.php
@@ -132,6 +135,7 @@ nextcloud:
         authtype: LOGIN
 
     configs:
+      # Some additional non-templated config files
       misc.config.php: |
         <?php
         $CONFIG = array (
