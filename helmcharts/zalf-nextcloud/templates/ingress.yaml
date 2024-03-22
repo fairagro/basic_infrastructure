@@ -57,8 +57,12 @@ kind: Ingress
 metadata:
   annotations:
     cert-manager.io/issuer: letsencrypt
-    #acme.cert-manager.io/http01-edit-in-place: "true"
-    #ingress.kubernetes.io/force-ssl-redirect: "true"
+    cert-manager.io/email-sans: carsten.scharfenberg@zalf.de
+    cert-manager.io/subject-countries: "DE"
+    cert-manager.io/subject-organizations: "NFDI FAIRagro"
+    cert-manager.io/subject-organizationalunits: "Measure 4.1"
+    cert-manager.io/private-key-size: 4096
+    cert-manager.io/private-key-rotation-policy: Always
     nginx.ingress.kubernetes.io/proxy-body-size: 128m
     nginx.ingress.kubernetes.io/cors-allow-headers: X-Forwarded-For
     nginx.ingress.kubernetes.io/enable-cors: "true"
