@@ -43,7 +43,7 @@ data:
     # Set allowed CollaboraOffice hosts to talk to nextcloud
     {{ $collabora_server := (index .Values "collabora-online").collabora.server_name }}
     php /var/www/html/occ config:app:set richdocuments wopi_url --value=https://{{ $collabora_server }}:443
-    php /var/www/html/occ config:app:set richdocuments wopi_allowlist --value={{ .Values.allowed_collabora_ips }}
+    php /var/www/html/occ config:app:set richdocuments wopi_allowlist --value={{ join "," .Values.allowed_collabora_ips }}
 
     # add missing database indices
     php /var/www/html/occ db:add-missing-indices
