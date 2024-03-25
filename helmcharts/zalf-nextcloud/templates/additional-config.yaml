@@ -23,6 +23,10 @@ data:
 {{- end }}
 {{- if .Values.nextcloud_external_ingress.fqdn }}
         {{ $idx }} => '{{ .Values.nextcloud_external_ingress.fqdn }}',
+{{- $idx = add1 $idx -}}
+{{- end }}
+{{- if .Values.nextcloud_external_reverse_proxy.fqdn }}
+        {{ $idx }} => '{{ .Values.nextcloud_external_reverse_proxy.fqdn }}',
 {{- end }}
       ),
     );
