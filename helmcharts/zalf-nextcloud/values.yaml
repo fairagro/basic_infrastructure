@@ -534,5 +534,10 @@ collabora-online:
       nginx.ingress.kubernetes.io/proxy-body-size: "0"
       nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
       nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+      # block admin urls from outside
+      nginx.ingress.kubernetes.io/server-snippet: |
+        location /cool/getMetrics { deny all; return 403; }
+        location /cool/adminws/ { deny all; return 403; }
+        location /browser/dist/admin/admin.html { deny all; return 403; }
     hosts: ~
     tls: ~
