@@ -11,6 +11,9 @@ data:
         1 => '{{ .Values.allowed_reverse_proxy_ips }}',
       ),
       'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
+{{- if .Values.nextcloud_external_reverse_proxy.fqdn }}
+      'overwritehost' => '{{ .Values.nextcloud_external_reverse_proxy.fqdn }}',
+{{- end }}
     );
   trusted_domains.config.php: |
     <?php
