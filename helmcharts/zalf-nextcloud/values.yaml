@@ -10,19 +10,15 @@ allowed_reverse_proxy_ips: ~
 
 postgres_storageClass: ~
 
-nextcloud_internal_ingress:
-  fqdn: ~
-  crt: ~
-  key: ~
-nextcloud_external_ingress:
-  fqdn: ~
-  crt: ~
-  key: ~
-
 # ## Liveness and readiness probe values
 # ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
 # ##
 nextcloud:
+
+  podSecurityContext:
+    fsGroup: 5999 # user 'service_dis'
+    fsGroupChangePolicy: OnRootMismatch
+
   image:
     # Here we're actually using a hack:
     # The nextcloud helm chart does not support specifying an image digest hash. So we rely on the fact
