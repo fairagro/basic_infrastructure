@@ -13,7 +13,7 @@ data:
       'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
     );
   redis-session.ini: |
-    {{- $redis_host := template "nextcloud.redis.fullname" .Subcharts.nextcloud -}}
+    {{- $redis_host := include "nextcloud.redis.fullname" .Subcharts.nextcloud -}}
     {{- $redis_port := .Values.nextcloud.redis.master.service.ports.redis | default 6379 -}}
     {{- $redis_password := .Values.nextcloud.redis.auth.password -}}
     session.save_handler = redis
