@@ -16,9 +16,9 @@ postgres_storageClass: ~
 # ##
 nextcloud:
 
-  podSecurityContext:
-    fsGroup: 5999 # user 'service_dis'
-    fsGroupChangePolicy: OnRootMismatch
+  # podSecurityContext:
+  #   fsGroup: 5999 # user 'service_dis'
+  #   fsGroupChangePolicy: OnRootMismatch
 
   image:
     # Here we're actually using a hack:
