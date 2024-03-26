@@ -13,9 +13,9 @@ data:
       'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
     );
   redis-session.ini: |
-    {{- $redis_host := include "nextcloud.redis.fullname" .Subcharts.nextcloud -}}
-    {{- $redis_port := .Values.nextcloud.redis.master.service.ports.redis | default 6379 -}}
-    {{- $redis_password := .Values.nextcloud.redis.auth.password -}}
+    {{- $redis_host := include "nextcloud.redis.fullname" .Subcharts.nextcloud }}
+    {{- $redis_port := .Values.nextcloud.redis.master.service.ports.redis | default 6379 }}
+    {{- $redis_password := .Values.nextcloud.redis.auth.password }}
     session.save_handler = redis
     session.save_path = "tcp://{{ $redis_host }}:{{ $redis_port }}?auth={{ $redis_password }}"
     redis.session.locking_enabled = 1
