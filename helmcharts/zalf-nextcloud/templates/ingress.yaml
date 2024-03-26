@@ -1,112 +1,112 @@
-{{- if .Values.nextcloud_internal_ingress.fqdn }}
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  annotations:
-    ingress.kubernetes.io/force-ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/proxy-body-size: 128m
-    nginx.ingress.kubernetes.io/cors-allow-headers: X-Forwarded-For
-    nginx.ingress.kubernetes.io/enable-cors: "true"
-    nginx.ingress.kubernetes.io/server-snippet: |-
-      server_tokens off;
-      proxy_hide_header X-Powered-By;
-      rewrite ^/.well-known/webfinger /index.php/.well-known/webfinger last;
-      rewrite ^/.well-known/nodeinfo /index.php/.well-known/nodeinfo last;
-      rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
-      rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
-      location = /.well-known/carddav {
-        return 301 $scheme://$host/remote.php/dav;
-      }
-      location = /.well-known/caldav {
-        return 301 $scheme://$host/remote.php/dav;
-      }
-      location = /robots.txt {
-        allow all;
-        log_not_found off;
-        access_log off;
-      }
-      location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
-        deny all;
-      }
-      location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
-        deny all;
-      }
-  name: nextcloud-internal
-spec:
-  ingressClassName: nginx-internal
-  rules:
-    - host: "{{ .Values.nextcloud_internal_ingress.fqdn }}"
-      http:
-        paths:
-          - backend:
-              service:
-                name: nextcloud
-                port:
-                  number: 8080
-            path: /
-            pathType: Prefix
-  tls:
-    - hosts:
-        - "{{ .Values.nextcloud_internal_ingress.fqdn }}"
-      secretName: nextcloud-tls-secret-internal
----
-{{- end }}
-{{- if .Values.nextcloud_external_ingress.fqdn }}
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  annotations:
-    cert-manager.io/issuer: geant
-    cert-manager.io/private-key-size: "4096"
-    cert-manager.io/private-key-rotation-policy: "Always"
-    # It seems the subjects annotation do not have any effect.
-    # Still we keep them...
-    cert-manager.io/subject-countries: "DE"
-    cert-manager.io/subject-organizations: "NFDI FAIRagro"
-    cert-manager.io/subject-organizationalunits: "Measure 4.1"
-    nginx.ingress.kubernetes.io/proxy-body-size: 128m
-    nginx.ingress.kubernetes.io/cors-allow-headers: X-Forwarded-For
-    nginx.ingress.kubernetes.io/enable-cors: "true"
-    nginx.ingress.kubernetes.io/server-snippet: |-
-      server_tokens off;
-      proxy_hide_header X-Powered-By;
-      rewrite ^/.well-known/webfinger /index.php/.well-known/webfinger last;
-      rewrite ^/.well-known/nodeinfo /index.php/.well-known/nodeinfo last;
-      rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
-      rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
-      location = /.well-known/carddav {
-        return 301 $scheme://$host/remote.php/dav;
-      }
-      location = /.well-known/caldav {
-        return 301 $scheme://$host/remote.php/dav;
-      }
-      location = /robots.txt {
-        allow all;
-        log_not_found off;
-        access_log off;
-      }
-      location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
-        deny all;
-      }
-      location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
-        deny all;
-      }
-  name: nextcloud-external
-spec:
-  ingressClassName: nginx-external
-  rules:
-    - host: "{{ .Values.nextcloud_external_ingress.fqdn }}"
-      http:
-        paths:
-          - backend:
-              service:
-                name: nextcloud
-                port:
-                  number: 8080
-            path: /
-            pathType: Prefix
-  tls:
-    - hosts:
-        - "{{ .Values.nextcloud_external_ingress.fqdn }}"
-      secretName: nextcloud-tls-secret-external
-{{- end }}
+# {{- if .Values.nextcloud_internal_ingress.fqdn }}
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   annotations:
+#     ingress.kubernetes.io/force-ssl-redirect: "true"
+#     nginx.ingress.kubernetes.io/proxy-body-size: 128m
+#     nginx.ingress.kubernetes.io/cors-allow-headers: X-Forwarded-For
+#     nginx.ingress.kubernetes.io/enable-cors: "true"
+#     nginx.ingress.kubernetes.io/server-snippet: |-
+#       server_tokens off;
+#       proxy_hide_header X-Powered-By;
+#       rewrite ^/.well-known/webfinger /index.php/.well-known/webfinger last;
+#       rewrite ^/.well-known/nodeinfo /index.php/.well-known/nodeinfo last;
+#       rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
+#       rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
+#       location = /.well-known/carddav {
+#         return 301 $scheme://$host/remote.php/dav;
+#       }
+#       location = /.well-known/caldav {
+#         return 301 $scheme://$host/remote.php/dav;
+#       }
+#       location = /robots.txt {
+#         allow all;
+#         log_not_found off;
+#         access_log off;
+#       }
+#       location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
+#         deny all;
+#       }
+#       location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
+#         deny all;
+#       }
+#   name: nextcloud-internal
+# spec:
+#   ingressClassName: nginx-internal
+#   rules:
+#     - host: "{{ .Values.nextcloud_internal_ingress.fqdn }}"
+#       http:
+#         paths:
+#           - backend:
+#               service:
+#                 name: nextcloud
+#                 port:
+#                   number: 8080
+#             path: /
+#             pathType: Prefix
+#   tls:
+#     - hosts:
+#         - "{{ .Values.nextcloud_internal_ingress.fqdn }}"
+#       secretName: nextcloud-tls-secret-internal
+# ---
+# {{- end }}
+# {{- if .Values.nextcloud_external_ingress.fqdn }}
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   annotations:
+#     cert-manager.io/issuer: geant
+#     cert-manager.io/private-key-size: "4096"
+#     cert-manager.io/private-key-rotation-policy: "Always"
+#     # It seems the subjects annotation do not have any effect.
+#     # Still we keep them...
+#     cert-manager.io/subject-countries: "DE"
+#     cert-manager.io/subject-organizations: "NFDI FAIRagro"
+#     cert-manager.io/subject-organizationalunits: "Measure 4.1"
+#     nginx.ingress.kubernetes.io/proxy-body-size: 128m
+#     nginx.ingress.kubernetes.io/cors-allow-headers: X-Forwarded-For
+#     nginx.ingress.kubernetes.io/enable-cors: "true"
+#     nginx.ingress.kubernetes.io/server-snippet: |-
+#       server_tokens off;
+#       proxy_hide_header X-Powered-By;
+#       rewrite ^/.well-known/webfinger /index.php/.well-known/webfinger last;
+#       rewrite ^/.well-known/nodeinfo /index.php/.well-known/nodeinfo last;
+#       rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
+#       rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
+#       location = /.well-known/carddav {
+#         return 301 $scheme://$host/remote.php/dav;
+#       }
+#       location = /.well-known/caldav {
+#         return 301 $scheme://$host/remote.php/dav;
+#       }
+#       location = /robots.txt {
+#         allow all;
+#         log_not_found off;
+#         access_log off;
+#       }
+#       location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
+#         deny all;
+#       }
+#       location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
+#         deny all;
+#       }
+#   name: nextcloud-external
+# spec:
+#   ingressClassName: nginx-external
+#   rules:
+#     - host: "{{ .Values.nextcloud_external_ingress.fqdn }}"
+#       http:
+#         paths:
+#           - backend:
+#               service:
+#                 name: nextcloud
+#                 port:
+#                   number: 8080
+#             path: /
+#             pathType: Prefix
+#   tls:
+#     - hosts:
+#         - "{{ .Values.nextcloud_external_ingress.fqdn }}"
+#       secretName: nextcloud-tls-secret-external
+# {{- end }}

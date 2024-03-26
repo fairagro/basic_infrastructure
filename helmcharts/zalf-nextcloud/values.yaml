@@ -37,39 +37,49 @@ nextcloud:
     tag: d0d13d935eaa9219bfa89fd8213b3ede6431e04685f0a25f6f764f5e5dcfe990 # 28.0.2-fpm-alpine
     pullPolicy: IfNotPresent
 
-  # ingress:
-  #   enabled: true
-  #   className: nginx-internal
-  #   annotations:
-  #     # nginx.ingress.kubernetes.io/proxy-body-size: 4G
-  #     # kubernetes.io/tls-acme: "true"
-  #     # cert-manager.io/cluster-issuer: letsencrypt-prod
-  #     nginx.ingress.kubernetes.io/enable-cors: "true"
-  #     nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For"
-  #     nginx.ingress.kubernetes.io/server-snippet: |-
-  #       server_tokens off;
-  #       proxy_hide_header X-Powered-By;
-  #       rewrite ^/.well-known/webfinger /index.php/.well-known/webfinger last;
-  #       rewrite ^/.well-known/nodeinfo /index.php/.well-known/nodeinfo last;
-  #       rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
-  #       rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
-  #       location = /.well-known/carddav {
-  #         return 301 $scheme://$host/remote.php/dav;
-  #       }
-  #       location = /.well-known/caldav {
-  #         return 301 $scheme://$host/remote.php/dav;
-  #       }
-  #       location = /robots.txt {
-  #         allow all;
-  #         log_not_found off;
-  #         access_log off;
-  #       }
-  #       location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
-  #         deny all;
-  #       }
-  #       location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
-  #         deny all;
-  #       }
+  ingress:
+    enabled: true
+    className: nginx-external
+    annotations:
+      cert-manager.io/issuer: geant
+      cert-manager.io/private-key-size: "4096"
+      cert-manager.io/private-key-rotation-policy: "Always"
+      # It seems the subjects annotation do not have any effect.
+      # Still we keep them...
+      cert-manager.io/subject-countries: "DE"
+      cert-manager.io/subject-organizations: "NFDI FAIRagro"
+      cert-manager.io/subject-organizationalunits: "Measure 4.1"
+      nginx.ingress.kubernetes.io/proxy-body-size: 128m
+      nginx.ingress.kubernetes.io/cors-allow-headers: X-Forwarded-For
+      nginx.ingress.kubernetes.io/enable-cors: "true"
+      nginx.ingress.kubernetes.io/server-snippet: |-
+        server_tokens off;
+        proxy_hide_header X-Powered-By;
+        rewrite ^/.well-known/webfinger /index.php/.well-known/webfinger last;
+        rewrite ^/.well-known/nodeinfo /index.php/.well-known/nodeinfo last;
+        rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
+        rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
+        location = /.well-known/carddav {
+          return 301 $scheme://$host/remote.php/dav;
+        }
+        location = /.well-known/caldav {
+          return 301 $scheme://$host/remote.php/dav;
+        }
+        location = /robots.txt {
+          allow all;
+          log_not_found off;
+          access_log off;
+        }
+        location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
+          deny all;
+        }
+        location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
+          deny all;
+        }
+    labels:
+      app: nextcloud
+    path: /
+    pathType: Prefix
 
   nextcloud:
     datadir: /nextcloud_data
@@ -114,9 +124,9 @@ nextcloud:
       - name: additional-config
         mountPath: /var/www/html/config/proxy.config.php
         subPath: proxy.config.php
-      - name: additional-config
-        mountPath: /var/www/html/config/trusted_domains.config.php
-        subPath: trusted_domains.config.php
+      # - name: additional-config
+      #   mountPath: /var/www/html/config/trusted_domains.config.php
+      #   subPath: trusted_domains.config.php
     extraVolumes:
       - name: installation-scripts
         configMap:
