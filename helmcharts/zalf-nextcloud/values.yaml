@@ -9,7 +9,9 @@ allowed_collabora_ips: ~
 # This should be set yo the 'kube_pods_subnet' variable in the kubespray group_vars file 'k8s-cluster.yml'.
 allowed_reverse_proxy_ips: ~
 
-postgres_storageClass: ~
+postgres_db:
+  size: 4Gi
+  storageClass: ~
 
 # ## Liveness and readiness probe values
 # ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
@@ -405,14 +407,12 @@ nextcloud:
   persistence:
     # #   # Nextcloud Data (/var/www/html)
     enabled: true
-    storageClass: nfs-csi-delete
     # we setup an additional volume for the nextcloud data according to the hardening guide:
     # https://docs.nextcloud.com/server/28/admin_manual/installation/harden_server.html
     # NOTE: I did not succeed to set the required permissions 0770 for the additional nextcloud
     # data mount. So I disabled it for now.
     nextcloudData:
       enabled: true
-      storageClass: nfs-csi-delete
 
   nginx:
     enabled: true
