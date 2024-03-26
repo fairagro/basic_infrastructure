@@ -15,8 +15,8 @@ spec:
   enableReplicaPoolerLoadBalancer: false
   # size of the database in GByte
   volume:
-    size: 10Gi
-    storageClass: "{{ .Values.postgres_storageClass }}"
+    size: "{{ .Values.postgres_db.size }}"
+    storageClass: "{{ .Values.postgres_db.storageClass }}"
   resources:
     requests:
       cpu: "1"
