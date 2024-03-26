@@ -12,3 +12,9 @@ data:
       ),
       'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
     );
+  redis-session.ini: |
+    session.save_handler = redis
+    session.save_path = "tcp://{{ template "nextcloud.redis.fullname" }}:{{ .Values.nextcloud.redis.master.service.ports.redis | default 6379 | quote }}?auth={{ .Values.nextcloud.redis.auth.password }}"
+    redis.session.locking_enabled = 1
+    redis.session.lock_retries = -1
+    redis.session.lock_wait_time = 10000

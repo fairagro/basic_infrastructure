@@ -82,9 +82,9 @@ nextcloud:
     containerPort: 8080
 
     securityContext:
-      # runAsUser: 82
-      # runAsGroup: 82
-      # runAsNonRoot: true
+      runAsUser: 82
+      runAsGroup: 82
+      runAsNonRoot: true
       readOnlyRootFilesystem: false
       allowPrivilegeEscalation: false
       privileged: false
@@ -120,9 +120,9 @@ nextcloud:
       - name: additional-config
         mountPath: /var/www/html/config/proxy.config.php
         subPath: proxy.config.php
-      # - name: additional-config
-      #   mountPath: /var/www/html/config/trusted_domains.config.php
-      #   subPath: trusted_domains.config.php
+      - name: additional-config
+        mountPath: /usr/local/etc/php/conf.d/redis-session.ini
+        subPath: redis-session.ini
     extraVolumes:
       - name: installation-scripts
         configMap:
