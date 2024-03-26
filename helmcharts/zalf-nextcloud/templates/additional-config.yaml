@@ -12,18 +12,18 @@ data:
       ),
       'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
     );
-  trusted_domains.config.php: |
-    <?php
-    $CONFIG = array (
-      'trusted_domains' => array(
-{{- $idx := 0 | int -}}
-{{- if .Values.nextcloud_internal_ingress.fqdn }}
-        {{ $idx }} => '{{ .Values.nextcloud_internal_ingress.fqdn }}',
-{{- $idx = add1 $idx -}}
-{{- end }}
-{{- if .Values.nextcloud_external_ingress.fqdn }}
-        {{ $idx }} => '{{ .Values.nextcloud_external_ingress.fqdn }}',
-{{- $idx = add1 $idx -}}
-{{- end }}
-      ),
-    );
+#   trusted_domains.config.php: |
+#     <?php
+#     $CONFIG = array (
+#       'trusted_domains' => array(
+# {{- $idx := 0 | int -}}
+# {{- if .Values.nextcloud_internal_ingress.fqdn }}
+#         {{ $idx }} => '{{ .Values.nextcloud_internal_ingress.fqdn }}',
+# {{- $idx = add1 $idx -}}
+# {{- end }}
+# {{- if .Values.nextcloud_external_ingress.fqdn }}
+#         {{ $idx }} => '{{ .Values.nextcloud_external_ingress.fqdn }}',
+# {{- $idx = add1 $idx -}}
+# {{- end }}
+#       ),
+#     );
