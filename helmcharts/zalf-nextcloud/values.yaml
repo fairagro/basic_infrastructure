@@ -16,10 +16,6 @@ postgres_storageClass: ~
 # ##
 nextcloud:
 
-  podSecurityContext:
-    fsGroup: 5999 # user 'service_dis'
-    fsGroupChangePolicy: OnRootMismatch
-
   image:
     # Here we're actually using a hack:
     # The nextcloud helm chart does not support specifying an image digest hash. So we rely on the fact
@@ -82,10 +78,11 @@ nextcloud:
     datadir: /nextcloud_data
     containerPort: 8080
 
+    podSecurityContext:
+      fsGroup: 5999 # user 'service_dis'
+      fsGroupChangePolicy: OnRootMismatch
+
     securityContext:
-      # runAsUser: 82
-      # runAsGroup: 82
-      # runAsNonRoot: true
       readOnlyRootFilesystem: false
       allowPrivilegeEscalation: false
       privileged: false
@@ -94,10 +91,6 @@ nextcloud:
       #     - CAP_SETUID
       #   drop:
       #     - ALL
-
-    podSecurityContext:
-      fsGroup: 82
-      fsGroupChangePolicy: OnRootMismatch
 
     extraEnv:
       # Fix the postgres connection issue
