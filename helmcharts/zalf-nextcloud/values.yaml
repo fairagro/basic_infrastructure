@@ -4,8 +4,9 @@
 # oidc_login_client_secret: "eoqeT1vQfBDoEDOEMEkRKul6BAF4aYSN"
 oidc_login_client_id: nextcloud
 
-# These should be set yo the 'kube_pods_subnet' variable in the kubespray group_vars file 'k8s-cluster.yml'.
+# This is the collabora IP, possibly the external reverse proxy
 allowed_collabora_ips: ~
+# This should be set yo the 'kube_pods_subnet' variable in the kubespray group_vars file 'k8s-cluster.yml'.
 allowed_reverse_proxy_ips: ~
 
 postgres_storageClass: ~
