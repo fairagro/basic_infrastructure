@@ -79,7 +79,6 @@ nextcloud:
     containerPort: 8080
 
     podSecurityContext:
-      fsGroup: 5999 # user 'service_dis'
       fsGroupChangePolicy: OnRootMismatch
 
     securityContext:
