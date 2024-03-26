@@ -15,7 +15,6 @@ postgres_storageClass: ~
 # ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
 # ##
 nextcloud:
-
   # podSecurityContext:
   #   fsGroup: 5999 # user 'service_dis'
   #   fsGroupChangePolicy: OnRootMismatch
@@ -96,7 +95,7 @@ nextcloud:
       #     - ALL
 
     podSecurityContext:
-      fsGroup: 82
+      fsGroup: 5999
       fsGroupChangePolicy: OnRootMismatch
 
     extraEnv:
