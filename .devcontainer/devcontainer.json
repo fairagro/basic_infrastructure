@@ -106,7 +106,8 @@
 				"meezilla.json",
 				"adamhartford.vscode-base64",
 				"redhat.vscode-yaml",
-				"rogalmic.bash-debug"
+				"rogalmic.bash-debug",
+				"davidanson.vscode-markdownlint"
 			],
 			"settings": {
 				"sops.creationEnabled": true,
