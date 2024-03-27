@@ -462,11 +462,9 @@ nextcloud:
       requests:
         cpu: 100m
         memory: 128Mi
-      # Cron needs root permissions
-      securityContext:
-        runAsUser: 0
-        runAsGroup: 0
-        runAsNonRoot: false
+      # Cron runs with root permissions (the default for the nextcloud image that is used for cron).
+      # Root permissions are needed by cron.
+      securityContext: {}
 
   redis:
     enabled: true
