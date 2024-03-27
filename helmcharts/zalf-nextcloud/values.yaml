@@ -80,6 +80,7 @@ nextcloud:
     containerPort: 8080
 
     podSecurityContext:
+      fsGroup: 82
       fsGroupChangePolicy: OnRootMismatch
 
     securityContext:
