@@ -376,29 +376,26 @@ nextcloud:
 
   resources:
     limits:
-      cpu: 2
+      cpu: "2"
       memory: 4Gi
     requests:
-      cpu: 2
+      cpu: "2"
       memory: 4Gi
 
   livenessProbe:
     enabled: true
-    initialDelaySeconds: 0
     periodSeconds: 10
     timeoutSeconds: 5
     failureThreshold: 3
     successThreshold: 1
   readinessProbe:
     enabled: true
-    initialDelaySeconds: 0
     periodSeconds: 10
     timeoutSeconds: 5
     failureThreshold: 3
     successThreshold: 1
   startupProbe: # the entrypoint copies 600MB data to the NFS volumes which may take some time
     enabled: true
-    initialDelaySeconds: 0
     periodSeconds: 10
     timeoutSeconds: 5
     failureThreshold: 300
@@ -464,7 +461,7 @@ nextcloud:
         memory: 128Mi
       # Cron runs with root permissions (the default for the nextcloud image that is used for cron).
       # Root permissions are needed by cron.
-      securityContext: {}
+      # securityContext: {}
 
   redis:
     enabled: true
@@ -479,10 +476,10 @@ nextcloud:
     master:
       resources:
         requests:
-          cpu: 1
+          cpu: "1"
           memory: 512Mi
         limits:
-          cpu: 1
+          cpu: "1"
           memory: 512Mi
       persistence:
         enabled: false
