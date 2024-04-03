@@ -3,6 +3,25 @@ postgres_db:
   storageClass: ~
 
 gitlab:
+  certmanager:
+    install: false
+
+  # unfortunately we cannot deactivate the certmanager-issuer
+  certmanager-issuer:
+    email: dummy@zalf.de # won't be used but required by chart
+
+  postgresql:
+    install: false
+
+  nginx-ingress:
+    enabled: false
+
+  nginx-ingress-geo:
+    enabled: false
+
+  prometheus:
+    install: false
+
   global:
     edition: ce
 
