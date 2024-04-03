@@ -1,0 +1,39 @@
+postgres_db:
+  size: 10Gi
+  storageClass: ~
+
+gitlab:
+  global:
+    edition: ce
+
+    hosts:
+      domain: fairagro.net
+      hostSuffix: test
+      https: true
+
+    ingress:
+      configureCertmanager: true
+      useNewIngressForCerts: false
+      provider: nginx
+      class: nginx-external
+      annotations:
+        cert-manager.io/issuer: geant
+        cert-manager.io/private-key-size: "4096"
+        cert-manager.io/private-key-rotation-policy: "Always"
+        # It seems the subjects annotation do not have any effect.
+        # Still we keep them...
+        cert-manager.io/subject-countries: "DE"
+        cert-manager.io/subject-organizations: "NFDI FAIRagro"
+        cert-manager.io/subject-organizationalunits: "Measure 4.1"
+      enabled: true
+      path: /
+      pathType: Prefix
+
+    psql:
+      password:
+        secret: gitlab.fairagro-postgresql-gitlab.credentials.postgresql.acid.zalan.do
+        key: password
+      host: fairagro-postgresql-gitlab
+      port: 5432
+      username: gitlab
+      database: gitlab
