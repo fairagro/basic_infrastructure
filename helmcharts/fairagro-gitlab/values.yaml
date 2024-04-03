@@ -22,7 +22,11 @@ gitlab:
   prometheus:
     install: false
 
+  upgradeCheck:
+    enabled: false # Workaround. Otherwise gitlab won't install.
+
   global:
+    time_zone: Europe/Berlin
     edition: ce
 
     hosts:
@@ -31,7 +35,7 @@ gitlab:
       https: true
 
     ingress:
-      configureCertmanager: true
+      configureCertmanager: false
       useNewIngressForCerts: false
       provider: nginx
       class: nginx-external
