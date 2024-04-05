@@ -34,9 +34,9 @@ gitlab:
       hostSuffix: test
       https: true
 
-    initialRootPassword:
-      secret: gitlab-root-password
-      key: secret
+    # initialRootPassword:
+    #   secret: gitlab-root-password
+    #   key: secret
 
     ingress:
       configureCertmanager: false
