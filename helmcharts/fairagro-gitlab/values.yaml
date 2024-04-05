@@ -7,8 +7,8 @@ gitlab:
     install: false
 
   # unfortunately we cannot deactivate the certmanager-issuer
-  certmanager-issuer:
-    email: dummy@zalf.de # won't be used but required by chart
+  # certmanager-issuer:
+  #   email: dummy@zalf.de # won't be used but required by chart
 
   postgresql:
     install: false
@@ -60,3 +60,49 @@ gitlab:
       port: 5432
       username: gitlab
       database: gitlab
+
+  gitlab:
+    webservices:
+      ingress:
+        enabled: true
+        secretName: gitlab-webservices-tls-secret
+        # annotations:
+        #   nginx.ingress.kubernetes.io/service-upstream: "true"
+        #   cert-manager.io/issuer: geant
+        #   cert-manager.io/private-key-size: "4096"
+        #   cert-manager.io/private-key-rotation-policy: "Always"
+        #   # It seems the subjects annotation do not have any effect.
+        #   # Still we keep them...
+        #   cert-manager.io/subject-countries: "DE"
+        #   cert-manager.io/subject-organizations: "NFDI FAIRagro"
+        #   cert-manager.io/subject-organizationalunits: "Measure 4.1"
+
+  registry:
+    ingress:
+      enabled: true
+      secretName: gitlab-registry-tls-secret
+      # annotations:
+      #   nginx.ingress.kubernetes.io/service-upstream: "true"
+      #   cert-manager.io/issuer: geant
+      #   cert-manager.io/private-key-size: "4096"
+      #   cert-manager.io/private-key-rotation-policy: "Always"
+      #   # It seems the subjects annotation do not have any effect.
+      #   # Still we keep them...
+      #   cert-manager.io/subject-countries: "DE"
+      #   cert-manager.io/subject-organizations: "NFDI FAIRagro"
+      #   cert-manager.io/subject-organizationalunits: "Measure 4.1"
+
+  minio:
+    ingress:
+      enabled: true
+      secretName: gitlab-minio-tls-secret
+      # annotations:
+      #   nginx.ingress.kubernetes.io/service-upstream: "true"
+      #   cert-manager.io/issuer: geant
+      #   cert-manager.io/private-key-size: "4096"
+      #   cert-manager.io/private-key-rotation-policy: "Always"
+      #   # It seems the subjects annotation do not have any effect.
+      #   # Still we keep them...
+      #   cert-manager.io/subject-countries: "DE"
+      #   cert-manager.io/subject-organizations: "NFDI FAIRagro"
+      #   cert-manager.io/subject-organizationalunits: "Measure 4.1"
