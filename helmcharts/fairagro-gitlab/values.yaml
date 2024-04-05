@@ -39,6 +39,9 @@ gitlab:
       useNewIngressForCerts: false
       provider: nginx
       class: nginx-external
+      tls:
+        enabled: true
+        secretName: gitlab-tls-dummy-secret
       annotations:
         cert-manager.io/issuer: geant
         cert-manager.io/private-key-size: "4096"
