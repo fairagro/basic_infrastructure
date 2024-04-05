@@ -1,5 +1,6 @@
 cloudflare_api_token: ENC[AES256_GCM,data:CgG2E+GqTB/eC1nuHvZ73/AsswsKHewJ7g/1NWsW2BubGvmlT5pBXA==,iv:hYPsNcehQtZerO0P5pvfXwuW4RMsDAOmW3CFdaqh8+E=,tag:pwTuokcVhI3QEb6cZvBlUw==,type:str]
 geant_acme_hmac_key: ENC[AES256_GCM,data:LEkFSzobamQ2A/Ghu8GaKK2f4mKu/ZgIMu1U1pLn4zEr0U8L2tIzWTMRrTy7alAAGkStidpY5mV2NxbR+Ua+McX+/lO4ncOiicrLf+HRJsFrMcb9axo=,iv:0Z+HgeE/HsUU91VMudtTThlZcVGLAeU65lrsSv5VnsE=,tag:mfCyL7rrwqlkC+ZEYuSr6Q==,type:str]
+gitlab_root_password: ENC[AES256_GCM,data:BXR2bttHocZWpE99oMFzMwU/a8bmVKpEVgA37rhEHbWEyIuP4cOOxSg=,iv:6+FBwFSfcGWn9t3/rf/nH9tFmGZyVEBMjaQUDB3eEL4=,tag:clu97ZeHcJf2YjWhSQWmwQ==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -15,8 +16,8 @@ sops:
             RFMrL1ZPUml5UHpEdXEyQ2hndkVuUncKdEudSVLioChnjgXtEQE7gdFl1aibCzNa
             4QTmJSDEcCg76xJoxsvIiHer4F26aaX6eIohTBA+jrNZJfcdfi3VmQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-04-03T16:05:28Z"
-    mac: ENC[AES256_GCM,data:i2TRlu47N6+nldX/eZSy0+DkiY71q9ntoNbssH5799itoGnFQ/dxgFS5AjwIeV5XIJhOeXJY7o/vD18iuLur/CNh9R22qWcIgQvgSCj5fxODrIMtKyHMJKp18VAhiqt+kA7CteS2VbQzDQ0diWZ3pnf4iF9ITRgqsverhKh20cc=,iv:4UbQ7stZOqBv/EDjUAo8j0fhNT+zBINF3Hf77hi3yvU=,tag:1lstk+0FusFhEg/wNCR7bg==,type:str]
+    lastmodified: "2024-04-05T16:53:49Z"
+    mac: ENC[AES256_GCM,data:5t8T8127jweNVjvn+AcoPZtQJTPeZm4rXiqMLFzDm6lpOUUdspGvuS+aH9B6/Q7OTPhRPgrYSUjRxiWIUSnpRTkhkaJ8UcGnWnVThrPJHi9nBEgyHS0QTAHbNB8mzQWxzTpo42QjP8Oy/aPBb69z/Z7KjYoe1v9cIHesdxg134E=,iv:/0z8VkBizkRXJEvNjIz69mmqjcVkaiSE7xbeS7VO8AU=,tag:UnaiC8Aa7TRaIFNPXNZ+Tw==,type:str]
     pgp:
         - created_at: "2024-04-03T16:05:10Z"
           enc: |-

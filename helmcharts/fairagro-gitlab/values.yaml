@@ -1,3 +1,7 @@
+gitlab_root_password: ~
+cloudflare_api_token: ~
+geant_acme_hmac_key: ~
+
 postgres_db:
   size: 10Gi
   storageClass: ~
@@ -5,10 +9,6 @@ postgres_db:
 gitlab:
   certmanager:
     install: false
-
-  # unfortunately we cannot deactivate the certmanager-issuer
-  # certmanager-issuer:
-  #   email: dummy@zalf.de # won't be used but required by chart
 
   postgresql:
     install: false
@@ -34,11 +34,18 @@ gitlab:
       hostSuffix: test
       https: true
 
+    initialRootPassword:
+      secret: gitlab-root-password
+      key: secret
+
     ingress:
       configureCertmanager: false
       useNewIngressForCerts: false
       provider: nginx
       class: nginx-external
+      tls:
+        enabled: true
+        secretName: gitlab-tls-dummy-secret
       annotations:
         cert-manager.io/issuer: geant
         cert-manager.io/private-key-size: "4096"
