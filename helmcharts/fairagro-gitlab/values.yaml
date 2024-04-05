@@ -67,8 +67,25 @@ gitlab:
   gitlab:
     webservices:
       ingress:
+        tls:
+          enabled: true
+          secretName: gitlab-webservices-tls-secret
+          # annotations:
+          #   nginx.ingress.kubernetes.io/service-upstream: "true"
+          #   cert-manager.io/issuer: geant
+          #   cert-manager.io/private-key-size: "4096"
+          #   cert-manager.io/private-key-rotation-policy: "Always"
+          #   # It seems the subjects annotation do not have any effect.
+          #   # Still we keep them...
+          #   cert-manager.io/subject-countries: "DE"
+          #   cert-manager.io/subject-organizations: "NFDI FAIRagro"
+          #   cert-manager.io/subject-organizationalunits: "Measure 4.1"
+
+  registry:
+    ingress:
+      tls:
         enabled: true
-        secretName: gitlab-webservices-tls-secret
+        secretName: gitlab-registry-tls-secret
         # annotations:
         #   nginx.ingress.kubernetes.io/service-upstream: "true"
         #   cert-manager.io/issuer: geant
@@ -80,32 +97,18 @@ gitlab:
         #   cert-manager.io/subject-organizations: "NFDI FAIRagro"
         #   cert-manager.io/subject-organizationalunits: "Measure 4.1"
 
-  registry:
-    ingress:
-      enabled: true
-      secretName: gitlab-registry-tls-secret
-      # annotations:
-      #   nginx.ingress.kubernetes.io/service-upstream: "true"
-      #   cert-manager.io/issuer: geant
-      #   cert-manager.io/private-key-size: "4096"
-      #   cert-manager.io/private-key-rotation-policy: "Always"
-      #   # It seems the subjects annotation do not have any effect.
-      #   # Still we keep them...
-      #   cert-manager.io/subject-countries: "DE"
-      #   cert-manager.io/subject-organizations: "NFDI FAIRagro"
-      #   cert-manager.io/subject-organizationalunits: "Measure 4.1"
-
   minio:
     ingress:
-      enabled: true
-      secretName: gitlab-minio-tls-secret
-      # annotations:
-      #   nginx.ingress.kubernetes.io/service-upstream: "true"
-      #   cert-manager.io/issuer: geant
-      #   cert-manager.io/private-key-size: "4096"
-      #   cert-manager.io/private-key-rotation-policy: "Always"
-      #   # It seems the subjects annotation do not have any effect.
-      #   # Still we keep them...
-      #   cert-manager.io/subject-countries: "DE"
-      #   cert-manager.io/subject-organizations: "NFDI FAIRagro"
-      #   cert-manager.io/subject-organizationalunits: "Measure 4.1"
+      tls:
+        enabled: true
+        secretName: gitlab-minio-tls-secret
+        # annotations:
+        #   nginx.ingress.kubernetes.io/service-upstream: "true"
+        #   cert-manager.io/issuer: geant
+        #   cert-manager.io/private-key-size: "4096"
+        #   cert-manager.io/private-key-rotation-policy: "Always"
+        #   # It seems the subjects annotation do not have any effect.
+        #   # Still we keep them...
+        #   cert-manager.io/subject-countries: "DE"
+        #   cert-manager.io/subject-organizations: "NFDI FAIRagro"
+        #   cert-manager.io/subject-organizationalunits: "Measure 4.1"
