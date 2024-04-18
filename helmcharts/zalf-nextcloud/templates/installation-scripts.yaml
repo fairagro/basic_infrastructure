@@ -45,5 +45,35 @@ data:
     php /var/www/html/occ config:app:set richdocuments wopi_url --value=https://{{ $collabora_server }}:443
     php /var/www/html/occ config:app:set richdocuments wopi_allowlist --value={{ join "," .Values.allowed_collabora_ips }}
 
+    # install Calendar plugin
+    php /var/www/html/occ app:install calendar
+
+    # install Kanban plugin
+    php /var/www/html/occ app:install deck
+
+    # install announcement plugin
+    php /var/www/html/occ app:install announcementcenter
+
+    # install OIDC plugin
+    php /var/www/html/occ app:install oidc_login
+
+    # enable brute force protection plugin
+    php /var/www/html/occ app:enable bruteforcesettings
+
+    # deactivate weather status plugin
+    php /var/www/html/occ app:disable weather_status
+
+    # deactivate usage data collection plugin (this data is sent to the nextcloud developers)
+    php /var/www/html/occ app:disable survey_client
+
+    # deactivate nextcloud support plugin
+    php /var/www/html/occ app:disable support
+
+    # deactivate annoying first login wizard plugin
+    php /var/www/html/occ app:disable firstrunwizard
+
+    # deactivate user status plugin which could violate the DSGVO
+    php /var/www/html/occ app:disable user_status
+
     # add missing database indices
     php /var/www/html/occ db:add-missing-indices
