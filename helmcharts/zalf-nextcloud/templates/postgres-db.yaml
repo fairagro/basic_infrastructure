@@ -17,13 +17,14 @@ spec:
   volume:
     size: "{{ .Values.postgres_db.size }}"
     storageClass: "{{ .Values.postgres_db.storageClass }}"
+  # The database is burstable
   resources:
     requests:
-      cpu: "1"
-      memory: 2Gi
+      cpu: 15m
+      memory: 105M
     limits:
-      memory: 2Gi
-      cpu: "1"
+      cpu: 52m
+      memory: 3784M
   # number of replicas, this can improve performance and failsafe
   numberOfInstances: 2
   # list of users and there rights
