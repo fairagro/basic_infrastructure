@@ -39,13 +39,13 @@ data:
       'oidc_login_auto_redirect' => false,
 
       // Redirect to this page after logging out the user
-      'oidc_login_logout_url' => '{{ .Values.oidc_login_logout_url | default "null" }}',
+      'oidc_login_logout_url' => {{ (quote .Values.oidc_login_logout_url) | default null }},
 
       // If set to true the user will be redirected to the
       // logout endpoint of the OIDC provider after logout
       // in Nextcloud. After successfull logout the OIDC
       // provider will redirect back to 'oidc_login_logout_url' (MUST be set).
-      'oidc_login_end_session_redirect' => {{ ternary "true" "false" (empty .Values.oidc_login_logout_url) }},
+      'oidc_login_end_session_redirect' => {{ ternary "false" "true" (empty .Values.oidc_login_logout_url) }},
 
       // Quota to assign if no quota is specified in the OIDC response (bytes)
       //
