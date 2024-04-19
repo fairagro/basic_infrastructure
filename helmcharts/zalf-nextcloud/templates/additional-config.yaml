@@ -45,7 +45,7 @@ data:
       // logout endpoint of the OIDC provider after logout
       // in Nextcloud. After successfull logout the OIDC
       // provider will redirect back to 'oidc_login_logout_url' (MUST be set).
-      'oidc_login_end_session_redirect' => false
+      'oidc_login_end_session_redirect' => false,
 
       // Quota to assign if no quota is specified in the OIDC response (bytes)
       //
