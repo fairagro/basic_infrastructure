@@ -30,6 +30,9 @@ nextcloud:
     tag: d0d13d935eaa9219bfa89fd8213b3ede6431e04685f0a25f6f764f5e5dcfe990 # 28.0.2-fpm-alpine
     pullPolicy: IfNotPresent
 
+  deploymentAnnotations:
+    checksum/additional-config: "{{ include (print $.Template.BasePath '/additional-config.yaml') . | sha256sum }}"
+
   ingress:
     enabled: true
     className: nginx-external
@@ -42,7 +45,6 @@ nextcloud:
       cert-manager.io/subject-countries: "DE"
       cert-manager.io/subject-organizations: "NFDI FAIRagro"
       cert-manager.io/subject-organizationalunits: "Measure 4.1"
-      nginx.ingress.kubernetes.io/proxy-body-size: 128m
       nginx.ingress.kubernetes.io/cors-allow-headers: X-Forwarded-For
       nginx.ingress.kubernetes.io/enable-cors: "true"
       nginx.ingress.kubernetes.io/server-snippet: |-
