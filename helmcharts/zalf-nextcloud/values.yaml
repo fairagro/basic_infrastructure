@@ -1,5 +1,4 @@
 oidc_login_provider_url: ~
-oidc_login_logout_url: ~
 oidc_login_client_secret: ~
 oidc_login_client_id: ~
 
