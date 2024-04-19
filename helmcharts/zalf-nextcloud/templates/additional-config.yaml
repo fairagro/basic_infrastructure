@@ -113,9 +113,9 @@ data:
       // note: on Keycloak, OIDC name claim = "${given_name} ${family_name}" or one of them if any is missing
       //
       'oidc_login_attributes' => array (
-          'id' => 'voperson_id',
+          'id' => 'preferred_username',
           'name' => 'name',
-          'mail' => 'voperson_verified_email ',
+          'mail' => 'email ',
           //'quota' => 'ownCloudQuota',
           //'home' => 'homeDirectory',
           //'ldap_uid' => 'uid',
