@@ -39,13 +39,13 @@ data:
       'oidc_login_auto_redirect' => false,
 
       // Redirect to this page after logging out the user
-      'oidc_login_logout_url' => {{ ternary "null" (.Values.oidc_login_logout_url | quote) (empty .Values.oidc_login_logout_url) }},
+      'oidc_login_logout_url' => 'https://{{ .Values.nextcloud.nextcloud.host }}',
 
       // If set to true the user will be redirected to the
       // logout endpoint of the OIDC provider after logout
       // in Nextcloud. After successfull logout the OIDC
       // provider will redirect back to 'oidc_login_logout_url' (MUST be set).
-      'oidc_login_end_session_redirect' => {{ ternary "false" "true" (empty .Values.oidc_login_logout_url) }},
+      'oidc_login_end_session_redirect' => false
 
       // Quota to assign if no quota is specified in the OIDC response (bytes)
       //
@@ -113,20 +113,20 @@ data:
       // note: on Keycloak, OIDC name claim = "${given_name} ${family_name}" or one of them if any is missing
       //
       'oidc_login_attributes' => array (
-          'id' => 'preferred_username',
+          'id' => 'voperson_id',
           'name' => 'name',
-          'mail' => 'email',
+          'mail' => 'voperson_verified_email ',
           //'quota' => 'ownCloudQuota',
           //'home' => 'homeDirectory',
           //'ldap_uid' => 'uid',
-          //'groups' => 'nextCloudGroups',
-          //'login_filter' => 'nextCloudGroups',
+          'groups' => 'entitlements',
+          'login_filter' => 'entitlements',
           //'photoURL' => 'picture',
           //'is_admin' => 'ownCloudAdmin',
       ),
 
       // Default group to add users to (optional, defaults to nothing)
-      'oidc_login_default_group' => 'FAIRagro',
+      // 'oidc_login_default_group' => 'FAIRagro',
 
       // DEPRECATED: This option will be removed in a future release. Use
       // 'login_filter' and 'oidc_login_filter_allowed_values' instead.
@@ -137,7 +137,7 @@ data:
       //
       // Must be specified as an array of groups that are allowed to access Nextcloud.
       // e.g. 'oidc_login_allowed_groups' => array('group1', 'group2')
-      'oidc_login_allowed_groups' => null,
+      // 'oidc_login_allowed_groups' => array('FAIRagro'),
 
       // Allow only users in configured value(s) to access Nextcloud. In case the user
       // is not assigned to this value (read from oidc_login_attributes) the login
@@ -145,7 +145,7 @@ data:
       //
       // Must be specified as an array of values (e.g. roles) that are allowed to
       // access Nextcloud. e.g. 'oidc_login_filter_allowed_values' => array('role1', 'role2')
-      // 'oidc_login_filter_allowed_values' => array('user', 'admin'),
+      'oidc_login_filter_allowed_values' => array('urn:geant:dfn.de:nfdi.de:group:FAIRagro#auth.didmos.nfdi-aai.de'),
 
       // Use external storage instead of a symlink to the home directory
       // Requires the files_external app to be enabled
