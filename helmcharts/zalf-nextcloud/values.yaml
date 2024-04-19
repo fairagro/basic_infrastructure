@@ -31,7 +31,7 @@ nextcloud:
     pullPolicy: IfNotPresent
 
   deploymentAnnotations:
-    checksum/additional-config: "{{ include (print $.Template.BasePath '/additional-config.yaml') . | sha256sum }}"
+    checksum/additional-config: {{ include (print $.Template.BasePath "/additional-config.yaml") . | sha256sum }}
 
   ingress:
     enabled: true
