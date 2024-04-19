@@ -113,7 +113,7 @@ data:
       // note: on Keycloak, OIDC name claim = "${given_name} ${family_name}" or one of them if any is missing
       //
       'oidc_login_attributes' => array (
-          'id' => 'preferred_username',
+          'id' => '${sub}+${iss}',
           'name' => 'name',
           'mail' => 'email ',
           //'quota' => 'ownCloudQuota',
