@@ -31,7 +31,7 @@ nextcloud:
     pullPolicy: IfNotPresent
 
   deploymentAnnotations:
-    checksum/additional-config: {{ include "kubernetes/helmcharts/zalf-nextcloud/templates/additional-config.yaml" . | sha256sum }}
+    checksum/additional-config: {{ include "additional-config.yaml" . | sha256sum }}
 
   ingress:
     enabled: true
