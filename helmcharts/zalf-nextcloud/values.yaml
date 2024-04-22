@@ -490,9 +490,11 @@ collabora-online:
     enabled: false
 
   securityContext:
-    capabilities:
-      add:
-        - MKNOD
+    privileged: true
+    # capabilities:
+    #   add:
+    #     - CHROOT
+    #     - MKNOD
 
   collabora:
     aliasgroups:
