@@ -256,11 +256,11 @@ nextcloud:
       password: ~
     architecture: standalone
     master:
-      # redis is burstable
+      # redis is guaranteed
       resources:
         requests:
-          cpu: 100m
-          memory: 200M
+          cpu: 1
+          memory: 1G
         limits:
           cpu: 1
           memory: 1G
