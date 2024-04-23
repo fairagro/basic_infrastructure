@@ -20,10 +20,10 @@ spec:
   # The database is burstable
   resources:
     requests:
-      cpu: 2
+      cpu: '2'
       memory: 2G
     limits:
-      cpu: 4
+      cpu: '4'
       memory: 8G
   # number of replicas, this can improve performance and failsafe
   numberOfInstances: 2
