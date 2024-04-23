@@ -24,20 +24,6 @@ If release name contains chart name it will be used as a full name.
 {{- end }}
 
 {{/*
-The full image name including version tag or digest
-*/}}
-{{- define "fairagro-onlyoffice.imagename" -}}
-{{- $repositoryName := .Values.image.repository -}}
-{{- $separator := ":" -}}
-{{- $termination := .Values.image.tag | default .Chart.AppVersion | toString -}}
-{{- if .Values.image.digest }}
-    {{- $separator = "@" -}}
-    {{- $termination = .Values.image.digest | toString -}}
-{{- end -}}
-{{- printf "%s%s%s"  $repositoryName $separator $termination -}}
-{{- end -}}
-
-{{/*
 Create chart name and version as used by the chart label.
 */}}
 {{- define "fairagro-onlyoffice.chart" -}}
@@ -76,8 +62,15 @@ Create the name of the service account to use
 {{- end }}
 
 {{/*
-Create the name of the postgres database
+The full image name including version tag or digest
 */}}
-{{- define "fairagro-onlyoffice.serviceAccountName" -}}
-{{- printf "%s-%s" {{ include "fairagro-onlyoffice.name" . }} .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
-{{- end }}
+{{- define "fairagro-onlyoffice.imagename" -}}
+{{- $repositoryName := .Values.image.repository -}}
+{{- $separator := ":" -}}
+{{- $termination := .Values.image.tag | default .Chart.AppVersion | toString -}}
+{{- if .Values.image.digest }}
+    {{- $separator = "@" -}}
+    {{- $termination = .Values.image.digest | toString -}}
+{{- end -}}
+{{- printf "%s%s%s"  $repositoryName $separator $termination -}}
+{{- end -}}

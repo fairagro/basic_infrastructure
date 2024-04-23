@@ -34,7 +34,7 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: {{ include "fairagro-onlyoffice.imagename" }}
+          image: {{ include "fairagro-onlyoffice.imagename" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
