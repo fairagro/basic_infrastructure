@@ -32,11 +32,11 @@ nextcloud:
   # nextcloud is burstable
   resources:
     requests:
-      cpu: 34m
-      memory: 183M
+      cpu: 2
+      memory: 4Gi
     limits:
-      cpu: 162m
-      memory: 3222M
+      cpu: 4
+      memory: 8Gi
 
   ingress:
     enabled: true
@@ -157,14 +157,6 @@ nextcloud:
           'maintenance_window_start' => 1,     // run background jobs at 1am
         );
 
-  resources:
-    limits:
-      cpu: "2"
-      memory: 4Gi
-    requests:
-      cpu: "2"
-      memory: 4Gi
-
   livenessProbe:
     enabled: true
     periodSeconds: 10
@@ -207,11 +199,11 @@ nextcloud:
     # nginx is burstable
     resources:
       requests:
-        cpu: 10m
-        memory: 94M
+        cpu: 100m
+        memory: 200Mi
       limits:
-        cpu: 16m
-        memory: 216M
+        cpu: 2
+        memory: 1Gi
     containerPort: 8080
     config:
       default: true
@@ -239,11 +231,11 @@ nextcloud:
     # the cronjob container is burstable
     resources:
       requests:
-        cpu: 10m
-        memory: 35M
+        cpu: 100m
+        memory: 50M
       limits:
-        cpu: 34m
-        memory: 95M
+        cpu: 1
+        memory: 1G
       # Cron runs with root permissions (the default for the nextcloud image that is used for cron).
       # Root permissions are needed by cron.
       # securityContext: {}
@@ -262,11 +254,11 @@ nextcloud:
       # redis is burstable
       resources:
         requests:
-          cpu: 15m
-          memory: 105M
+          cpu: 100m
+          memory: 200M
         limits:
-          cpu: 16m
-          memory: 105M
+          cpu: 1
+          memory: 1G
       persistence:
         enabled: false
 
@@ -274,6 +266,8 @@ nextcloud:
 ### Collabora Online Settings ###
 #################################
 collabora-online:
+  replicaCount: 2
+
   image:
     repository: collabora/code@sha256
     tag: e0c7ff3cf4ccd49a590980cf83f46f8efd9456f9d173f92d1acfd3f41be09319 # 23.05.9.1.1
@@ -296,11 +290,11 @@ collabora-online:
   # collabora is burstable
   resources:
     requests:
-      cpu: 15m
-      memory: 1554M
+      cpu: 4
+      memory: 6Gi
     limits:
-      cpu: 16m
-      memory: 2590M
+      cpu: 8
+      memory: 8Gi
 
   ingress:
     enabled: true
