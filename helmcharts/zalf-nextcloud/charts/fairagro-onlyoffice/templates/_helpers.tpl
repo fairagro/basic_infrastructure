@@ -61,7 +61,7 @@ Selector labels
 */}}
 {{- define "zalf-onlyoffice.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "zalf-onlyoffice.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/instance: "{{ .Release.Name }}"
 {{- end }}
 
 {{/*
