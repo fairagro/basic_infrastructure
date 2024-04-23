@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "zalf-onlyoffice.fullname" . }}
+  name: {{ include "fairagro-onlyoffice.fullname" . }}
   labels:
-    {{- include "zalf-onlyoffice.labels" . | nindent 4 }}
+    {{- include "fairagro-onlyoffice.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -12,4 +12,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- include "zalf-onlyoffice.selectorLabels" . | nindent 4 }}
+    {{- include "fairagro-onlyoffice.selectorLabels" . | nindent 4 }}

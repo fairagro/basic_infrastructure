@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "zalf-onlyoffice.name" -}}
+{{- define "fairagro-onlyoffice.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "zalf-onlyoffice.fullname" -}}
+{{- define "fairagro-onlyoffice.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,7 +26,7 @@ If release name contains chart name it will be used as a full name.
 {{/*
 The full image name including version tag or digest
 */}}
-{{- define "zalf-onlyoffice.imagename" -}}
+{{- define "fairagro-onlyoffice.imagename" -}}
 {{- $repositoryName := .Values.image.repository -}}
 {{- $separator := ":" -}}
 {{- $termination := .Values.image.tag | default .Chart.AppVersion | toString -}}
@@ -40,16 +40,16 @@ The full image name including version tag or digest
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "zalf-onlyoffice.chart" -}}
+{{- define "fairagro-onlyoffice.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "zalf-onlyoffice.labels" -}}
-helm.sh/chart: {{ include "zalf-onlyoffice.chart" . }}
-{{ include "zalf-onlyoffice.selectorLabels" . }}
+{{- define "fairagro-onlyoffice.labels" -}}
+helm.sh/chart: {{ include "fairagro-onlyoffice.chart" . }}
+{{ include "fairagro-onlyoffice.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -59,17 +59,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "zalf-onlyoffice.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "zalf-onlyoffice.name" . }}
-app.kubernetes.io/instance: "{{ .Release.Name }}"
+{{- define "fairagro-onlyoffice.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "fairagro-onlyoffice.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "zalf-onlyoffice.serviceAccountName" -}}
+{{- define "fairagro-onlyoffice.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "zalf-onlyoffice.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "fairagro-onlyoffice.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
@@ -78,6 +78,6 @@ Create the name of the service account to use
 {{/*
 Create the name of the postgres database
 */}}
-{{- define "zalf-onlyoffice.serviceAccountName" -}}
-{{- printf "%s-%s" {{ include "zalf-onlyoffice.name" . }} .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+{{- define "fairagro-onlyoffice.serviceAccountName" -}}
+{{- printf "%s-%s" {{ include "fairagro-onlyoffice.name" . }} .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}

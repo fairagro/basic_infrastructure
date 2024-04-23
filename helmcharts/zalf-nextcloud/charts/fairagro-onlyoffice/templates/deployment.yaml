@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "zalf-onlyoffice.fullname" . }}
+  name: {{ include "fairagro-onlyoffice.fullname" . }}
   labels:
-    {{- include "zalf-onlyoffice.labels" . | nindent 4 }}
+    {{- include "fairagro-onlyoffice.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "zalf-onlyoffice.selectorLabels" . | nindent 6 }}
+      {{- include "fairagro-onlyoffice.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,7 +18,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "zalf-onlyoffice.labels" . | nindent 8 }}
+        {{- include "fairagro-onlyoffice.labels" . | nindent 8 }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -27,14 +27,14 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "zalf-onlyoffice.serviceAccountName" . }}
+      serviceAccountName: {{ include "fairagro-onlyoffice.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: {{ include "zalf-onlyoffice.imagename" }}
+          image: {{ include "fairagro-onlyoffice.imagename" }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
