@@ -23,6 +23,6 @@ dependencies:
   - name: nextcloud
     version: 4.6.4
     repository: https://nextcloud.github.io/helm/
-  # - name: collabora-online
-  #   version: 1.1.11
-  #   repository: https://collaboraonline.github.io/online/
+  - name: collabora-online
+    version: 1.1.11
+    repository: https://collaboraonline.github.io/online/
