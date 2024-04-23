@@ -130,9 +130,9 @@ nextcloud:
       - name: additional-config
         mountPath: /usr/local/etc/php/conf.d/redis-session.ini
         subPath: redis-session.ini
-      - name: php-fpm-conf    # replace default www.conf, refer to https://tideways.com/profiler/blog/an-introduction-to-php-fpm-tuning
+      - name: additional-config
         mountPath: /usr/local/etc/php-fpm.d/www.conf
-        subPath: www.conf
+        subPath: www.conf  # replace default www.conf, refer to https://tideways.com/profiler/blog/an-introduction-to-php-fpm-tuning
     extraVolumes:
       - name: installation-scripts
         configMap:
