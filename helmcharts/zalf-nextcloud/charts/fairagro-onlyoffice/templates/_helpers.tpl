@@ -74,3 +74,17 @@ The full image name including version tag or digest
 {{- end -}}
 {{- printf "%s%s%s"  $repositoryName $separator $termination -}}
 {{- end -}}
+
+{{/*
+The name of the database object
+/*}}
+{{- define "fairagro-onlyoffice.database_name" -}}
+{{- printf "%s-%s" (include "fairagro-onlyoffice.fullname" .) "postgresql" | trunc 63 | trimSuffix "-" }}
+{{- end -}}
+
+{{/*
+The database credentials secret name
+*/}}
+{{- define "fairagro-onlyoffice.database_secret" -}}
+{{- printf "%s.%s.credentials.postgresql.acid.zalan.do" .Values.postgres.username (include "fairagro-onlyoffice.database_name" .) }}
+{{- end }}

@@ -3,7 +3,7 @@ apiVersion: "acid.zalan.do/v1"
 kind: postgresql
 metadata:
   # name of the postgres cluster / this could be build from input from the intranet website
-  name: {{ include "fairagro-onlyoffice.fullname" . }}-postgresql
+  name: {{ include "fairagro-onlyoffice.database_name" . }}
 spec:
   # teamIds can be defined for the hole cluster and are there to group cluster e.g. by working group
   # must be configured in the postgres-operator yaml before using them here.
@@ -15,8 +15,8 @@ spec:
   enableReplicaPoolerLoadBalancer: false
   # size of the database in GByte
   volume:
-    size: 10Gi
-    storageClass: nfs-csi-delete
+    size: {{ .Values.postgres.dbsize }}
+    storageClass: {{ .Values.postgres.storageClass }}
   resources:
     requests:
       cpu: "1"
@@ -29,15 +29,15 @@ spec:
   # list of users and there rights
   users:
     # database owner
-    onlyoffice:
+    {{ .Values.postgres.username }}:
       - superuser
       - createdb
 
   # database and owner definition
   # databases: name->owner
   databases:
-    onlyoffice: onlyoffice
-  preparedDatabases:
+    {{ .Values.postgres.dbname }}: {{ .Values.postgres.username }}
+  {{ .Values.postgres.dbname }}:
     onlyoffice:
       schemas:
         public: {}

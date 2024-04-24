@@ -2,6 +2,12 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+postgres:
+  storageClass: nfs-csi-delete
+  dbsize: 1Gi
+  username: onlyoffice
+  dbname: onlyoffice
+
 replicaCount: 1
 
 image:
@@ -16,7 +22,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 env:
-  DB_TYPE: postgres
+  JWT_ENABLED: false # it's unclear what JWT is good for in the context of OnlyOffice. So we disable it.
 
 serviceAccount:
   # Specifies whether a service account should be created

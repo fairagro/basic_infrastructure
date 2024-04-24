@@ -46,12 +46,26 @@ spec:
             {{- toYaml .Values.readinessProbe | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.env }}
-          {{- range $key, $value := . }}
           env:
+            - name: DB_TYPE
+              value: postgres
+            - name: DB_HOST
+              value: {{ include "fairagro-onlyoffice.database_name" . }}
+            - name: DB_PORT
+              value: 5432
+            - name: DB_NAME
+              value: onlyoffice
+            - name: DB_USER
+              valueFrom:
+                name: {{ include "fairagro-onlyoffice.database_secret" . }}
+                key: username
+            - name: DB_PWD
+              valueFrom:
+                name: {{ include "fairagro-onlyoffice.database_secret" . }}
+                key: password
+          {{- range $key, $value := .Values.env }}
             - name: {{ $key }}
               value: {{ $value }}
-          {{- end }}
           {{- end }}
           {{- with .Values.volumeMounts }}
           volumeMounts:
