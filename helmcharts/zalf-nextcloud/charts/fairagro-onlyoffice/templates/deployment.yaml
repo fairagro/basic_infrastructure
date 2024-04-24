@@ -44,7 +44,7 @@ spec:
             - name: DB_PORT
               value: "5432"
             - name: DB_NAME
-              value: onlyoffice
+              value: {{ .Values.postgres.dbname }}
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
@@ -64,10 +64,18 @@ spec:
             - /bin/bash
             - -c
             - >
-              until psql -h "$DB_HOST" -U "$DB_USER" -d "$DB_NAME" -p "$DB_PORT" -c "SELECT 1" >/dev/null 2>&1; do
+              MAX_RETRIES=10
+              retry_count=0
+              until psql -h "$DB_HOST" -U "$DB_USER" -d "$DB_NAME" -p "$DB_PORT" -c "SELECT 1" >/dev/null 2>&1 || [ "$retry_count" -eq "$MAX_RETRIES" ]; do
                 echo "Waiting for database to be ready..."
                 sleep 5
+                retry_count=$((retry_count + 1))
               done
+              if [ "$retry_count" -eq "$MAX_RETRIES" ]; then
+                echo "Could not connect after ${MAX_RETRIES} attempts!"
+              else
+                echo "Done!"
+              fi
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -92,7 +100,7 @@ spec:
             - name: DB_PORT
               value: "5432"
             - name: DB_NAME
-              value: onlyoffice
+              value: {{ .Values.postgres.dbname }}
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
