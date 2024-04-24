@@ -30,6 +30,7 @@ spec:
       serviceAccountName: {{ include "fairagro-onlyoffice.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+{{/*
       # initContainers:
       #  - name: {{ .Chart.Name }}-wait-for-postgres
       #     securityContext:
@@ -68,6 +69,7 @@ spec:
       #           echo "Waiting for database to be ready..."
       #           sleep 5
       #         done
+*/}}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
