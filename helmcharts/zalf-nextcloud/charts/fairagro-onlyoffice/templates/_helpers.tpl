@@ -95,3 +95,10 @@ The name of the database object
 {{- define "fairagro-onlyoffice.databasename" -}}
 {{- printf "%s-%s" (include "fairagro-onlyoffice.fullname" .) "postgresql" | trunc 63 | trimSuffix "-" }}
 {{- end }}
+
+{{/*
+The name of the configuration object
+*/}}
+{{- define "fairagro-onlyoffice.config" -}}
+{{- printf "%s-%s" (include "fairagro-onlyoffice.fullname" .) "config" }}
+{{- end }}

@@ -125,12 +125,18 @@ spec:
             - name: {{ $key }}
               value: {{ $value | quote }}
           {{- end }}
-          {{- with .Values.volumeMounts }}
           volumeMounts:
+            - name: onlyoffice-config
+              subPath: default.json
+              mountPath: /etc/onlyoffice/documentserver/default.json
+          {{- with .Values.volumeMounts }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
-      {{- with .Values.volumes }}
       volumes:
+        - name: onlyoffice-config
+          configMap:
+            name: "{{ include "fairagro-onlyoffice.config". }}"
+      {{- with .Values.volumes }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.nodeSelector }}
