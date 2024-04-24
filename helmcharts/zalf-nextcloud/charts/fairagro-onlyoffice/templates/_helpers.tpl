@@ -69,6 +69,13 @@ The database credentials secret name
 {{- end }}
 
 {{/*
+The onlyoffice jwt token secret name
+*/}}
+{{- define "fairagro-onlyoffice.jwt_secret" -}}
+{{- printf "%s-%s" (include "fairagro-onlyoffice.fullname" .) "jwt-secret" }}
+{{- end }}
+
+{{/*
 The full image name including version tag or digest
 */}}
 {{- define "fairagro-onlyoffice.imagename" -}}

@@ -15,6 +15,8 @@ collabora-online:
     collabora:
         username: ENC[AES256_GCM,data:j7YEivI=,iv:P14cxkZRGx+Ta0ZDS8B60BQZ51In3N0JcBZNl6RwJZM=,tag:VtWwxfAsuXmj9aPxnIOhoA==,type:str]
         password: ENC[AES256_GCM,data:NGMgeG8uxW3Y3w/oyZVxAqO2aREiSHF4OaKcusOn,iv:NQhxB6OSHU5360Q0Gpao07uTcEIvuLTc7qZNLUsIXNY=,tag:c3jgqQC0HK8BKdzk/E0MGw==,type:str]
+fairagro-onlyoffice:
+    jwt_secret: ENC[AES256_GCM,data:DV9u4okcaKl0OAb/ABjvLebuSFjJUzZH3z2j1ABhZfOAUUWmXMtl8COTiULKXCd+VmBB/f2xBF72tensbqjCS6tFUUtg3W1szmbCtWJ6b7FfwKl4qgmiqM36TkA4Ow1FJEaU+g==,iv:Fy52AQtQZ939Rpzcl3nlt35Mo7z6B7kT6sTNTazTO0s=,tag:l2kwbSZz59Nj7Tu0OwL1hQ==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -30,8 +32,8 @@ sops:
             STVldHVmT2orUG5IT2VTbkFUNnJobjAKf4uGJWniY0TklAQsUZcCTeBg19jFUfYB
             3mMdK4BEdoaDn0x+mtUasnO28BNUpoGCZONT45tgZMhUyvlCv7UNbw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-04-23T17:15:03Z"
-    mac: ENC[AES256_GCM,data:uikL0ITXjGPhLbpCjFnYBa7pMWEaso2nB5py4Gv2yDuDdKsRiw5XHoKriUP0RbnBGDoXM0TWpDvwSwnDaZ+pAryJeUZlZf7HoRf/A4OY4O+LjK/VHOLNoRAcTTK0PodKmkvlGhLPDwEoyEcdHbC6xdxGXli2Q6OLu4vPZ/TEkNE=,iv:tH2p31wPCanHNa+2YlrTdNZXx6P0U24RfvpD0a1tCsM=,tag:QyAAUv7BE24Zbt8FT8xu5w==,type:str]
+    lastmodified: "2024-04-24T13:15:02Z"
+    mac: ENC[AES256_GCM,data:UvZrqmb2CF727e/OmWoIfTEHJqgH9Y+BupYHALhS5k9mv+MrU2JMKaynK4lun/1AgpkOWthhc1cMEIHwrceCPkX8lY1GullmHkPmdPfJTvill3NR4vnp6YsL+yfuhQs/SDAkNA9CkJeDo3QzQEFdrYBYDaAZXIilqWsvcslpDSA=,iv:TwB0jnpqZwz7IIuwNbQHhhEgeRKI8bPPbkW8KtfZqxQ=,tag:IguFQ/75tCcD/KkEzcZPWg==,type:str]
     pgp:
         - created_at: "2024-04-23T17:15:03Z"
           enc: |-

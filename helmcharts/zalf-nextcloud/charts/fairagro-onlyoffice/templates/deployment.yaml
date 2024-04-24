@@ -67,6 +67,11 @@ spec:
                   key: password
             - name: PGSSLCERT   # postgres workaround for connection error due to "no encryption"
               value: /tmp/postgresql.crt
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "fairagro-onlyoffice.jwt_secret" . }}
+                  key: secret
           {{- range $key, $value := .Values.env }}
             - name: {{ $key }}
               value: {{ $value | quote }}

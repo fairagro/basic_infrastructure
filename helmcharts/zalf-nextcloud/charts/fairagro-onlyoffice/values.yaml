@@ -2,6 +2,8 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+jwt_secret: ~
+
 postgres:
   storageClass: nfs-csi-delete
   dbsize: 1Gi
@@ -21,8 +23,7 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-env:
-  JWT_ENABLED: false # it's unclear what JWT is good for in the context of OnlyOffice. So we disable it.
+env: []
 
 serviceAccount:
   # Specifies whether a service account should be created
