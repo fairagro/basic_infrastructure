@@ -62,6 +62,13 @@ Create the name of the service account to use
 {{- end }}
 
 {{/*
+The database credentials secret name
+*/}}
+{{- define "fairagro-onlyoffice.database_secret" -}}
+{{- printf "%s.%s.credentials.postgresql.acid.zalan.do" .Values.postgres.username (include "fairagro-onlyoffice.databasename" .) }}
+{{- end }}
+
+{{/*
 The full image name including version tag or digest
 */}}
 {{- define "fairagro-onlyoffice.imagename" -}}
@@ -77,14 +84,7 @@ The full image name including version tag or digest
 
 {{/*
 The name of the database object
-/*}}
-{{- define "fairagro-onlyoffice.database_name" -}}
-{{- printf "%s-%s" (include "fairagro-onlyoffice.fullname" .) "postgresql" | trunc 63 | trimSuffix "-" }}
-{{- end -}}
-
-{{/*
-The database credentials secret name
 */}}
-{{- define "fairagro-onlyoffice.database_secret" -}}
-{{- printf "%s.%s.credentials.postgresql.acid.zalan.do" .Values.postgres.username (include "fairagro-onlyoffice.database_name" .) }}
+{{- define "fairagro-onlyoffice.databasename" -}}
+{{- printf "%s-%s" (include "fairagro-onlyoffice.fullname" .) "postgresql" | trunc 63 | trimSuffix "-" }}
 {{- end }}
