@@ -57,12 +57,12 @@ spec:
               value: onlyoffice
             - name: DB_USER
               valueFrom:
-                secretRef:
+                secretKeyRef:
                   name: {{ include "fairagro-onlyoffice.database_secret" . }}
                   key: username
             - name: DB_PWD
               valueFrom:
-                secretRef:
+                secretKeyRef:
                   name: {{ include "fairagro-onlyoffice.database_secret" . }}
                   key: password
           {{- range $key, $value := .Values.env }}
