@@ -22,7 +22,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 env:
-  JWT_ENABLED: "false" # it's unclear what JWT is good for in the context of OnlyOffice. So we disable it.
+  JWT_ENABLED: false # it's unclear what JWT is good for in the context of OnlyOffice. So we disable it.
 
 serviceAccount:
   # Specifies whether a service account should be created

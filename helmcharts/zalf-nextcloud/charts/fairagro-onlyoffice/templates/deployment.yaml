@@ -65,7 +65,7 @@ spec:
                 key: password
           {{- range $key, $value := .Values.env }}
             - name: {{ $key }}
-              value: {{ $value }}
+              value: {{ $value | quote }}
           {{- end }}
           {{- with .Values.volumeMounts }}
           volumeMounts:
