@@ -3,7 +3,7 @@ apiVersion: "acid.zalan.do/v1"
 kind: postgresql
 metadata:
   # name of the postgres cluster / this could be build from input from the intranet website
-  name: '{{ include "fairagro-onlyoffice.fullname" . }}'
+  name: '{{ include "fairagro-onlyoffice.databasename" . }}'
 spec:
   # teamIds can be defined for the hole cluster and are there to group cluster e.g. by working group
   # must be configured in the postgres-operator yaml before using them here.
@@ -29,15 +29,15 @@ spec:
   # list of users and there rights
   users:
     # database owner
-    {{ .Values.postgres.username }}:
+    { { .Values.postgres.username } }:
       - superuser
       - createdb
 
   # database and owner definition
   # databases: name->owner
   databases:
-    {{ .Values.postgres.dbname }}: "{{ .Values.postgres.username }}"
-  {{ .Values.postgres.dbname }}:
+    { { .Values.postgres.dbname } }: "{{ .Values.postgres.username }}"
+  { { .Values.postgres.dbname } }:
     onlyoffice:
       schemas:
         public: {}
