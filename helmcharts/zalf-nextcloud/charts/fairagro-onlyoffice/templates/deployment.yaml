@@ -60,7 +60,7 @@ spec:
               value: /tmp/postgresql.crt
             - name: PGSSLMODE
               value: require
-          args:
+          command:
             - /bin/bash
             - -c
             - >
