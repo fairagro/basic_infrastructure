@@ -29,16 +29,16 @@ spec:
   # list of users and there rights
   users:
     # database owner
-    "{{ .Values.postgres.username }}":
+    {{ .Values.postgres.username }}:
       - superuser
       - createdb
 
   # database and owner definition
   # databases: name->owner
   databases:
-    "{{ .Values.postgres.dbname }}": "{{ .Values.postgres.username }}"
+    {{ .Values.postgres.dbname }}: "{{ .Values.postgres.username }}"
   preparedDatabases:
-    "{{ .Values.postgres.dbname }}":
+    {{ .Values.postgres.dbname }}:
       schemas:
         public: {}
 
