@@ -65,6 +65,8 @@ spec:
                 secretKeyRef:
                   name: {{ include "fairagro-onlyoffice.database_secret" . }}
                   key: password
+            - name: PGSSLCERT   # postgres workaround for connection error due to "no encryption"
+              value: /tmp/postgresql.crt
           {{- range $key, $value := .Values.env }}
             - name: {{ $key }}
               value: {{ $value | quote }}
