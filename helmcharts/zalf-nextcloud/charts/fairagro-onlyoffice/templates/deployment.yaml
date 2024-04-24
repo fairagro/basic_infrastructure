@@ -31,7 +31,7 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       initContainers:
-       - name: {{ .Chart.Name }}-wait-for-postgres
+        - name: {{ .Chart.Name }}-wait-for-postgres
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: {{ include "fairagro-onlyoffice.imagename" . }}
