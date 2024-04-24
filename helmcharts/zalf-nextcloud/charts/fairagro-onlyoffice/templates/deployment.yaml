@@ -52,7 +52,7 @@ spec:
             - name: DB_HOST
               value: {{ include "fairagro-onlyoffice.databasename" . }}
             - name: DB_PORT
-              value: 5432
+              value: "5432"
             - name: DB_NAME
               value: onlyoffice
             - name: DB_USER
