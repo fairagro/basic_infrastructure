@@ -21,7 +21,7 @@ data:
     redis.session.locking_enabled = 1
     redis.session.lock_retries = -1
     redis.session.lock_wait_time = 10000
-  www.conf: |
+  php-fpm-www.conf: |
     ; Start a new pool named 'www'.
     ; the variable $pool can be used in any directive and will be replaced by the
     ; pool name ('www' here)
@@ -163,7 +163,7 @@ data:
     ; The desired maximum number of idle server processes.
     ; Note: Used only when pm is set to 'dynamic'
     ; Note: Mandatory when pm is set to 'dynamic'
-    pm.max_spare_servers = 8
+    pm.max_spare_servers = 12
 
     ; The number of rate to spawn child processes at once.
     ; Note: Used only when pm is set to 'dynamic'

@@ -34,10 +34,10 @@ nextcloud:
   # nextcloud is burstable
   resources:
     requests:
-      cpu: '2'
+      cpu: "2"
       memory: 6Gi
     limits:
-      cpu: '4'
+      cpu: "4"
       memory: 8Gi
 
   ingress:
@@ -132,7 +132,7 @@ nextcloud:
         subPath: redis-session.ini
       - name: additional-config
         mountPath: /usr/local/etc/php-fpm.d/www.conf
-        subPath: www.conf  # replace default www.conf, refer to https://tideways.com/profiler/blog/an-introduction-to-php-fpm-tuning
+        subPath: php-fpm-www.conf # replace default www.conf, refer to https://tideways.com/profiler/blog/an-introduction-to-php-fpm-tuning
     extraVolumes:
       - name: installation-scripts
         configMap:
@@ -210,7 +210,7 @@ nextcloud:
         cpu: 100m
         memory: 200Mi
       limits:
-        cpu: '2'
+        cpu: "2"
         memory: 1Gi
     containerPort: 8080
     config:
@@ -242,7 +242,7 @@ nextcloud:
         cpu: 100m
         memory: 50M
       limits:
-        cpu: '1'
+        cpu: "1"
         memory: 1G
       # Cron runs with root permissions (the default for the nextcloud image that is used for cron).
       # Root permissions are needed by cron.
@@ -262,10 +262,10 @@ nextcloud:
       # redis is guaranteed
       resources:
         requests:
-          cpu: '1'
+          cpu: "1"
           memory: 1G
         limits:
-          cpu: '1'
+          cpu: "1"
           memory: 1G
       persistence:
         enabled: false
@@ -274,7 +274,6 @@ nextcloud:
 ### Collabora Online Settings ###
 #################################
 collabora-online:
-
   replicaCount: 2
 
   image:
@@ -301,10 +300,10 @@ collabora-online:
   # collabora is burstable
   resources:
     requests:
-      cpu: '4'
+      cpu: "4"
       memory: 6Gi
     limits:
-      cpu: '8'
+      cpu: "8"
       memory: 8Gi
 
   ingress:
