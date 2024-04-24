@@ -135,7 +135,7 @@ spec:
       volumes:
         - name: onlyoffice-config
           configMap:
-            name: "{{ include "fairagro-onlyoffice.config". }}"
+            name: "{{ include "fairagro-onlyoffice.config" . }}"
       {{- with .Values.volumes }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
