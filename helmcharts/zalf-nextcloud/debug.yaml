@@ -294,7 +294,7 @@ data:
     $CONFIG = array (
       'maintenance_window_start' => 1,     // run background jobs at 1am
     );
-    
+
   misc.config.php: |-
     <?php
     $CONFIG = array (
@@ -302,7 +302,7 @@ data:
       'overwriteprotocol' => 'https',
       'check_data_directory_permissions' => false,
     );
-    
+
   .htaccess: |-
     # line below if for Apache 2.4
     <ifModule mod_authz_core.c>
@@ -1112,7 +1112,7 @@ data:
     php /var/www/html/occ app:install richdocuments
 
     # Set allowed CollaboraOffice hosts to talk to nextcloud
-    
+
     php /var/www/html/occ config:app:set richdocuments wopi_url --value=https://collabora.fairagro.net:443
     php /var/www/html/occ config:app:set richdocuments wopi_allowlist --value=161.97.79.221
 
@@ -1215,7 +1215,7 @@ metadata:
     app.kubernetes.io/instance: test
     app.kubernetes.io/managed-by: Helm
   annotations:
-    
+
 spec:
   type: ClusterIP
   clusterIP: None
@@ -1312,8 +1312,7 @@ spec:
     spec:
       terminationGracePeriodSeconds: 60
       serviceAccountName: default
-      securityContext:
-        {}
+      securityContext: {}
       containers:
         - name: collabora-online
           securityContext:
@@ -1407,12 +1406,10 @@ spec:
         app.kubernetes.io/managed-by: Helm
     spec:
       serviceAccountName: test-fairagro-onlyoffice
-      securityContext:
-        {}
+      securityContext: {}
       containers:
         - name: fairagro-onlyoffice
-          securityContext:
-            {}
+          securityContext: {}
           image: onlyoffice/documentserver@sha256:5ed447a097b368e97de8c25ba5ef53c425acfa1bb084e33b8a0de4a7a1e2099c
           imagePullPolicy: IfNotPresent
           ports:
@@ -1427,8 +1424,7 @@ spec:
             httpGet:
               path: /
               port: http
-          resources:
-            {}
+          resources: {}
           env:
             - name: DB_TYPE
               value: postgres
@@ -1447,7 +1443,7 @@ spec:
                 name: onlyoffice.test-fairagro-onlyoffice-postgresql.credentials.postgresql.acid.zalan.do
                 key: password
             - name: JWT_ENABLED
-              value: false
+              value: "false"
           volumeMounts:
             - mountPath: /var/lib/onlyoffice
               name: file-cache
@@ -1494,7 +1490,6 @@ spec:
           image: nextcloud@sha256:d0d13d935eaa9219bfa89fd8213b3ede6431e04685f0a25f6f764f5e5dcfe990
           imagePullPolicy: IfNotPresent
           env:
-            
             - name: POSTGRES_HOST
               value: "fairagro-postgresql-nextcloud"
             - name: POSTGRES_DB
@@ -1646,7 +1641,7 @@ spec:
           livenessProbe:
             httpGet:
               path: /status.php
-              port:  8080
+              port: 8080
               httpHeaders:
                 - name: Host
                   value: "nextcloud.fairagro.net"
@@ -1658,7 +1653,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /status.php
-              port:  8080
+              port: 8080
               httpHeaders:
                 - name: Host
                   value: "nextcloud.fairagro.net"
@@ -1670,7 +1665,7 @@ spec:
           startupProbe:
             httpGet:
               path: /status.php
-              port:  8080
+              port: 8080
               httpHeaders:
                 - name: Host
                   value: "nextcloud.fairagro.net"
@@ -1734,7 +1729,6 @@ spec:
           command:
             - /cron.sh
           env:
-            
             - name: POSTGRES_HOST
               value: "fairagro-postgresql-nextcloud"
             - name: POSTGRES_DB
@@ -1929,14 +1923,13 @@ spec:
         checksum/scripts: 2aac2f97c06a0111c214a61148978d6ef9057ea2f344674b276cfc096bc309fa
         checksum/secret: e4da88e225c2a6d49b6740f9188c3d643e271a55beb5cf529dc55a431368b094
     spec:
-      
       securityContext:
         fsGroup: 1001
       serviceAccountName: test-redis
       automountServiceAccountToken: true
       affinity:
         podAffinity:
-          
+
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
             - podAffinityTerm:
@@ -1948,7 +1941,7 @@ spec:
                 topologyKey: kubernetes.io/hostname
               weight: 1
         nodeAffinity:
-          
+
       terminationGracePeriodSeconds: 30
       containers:
         - name: redis
@@ -2183,7 +2176,7 @@ spec:
                   number: 8080
   tls:
     - hosts:
-      - nextcloud.fairagro.net
+        - nextcloud.fairagro.net
       secretName: nextcloud-tls-secret
 ---
 # Source: zalf-nextcloud/templates/issuers.yaml
@@ -2243,7 +2236,7 @@ apiVersion: "acid.zalan.do/v1"
 kind: postgresql
 metadata:
   # name of the postgres cluster / this could be build from input from the intranet website
-  name: 'test-fairagro-onlyoffice'
+  name: "test-fairagro-onlyoffice"
 spec:
   # teamIds can be defined for the hole cluster and are there to group cluster e.g. by working group
   # must be configured in the postgres-operator yaml before using them here.
@@ -2311,10 +2304,10 @@ spec:
   # The database is burstable
   resources:
     requests:
-      cpu: '2'
+      cpu: "2"
       memory: 2G
     limits:
-      cpu: '4'
+      cpu: "4"
       memory: 8G
   # number of replicas, this can improve performance and failsafe
   numberOfInstances: 2
@@ -2357,6 +2350,6 @@ spec:
   containers:
     - name: wget
       image: busybox
-      command: ['wget']
-      args: ['test-fairagro-onlyoffice:80']
+      command: ["wget"]
+      args: ["test-fairagro-onlyoffice:80"]
   restartPolicy: Never
