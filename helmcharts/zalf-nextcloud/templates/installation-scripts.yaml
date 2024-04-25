@@ -55,7 +55,7 @@ data:
     php /var/www/html/occ app:install onlyoffice
 
     # Set allowed CollaboraOffice hosts to talk to nextcloud
-    {{ $onlyoffice_server := (index .Values "fairagro-onlyoffice").ingress.hosts[0].host }}
+    {{ $onlyoffice_server := (first (index .Values "fairagro-onlyoffice").ingress.hosts).host }}
     {{ $jwt_secret := (index .Values "fairagro-onlyoffice").jwt_secret }}
     php /var/www/html/occ config:app:set onlyoffice DocumentServerUrl --value=https://{{ $onlyoffice_server }}/
     php /var/www/html/occ config:app:set onlyoffice jwt_secret --value={{ $jwt_secret }}
