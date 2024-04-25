@@ -130,7 +130,7 @@ spec:
               subPath: local.json
               # this file name is required, according to:
               # https://forum.onlyoffice.com/t/docker-relation-between-default-json-and-local-json/2232/6
-              mountPath: /etc/onlyoffice/documentserver/local-production-linux.json.json
+              mountPath: /etc/onlyoffice/documentserver/local-production-linux.json
           {{- with .Values.volumeMounts }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
