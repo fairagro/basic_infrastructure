@@ -3,6 +3,8 @@ kind: ConfigMap
 metadata:
   name: "{{ include "fairagro-onlyoffice.config" . }}"
 data:
+  # the postgres operator makes use of self-signed certificates, so we need to tell
+  # onlyoffice to skip the certificate validation.
   local.json: |
     {
       "services": {
