@@ -274,6 +274,8 @@ nextcloud:
 ### Collabora Online Settings ###
 #################################
 collabora-online:
+  enabled: false
+
   replicaCount: 2
 
   image:

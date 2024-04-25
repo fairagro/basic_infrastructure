@@ -26,4 +26,6 @@ dependencies:
   - name: collabora-online
     version: 1.1.11
     repository: https://collaboraonline.github.io/online/
-  # - name: fairagro-onlyoffice
+    condition: collabora-online.enabled
+  - name: fairagro-onlyoffice
+    condition: fairagro-onlyoffice.enabled

@@ -37,13 +37,29 @@ data:
   post-installation.sh: |
     #!/usr/bin/env sh
 
-    # install NextcloudOffice plugin
+    {{ $collabora_enabled = (index .Values "collabora-online").enabled }}
+    {{ $onlyoffice_enabled = (index .Values "fairagro-onlyoffice").enabled }}
+
+    {{- if and $collabora_enabled (not $onlyoffice_enabled) }}
+    # install Nextcloud Office plugin
     php /var/www/html/occ app:install richdocuments
 
     # Set allowed CollaboraOffice hosts to talk to nextcloud
     {{ $collabora_server := (index .Values "collabora-online").collabora.server_name }}
     php /var/www/html/occ config:app:set richdocuments wopi_url --value=https://{{ $collabora_server }}:443
     php /var/www/html/occ config:app:set richdocuments wopi_allowlist --value={{ join "," .Values.allowed_collabora_ips }}
+    {{- end }}
+
+    {{- if and $onlyoffice_enabled (not $collabora_enabled) }}
+    # install OnlyOffice integration (using richdocuments and enabling WOPI for OnlyOffice would also be possible)
+    php /var/www/html/occ app:install onlyoffice
+
+    # Set allowed CollaboraOffice hosts to talk to nextcloud
+    {{ $onlyoffice_server := (index .Values "fairagro-onlyoffice").ingress.hosts[0].host }}
+    {{ $jwt_secret := (index .Values "fairagro-onlyoffice").jwt_secret }}
+    php /var/www/html/occ config:app:set onlyoffice DocumentServerUrl --value=https://{{ $onlyoffice_server }}/
+    php /var/www/html/occ config:app:set onlyoffice jwt_secret --value={{ $jwt_secret }}
+    {{- end }}
 
     # add missing database indices
     php /var/www/html/occ db:add-missing-indices
