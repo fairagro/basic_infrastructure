@@ -127,8 +127,8 @@ spec:
           {{- end }}
           volumeMounts:
             - name: onlyoffice-config
-              subPath: default.json
-              mountPath: /etc/onlyoffice/documentserver/default.json
+              subPath: local.json
+              mountPath: /etc/onlyoffice/documentserver/local.json
           {{- with .Values.volumeMounts }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
