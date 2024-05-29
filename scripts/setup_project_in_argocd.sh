@@ -36,7 +36,8 @@ sops exec-env "${environment_path}/credentials/argocd_secrets.enc.yaml" 'argocd 
 #     --project fairagro \
 #     --dest-namespace fairagro-nextcloud \
 #     --values "../../environments/${environment}/values/zalf-nextcloud.yaml" \
-#     --values "../../environments/${environment}/values/zalf-nextcloud.enc.yaml"
+#     --values "../../environments/${environment}/values/zalf-nextcloud.enc.yaml" \
+#     --sync-option CreateNamespace=true
 
 # Install zammad app
 argocd app create zammad \
@@ -47,4 +48,5 @@ argocd app create zammad \
     --project fairagro \
     --dest-namespace fairagro-zammad \
     --values "../../environments/${environment}/values/zalf-zammad.yaml" \
-    --values "../../environments/${environment}/values/zalf-zammad.enc.yaml"
+    --values "../../environments/${environment}/values/zalf-zammad.enc.yaml" \
+    --sync-option CreateNamespace=true
