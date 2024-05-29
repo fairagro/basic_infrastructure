@@ -45,6 +45,6 @@ spec:
 
   # postgresql database version
   postgresql:
-    version: "16"
+    version: "15"
     parameters:
       password_encryption: scram-sha-256
