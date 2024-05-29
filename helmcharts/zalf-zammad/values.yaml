@@ -21,18 +21,19 @@ zammad:
       secretKey: password
       secretName: zammad.fairagro-postgresql-zammad.credentials.postgresql.acid.zalan.do
 
-  nginx:
-    trustedProxies:
-      - 172.16.64.0/18
-    resources:
-      requests:
-        cpu: 1
-        memory: 1Gi
-      limits:
-        cpu: 2
-        memory: 2Gi
+  zammadConfig:
+    nginx:
+      trustedProxies:
+        - 172.16.64.0/18
+      resources:
+        requests:
+          cpu: 1
+          memory: 1Gi
+        limits:
+          cpu: 2
+          memory: 2Gi
 
-  postgresql:
+    postgresql:
       enabled: false
       db: zammad
       host: fairagro-postgresql-zammad
