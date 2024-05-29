@@ -7,11 +7,11 @@ postgres_db:
 zammad:
   ingress:
     hosts:
-      - host: zammad.draven.cluster.zalf.de
+      - host: zammad.fairagro.net
         paths:
           - path: /
             pathType: ImplementationSpecific
     tls:
       - secretName: zammad-tls-secret
         hosts:
-          - zammad.draven.cluster.zalf.de
+          - zammad.fairagro.net
