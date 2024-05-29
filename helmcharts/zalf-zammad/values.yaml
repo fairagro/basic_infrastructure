@@ -1,0 +1,39 @@
+zammad:
+  ingress:
+    enabled: true
+    className: nginx-external
+    annotations:
+      cert-manager.io/issuer: geant
+      cert-manager.io/private-key-size: "4096"
+      cert-manager.io/private-key-rotation-policy: "Always"
+      # It seems the subjects annotation do not have any effect.
+      # Still we keep them...
+      cert-manager.io/subject-countries: "DE"
+      cert-manager.io/subject-organizations: "NFDI FAIRagro"
+      cert-manager.io/subject-organizationalunits: "Measure 4.1"
+      nginx.ingress.kubernetes.io/cors-allow-headers: X-Forwarded-For
+    labels:
+      app: zammad
+
+  secrets:
+    postgresql:
+      useExisting: true
+      secretKey: password
+      secretName: zammad.fairagro-postgresql-zammad.credentials.postgresql.acid.zalan.do
+
+  nginx:
+    trustedProxies:
+      - 172.16.64.0/18
+    resources:
+      requests:
+        cpu: 1
+        memory: 1Gi
+      limits:
+        cpu: 2
+        memory: 2Gi
+
+  postgresql:
+      enabled: false
+      db: zammad
+      host: fairagro-postgresql-zammad
+      user: zammad
