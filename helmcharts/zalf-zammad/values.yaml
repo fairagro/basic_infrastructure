@@ -38,3 +38,9 @@ zammad:
       db: zammad
       host: fairagro-postgresql-zammad
       user: zammad
+
+    # so we do not encouter sync issues in ArgoCd
+    initJob:
+      randomName: false
+      annotations:
+        argocd.argoproj.io/hook: Sync
