@@ -21,6 +21,11 @@ zammad:
       secretKey: password
       secretName: zammad.fairagro-postgresql-zammad.credentials.postgresql.acid.zalan.do
 
+  securityContext:
+    runAsUser: 0
+    privileged: true
+    runAsNonRoot: false
+
   zammadConfig:
     nginx:
       trustedProxies:
