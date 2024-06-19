@@ -36,4 +36,17 @@ argocd app create nextcloud \
     --project fairagro \
     --dest-namespace fairagro-nextcloud \
     --values "../../environments/${environment}/values/zalf-nextcloud.yaml" \
-    --values "../../environments/${environment}/values/zalf-nextcloud.enc.yaml"
+    --values "../../environments/${environment}/values/zalf-nextcloud.enc.yaml" \
+    --sync-option CreateNamespace=true
+
+# Install zammad app
+argocd app create zammad \
+    --repo "git@github.com:fairagro/basic_infrastructure.git" \
+    --revision HEAD \
+    --path "helmcharts/zalf-zammad" \
+    --dest-server "https://kubernetes.default.svc" \
+    --project fairagro \
+    --dest-namespace fairagro-zammad \
+    --values "../../environments/${environment}/values/zalf-zammad.yaml" \
+    --values "../../environments/${environment}/values/zalf-zammad.enc.yaml" \
+    --sync-option CreateNamespace=true

@@ -1,0 +1,155 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "fairagro-onlyoffice.fullname" . }}
+  labels:
+    {{- include "fairagro-onlyoffice.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "fairagro-onlyoffice.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "fairagro-onlyoffice.labels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "fairagro-onlyoffice.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: {{ .Chart.Name }}-wait-for-postgres
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: {{ include "fairagro-onlyoffice.imagename" . }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: DB_TYPE
+              value: postgres
+            - name: DB_HOST
+              value: {{ include "fairagro-onlyoffice.databasename" . }}
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_NAME
+              value: {{ .Values.postgres.dbname }}
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "fairagro-onlyoffice.database_secret" . }}
+                  key: username
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "fairagro-onlyoffice.database_secret" . }}
+                  key: password
+            # workarounds to deal with postgresql connection error "no encryption"
+            - name: PGSSLCERT
+              value: /tmp/postgresql.crt
+            - name: PGSSLMODE
+              value: require
+          command:
+            - /bin/bash
+            - -c
+            - |
+              MAX_RETRIES=100
+              retry_count=0
+              until psql -h "$DB_HOST" -U "$DB_USER" -d "$DB_NAME" -p "$DB_PORT" -w -c "SELECT 1" >/dev/null 2>&1 || [ "$retry_count" -eq "$MAX_RETRIES" ]; do
+                echo "Waiting for database to be ready..."
+                sleep 5
+                retry_count=$((retry_count + 1))
+              done
+              if [ "$retry_count" -eq "$MAX_RETRIES" ]; then
+                echo "Could not connect after ${MAX_RETRIES} attempts!"
+              else
+                echo "Done!"
+              fi
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: {{ include "fairagro-onlyoffice.imagename" . }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          livenessProbe:
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          env:
+            - name: DB_TYPE
+              value: postgres
+            - name: DB_HOST
+              value: {{ include "fairagro-onlyoffice.databasename" . }}
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_NAME
+              value: {{ .Values.postgres.dbname }}
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "fairagro-onlyoffice.database_secret" . }}
+                  key: username
+            - name: DB_PWD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "fairagro-onlyoffice.database_secret" . }}
+                  key: password
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "fairagro-onlyoffice.jwt_secret" . }}
+                  key: secret
+            # workarounds to deal with postgresql connection error "no encryption"
+            - name: PGSSLCERT
+              value: /tmp/postgresql.crt
+            - name: PGSSLMODE
+              value: require
+          {{- range $key, $value := .Values.env }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+          {{- end }}
+          volumeMounts:
+            - name: onlyoffice-config
+              subPath: local.json
+              # this file name is required, according to:
+              # https://forum.onlyoffice.com/t/docker-relation-between-default-json-and-local-json/2232/6
+              mountPath: /etc/onlyoffice/documentserver/local-production-linux.json
+          {{- with .Values.volumeMounts }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      volumes:
+        - name: onlyoffice-config
+          configMap:
+            name: "{{ include "fairagro-onlyoffice.config" . }}"
+      {{- with .Values.volumes }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

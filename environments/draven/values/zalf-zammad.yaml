@@ -1,0 +1,17 @@
+cert_email_receiver: carsten.scharfenberg@zalf.de
+geant_acme_key_id: OqJJqONZBNIdYFekHDIDRQ
+postgres_db:
+  size: 4Gi
+  storageClass: nfs-csi-delete
+
+zammad:
+  ingress:
+    hosts:
+      - host: zammad.fairagro.net
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls:
+      - secretName: zammad-tls-secret
+        hosts:
+          - zammad.fairagro.net
