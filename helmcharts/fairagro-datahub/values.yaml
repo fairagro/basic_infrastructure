@@ -95,17 +95,14 @@ autoscaling:
 # Additional volumes on the output Deployment definition.
 volumes:
   - name: gitlab-config
-    persistentVolume:
-      capacity:
-        storage: 1Gi
+    persistentVolumeClaim:
+      claimName: pvc-fairagro-datahub-config
   - name: gitlab-logs
-    persistentVolume:
-      capacity:
-        storage: 10Gi
+    persistentVolumeClaim:
+      claimName: pvc-fairagro-datahub-logs
   - name: gitlab-data
-    persistentVolume:
-      capacity:
-        storage: 100Gi
+    persistentVolumeClaim:
+      claimName: pvc-fairagro-datahub-data
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
