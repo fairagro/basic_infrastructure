@@ -36,6 +36,8 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ include "fairagro-datahub.imagename" . }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            GITLAB_OMNIBUS_CONFIG: "external_url 'https://{{ include "fairagro-datahub.fqdn" . }}'"
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
