@@ -27,7 +27,7 @@ gitlab:
 
   global:
     time_zone: Europe/Berlin
-    edition: ce
+    edition: ee
 
     hosts:
       domain: fairagro.net
