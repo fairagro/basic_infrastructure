@@ -47,7 +47,7 @@ service:
   port: 80
 
 ingress:
-  enabled: false
+  enabled: true
   className: ""
   annotations:
     {}
@@ -93,17 +93,28 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 # Additional volumes on the output Deployment definition.
-volumes: []
-# - name: foo
-#   secret:
-#     secretName: mysecret
-#     optional: false
+volumes:
+  - name: gitlab-config
+    persistentVolume:
+      capacity:
+        storage: 1Gi
+  - name: gitlab-logs
+    persistentVolume:
+      capacity:
+        storage: 10Gi
+  - name: gitlab-data
+    persistentVolume:
+      capacity:
+        storage: 100Gi
 
 # Additional volumeMounts on the output Deployment definition.
-volumeMounts: []
-# - name: foo
-#   mountPath: "/etc/foo"
-#   readOnly: true
+volumeMounts:
+  - name: gitlab-config
+    mountPath: /etc/gitlab
+  - name: gitlab-logs
+    mountPath: /var/log/gitlab
+  - name: gitlab-data
+    mountPath: /var/opt/gitlab
 
 nodeSelector: {}
 
