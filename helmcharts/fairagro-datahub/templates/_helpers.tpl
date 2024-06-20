@@ -79,5 +79,5 @@ The full image name including version tag or digest
 Figure out the server FQDN from the ingress definition
 */}}
 {{- define "fairagro-datahub.fqdn" -}}
-{{- (index .Values.ingress.hosts 0).host" }}
+{{- (index .Values.ingress.hosts 0).host }}
 {{- end }}
