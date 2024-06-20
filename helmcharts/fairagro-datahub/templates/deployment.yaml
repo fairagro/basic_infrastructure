@@ -37,7 +37,8 @@ spec:
           image: "{{ include "fairagro-datahub.imagename" . }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-            GITLAB_OMNIBUS_CONFIG: "external_url 'https://{{ include "fairagro-datahub.fqdn" . }}'"
+            - name: GITLAB_OMNIBUS_CONFIG:
+              value: "external_url 'https://{{ include "fairagro-datahub.fqdn" . }}'"
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
