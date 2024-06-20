@@ -50,3 +50,14 @@ argocd app create zammad \
     --values "../../environments/${environment}/values/zalf-zammad.yaml" \
     --values "../../environments/${environment}/values/zalf-zammad.enc.yaml" \
     --sync-option CreateNamespace=true
+
+# Install datahub app
+argocd app create zammad \
+    --repo "git@github.com:fairagro/basic_infrastructure.git" \
+    --revision HEAD \
+    --path "helmcharts/zalf-datahub" \
+    --dest-server "https://kubernetes.default.svc" \
+    --project fairagro \
+    --dest-namespace fairagro-datahub \
+    --values "../../environments/${environment}/values/zalf-datahub.yaml" \
+    --sync-option CreateNamespace=true
