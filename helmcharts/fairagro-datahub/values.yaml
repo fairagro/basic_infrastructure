@@ -93,25 +93,10 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 # Additional volumes on the output Deployment definition.
-volumes:
-  - name: gitlab-config
-    persistentVolumeClaim:
-      claimName: pvc-fairagro-datahub-config
-  - name: gitlab-logs
-    persistentVolumeClaim:
-      claimName: pvc-fairagro-datahub-logs
-  - name: gitlab-data
-    persistentVolumeClaim:
-      claimName: pvc-fairagro-datahub-data
+volumes: {}
 
 # Additional volumeMounts on the output Deployment definition.
-volumeMounts:
-  - name: gitlab-config
-    mountPath: /etc/gitlab
-  - name: gitlab-logs
-    mountPath: /var/log/gitlab
-  - name: gitlab-data
-    mountPath: /var/opt/gitlab
+volumeMounts: {}
 
 nodeSelector: {}
 
