@@ -34,7 +34,7 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ include "fairagro-datahub.imagename" . }}"
+          image: {{ include "fairagro-datahub.imagename" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: GITLAB_OMNIBUS_CONFIG:
