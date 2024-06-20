@@ -37,8 +37,8 @@ spec:
           image: {{ include "fairagro-datahub.imagename" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-            - name: GITLAB_OMNIBUS_CONFIG:
-              value: "external_url 'https://{{ include "fairagro-datahub.fqdn" . }}'"
+            - name: GITLAB_OMNIBUS_CONFIG
+              value: external_url 'https://{{ include "fairagro-datahub.fqdn" . }}'
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
@@ -49,12 +49,27 @@ spec:
             {{- toYaml .Values.readinessProbe | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.volumeMounts }}
           volumeMounts:
+            - name: gitlab-config
+              mountPath: /etc/gitlab
+            - name: gitlab-logs
+              mountPath: /var/log/gitlab
+            - name: gitlab-data
+              mountPath: /var/opt/gitlab
+          {{- with .Values.volumeMounts }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
-      {{- with .Values.volumes }}
       volumes:
+        - name: gitlab-config
+          persistentVolumeClaim:
+            claimName: pvc-fairagro-datahub-config
+        - name: gitlab-logs
+          persistentVolumeClaim:
+            claimName: pvc-fairagro-datahub-logs
+        - name: gitlab-data
+          persistentVolumeClaim:
+            claimName: pvc-fairagro-datahub-data
+      {{- with .Values.volumes }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.nodeSelector }}
