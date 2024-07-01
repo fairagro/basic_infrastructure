@@ -84,7 +84,7 @@ startupProbe:
     path: /
     port: http
   periodSeconds: 5
-  failureThreshold: 60
+  failureThreshold: 200
 
 autoscaling:
   enabled: false
