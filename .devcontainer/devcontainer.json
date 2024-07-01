@@ -16,7 +16,7 @@
 			"helm": "3.14.0",
 			"minikube": "none"
 		},
-		"ghcr.io/devcontainers/features/git:1.2.0": {
+		"ghcr.io/devcontainers/features/git:1.3.0": {
 			"ppa": false,
 			"version": "2.43.0"
 		},
