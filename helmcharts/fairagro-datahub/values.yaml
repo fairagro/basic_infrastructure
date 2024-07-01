@@ -79,6 +79,12 @@ readinessProbe:
   httpGet:
     path: /
     port: http
+startupProbe:
+  httpGet:
+    path: /
+    port: http
+  periodSeconds: 5
+  failureThreshold: 60
 
 autoscaling:
   enabled: false
