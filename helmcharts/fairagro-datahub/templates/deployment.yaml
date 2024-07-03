@@ -43,7 +43,7 @@ spec:
                 nginx['enable'] = false;
                 puma['listen'] = '0.0.0.0';
                 puma['port'] = {{ .Values.service.port }};
-                gitlab_rails[‘trusted_proxies’] = [‘172.16.0.0/16’]
+                gitlab_rails['trusted_proxies'] = ['172.16.0.0/16']
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
