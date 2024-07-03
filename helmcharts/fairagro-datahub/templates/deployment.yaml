@@ -58,7 +58,7 @@ spec:
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: datahub.fairagro-postgresql-datahub.credentials.postgresql.acid.zalan.do
+                  name: gitlab.fairagro-postgresql-datahub.credentials.postgresql.acid.zalan.do
                   key: password
           ports:
             - name: http
