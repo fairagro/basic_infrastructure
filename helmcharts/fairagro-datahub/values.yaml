@@ -75,14 +75,17 @@ livenessProbe:
   httpGet:
     path: /
     port: http
+    scheme: HTTPS
 readinessProbe:
   httpGet:
     path: /
     port: http
+    scheme: HTTPS
 startupProbe:
   httpGet:
     path: /
     port: http
+    scheme: HTTPS
   periodSeconds: 5
   failureThreshold: 200
 
