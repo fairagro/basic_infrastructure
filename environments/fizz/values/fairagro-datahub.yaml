@@ -16,4 +16,4 @@ ingress:
 
 postgres_db:
   size: 4Gi
-  storageClass: nfs-csi-delete
+  storageClass: truenas-delete
