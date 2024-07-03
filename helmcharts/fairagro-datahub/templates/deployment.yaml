@@ -54,7 +54,7 @@ spec:
             - name: GITLAB_ROOT_PASSWORD
               value: {{ .Values.rootPassword }}
             - name: DATABASE_URL
-              value: postgresql://gitlab:${POSTGRES_PASSWORD}@fairagro-postgresql-datahub:5432/gitlabhq_production
+              value: postgresql://gitlab:#{ENV['POSTGRES_PASSWORD']}@fairagro-postgresql-datahub:5432/gitlabhq_production
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
