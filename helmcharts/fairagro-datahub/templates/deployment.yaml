@@ -42,10 +42,10 @@ spec:
                 external_url 'https://{{ include "fairagro-datahub.fqdn" . }}';
                 nginx['listen_port'] = {{ .Values.service.port }};
                 nginx['listen_https'] = false;
-                nginx['proxy_protocol'] = true;
                 nginx['real_ip_trusted_addresses'] = ['127.0.0.0/8', '172.16.0.0/16'];
                 nginx['real_ip_header'] = 'X-Forwarded-For';
                 nginx['real_ip_recursive'] = 'on'
+# nginx['proxy_protocol'] = true;
 # nginx['enable'] = false;
 # puma['listen'] = '0.0.0.0';
 # puma['port'] = {{ .Values.service.port }};
