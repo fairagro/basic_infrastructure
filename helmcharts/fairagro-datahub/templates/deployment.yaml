@@ -49,12 +49,12 @@ spec:
                 nginx['real_ip_trusted_addresses'] = ['127.0.0.0/8', '172.16.0.0/16'];
                 nginx['real_ip_header'] = 'X-Forwarded-For';
                 nginx['real_ip_recursive'] = 'on';
-                postgresql['enable'] = false;
+                postgresql['enable'] = false
             # Setting the root password only has effect if the database is not initialized yet
             - name: GITLAB_ROOT_PASSWORD
               value: {{ .Values.rootPassword }}
             - name: DATABASE_URL
-              values: postgresql://gitlab:${POSTGRES_PASSWORD}@fairagro-postgresql-datahub:5432/gitlabhq_production
+              value: postgresql://gitlab:${POSTGRES_PASSWORD}@fairagro-postgresql-datahub:5432/gitlabhq_production
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
