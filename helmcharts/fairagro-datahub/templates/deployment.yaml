@@ -40,10 +40,16 @@ spec:
             - name: GITLAB_OMNIBUS_CONFIG
               value: |
                 external_url 'https://{{ include "fairagro-datahub.fqdn" . }}';
-                nginx['enable'] = false;
-                puma['listen'] = '0.0.0.0';
-                puma['port'] = {{ .Values.service.port }};
-                gitlab_rails['trusted_proxies'] = ['172.16.0.0/16']
+                nginx['listen_port'] = {{ .Values.service.port }};
+                nginx['listen_https'] = false;
+                nginx['proxy_protocol'] = true;
+                nginx['real_ip_trusted_addresses'] = ['127.0.0.0/8', '172.16.0.0/16'];
+                nginx['real_ip_header'] = 'X-Forwarded-For';
+                nginx['real_ip_recursive'] = 'on'
+# nginx['enable'] = false;
+# puma['listen'] = '0.0.0.0';
+# puma['port'] = {{ .Values.service.port }};
+# gitlab_rails['trusted_proxies'] = ['172.16.0.0/16']
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
