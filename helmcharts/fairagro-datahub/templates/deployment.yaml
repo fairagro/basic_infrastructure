@@ -30,6 +30,10 @@ spec:
       serviceAccountName: {{ include "fairagro-datahub.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      # We're using ReadWriteOnce volumes that cannot be bound to more than one pod.
+      # So that pod needs to be deleted before recreating it.
+      strategy:
+        type: Recreate
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
