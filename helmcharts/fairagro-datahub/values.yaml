@@ -44,7 +44,7 @@ securityContext:
 
 service:
   type: ClusterIP
-  port: 443
+  port: 8080
 
 ingress:
   enabled: true
@@ -75,17 +75,17 @@ livenessProbe:
   httpGet:
     path: /
     port: http
-    scheme: HTTPS
+    scheme: HTTP
 readinessProbe:
   httpGet:
     path: /
     port: http
-    scheme: HTTPS
+    scheme: HTTP
 startupProbe:
   httpGet:
     path: /
     port: http
-    scheme: HTTPS
+    scheme: HTTP
   periodSeconds: 5
   failureThreshold: 200
 
