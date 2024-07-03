@@ -60,7 +60,7 @@ spec:
             - name: GITLAB_DATABASE_DATABASE
               value: gitlabhq_production
             - name: GITLAB_DATABASE_USERNAME
-              values: gitlab
+              value: gitlab
             - name: GITLAB_DATABASE_PASSWORD
               valueFrom:
                 secretKeyRef:
