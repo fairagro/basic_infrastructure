@@ -13,3 +13,7 @@ ingress:
     - secretName: datahub-tls-secret
       hosts:
         - datahub.fizz.dataservice.zalf.de
+
+postgres_db:
+  size: 4Gi
+  storageClass: nfs-csi-delete
