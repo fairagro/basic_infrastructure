@@ -1,6 +1,6 @@
 allowed_collabora_ips:
   - 161.97.79.221 # collabora.fairagro.net on external reverse proxy
-allowed_reverse_proxy_ips: 172.16.64.0/18
+allowed_reverse_proxy_ips: 161.97.79.221 # the extrenal reverse proxy IP
 postgres_db:
   size: 4Gi
   storageClass: nfs-csi-delete
