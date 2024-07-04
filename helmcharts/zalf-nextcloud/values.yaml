@@ -158,6 +158,7 @@ nextcloud:
           'default_phone_region' => 'DE',
           'overwriteprotocol' => 'https',
           'check_data_directory_permissions' => false,
+          'versions_retention_obligation' => '14, auto',
         );
       cron.config.php: |
         <?php
