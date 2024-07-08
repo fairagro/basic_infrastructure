@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: gitlab-config
+  name: gitlab-additional-config
 data:
   10-gitlab-hardening.conf: |
     ## Kernel tweaks for sysctl.conf ##
