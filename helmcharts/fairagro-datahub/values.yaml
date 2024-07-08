@@ -98,14 +98,14 @@ autoscaling:
 
 # Additional volumes on the output Deployment definition.
 volumes:
-  - name: gitlab-config
+  - name: gitlab-additional-config
     configMap:
-      defaultMode: 0644
-      name: gitlab-config
+      defaultMode: "0644"
+      name: gitlab-additional-config
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
-  - name: gitlab-config
+  - name: gitlab-additional-config
     mountPath: /etc/sysctl.d/10-gitlab-hardening.conf
     subPath: 10-gitlab-hardening.conf
 
