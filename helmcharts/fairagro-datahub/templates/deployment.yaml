@@ -60,23 +60,11 @@ spec:
             # Setting the root password only has effect if the database is not initialized yet
             - name: GITLAB_ROOT_PASSWORD
               value: {{ .Values.rootPassword }}
-            # - name: DATABASE_URL
-            #   value: postgresql://gitlab:#{ENV['POSTGRES_PASSWORD']}@fairagro-postgresql-datahub:5432/gitlabhq_production
-            # - name: GITLAB_DATABASE_ADAPTER
-            #   value: postgresql
-            # - name: GITLAB_DATABASE_DATABASE
-            #   value: gitlabhq_production
-            # - name: GITLAB_DATABASE_USERNAME
-            #   value: gitlab
             - name: GITLAB_DATABASE_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: gitlab.fairagro-postgresql-datahub.credentials.postgresql.acid.zalan.do
                   key: password
-            # - name: GITLAB_DATABASE_HOST
-            #   value: fairagro-postgresql-datahub
-            # - name: GITLAB_DATABASE_PORT
-            #   value: '5432'
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
