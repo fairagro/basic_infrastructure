@@ -100,7 +100,7 @@ autoscaling:
 volumes:
   - name: gitlab-additional-config
     configMap:
-      defaultMode: "0644"
+      defaultMode: 0644
       name: gitlab-additional-config
 
 # Additional volumeMounts on the output Deployment definition.
