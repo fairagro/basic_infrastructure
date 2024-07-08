@@ -97,10 +97,17 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 # Additional volumes on the output Deployment definition.
-volumes: {}
+volumes:
+  - name: gitlab-config
+    configMap:
+      defaultMode: 0644
+      name: gitlab-config
 
 # Additional volumeMounts on the output Deployment definition.
-volumeMounts: {}
+volumeMounts:
+  - name: gitlab-config
+    mountPath: /etc/sysctl.d/10-gitlab-hardening.conf
+    subPath: 10-gitlab-hardening.conf
 
 nodeSelector: {}
 
