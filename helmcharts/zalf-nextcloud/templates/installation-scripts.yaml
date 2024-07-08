@@ -81,7 +81,7 @@ data:
     php /var/www/html/occ app:disable firstrunwizard
     php /var/www/html/occ app:disable support
     php /var/www/html/occ app:disable survey_client
-    php /var/www/html/occ app:disable suspicious_login:
+    php /var/www/html/occ app:disable suspicious_login
     php /var/www/html/occ app:disable twofactor_totp
     php /var/www/html/occ app:disable user_ldap
     php /var/www/html/occ app:disable user_status
