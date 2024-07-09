@@ -157,4 +157,4 @@ gitlabrunner:
         [runners.kubernetes]
           namespace = "{{ .Release.Namespace }}"
           image = "alpine"
-          url = "{{ include "fairagro-datahub.base_url" . }}"
+          url = "http://{{ include "fairagro-datahub.fqdn" . }}"

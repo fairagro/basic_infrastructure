@@ -83,8 +83,8 @@ Figure out the server FQDN from the ingress definition
 {{- end }}
 
 {{/*
-the full base URL of datahub
+The full base URL of datahub
 */}}
 {{- define "fairagro-datahub.base_url" -}}
-{{- printf "https://%s" (include "fairagro-datahub.fqdn" .) }}
+{{- printf "https://%s" (include "fairagro-datahub.fqdn" .) -}}
 {{- end }}
