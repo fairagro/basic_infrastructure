@@ -102,12 +102,18 @@ volumes:
     configMap:
       defaultMode: 0644
       name: gitlab-additional-config
+  - name: shm
+    emptyDir:
+      medium: Memory
+      sizeLimit: 256Mi
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
   - name: gitlab-additional-config
     mountPath: /etc/sysctl.d/10-gitlab-hardening.conf
     subPath: 10-gitlab-hardening.conf
+  - name: shm
+    mountPath: /dev/shm
 
 nodeSelector: {}
 
