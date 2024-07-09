@@ -2,6 +2,9 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+global:
+  base_url: "{{ include 'fairagro-datahub.base_url' . }}"
+
 replicaCount: 1
 
 image:
@@ -157,4 +160,4 @@ gitlabrunner:
         [runners.kubernetes]
           namespace = "{{ .Release.Namespace }}"
           image = "alpine"
-          url = "http://{{ include "fairagro-datahub.fqdn" . }}"
+          url = "{{ .Values.global.base_url }}"
