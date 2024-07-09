@@ -161,6 +161,7 @@ gitlabrunner:
     # runner configuration: https://docs.gitlab.com/runner/configuration/advanced-configuration.html
     config: |
       [[runners]]
+        url = "{{ .Values.global.base_url }}"
         [runners.kubernetes]
           namespace = "{{ .Release.Namespace }}"
           helper_image = "registry.gitlab.com/gitlab-org/ci-cd/gitlab-runner-ubi-images/gitlab-runner-helper-ocp:x86_64-v16.11.2"
