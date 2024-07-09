@@ -152,15 +152,18 @@ gitlabrunner:
   serviceAccount:
     create: true
     name: gitlab-runner
-  # runners:
-  #   # runner configuration, where the multi line string is evaluated as a
-  #   # template so you can specify helm values inside of it.
-  #   #
-  #   # tpl: https://helm.sh/docs/howto/charts_tips_and_tricks/#using-the-tpl-function
-  #   # runner configuration: https://docs.gitlab.com/runner/configuration/advanced-configuration.html
-  #   config: |
-  #     [[runners]]
-  #       [runners.kubernetes]
-  #         namespace = "{{ .Release.Namespace }}"
-  #         image = "alpine"
-  #         url = "{{ .Values.global.base_url }}"
+  runners:
+    secret: gitlab-runner-secret
+    # runner configuration, where the multi line string is evaluated as a
+    # template so you can specify helm values inside of it.
+    #
+    # tpl: https://helm.sh/docs/howto/charts_tips_and_tricks/#using-the-tpl-function
+    # runner configuration: https://docs.gitlab.com/runner/configuration/advanced-configuration.html
+    config: |
+      [[runners]]
+        [runners.kubernetes]
+          namespace = "{{ .Release.Namespace }}"
+          helper_image = "registry.gitlab.com/gitlab-org/ci-cd/gitlab-runner-ubi-images/gitlab-runner-helper-ocp:x86_64-v16.11.2"
+          [runners.kubernetes.pod_security_context]
+            run_as_non_root = true
+            run_as_user = 59417
