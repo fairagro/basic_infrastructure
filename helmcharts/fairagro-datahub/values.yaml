@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 global:
-  base_url: "{{ include 'fairagro-datahub.base_url' . }}"
+  base_url: "{{- tpl (include 'fairagro-datahub.base_url' .) . }}"
 
 replicaCount: 1
 
