@@ -146,3 +146,15 @@ gitlabrunner:
   serviceAccount:
     create: true
     name: gitlab-runner
+  runners:
+    # runner configuration, where the multi line string is evaluated as a
+    # template so you can specify helm values inside of it.
+    #
+    # tpl: https://helm.sh/docs/howto/charts_tips_and_tricks/#using-the-tpl-function
+    # runner configuration: https://docs.gitlab.com/runner/configuration/advanced-configuration.html
+    config: |
+      [[runners]]
+        [runners.kubernetes]
+          namespace = "{{ .Release.Namespace }}"
+          image = "alpine"
+          url = "{{ include "fairagro-datahub.base_url" . }}"

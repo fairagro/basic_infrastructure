@@ -81,3 +81,10 @@ Figure out the server FQDN from the ingress definition
 {{- define "fairagro-datahub.fqdn" -}}
 {{- (index .Values.ingress.hosts 0).host }}
 {{- end }}
+
+{{/*
+the full base URL of datahub
+*/}}
+{{- define "fairagro-datahub.base_url" -}}
+{{- printf "https://%s" (include "fairagro-datahub.fqdn" .) }}
+{{- end }}
