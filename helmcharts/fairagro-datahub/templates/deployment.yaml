@@ -43,7 +43,7 @@ spec:
           env:
             - name: GITLAB_OMNIBUS_CONFIG
               value: |
-                external_url '{{ include "fairagro-datahub.base_url" . }}';
+                external_url '{{ .Values.global.base_url }}';
                 nginx['listen_port'] = {{ .Values.service.port }};
                 nginx['listen_https'] = false;
                 nginx['real_ip_trusted_addresses'] = ['127.0.0.0/8', '172.16.0.0/16'];
