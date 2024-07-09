@@ -56,7 +56,15 @@ spec:
                 gitlab_rails['db_username'] = "gitlab";
                 gitlab_rails['db_password'] = ENV['GITLAB_DATABASE_PASSWORD'];
                 gitlab_rails['db_host'] = "fairagro-postgresql-datahub";
-                gitlab_rails['db_port'] = 5432
+                gitlab_rails['db_port'] = 5432;
+                gitlab_rails['object_store']['enabled'] = false;
+                gitlab_rails['object_store']['objects']['artifacts']['enabled'] = false;
+                gitlab_rails['external_diffs_object_store_enabled'] = false;
+                gitlab_rails['uploads_object_store_enabled'] = false;
+                gitlab_rails['pages_object_store_enabled'] = false;
+                gitlab_rails['dependency_proxy_enabled'] = false;   
+                gitlab_rails['packages_enabled'] = false;
+                gitlab_rails['terraform_state_enabled'] = false
             # Setting the root password only has effect if the database is not initialized yet
             - name: GITLAB_ROOT_PASSWORD
               value: {{ .Values.rootPassword }}
