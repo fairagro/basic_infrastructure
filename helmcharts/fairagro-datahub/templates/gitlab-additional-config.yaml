@@ -53,3 +53,17 @@ data:
     net.ipv6.conf.default.accept_redirects=0
     net.ipv4.conf.all.send_redirects=0
     net.ipv4.conf.default.send_redirects=0
+  datahub-secrets.include: |
+    # Admin token for the GitLab API
+    api_token="{{ .Values.datahub_api_token }}"
+
+    # ARC registry (no need to specify)
+    arc_registry_token=""
+    arc_registry_endpoint=""
+
+    # DataHUB URL & API endpoint
+    CI_SERVER_URL="{{ .Values.global.base_url }}"
+    CI_API_V4_URL="${CI_SERVER_URL}/api/v4"
+
+    # Debugging: set to 1 to log hook execution in /var/log/datahub, 0 to disable.
+    HOOK_DEBUG=1
