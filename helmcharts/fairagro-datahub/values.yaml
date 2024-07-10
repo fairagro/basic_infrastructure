@@ -117,6 +117,9 @@ volumeMounts:
   - name: gitlab-additional-config
     mountPath: /etc/sysctl.d/10-gitlab-hardening.conf
     subPath: 10-gitlab-hardening.conf
+  - name: gitlab-additional-config
+    mountPath: /etc/gitlab/datahub-secrets.include
+    subPath: datahub-secrets.include
   - name: shm
     mountPath: /dev/shm
 
@@ -161,7 +164,9 @@ gitlabrunner:
     # runner configuration: https://docs.gitlab.com/runner/configuration/advanced-configuration.html
     config: |
       [[runners]]
+        name = "gitlab-runner"
         url = "{{ .Values.global.base_url }}"
+        executor = "kubernetes"
         [runners.kubernetes]
           namespace = "{{ .Release.Namespace }}"
           helper_image = "registry.gitlab.com/gitlab-org/ci-cd/gitlab-runner-ubi-images/gitlab-runner-helper-ocp:x86_64-v16.11.2"

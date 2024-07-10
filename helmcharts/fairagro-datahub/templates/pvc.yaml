@@ -17,7 +17,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: pvc-fairagro-datahub-logs
   annotations:
-    csi.hpe.com/description: "Created by the fairagro-datahub helm chart as log storage for datahub"
+    csi.hpe.com/description: "Created by the fairagro-datahub helm chart as log storage for datahub/gitlab"
 spec:
   accessModes:
     - ReadWriteOnce
@@ -39,3 +39,17 @@ spec:
   resources:
     requests:
       storage: 50Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-fairagro-datahub-datahub-logs
+  annotations:
+    csi.hpe.com/description: "Created by the fairagro-datahub helm chart as log storage for datahub validation pipelines"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: truenas-delete
+  resources:
+    requests:
+      storage: 1Gi

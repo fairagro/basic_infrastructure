@@ -92,6 +92,8 @@ spec:
               mountPath: /var/log/gitlab
             - name: gitlab-data
               mountPath: /var/opt/gitlab
+            - name: datahub-logs
+              mountPath: /var/log/datahub
           {{- with .Values.volumeMounts }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
@@ -105,6 +107,9 @@ spec:
         - name: gitlab-data
           persistentVolumeClaim:
             claimName: pvc-fairagro-datahub-data
+        - name: datahub-logs
+          persistentVolumeClaim:
+            claimName: pvc-fairagro-datahub-datahub-logs
       {{- with .Values.volumes }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
