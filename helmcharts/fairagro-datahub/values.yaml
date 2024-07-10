@@ -130,7 +130,7 @@ tolerations: []
 affinity: {}
 
 gitlabrunner:
-  gitlabUrl: "{{ .Values.global.base_url }}"
+  gitlabUrl: "{{ .Values.gitlab_url }}"
   rbac:
     create: true
     rules:
@@ -165,7 +165,6 @@ gitlabrunner:
     config: |
       [[runners]]
         name = "gitlab-runner"
-        url = "{{ .Values.global.base_url }}"
         executor = "kubernetes"
         [runners.kubernetes]
           namespace = "{{ .Release.Namespace }}"
