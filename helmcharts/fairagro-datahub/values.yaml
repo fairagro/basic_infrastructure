@@ -130,7 +130,7 @@ tolerations: []
 affinity: {}
 
 gitlabrunner:
-  gitlabUrl: "{{ .Values.gitlab_url }}"
+  gitlabUrl: ~
   rbac:
     create: true
     rules:
