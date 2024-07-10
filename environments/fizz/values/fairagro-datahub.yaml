@@ -20,3 +20,6 @@ ingress:
 postgres_db:
   size: 4Gi
   storageClass: truenas-delete
+
+gitlabrunner:
+  gitlab_url: https://datahub.fizz.dataservice.zalf.de
