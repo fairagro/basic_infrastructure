@@ -6,7 +6,8 @@
 # This digest corresponds to the datahub main branch, downloaded on 11th of July 2024, 11:30 MET,
 # corresponding to gitlab version 17.1.2
 # Unfortunately the is no versioning scheme, so we are forced to use the digest.
-digest: sha256:7199a9783ec03c0fda0efb948e52e6cb4f69e12a2ff4808d49ed0d7c951b7287
+image:
+  digest: sha256:7199a9783ec03c0fda0efb948e52e6cb4f69e12a2ff4808d49ed0d7c951b7287
 
 ingress:
   className: nginx-internal
