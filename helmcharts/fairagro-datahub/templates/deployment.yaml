@@ -41,6 +41,13 @@ spec:
           image: {{ include "fairagro-datahub.imagename" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
+            # NOTE:
+            # Concerning 'external_url': actually it's a https URL. The TLS endpoint is the kubernetes ingress.
+            # According to the docs (https://docs.gitlab.com/omnibus/settings/ssl/index.html#configure-https-manually)
+            # we should put 'https' here. But this does not work for us because of redirects from http to https.
+            # The exact mechanism why it does not work is unclear, but using 'http' instead of 'https' works. This
+            # only has one caveat: the repo URL shown by gitlab (e.g. used for cloning) is a http URL instead
+            # of https. So actutally we needed to invest more investigation time here and switch to 'https'.
             - name: GITLAB_OMNIBUS_CONFIG
               value: |
                 external_url 'http://{{ include "fairagro-datahub.fqdn" . }}';
