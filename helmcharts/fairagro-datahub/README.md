@@ -33,7 +33,7 @@ Assuming that you're installing this helm chart via argocd:
     7. Create a new personal access token by clicking `Add new token`.
     8. Give the token a name -- e.g. 'datahub' -- and select the checkboxes `admin_mode` and `api`. It's also a good idea to extend the expiration date.
     9. Now copy and backup your personal admin access token that will be used by the datahub CI/CD pipeline to access the gitlab API.
-4. Clone the `basic_infrastructure` repo if not done already and enter the runner authentication token:
+4. Clone the `basic_infrastructure` repo if not done already to enter both tokens:
     1. `git clone git@github.com:fairagro/basic_infrastructure.git`
     2. Edit the file `environments/<cluster name>/values/fairagro-datahub.enc.yaml`. Note that this file is sops-encrypted.
     3. Add/modify two lines:
@@ -50,7 +50,7 @@ Note that in principle to could enter both tokens directly into argocd instead o
 
 ## Configure gitlab ##
 
-As mentioned before currently gitlab need to be configured using the web interface. Currently we impose these settings that can be accesses below `Admin Area`->`Settings`. Please do not forget to click `Save changes` for all settings:
+As mentioned before gitlab needs to be configured using the web interface. Currently we impose the settings below that can be accesses under `Admin Area`->`Settings`. Please do not forget to click `Save changes` for all settings:
 
 * Below `General`->`Visibility and access controls` make these settings:
 
@@ -66,6 +66,25 @@ As mentioned before currently gitlab need to be configured using the web interfa
 * Below `Network`->`Outbound requests` clear the checkboxes `Allow requests to the local network from webhooks and integrations` and `Allow requests to the local network from system hooks` for security reasons.
 
 * Below `CI/CD`->`Continuous Integration and Deployment` activate the checkboxs `Default to Auto DevOps pipeline for all projects` and `Enable instance runners for new projects`. This will activate the ARC validation CI/CD pipeline for all repositories.
+
+Using the API, you can achieve the same with these commands:
+
+```bash
+TOKEN=<your API access token>
+URL=<your datahub URL>
+curl -X PUT -G -H "PRIVATE-TOKEN: $TOKEN" "$URL/api/v4/application/settings" \
+    --data-urlencode "enabled_git_access_protocol=http" \
+    --data-urlencode "custom_http_clone_url_root=$URL" \
+    --data-urlencode "gravatar_enabled=false" \
+    --data-urlencode "signup_enabled=false" \
+    --data-urlencode "hide_third_party_offers=true" \
+    --data-urlencode "allow_local_requests_from_hooks_and_services=false" \
+    --data-urlencode "allow_local_requests_from_web_hooks_and_services=false" \
+    --data-urlencode "allow_local_requests_from_system_hooks=false" \
+    --data-urlencode "auto_devops_enabled=true" \
+    --data-urlencode "shared_runners_enabled=true" \
+    --data-urlencode "shared_runners_text=default runner"
+```
 
 ## Upgrade gitlab ##
 
