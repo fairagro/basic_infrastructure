@@ -28,7 +28,7 @@ environment_path="$mydir/../environments/$environment"
 sops exec-env "${environment_path}/credentials/argocd_secrets.enc.yaml" 'argocd login $ARGOCD_SERVER --insecure --grpc-web-root-path $ARGOCD_PREFIX --username=$ARGOCD_ADMIN_USER --password=$ARGOCD_ADMIN_PASSWORD'
 
 # Install nextcloud app
-# argocd app create nextcloud \
+# argocd app create fairagro-nextcloud \
 #     --repo "git@github.com:fairagro/basic_infrastructure.git" \
 #     --revision HEAD \
 #     --path "helmcharts/zalf-nextcloud" \
@@ -40,7 +40,7 @@ sops exec-env "${environment_path}/credentials/argocd_secrets.enc.yaml" 'argocd 
 #     --sync-option CreateNamespace=true
 
 # Install zammad app
-# argocd app create zammad \
+# argocd app create fairagro-zammad \
 #     --repo "git@github.com:fairagro/basic_infrastructure.git" \
 #     --revision HEAD \
 #     --path "helmcharts/zalf-zammad" \
@@ -52,7 +52,7 @@ sops exec-env "${environment_path}/credentials/argocd_secrets.enc.yaml" 'argocd 
 #     --sync-option CreateNamespace=true
 
 # Install datahub app
-argocd app create datahub \
+argocd app create fairagro-datahub \
     --repo "git@github.com:fairagro/basic_infrastructure.git" \
     --revision gitlab \
     --path "helmcharts/fairagro-datahub" \
