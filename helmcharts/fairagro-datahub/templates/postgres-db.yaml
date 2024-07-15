@@ -18,7 +18,7 @@ spec:
     size: "{{ .Values.persistence.postgres_db.size }}"
 {{- if .Values.persistence.postgres_db.storageClass }}
     storageClass: "{{ .Values.persistence.postgres_db.storageClass }}"
-{{- endif }}
+{{- end }}
   # The database is burstable
   resources:
     requests:
