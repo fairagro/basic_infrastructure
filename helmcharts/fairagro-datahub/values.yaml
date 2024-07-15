@@ -2,6 +2,11 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+cloudflare_api_token: ~
+geant_acme_hmac_key: ~
+cert_email_receiver: ~
+geant_acme_key_id: ~
+
 replicaCount: 1
 
 image:
