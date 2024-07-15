@@ -47,6 +47,12 @@ securityContext:
   # runAsNonRoot: true
   # runAsUser: 1000
 
+persistence:
+  storageClass: ~
+  postgres_db:
+    size: 4Gi
+    storageClass: ~
+
 service:
   type: ClusterIP
   port: 80

@@ -7,7 +7,9 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: truenas-delete
+{{- if .Values.persistence.storageClass }}
+  storageClassName: {{ .Values.persistence.storageClass }}
+{{- end }}
   resources:
     requests:
       storage: 100Mi
@@ -21,7 +23,9 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: truenas-delete
+{{- if .Values.persistence.storageClass }}
+  storageClassName: {{ .Values.persistence.storageClass }}
+{{- end }}
   resources:
     requests:
       storage: 5Gi
@@ -35,7 +39,9 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: truenas-delete
+{{- if .Values.persistence.storageClass }}
+  storageClassName: {{ .Values.persistence.storageClass }}
+{{- end }}
   resources:
     requests:
       storage: 50Gi
@@ -49,7 +55,9 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: truenas-delete
+{{- if .Values.persistence.storageClass }}
+  storageClassName: {{ .Values.persistence.storageClass }}
+{{- end }}
   resources:
     requests:
       storage: 1Gi

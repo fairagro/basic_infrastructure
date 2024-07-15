@@ -15,8 +15,10 @@ spec:
   enableReplicaPoolerLoadBalancer: false
   # size of the database in GByte
   volume:
-    size: "{{ .Values.postgres_db.size }}"
-    storageClass: "{{ .Values.postgres_db.storageClass }}"
+    size: "{{ .Values.persistence.postgres_db.size }}"
+{{- if .Values.persistence.postgres_db.storageClass }}
+    storageClass: "{{ .Values.persistence.postgres_db.storageClass }}"
+{{- endif }}
   # The database is burstable
   resources:
     requests:

@@ -9,6 +9,9 @@
 image:
   digest: sha256:7199a9783ec03c0fda0efb948e52e6cb4f69e12a2ff4808d49ed0d7c951b7287
 
+persistence:
+  storageClass: truenas-delete
+
 ingress:
   className: nginx-internal
   hosts:
