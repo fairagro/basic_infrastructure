@@ -1,4 +1,4 @@
-{{- if not (and .Values.tls.key .Values.tls.crt) }}
+{{- if not (and .Values.tls (and .Values.tls.key .Values.tls.crt)) }}
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
