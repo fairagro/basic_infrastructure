@@ -11,7 +11,7 @@ persistence:
   storageClass: nfs-csi-delete
 
 ingress:
-  className: nginx-internal
+  className: nginx-external
   annotations:
     cert-manager.io/issuer: geant
     cert-manager.io/private-key-size: "4096"
