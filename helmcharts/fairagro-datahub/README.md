@@ -26,6 +26,16 @@ Assuming that you're installing this helm chart via argocd:
 3. In the gitlab web interface:
     1. login as root.
     2. Navigate to `Admin Area`->`CI/CD`->`Runners`.
+      It may happen that you receive a http error 500. In this case, please follow these steps:
+      ```bash
+      > kubectl exec -it -n fairagro-datahub fairagro-datahub-xxxxxxxxxx-xxxxx -- bash
+      > gitlab-rails console
+      irb> ApplicationSetting.first.delete
+      ```
+      Or maybe this untested command:
+      ```bash
+      > kubectl exec -it -n fairagro-datahub fairagro-datahub-xxxxxxxxxx-xxxxx -- gitlab-rails runner "ApplicationSetting.first.delete"
+      ```
     3. Add a new runner by clicking `New instance runner`.
     4. Activate the checkbox `Run untagged jobs` and finish runner creation by clicking `Create runner`.
     5. Copy and backup the runner authentication token that you are presented below `Step 1`.
