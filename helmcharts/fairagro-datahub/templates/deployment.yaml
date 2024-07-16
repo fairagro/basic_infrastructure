@@ -72,7 +72,8 @@ spec:
                 gitlab_rails['dependency_proxy_enabled'] = false;   
                 gitlab_rails['packages_enabled'] = false;
                 gitlab_rails['terraform_state_enabled'] = false;
-                puma['worker_processes'] = 4
+                puma['worker_processes'] = 4;
+                nginx['worker_processes'] = 4
             # Setting the root password only has effect if the database is not initialized yet
             - name: GITLAB_ROOT_PASSWORD
               value: {{ .Values.rootPassword }}
