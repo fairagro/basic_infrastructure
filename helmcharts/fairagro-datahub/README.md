@@ -112,3 +112,15 @@ There is one caveat: DataHUB images are not versioned, so we need to use the ima
 ```
 
 You're looking for the `RepoDigests`. Please edit the file `environments/<cluster name>/fairagro-datahub.yaml` and adapt the value `image.digest` accordingly.
+
+## Memory considerations ##
+
+Gitlab spawn a number of nginx and puma processes that is proportional to the number of CPU cores of the host it is running on. Especially each puma process uses a lot of memory (1GB, but this can be configured). So on hosts with many CPU cores (e.g. the draven cluster), memory can be an issue. To fix this, we manually set the number of puma and nginx processes to four (refer to `deployment.yaml`).
+
+So if you wish to make use of more CPU core, take into account that you will need to modify the number of processes and the CPU and memory limits. Currently we're using these guidelines:
+
+* we use a guaranteed QoS pod -- i.e. resource requests and limits are identical
+* 1 CPU per puma process
+* 1GB of RAM per puma process
+* 4GB of additional RAM
+* 1 nginx process per puma process
