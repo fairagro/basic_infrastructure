@@ -1,0 +1,3 @@
+This branch included the helm chart 'fairagro-gitlab'. This chart will install the kubernetes version of gitlab. In the main branch it has been replaced by the chart 'fairagro-datahub' which installs the datahub flavor of gitlab that based on der docker version of kubernetes -- not the kubernetes version. So a different chart is needed.
+
+But there's still hope that DataPLANT will release a DataHUB version that is based on the kubernetes version of gitlab. In this case this chart is still needed.
