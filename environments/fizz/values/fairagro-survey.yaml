@@ -1,0 +1,5 @@
+postgres_db:
+  size: 4Gi
+  storageClass: nfs-csi-delete
+
+admin_email: carsten.scharfenberg@zalf.de
