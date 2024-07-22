@@ -67,10 +67,10 @@ argocd app create fairagro-datahub \
 argocd app create fairagro-limesurvey \
     --repo "git@github.com:fairagro/basic_infrastructure.git" \
     --revision lime_survey \
-    --path "helmcharts/fairagro-limesurvey" \
+    --path "helmcharts/fairagro-survey" \
     --dest-server "https://kubernetes.default.svc" \
     --project fairagro \
-    --dest-namespace fairagro-limesurvey \
-    --values "../../environments/${environment}/values/fairagro-limesurvey.yaml" \
-    --values "../../environments/${environment}/values/fairagro-limesurvey.enc.yaml" \
+    --dest-namespace fairagro-survey \
+    --values "../../environments/${environment}/values/fairagro-survey.yaml" \
+    --values "../../environments/${environment}/values/fairagro-survey.enc.yaml" \
     --sync-option CreateNamespace=true

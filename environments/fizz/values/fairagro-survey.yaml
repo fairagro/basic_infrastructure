@@ -1,10 +1,10 @@
 postgres_db:
   size: 4Gi
-  storageClass: nfs-csi-delete
+  storageClass: truenas-delete
 
 limesurvey:
   persistence:
-    storageClassName: nfs-csi-delete
+    storageClassName: truenas-delete
     size: 5Gi
   ingress:
     hosts:
