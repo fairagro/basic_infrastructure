@@ -54,7 +54,7 @@ argocd app create fairagro-zammad \
 # Install datahub app
 argocd app create fairagro-datahub \
     --repo "git@github.com:fairagro/basic_infrastructure.git" \
-    --revision gitlab \
+    --revision HEAD \
     --path "helmcharts/fairagro-datahub" \
     --dest-server "https://kubernetes.default.svc" \
     --project fairagro \
