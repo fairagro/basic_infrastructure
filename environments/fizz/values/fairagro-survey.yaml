@@ -3,3 +3,17 @@ postgres_db:
   storageClass: nfs-csi-delete
 
 admin_email: carsten.scharfenberg@zalf.de
+limesurvey:
+  persistence:
+    storageClassName: nfs-csi-delete
+    size: 5Gi
+  ingress:
+    hosts:
+      - host: survey.fizz.dataservice.zalf.de
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls:
+      - secretName: limesurvey-tls-secret
+        hosts:
+          - survey.fizz.dataservice.zalf.de

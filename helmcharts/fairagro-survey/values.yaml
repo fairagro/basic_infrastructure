@@ -1,47 +1,51 @@
-image:
-  registry: docker.io
-  repository: martialblog/limesurvey
-  # Specify a imagePullPolicy
-  pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion
-  tag: null
-
-externalDatabase:
-  # Type of external database ("mysql" or "pgsql")
-  type: pgsql
-  # External Database server host
-  host: fairagro-postgresql-limesurvey
-  # External Database server port
-  port: 5432
-  # External Database database name (use existingSecretConfig.databaseField to load from secret)
-  database: limesurvey
-  # Use an existing secret for retrieving the database password.
-  # The secret must contain the field "db-password" (field name configurable via existingSecretConfig.passwordField)
-  existingSecret: limesurvey.fairagro-postgresql-limesurvey.credentials.postgresql.acid.zalan.do
-  existingSecretConfig:
-    passwordField: password
-    usernameField: username
-
 limesurvey:
-  # LimeSurvey initial Administrator Account
-  admin:
-    user: admin
-    password: "{{ .Values.admin_password }}"
-    name: Administrator
-    email: "{{ .Values.admin_email }}"
-  # LimeSurvey permits the encryption of personal data
-  # These values will be created as secret
-  # https://manual.limesurvey.org/Data_encryption
-  # Not required for LimeSurvey 3
-  encrypt:
-    keypair: ""
-    publicKey: ""
-    secretKey: ""
-    nonce: ""
-    # Create with: php -r "var_dump(sodium_bin2hex(sodium_crypto_secretbox_keygen()));"
-    secretBoxKey: ""
-  existingSecret: null
-  listenPort: 8080
-  publicUrl: ""
-  baseUrl: ""
-  urlFormat: "path"
+  image:
+    registry: docker.io
+    repository: martialblog/limesurvey
+    # Specify a imagePullPolicy
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion
+    tag: null
+
+  externalDatabase:
+    # Type of external database ("mysql" or "pgsql")
+    type: pgsql
+    # External Database server host
+    host: fairagro-postgresql-limesurvey
+    # External Database server port
+    port: 5432
+    # External Database database name (use existingSecretConfig.databaseField to load from secret)
+    database: limesurvey
+    # Use an existing secret for retrieving the database password.
+    # The secret must contain the field "db-password" (field name configurable via existingSecretConfig.passwordField)
+    existingSecret: limesurvey.fairagro-postgresql-limesurvey.credentials.postgresql.acid.zalan.do
+    existingSecretConfig:
+      passwordField: password
+      usernameField: username
+
+  limesurvey:
+    # LimeSurvey initial Administrator Account
+    admin:
+      user: admin
+      password: "{{ .Values.admin_password }}"
+      name: Administrator
+      email: "{{ .Values.admin_email }}"
+    # LimeSurvey permits the encryption of personal data
+    # These values will be created as secret
+    # https://manual.limesurvey.org/Data_encryption
+    # Not required for LimeSurvey 3
+    # encrypt:
+    #   keypair: ""
+    #   publicKey: ""
+    #   secretKey: ""
+    #   nonce: ""
+    #   # Create with: php -r "var_dump(sodium_bin2hex(sodium_crypto_secretbox_keygen()));"
+    #   secretBoxKey: ""
+    # existingSecret: null
+    # listenPort: 8080
+    # publicUrl: ""
+    # baseUrl: ""
+    # urlFormat: "path"
+
+  ingress:
+    enabled: true
