@@ -27,9 +27,7 @@ limesurvey:
     # LimeSurvey initial Administrator Account
     admin:
       user: admin
-      password: "{{ .Values.admin_password }}"
       name: Administrator
-      email: "{{ .Values.admin_email }}"
     # LimeSurvey permits the encryption of personal data
     # These values will be created as secret
     # https://manual.limesurvey.org/Data_encryption
@@ -49,3 +47,11 @@ limesurvey:
 
   ingress:
     enabled: true
+
+  resources:
+    limits:
+      memory: 1Gi
+      cpu: 1000m
+    requests:
+      memory: 512Mi
+      cpu: 300m
