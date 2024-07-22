@@ -16,3 +16,7 @@ limesurvey:
       - secretName: limesurvey-tls-secret
         hosts:
           - survey.fizz.dataservice.zalf.de
+  livenessProbe:
+    enabled: false
+  readinessProbe:
+    enabled: false
