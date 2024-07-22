@@ -1,0 +1,176 @@
+# Default values for fairagro-datahub.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+cloudflare_api_token: ~
+geant_acme_hmac_key: ~
+cert_email_receiver: ~
+geant_acme_key_id: ~
+
+replicaCount: 1
+
+image:
+  repository: ghcr.io/nfdi4plants/datahub
+  pullPolicy: Always
+  digest: ~
+  # Overrides the image tag whose default is the chart appVersion.
+  # tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Automatically mount a ServiceAccount's API credentials?
+  automount: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext:
+  {}
+  # fsGroup: 2000
+
+securityContext:
+  {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+persistence:
+  storageClass: ~
+  postgres_db:
+    size: 4Gi
+    storageClass: ~
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  annotations:
+    {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources:
+  limits:
+    cpu: 4
+    memory: 8Gi
+  requests:
+    cpu: 4
+    memory: 8Gi
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+    scheme: HTTP
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
+    scheme: HTTP
+startupProbe:
+  httpGet:
+    path: /
+    port: http
+    scheme: HTTP
+  periodSeconds: 5
+  failureThreshold: 200
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+# Additional volumes on the output Deployment definition.
+volumes:
+  - name: gitlab-additional-config
+    configMap:
+      defaultMode: 0644
+      name: gitlab-additional-config
+  - name: shm
+    emptyDir:
+      medium: Memory
+      sizeLimit: 256Mi
+
+# Additional volumeMounts on the output Deployment definition.
+volumeMounts:
+  - name: gitlab-additional-config
+    mountPath: /etc/gitlab/datahub-secrets.include
+    subPath: datahub-secrets.include
+  - name: shm
+    mountPath: /dev/shm
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+gitlabrunner:
+  gitlabUrl: ~
+  rbac:
+    create: true
+    rules:
+      - resources: ["events"]
+        verbs: ["list", "watch"]
+      # - resources: ["namespaces"]
+      #   verbs: ["create", "delete"]
+      - resources: ["pods"]
+        verbs: ["create", "delete", "get"]
+      - apiGroups: [""]
+        resources: ["pods/attach", "pods/exec"]
+        verbs: ["get", "create", "patch", "delete"]
+      - apiGroups: [""]
+        resources: ["pods/log"]
+        verbs: ["get", "list"]
+      - resources: ["secrets"]
+        verbs: ["create", "delete", "get", "update"]
+      # - resources: ["serviceaccounts"]
+      #   verbs: ["get"]
+      - resources: ["services"]
+        verbs: ["create", "get"]
+  serviceAccount:
+    create: true
+    name: gitlab-runner
+  runners:
+    secret: gitlab-runner-secret
+    # runner configuration, where the multi line string is evaluated as a
+    # template so you can specify helm values inside of it.
+    #
+    # tpl: https://helm.sh/docs/howto/charts_tips_and_tricks/#using-the-tpl-function
+    # runner configuration: https://docs.gitlab.com/runner/configuration/advanced-configuration.html
+    config: |
+      [[runners]]
+        name = "gitlab-runner"
+        executor = "kubernetes"
+        [runners.kubernetes]
+          namespace = "{{ .Release.Namespace }}"
+          helper_image = "registry.gitlab.com/gitlab-org/ci-cd/gitlab-runner-ubi-images/gitlab-runner-helper-ocp:x86_64-v16.11.2"
+          [runners.kubernetes.pod_security_context]
+            run_as_non_root = true
+            run_as_user = 59417
