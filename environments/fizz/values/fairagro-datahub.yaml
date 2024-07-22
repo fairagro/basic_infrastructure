@@ -1,0 +1,32 @@
+# This digest corresponds to the datahub main branch, downloaded on 20th of June 2024, 13:20 MET,
+# corresponding to gitlab version 17.1.1
+# Unfortunately the is no versioning scheme, so we are forced to use the digest.
+#digest: sha256:34556fa2fdfba96592814a168bb4f6663283a5e6f2bb9d357a5e4d64ef87a0d8
+
+# This digest corresponds to the datahub main branch, downloaded on 11th of July 2024, 11:30 MET,
+# corresponding to gitlab version 17.1.2
+# Unfortunately the is no versioning scheme, so we are forced to use the digest.
+image:
+  digest: sha256:7199a9783ec03c0fda0efb948e52e6cb4f69e12a2ff4808d49ed0d7c951b7287
+
+persistence:
+  storageClass: truenas-delete
+
+ingress:
+  className: nginx-internal
+  hosts:
+    - host: datahub.fizz.dataservice.zalf.de
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+    - secretName: datahub-tls-secret
+      hosts:
+        - datahub.fizz.dataservice.zalf.de
+
+postgres_db:
+  size: 4Gi
+  storageClass: truenas-delete
+
+gitlabrunner:
+  gitlabUrl: https://datahub.fizz.dataservice.zalf.de

@@ -28,25 +28,37 @@ environment_path="$mydir/../environments/$environment"
 sops exec-env "${environment_path}/credentials/argocd_secrets.enc.yaml" 'argocd login $ARGOCD_SERVER --insecure --grpc-web-root-path $ARGOCD_PREFIX --username=$ARGOCD_ADMIN_USER --password=$ARGOCD_ADMIN_PASSWORD'
 
 # Install nextcloud app
-argocd app create nextcloud \
-    --repo "git@github.com:fairagro/basic_infrastructure.git" \
-    --revision HEAD \
-    --path "helmcharts/zalf-nextcloud" \
-    --dest-server "https://kubernetes.default.svc" \
-    --project fairagro \
-    --dest-namespace fairagro-nextcloud \
-    --values "../../environments/${environment}/values/zalf-nextcloud.yaml" \
-    --values "../../environments/${environment}/values/zalf-nextcloud.enc.yaml" \
-    --sync-option CreateNamespace=true
+# argocd app create fairagro-nextcloud \
+#     --repo "git@github.com:fairagro/basic_infrastructure.git" \
+#     --revision HEAD \
+#     --path "helmcharts/zalf-nextcloud" \
+#     --dest-server "https://kubernetes.default.svc" \
+#     --project fairagro \
+#     --dest-namespace fairagro-nextcloud \
+#     --values "../../environments/${environment}/values/zalf-nextcloud.yaml" \
+#     --values "../../environments/${environment}/values/zalf-nextcloud.enc.yaml" \
+#     --sync-option CreateNamespace=true
 
 # Install zammad app
-argocd app create zammad \
+# argocd app create fairagro-zammad \
+#     --repo "git@github.com:fairagro/basic_infrastructure.git" \
+#     --revision HEAD \
+#     --path "helmcharts/zalf-zammad" \
+#     --dest-server "https://kubernetes.default.svc" \
+#     --project fairagro \
+#     --dest-namespace fairagro-zammad \
+#     --values "../../environments/${environment}/values/zalf-zammad.yaml" \
+#     --values "../../environments/${environment}/values/zalf-zammad.enc.yaml" \
+#     --sync-option CreateNamespace=true
+
+# Install datahub app
+argocd app create fairagro-datahub \
     --repo "git@github.com:fairagro/basic_infrastructure.git" \
-    --revision HEAD \
-    --path "helmcharts/zalf-zammad" \
+    --revision gitlab \
+    --path "helmcharts/fairagro-datahub" \
     --dest-server "https://kubernetes.default.svc" \
     --project fairagro \
-    --dest-namespace fairagro-zammad \
-    --values "../../environments/${environment}/values/zalf-zammad.yaml" \
-    --values "../../environments/${environment}/values/zalf-zammad.enc.yaml" \
+    --dest-namespace fairagro-datahub \
+    --values "../../environments/${environment}/values/fairagro-datahub.yaml" \
+    --values "../../environments/${environment}/values/fairagro-datahub.enc.yaml" \
     --sync-option CreateNamespace=true
