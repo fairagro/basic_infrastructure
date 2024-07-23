@@ -28,9 +28,9 @@ limesurvey:
     admin:
       user: admin
       name: Administrator
-    env:
-      - name: PGSSLMODE
-        value: require
+    # env:
+    #   - name: PGSSLMODE
+    #     value: require
     # LimeSurvey permits the encryption of personal data
     # These values will be created as secret
     # https://manual.limesurvey.org/Data_encryption
