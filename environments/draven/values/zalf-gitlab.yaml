@@ -1,5 +1,0 @@
-postgres_db:
-  size: 4Gi
-  storageClass: nfs-csi-delete
-cert_email_receiver: carsten.scharfenberg@zalf.de
-geant_acme_key_id: OqJJqONZBNIdYFekHDIDRQ
