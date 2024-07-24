@@ -53,7 +53,7 @@ limesurvey:
       'emailsmtphost' => 'smtp.hostinger.com',
       'emailsmtpuser' => getenv('SMTP_USER'),
       'emailsmtppassword' => getenv('SMTP_PASSWORD'),
-      'emailsmtpssl' => 'tls',
+      'emailsmtpssl' => 'ssl',
 
     # LimeSurvey permits the encryption of personal data
     # These values will be created as secret
