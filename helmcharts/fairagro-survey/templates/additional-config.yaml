@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: limesurvey-additional-config
-data:
-  fairagro.php: |
-    <?php
-    $config['ssl_disable_alert'] = true;
-    return $config;

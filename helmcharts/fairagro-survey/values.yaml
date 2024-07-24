@@ -5,7 +5,7 @@ limesurvey:
     # Specify a imagePullPolicy
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion
-    tag: null
+    tag: 6-fpm-alpine
 
   externalDatabase:
     # Type of external database ("mysql" or "pgsql")
@@ -22,13 +22,6 @@ limesurvey:
     existingSecretConfig:
       passwordField: password
       usernameField: username
-
-  extraVolumeMounts:
-    - name: additional-config
-      configMap:
-        name: limesurvey-additional-config
-        mountPath: /var/www/html/application/config/fairagro.php
-        subPath: fairagro.php
 
   limesurvey:
     # LimeSurvey initial Administrator Account
