@@ -25,10 +25,10 @@ limesurvey:
 
   extraVolumeMounts:
     - name: additional-config
-      configMap: limesurvey-additional-config
-      items:
-        - key: fairagro.php
-          mountPath: application/config/fairagro.php
+      configMap:
+        name: limesurvey-additional-config
+        mountPath: /var/www/html/application/config/fairagro.php
+        subPath: fairagro.php
 
   limesurvey:
     # LimeSurvey initial Administrator Account
