@@ -3,11 +3,11 @@ geant_acme_key_id: OqJJqONZBNIdYFekHDIDRQ
 
 postgres_db:
   size: 4Gi
-  storageClass: csi-nfs-delete
+  storageClass: nfs-csi-delete
 
 limesurvey:
   persistence:
-    storageClassName: csi-nfs-delete
+    storageClassName: nfs-csi-delete
     size: 5Gi
   ingress:
     className: nginx-external

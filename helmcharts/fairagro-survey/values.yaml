@@ -29,6 +29,11 @@ limesurvey:
       passwordField: password
       usernameField: username
 
+  persistence:
+    enabled: true
+    storageClassName: ~
+    size: 5Gi
+
   limesurvey:
     # LimeSurvey initial Administrator Account
     admin:
