@@ -48,6 +48,7 @@ limesurvey:
             name: limesurvey-smtp-secret
             key: password
     additional_config: |
+      'ssl_disable_alert' => true,
       'emailmethod' => 'smtp',
       'emailsmtphost' => 'smtp.hostinger.com',
       'emailsmtpuser' => getenv('SMTP_USER'),
