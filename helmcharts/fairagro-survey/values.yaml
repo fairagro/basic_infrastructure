@@ -5,7 +5,10 @@ limesurvey:
     # Specify a imagePullPolicy
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion
-    tag: 6-fpm-alpine
+    # For security reasons we would prefer the 6-fpm-alpine version, but this (most probably) requires
+    # a nginx sidecar installation. This helmchart is currently not prepared for this. An example would
+    # be the nextcloud helm chart.
+    tag: 6-apache
 
   externalDatabase:
     # Type of external database ("mysql" or "pgsql")
