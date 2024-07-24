@@ -55,8 +55,8 @@ limesurvey:
       'emailsmtpuser' => getenv('SMTP_USER'),
       'emailsmtppassword' => getenv('SMTP_PASSWORD'),
       'emailsmtpssl' => 'tls',
-      'siteadminemail' => 'survey@fairagro.net',
-      'siteadminbounce' => 'survey@fairagro.net',
+      'siteadminemail' => getenv('SMTP_USER'),
+      'siteadminbounce' => getenv('SMTP_USER'),
       'emailsmtpdebug' => 1,
 
     # LimeSurvey permits the encryption of personal data
