@@ -23,6 +23,13 @@ limesurvey:
       passwordField: password
       usernameField: username
 
+  extraVolumeMounts:
+    - name: additional-config
+      configMap: limesurvey-additional-config
+      items:
+        - key: fairagro.php
+          path: application/config/fairagro.php
+
   limesurvey:
     # LimeSurvey initial Administrator Account
     admin:
