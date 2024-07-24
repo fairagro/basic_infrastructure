@@ -19,5 +19,5 @@ version: 0.1.0
 
 dependencies:
   - name: limesurvey
-    version: 0.8.4
+    version: 0.8.5
     repository: https://fairagro.github.io/limesurvey-helm/
