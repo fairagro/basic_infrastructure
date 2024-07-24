@@ -1,3 +1,6 @@
+smtp_user: ~
+smtp_passowrd: ~
+
 limesurvey:
   image:
     registry: docker.io
@@ -34,6 +37,23 @@ limesurvey:
     env:
       - name: PGSSLMODE
         value: require
+      - name: SMTP_USER
+        valueFrom:
+          secretKeyRef:
+            name: limesurvey-smtp-secret
+            key: user
+      - name: SMTP_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: limesurvey-smtp-secret
+            key: password
+    additional_config: |
+      'emailmethod' => 'smtp',
+      'emailsmtphost' => 'smtp.hostinger.com',
+      'emailsmtpuser' => getenv('SMTP_USER'),
+      'emailsmtppassword' => getenv('SMTP_PASSWORD'),
+      'emailsmtpssl' => 'tls',
+
     # LimeSurvey permits the encryption of personal data
     # These values will be created as secret
     # https://manual.limesurvey.org/Data_encryption
