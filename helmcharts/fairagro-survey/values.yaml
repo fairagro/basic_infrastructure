@@ -50,10 +50,13 @@ limesurvey:
     additional_config: |
       'ssl_disable_alert' => true,
       'emailmethod' => 'smtp',
+      'protocol' => 'smtp',
       'emailsmtphost' => 'smtp.hostinger.com:587',
       'emailsmtpuser' => getenv('SMTP_USER'),
       'emailsmtppassword' => getenv('SMTP_PASSWORD'),
       'emailsmtpssl' => 'tls',
+      'siteadminemail' => 'survey@fairagro.net',
+      'siteadminbounce' => 'survey@fairagro.net'
       'emailsmtpdebug' => 1,
 
     # LimeSurvey permits the encryption of personal data
