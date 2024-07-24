@@ -1,3 +1,5 @@
+smtp_user: ENC[AES256_GCM,data:SGu4/TVKqU5tOkKmgdGli/zlwg==,iv:396niHkjQT3eYasAuZQW/vidYKinFPgDEpZ9qohwGIw=,tag:p78sHF9VS/yb0qcaudxLqQ==,type:str]
+smtp_passowrd: ENC[AES256_GCM,data:b+iGOsYRfWXjeSqeNrv+C0N37Eaowd9Nh7/jSmcm0/4K,iv:J8gPbsPsqMrfhMDUnlqyaZrGuKzPpIDWt7+YokSFg2g=,tag:wAvjJGd2C6geCOw/QPtE+w==,type:str]
 limesurvey:
     limesurvey:
         admin:
@@ -27,8 +29,8 @@ sops:
             RFJzaGNsSzErR3dMdUhlUVBhTUEwOXcKadpV8Bzy8U61n2dUIRx9b+MPL7OwvTIW
             OjluNWWO9sQmDF7bvqojSkfbfUXnyU+QmFx/jwk2OacZCRlLgHQ69A==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-07-24T09:34:05Z"
-    mac: ENC[AES256_GCM,data:T6KFDjXV6AXVfF877H6FnxcGUHGiTRD9S9xJpiI4pak+ZFj25fO8pBMo8m/2vydKYBOfC7WuRIW8hCcLRmN/4OucBssLzbjpUY93VoCI2Z28TB8c1t27gweUGu8xbRW/dsLs+eWBrbRlmmczafwQgz1XNlLBOHvgNnGcZYxpZZk=,iv:38HJwo7/dN4VzAfPoUWsVPlXljp18lRs1iC5WkLSeTc=,tag:r5/XNhZlzOCnfD540RWWpw==,type:str]
+    lastmodified: "2024-07-24T15:38:43Z"
+    mac: ENC[AES256_GCM,data:m2kwGJf0G6hnit+CjUD+GGhC2Vwq4IRDwMF6eciZssVVmx5x+72ls+TmTfMcdWX6DLYeDvk+VvTIKqKHDHTISBzDMyM6iPTuafBvZC6RtHykdUdqq/ZlavdH56X4ChUzZJpIBwTA5BBOOe/AhaaQkH7gcNEl5k3/wldvxohwn5A=,iv:vCW2JDCLn5pWH2uxPkjY7IyD8rWMKcpf7fITcCAF42w=,tag:ra3wektSX/+kiEilQTfejQ==,type:str]
     pgp:
         - created_at: "2024-07-17T16:50:48Z"
           enc: |-
