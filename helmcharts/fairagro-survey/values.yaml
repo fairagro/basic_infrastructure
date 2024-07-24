@@ -28,7 +28,7 @@ limesurvey:
       configMap: limesurvey-additional-config
       items:
         - key: fairagro.php
-          path: application/config/fairagro.php
+          mountPath: application/config/fairagro.php
 
   limesurvey:
     # LimeSurvey initial Administrator Account
