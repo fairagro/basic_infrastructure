@@ -11,7 +11,7 @@ limesurvey:
     # For security reasons we would prefer the 6-fpm-alpine version, but this (most probably) requires
     # a nginx sidecar installation. This helmchart is currently not prepared for this. An example would
     # be the nextcloud helm chart.
-    tag: 6.5.16-240708-apache
+    tag: 6.5.15-240701-apache
 
   externalDatabase:
     # Type of external database ("mysql" or "pgsql")
