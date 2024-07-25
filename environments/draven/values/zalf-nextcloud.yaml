@@ -30,6 +30,8 @@ nextcloud:
       storageClass: nfs-csi-delete
 
 fairagro-onlyoffice:
+  enabled: true
+
   ingress:
     hosts:
       - host: onlyoffice.fairagro.net
@@ -42,6 +44,8 @@ fairagro-onlyoffice:
           - onlyoffice.fairagro.net
 
 collabora-online:
+  enabled: false
+
   collabora:
     aliasgroups:
       - host: "https://nextcloud.fairagro.net:443"

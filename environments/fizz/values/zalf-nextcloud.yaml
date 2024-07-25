@@ -22,6 +22,8 @@ nextcloud:
       domain: fairagro.net
 
 collabora-online:
+  enabled: true
+
   collabora:
     aliasgroups:
       - host: "https://nextcloud.fizz.dataservice.zalf.de:443"

@@ -77,7 +77,7 @@ if [[ -f "${environment_path}/values/fairagro-survey.yaml" ]]; then
     echo "Installing limesurvey app on ${environment}..."
     argocd app create fairagro-limesurvey \
         --repo "git@github.com:fairagro/basic_infrastructure.git" \
-        --revision lime_survey \
+        --revision HEAD \
         --path "helmcharts/fairagro-survey" \
         --dest-server "https://kubernetes.default.svc" \
         --project fairagro \
