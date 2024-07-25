@@ -1,0 +1,19 @@
+postgres_db:
+  size: 4Gi
+  storageClass: truenas-delete
+
+limesurvey:
+  persistence:
+    storageClassName: truenas-delete
+    size: 5Gi
+  ingress:
+    className: nginx-internal
+    hosts:
+      - host: survey.fizz.dataservice.zalf.de
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls:
+      - secretName: limesurvey-tls-secret
+        hosts:
+          - survey.fizz.dataservice.zalf.de
