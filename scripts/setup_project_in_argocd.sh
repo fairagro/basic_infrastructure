@@ -31,6 +31,7 @@ if [[ -f "${environment_path}/values/zalf-nextcloud.yaml" ]]; then
     # Install nextcloud app
     echo "Installing nextcloud app on ${environment}..."
     argocd app create fairagro-nextcloud \
+        --upsert \
         --repo "git@github.com:fairagro/basic_infrastructure.git" \
         --revision HEAD \
         --path "helmcharts/zalf-nextcloud" \
@@ -46,6 +47,7 @@ if [[ -f "${environment_path}/values/zalf-zammad.yaml" ]]; then
     # Install zammad app
     echo "Installing zammad app on ${environment}..."
     argocd app create fairagro-zammad \
+        --upsert \
         --repo "git@github.com:fairagro/basic_infrastructure.git" \
         --revision HEAD \
         --path "helmcharts/zalf-zammad" \
@@ -61,6 +63,7 @@ if [[ -f "${environment_path}/values/fairagro-datahub.yaml" ]]; then
     # Install datahub app
     echo "Installing datahub app on ${environment}..."
     argocd app create fairagro-datahub \
+        --upsert \
         --repo "git@github.com:fairagro/basic_infrastructure.git" \
         --revision HEAD \
         --path "helmcharts/fairagro-datahub" \
@@ -76,6 +79,7 @@ if [[ -f "${environment_path}/values/fairagro-survey.yaml" ]]; then
     # Install limesurvey app
     echo "Installing limesurvey app on ${environment}..."
     argocd app create fairagro-limesurvey \
+        --upsert \
         --repo "git@github.com:fairagro/basic_infrastructure.git" \
         --revision HEAD \
         --path "helmcharts/fairagro-survey" \
