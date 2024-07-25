@@ -1,5 +1,9 @@
-allowed_collabora_ips: 10.233.64.0/18
-allowed_reverse_proxy_ips: 10.233.64.0/18
+allowed_collabora_ips:
+  - 10.0.0.0/8
+allowed_reverse_proxy_ips: 10.0.0.0/8
+postgres_db:
+  size: 4Gi
+  storageClass: truenas-delete
 
 nextcloud:
   # ## Allowing use of ingress controllers
@@ -21,13 +25,20 @@ nextcloud:
       fromAddress: nextcloud
       domain: fairagro.net
 
+  persistence:
+    size: 4Gi
+    storageClass: truenas-delete
+    nextcloudData:
+      size: 4Gi
+      storageClass: truenas-delete
+
 collabora-online:
   enabled: true
 
   collabora:
     aliasgroups:
       - host: "https://nextcloud.fizz.dataservice.zalf.de:443"
-    server_name: collabora.corki.bonares.de
+    server_name: collabora.fizz.dataservice.zalf.de
 
   ingress:
     hosts:
