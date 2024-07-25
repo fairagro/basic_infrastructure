@@ -10,6 +10,7 @@ nextcloud:
   # ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/
   # ##
   ingress:
+    className: nginx-internal
     tls:
       - secretName: nextcloud-tls-secret
         hosts:
@@ -41,6 +42,7 @@ collabora-online:
     server_name: collabora.fizz.dataservice.zalf.de
 
   ingress:
+    className: nginx-internal
     hosts:
       - host: collabora.fizz.dataservice.zalf.de
         paths:
