@@ -59,6 +59,15 @@ collabora-online:
     server_name: collabora.fairagro.net
 
   ingress:
+    annotations:
+      cert-manager.io/issuer: geant
+      cert-manager.io/private-key-size: "4096"
+      cert-manager.io/private-key-rotation-policy: "Always"
+      # It seems the subjects annotation do not have any effect.
+      # Still we keep them...
+      cert-manager.io/subject-countries: "DE"
+      cert-manager.io/subject-organizations: "NFDI FAIRagro"
+      cert-manager.io/subject-organizationalunits: "Measure 4.1"
     hosts:
       - host: collabora.fairagro.net
         paths:
