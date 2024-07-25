@@ -33,8 +33,23 @@ nextcloud:
       size: 4Gi
       storageClass: truenas-delete
 
-collabora-online:
+fairagro-onlyoffice:
   enabled: true
+
+  ingress:
+    className: nginx-internal
+    hosts:
+      - host: onlyoffice.fizz.dataservice.zalf.de
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls:
+      - secretName: onlyoffice-tls-secret
+        hosts:
+          - onlyoffice.fizz.dataservice.zalf.de
+
+collabora-online:
+  enabled: false
 
   collabora:
     aliasgroups:
