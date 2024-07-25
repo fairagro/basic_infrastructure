@@ -40,6 +40,10 @@ nextcloud:
 fairagro-onlyoffice:
   enabled: true
 
+  postgres:
+    storageClass: nfs-csi-delete
+    dbsize: 1Gi
+
   ingress:
     className: nginx-external
     annotations:

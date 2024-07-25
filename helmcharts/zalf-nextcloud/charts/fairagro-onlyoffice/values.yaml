@@ -7,7 +7,6 @@ enabled: true
 jwt_secret: ~
 
 postgres:
-  storageClass: nfs-csi-delete
   dbsize: 1Gi
   username: onlyoffice
   dbname: onlyoffice

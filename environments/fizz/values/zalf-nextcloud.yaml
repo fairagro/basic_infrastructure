@@ -36,6 +36,10 @@ nextcloud:
 fairagro-onlyoffice:
   enabled: true
 
+  postgres:
+    storageClass: truenas-delete
+    dbsize: 1Gi
+
   ingress:
     className: nginx-internal
     hosts:
