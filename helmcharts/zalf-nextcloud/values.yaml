@@ -332,3 +332,6 @@ collabora-online:
         location /browser/dist/admin/admin.html { deny all; return 403; }
     hosts: ~
     tls: ~
+
+fairagro-onlyoffice:
+  enabled: false
