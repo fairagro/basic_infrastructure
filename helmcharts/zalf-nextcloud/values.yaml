@@ -42,7 +42,6 @@ nextcloud:
 
   ingress:
     enabled: true
-    className: nginx-external
     annotations:
       nginx.ingress.kubernetes.io/proxy-body-size: 128m
       nginx.ingress.kubernetes.io/cors-allow-headers: X-Forwarded-For
@@ -303,7 +302,6 @@ collabora-online:
 
   ingress:
     enabled: true
-    className: nginx-external
     annotations:
       nginx.ingress.kubernetes.io/upstream-hash-by: "$arg_WOPISrc"
       nginx.ingress.kubernetes.io/proxy-body-size: "0"

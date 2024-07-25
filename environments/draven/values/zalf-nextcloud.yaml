@@ -9,6 +9,7 @@ geant_acme_key_id: OqJJqONZBNIdYFekHDIDRQ
 
 nextcloud:
   ingress:
+    className: nginx-external
     annotations:
       cert-manager.io/issuer: geant
       cert-manager.io/private-key-size: "4096"
@@ -59,6 +60,7 @@ collabora-online:
     server_name: collabora.fairagro.net
 
   ingress:
+    className: nginx-external
     annotations:
       cert-manager.io/issuer: geant
       cert-manager.io/private-key-size: "4096"
