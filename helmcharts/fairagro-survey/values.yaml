@@ -4,14 +4,14 @@ smtp_passowrd: ~
 limesurvey:
   image:
     registry: docker.io
-    repository: martialblog/limesurvey
+    repository: martialblog/limesurvey@sha256
     # Specify a imagePullPolicy
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion
     # For security reasons we would prefer the 6-fpm-alpine version, but this (most probably) requires
     # a nginx sidecar installation. This helmchart is currently not prepared for this. An example would
     # be the nextcloud helm chart.
-    tag: 6-apache
+    tag: a4fa01cf8dcffd0de6019f94c02ea3d7fa33dd260ee90db211b3d6cd000fe69a # 6.5.16-240708-apache
 
   externalDatabase:
     # Type of external database ("mysql" or "pgsql")
