@@ -78,6 +78,9 @@ spec:
               fi
       containers:
         - name: {{ .Chart.Name }}
+          # override entrypoint to set ulimit
+          command:
+            - [""]
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: {{ include "fairagro-onlyoffice.imagename" . }}
@@ -131,6 +134,9 @@ spec:
               # this file name is required, according to:
               # https://forum.onlyoffice.com/t/docker-relation-between-default-json-and-local-json/2232/6
               mountPath: /etc/onlyoffice/documentserver/local-production-linux.json
+            - name: onlyoffice-config
+              subpath: limits.conf
+              mountPath: /etc/security/limits.d/onlyoffice.conf
           {{- with .Values.volumeMounts }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
