@@ -135,7 +135,7 @@ spec:
               # https://forum.onlyoffice.com/t/docker-relation-between-default-json-and-local-json/2232/6
               mountPath: /etc/onlyoffice/documentserver/local-production-linux.json
             - name: onlyoffice-config
-              subpath: limits.conf
+              subPath: limits.conf
               mountPath: /etc/security/limits.d/onlyoffice.conf
           {{- with .Values.volumeMounts }}
             {{- toYaml . | nindent 12 }}
