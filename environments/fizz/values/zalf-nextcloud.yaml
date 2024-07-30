@@ -34,7 +34,7 @@ nextcloud:
       storageClass: truenas-delete
 
 fairagro-onlyoffice:
-  enabled: true
+  enabled: false
 
   postgres:
     storageClass: truenas-delete
@@ -53,7 +53,7 @@ fairagro-onlyoffice:
           - onlyoffice.fizz.dataservice.zalf.de
 
 collabora-online:
-  enabled: false
+  enabled: true
 
   collabora:
     aliasgroups:
