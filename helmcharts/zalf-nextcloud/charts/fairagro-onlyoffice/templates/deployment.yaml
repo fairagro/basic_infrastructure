@@ -134,7 +134,8 @@ spec:
               mountPath: /etc/onlyoffice/documentserver/local-production-linux.json
             - name: onlyoffice-config
               subPath: limits.conf
-              mountPath: /etc/security/limits.d/onlyoffice.conf
+              #mountPath: /etc/security/limits.d/onlyoffice.conf
+              mountPath: /etc/security/limits.conf
           {{- with .Values.volumeMounts }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
