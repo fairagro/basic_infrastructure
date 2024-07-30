@@ -78,6 +78,12 @@ spec:
               fi
       containers:
         - name: {{ .Chart.Name }}
+          # override entrypoint to set ulimit
+          command:
+            - "/usr/bin/bash"
+          args:
+            - "-c" 
+            - "ulimit -n 65536 && /app/ds/run-document-server.sh"
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: {{ include "fairagro-onlyoffice.imagename" . }}
