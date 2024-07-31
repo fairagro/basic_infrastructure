@@ -26,6 +26,8 @@ nextcloud:
       fromAddress: nextcloud
       domain: fairagro.net
 
+  resources: {}
+
   persistence:
     size: 4Gi
     storageClass: truenas-delete
@@ -48,7 +50,7 @@ fairagro-onlyoffice:
           - path: /
             pathType: ImplementationSpecific
     tls:
-      - secretName: onlyoffice-tls-secret
+      - secretName: nextcloud-tls-secret
         hosts:
           - onlyoffice.fizz.dataservice.zalf.de
 
@@ -60,6 +62,8 @@ collabora-online:
       - host: "https://nextcloud.fizz.dataservice.zalf.de:443"
     server_name: collabora.fizz.dataservice.zalf.de
 
+  resources: {}
+
   ingress:
     className: nginx-internal
     hosts:
@@ -68,6 +72,6 @@ collabora-online:
           - path: /
             pathType: ImplementationSpecific
     tls:
-      - secretName: collabora-tls-secret
+      - secretName: nextcloud-tls-secret
         hosts:
           - collabora.fizz.dataservice.zalf.de
