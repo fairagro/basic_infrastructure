@@ -272,7 +272,7 @@ collabora-online:
 
   image:
     repository: collabora/code@sha256
-    tag: e0c7ff3cf4ccd49a590980cf83f46f8efd9456f9d173f92d1acfd3f41be09319 # 23.05.9.1.1
+    tag: 1582d87ab06f586e7b0b3cee4ca970393b8f3d5597eb2a9d0a4f5861b1b138c1 # 24.04.5.2.1
     pullPolicy: IfNotPresent
 
   autoscaling:
