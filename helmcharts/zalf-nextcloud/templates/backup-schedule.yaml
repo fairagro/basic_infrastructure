@@ -5,7 +5,7 @@ kind: Schedule
 # Standard Kubernetes metadata. Required.
 metadata:
   # Schedule name. May be any valid Kubernetes object name. Required.
-  name: nextcloud-backup
+  name: fairagro-nextcloud-backup
   # Schedule namespace. Must be the namespace of the Velero server. Required.
   namespace: velero
 # Parameters about the scheduled backup. Required.
