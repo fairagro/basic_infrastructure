@@ -1,0 +1,7 @@
+reverse_proxy__default_ip: 193.175.153.124
+reverse_proxy__forwarding_targets:
+  - fqdn: datahub.fairagro.net
+  - fqdn: nextcloud.fairagro.net
+  - fqdn: onlyoffice.fairagro.net
+  - fqdn: survey.fairagro.net
+  - fqdn: zammad.fairagro.net
