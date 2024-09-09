@@ -1,0 +1,9 @@
+- name: restart nginx
+  become: True
+  tags:
+    - reverse_proxy
+  # only restart if not just started
+  when: not ((reverse_proxy__nginx_service_state is defined) and (reverse_proxy__nginx_service_state.changed))
+  ansible.builtin.service:
+    name: nginx
+    state: restarted

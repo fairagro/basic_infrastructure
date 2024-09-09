@@ -1,0 +1,37 @@
+# For more information on configuration, see:
+#   * Official English Documentation: http://nginx.org/en/docs/
+#   * Official Russian Documentation: http://nginx.org/ru/docs/
+
+user nginx;
+worker_processes auto;
+error_log /var/log/nginx/error.log;
+pid /run/nginx.pid;
+
+# Load dynamic modules. See /usr/share/doc/nginx/README.dynamic.
+include /usr/share/nginx/modules/*.conf;
+
+events {
+    worker_connections 1024;
+}
+
+stream {
+    map $ssl_preread_server_name $name {
+{%- for target in reverse_proxy__forwarding_targets -%}
+        {{ target.fqdn }} {{ target.ip | default(reverse_proxy__default_ip) }}:{{ target.port | default(reverse_proxy__default_port) | string }};
+{%- endfor -%}
+    }
+
+    server {
+        listen      443;
+        proxy_pass  $name;
+        ssl_preread on;
+        resolver    9.9.9.9;
+    }
+}
+
+http {
+    server {
+        listen 80 default_server;
+        error_page 497 =301 https://$host$request_uri;
+    }
+}
