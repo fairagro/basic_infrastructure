@@ -14,7 +14,10 @@ events {
     worker_connections 1024;
 }
 
+# Forward traffic on port 443 with known SNI to the desired target IP.
+# This is done on TCP level, without terminating the TLS encryption.
 stream {
+
     map $ssl_preread_server_name $name {
 {%- for target in reverse_proxy__forwarding_targets -%}
         {{ target.fqdn }} {{ target.ip | default(reverse_proxy__default_ip) }}:{{ target.port | default(reverse_proxy__default_port) | string }};
@@ -29,9 +32,11 @@ stream {
     }
 }
 
+# Redirect any request from port 80 to port 443
 http {
     server {
         listen 80 default_server;
-        error_page 497 =301 https://$host$request_uri;
+        server_name _;
+        return 301 https://$host$request_uri;
     }
 }
