@@ -1,0 +1,13 @@
+- name: scope
+  become: True
+  tags:
+    - sshd
+  block:
+    - name: sshd config
+      ansible.builtin.copy:
+        src: sshd_config
+        dest: /etc/ssh/
+        mode: 0644
+        owner: root
+        group: root
+      notify: restart sshd

@@ -1,0 +1,38 @@
+- name: scope
+  become: True
+  tags:
+    - fail2ban
+  block:
+    - name: prepare epel repo
+      ansible.builtin.package:
+        name: epel-release
+        state: present
+
+    - name: install fail2ban
+      ansible.builtin.package:
+        name:
+          - fail2ban
+          - fail2ban-firewalld
+        state: present
+
+    - name: sshd config
+      ansible.builtin.copy:
+        src: sshd.local
+        dest: /etc/fail2ban/jail.d/
+        mode: 0644
+        owner: root
+        group: root
+      notify: restart fail2ban
+
+    - name: firewalld config for fail2ban
+      command: mv /etc/fail2ban/jail.d/00-firewalld.conf /etc/fail2ban/jail.d/00-firewalld.local
+      args:
+        creates: /etc/fail2ban/jail.d/00-firewalld.local
+      notify: restart fail2ban
+
+    - name: ensure service is enabled started
+      ansible.builtin.service:
+        name: fail2ban
+        enabled: true
+        state: started
+      register: fail2ban__service_state
