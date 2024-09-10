@@ -6,26 +6,26 @@ metadata:
   name: fairagro-postgresql-nextcloud
 spec:
   env:
-    - name: AWS_ACCESS_KEY_ID
-      valueFrom:
-        secretKeyRef:
-          name: s3-backup-secret
-          key: AWS_ACCESS_KEY_ID
-    - name: AWS_SECRET_ACCESS_KEY
-      valueFrom:
-        secretKeyRef:
-          name: s3-backup-secret
-          key: AWS_SECRET_ACCESS_KEY
-    - name: CLONE_AWS_ACCESS_KEY_ID
-      valueFrom:
-        secretKeyRef:
-          name: s3-backup-secret
-          key: CLONE_AWS_ACCESS_KEY_ID
-    - name: CLONE_AWS_SECRET_ACCESS_KEY
-      valueFrom:
-        secretKeyRef:
-          name: s3-backup-secret
-          key: CLONE_AWS_SECRET_ACCESS_KEY
+    # - name: AWS_ACCESS_KEY_ID
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: s3-backup-secret
+    #       key: AWS_ACCESS_KEY_ID
+    # - name: AWS_SECRET_ACCESS_KEY
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: s3-backup-secret
+    #       key: AWS_SECRET_ACCESS_KEY
+    # - name: CLONE_AWS_ACCESS_KEY_ID
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: s3-backup-secret
+    #       key: CLONE_AWS_ACCESS_KEY_ID
+    # - name: CLONE_AWS_SECRET_ACCESS_KEY
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: s3-backup-secret
+    #       key: CLONE_AWS_SECRET_ACCESS_KEY
     - name: USE_WALG_BACKUP
       value: false
     - name: USE_WALG_RESTORE
