@@ -8,6 +8,10 @@ spec:
   env:
     - name: AWS_ENDPOINT
       value: ~
+    - name: AWS_REGION
+      value: ~
+    - name: AWS_S3_FORCE_PATH_STYLE
+      value: ~
     - name: BACKUP_SCHEDULE
       value: ~
     - name: BACKUP_NUM_TO_RETAIN
