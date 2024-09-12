@@ -84,6 +84,6 @@ spec:
     parameters:
       password_encryption: scram-sha-256
 
-  clone:
-    cluster: fairagro-postgresql-nextcloud # Inplace restore
-    timestamp: "2050-01-01T00:00:00+00:00" # A future timestamp, so we allways clone the latest version
+  # clone:
+  #   cluster: fairagro-postgresql-nextcloud # Inplace restore
+  #   timestamp: "2050-01-01T00:00:00+00:00" # A future timestamp, so we allways clone the latest version
