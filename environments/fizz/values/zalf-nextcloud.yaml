@@ -1,4 +1,4 @@
-enable_backup_and_restore: false
+enable_backup_and_restore: true
 
 allowed_collabora_ips:
   - 10.0.0.0/8
