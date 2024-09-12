@@ -6,6 +6,8 @@ metadata:
   name: fairagro-postgresql-nextcloud
 spec:
   env:
+    - name: AWS_ENDPOINT
+      value: ~
     - name: BACKUP_SCHEDULE
       value: ~
     - name: BACKUP_NUM_TO_RETAIN
