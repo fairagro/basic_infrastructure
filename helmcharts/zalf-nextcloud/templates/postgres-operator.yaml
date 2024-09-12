@@ -1,4 +1,4 @@
-{{- if .Values.enable_backup_and_restore }}
+{{- if or .Values.enable_backup .Values.enable_restore }}
 apiVersion: v1
 kind: Secret
 metadata:

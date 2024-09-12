@@ -6,7 +6,7 @@ metadata:
   name: fairagro-postgresql-nextcloud
 spec:
   env:
-{{- if .Values.enable_backup_and_restore }}
+{{- if or .Values.enable_backup .Values.enable_restore }}
     - name: AWS_ACCESS_KEY_ID
       valueFrom:
         secretKeyRef:
@@ -105,7 +105,7 @@ spec:
     parameters:
       password_encryption: scram-sha-256
 
-{{- if .Values.enable_backup_and_restore }}
+{{- if .Values.enable_restore }}
   clone:
     cluster: fairagro-postgresql-nextcloud # Inplace restore
     timestamp: "2050-01-01T00:00:00+00:00" # A future timestamp, so we allways clone the latest version

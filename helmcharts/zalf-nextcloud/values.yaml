@@ -1,4 +1,5 @@
-enable_backup_and_restore: true
+enable_backup: true
+enable_restore: true
 
 # oidc_login_provider_url: "https://keycloak.corki.bonares.de/realms/fairagro"
 # #oidc_login_logout_url: "https://keycloak.corki.bonares.de/realms/fairagro/protocol/openid-connect/logout"
