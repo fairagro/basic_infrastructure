@@ -48,7 +48,9 @@ spec:
   # size of the database in GByte
   volume:
     size: "{{ .Values.postgres_db.size }}"
+{{- if .Values.postgres_db.storageClass }}
     storageClass: "{{ .Values.postgres_db.storageClass }}"
+{{- end }}
   # The database is burstable
   resources:
     requests:
