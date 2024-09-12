@@ -8,6 +8,8 @@ spec:
   env:
     - name: BACKUP_SCHEDULE
       value: ~
+    - name: BACKUP_NUM_TO_RETAIN
+      value: ~
     # - name: AWS_ACCESS_KEY_ID
     #   valueFrom:
     #     secretKeyRef:
