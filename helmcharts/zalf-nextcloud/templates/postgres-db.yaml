@@ -12,6 +12,16 @@ spec:
       value: ~
     - name: AWS_S3_FORCE_PATH_STYLE
       value: ~
+    - name: CLONE_AWS_ENDPOINT
+      value: ~
+    - name: CLONE_AWS_REGION
+      value: ~
+    - name: CLONE_AWS_S3_FORCE_PATH_STYLE
+      value: ~
+    - name: CLONE_USE_WALG_RESTORE
+      value: ~
+    - name: CLONE_WAL_S3_BUCKET
+      value: ~
     - name: BACKUP_SCHEDULE
       value: ~
     - name: BACKUP_NUM_TO_RETAIN
