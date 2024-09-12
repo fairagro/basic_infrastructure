@@ -6,38 +6,14 @@ metadata:
   name: fairagro-postgresql-nextcloud
 spec:
   env:
-    # - name: AWS_ENDPOINT
+    # - name: BACKUP_SCHEDULE
     #   value: ~
-    # - name: AWS_REGION
+    # - name: BACKUP_NUM_TO_RETAIN
     #   value: ~
-    # - name: AWS_S3_FORCE_PATH_STYLE
+    # - name: USE_WALG_BACKUP
     #   value: ~
-    # - name: CLONE_AWS_ENDPOINT
+    # - name: USE_WALG_RESTORE
     #   value: ~
-    # - name: CLONE_AWS_REGION
-    #   value: ~
-    # - name: CLONE_AWS_S3_FORCE_PATH_STYLE
-    #   value: ~
-    # - name: CLONE_USE_WALG_RESTORE
-    #   value: ~
-    # - name: CLONE_WAL_S3_BUCKET
-    #   value: ~
-    # - name: WALG_DISABLE_S3_SSE
-    #   value: ~
-    # - name: WAL_BUCKET_SCOPE_PREFIX
-    #   value: ~
-    # - name: WAL_BUCKET_SCOPE_SUFFIX
-    #   value: ~
-    # - name: WAL_S3_BUCKET
-    #   value: ~
-    - name: BACKUP_SCHEDULE
-      value: ~
-    - name: BACKUP_NUM_TO_RETAIN
-      value: ~
-    - name: USE_WALG_BACKUP
-      value: ~
-    - name: USE_WALG_RESTORE
-      value: ~
     # - name: AWS_ACCESS_KEY_ID
     #   valueFrom:
     #     secretKeyRef:
