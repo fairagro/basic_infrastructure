@@ -26,12 +26,12 @@ spec:
     #     secretKeyRef:
     #       name: s3-backup-secret
     #       key: CLONE_AWS_SECRET_ACCESS_KEY
-    - name: USE_WALG_BACKUP
-      value: "false"
-    - name: USE_WALG_RESTORE
-      value: "false"
-    - name: CLONE_USE_WALG_RESTORE
-      value: "false"
+    # - name: USE_WALG_BACKUP
+    #   value: "false"
+    # - name: USE_WALG_RESTORE
+    #   value: "false"
+    # - name: CLONE_USE_WALG_RESTORE
+    #   value: "false"
   # teamIds can be defined for the hole cluster and are there to group cluster e.g. by working group
   # must be configured in the postgres-operator yaml before using them here.
   teamId: "fairagro"
