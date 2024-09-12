@@ -1,9 +1,10 @@
+enable_backup_and_restore: false
+
 allowed_collabora_ips:
   - 10.0.0.0/8
 allowed_reverse_proxy_ips: 10.0.0.0/8
 postgres_db:
   size: 4Gi
-  storageClass: truenas-delete
 
 nextcloud:
   # ## Allowing use of ingress controllers
@@ -30,16 +31,13 @@ nextcloud:
 
   persistence:
     size: 4Gi
-    storageClass: truenas-delete
     nextcloudData:
       size: 4Gi
-      storageClass: truenas-delete
 
 fairagro-onlyoffice:
   enabled: false
 
   postgres:
-    storageClass: truenas-delete
     dbsize: 1Gi
 
   ingress:
