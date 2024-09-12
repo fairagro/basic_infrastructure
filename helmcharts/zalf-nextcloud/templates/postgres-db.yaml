@@ -6,14 +6,7 @@ metadata:
   name: fairagro-postgresql-nextcloud
 spec:
   env:
-    # - name: BACKUP_SCHEDULE
-    #   value: ~
-    # - name: BACKUP_NUM_TO_RETAIN
-    #   value: ~
-    # - name: USE_WALG_BACKUP
-    #   value: ~
-    # - name: USE_WALG_RESTORE
-    #   value: ~
+{{- if .Values.enable_backup_and_restore }}
     - name: AWS_ACCESS_KEY_ID
       valueFrom:
         secretKeyRef:
@@ -34,6 +27,16 @@ spec:
         secretKeyRef:
           name: postgres-operator
           key: CLONE_AWS_SECRET_ACCESS_KEY
+{{- else }}
+    - name: BACKUP_SCHEDULE
+      value: ~
+    - name: BACKUP_NUM_TO_RETAIN
+      value: ~
+    - name: USE_WALG_BACKUP
+      value: ~
+    - name: USE_WALG_RESTORE
+      value: ~
+{{- end }}
   # teamIds can be defined for the hole cluster and are there to group cluster e.g. by working group
   # must be configured in the postgres-operator yaml before using them here.
   teamId: "fairagro"
@@ -78,6 +81,8 @@ spec:
     parameters:
       password_encryption: scram-sha-256
 
-  # clone:
-  #   cluster: fairagro-postgresql-nextcloud # Inplace restore
-  #   timestamp: "2050-01-01T00:00:00+00:00" # A future timestamp, so we allways clone the latest version
+{{- if .Values.enable_backup_and_restore }}
+  clone:
+    cluster: fairagro-postgresql-nextcloud # Inplace restore
+    timestamp: "2050-01-01T00:00:00+00:00" # A future timestamp, so we allways clone the latest version
+{{- end }}
