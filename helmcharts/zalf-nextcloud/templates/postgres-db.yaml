@@ -32,7 +32,7 @@ spec:
     - name: CLONE_AWS_SECRET_ACCESS_KEY
       valueFrom:
         secretKeyRef:
-          name: spostgres-operator
+          name: postgres-operator
           key: CLONE_AWS_SECRET_ACCESS_KEY
   # teamIds can be defined for the hole cluster and are there to group cluster e.g. by working group
   # must be configured in the postgres-operator yaml before using them here.
