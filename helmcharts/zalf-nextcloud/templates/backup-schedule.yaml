@@ -13,6 +13,27 @@ spec:
     includeClusterResources: true
     storageLocation: default
     ttl: 192h0m0s # 8 days
+    hooks:
+      resources:
+        - name: nextcloud-maintenance
+          includedNamespaces:
+            - "{{ .Release.Namespace }}"
+          pre:
+            - exec:
+                container: nextcloud
+                command:
+                  - /usr/local/bin/php
+                  - /var/www/html/occ maintenance:mode --on
+                onError: Fail
+                timeout: 10s
+          post:
+            - exec:
+                container: nextcloud
+                command:
+                  - /usr/local/bin/php
+                  - /var/www/html/occ maintenance:mode --on
+                onError: Fail
+                timeout: 10s
 ---
 apiVersion: velero.io/v1
 kind: Schedule
