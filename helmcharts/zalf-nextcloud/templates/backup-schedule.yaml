@@ -59,6 +59,17 @@ spec:
                   - psql -c "SELECT pg_backup_start('daily_backup');"
                 onError: Fail
                 timeout: 10s
+          post:
+            - exec:
+                container: postgres
+                command:
+                  - /usr/bin/su
+                  - -l
+                  - postgres
+                  - -c
+                  - psql -c "SELECT pg_backup_stop();"
+                onError: Fail
+                timeout: 10s
 ---
 apiVersion: velero.io/v1
 kind: Schedule
