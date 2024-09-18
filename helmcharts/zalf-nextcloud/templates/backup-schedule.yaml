@@ -26,10 +26,8 @@ spec:
             - exec:
                 container: nextcloud
                 command:
-                  - /usr/local/bin/php
-                  - /var/www/html/occ maintenance:mode --on
+                  - /usr/local/bin/php /var/www/html/occ maintenance:mode --on
                 onError: Fail
-                timeout: 10s
           post:
             - exec:
                 container: nextcloud
@@ -37,7 +35,6 @@ spec:
                   - /usr/local/bin/php
                   - /var/www/html/occ maintenance:mode --off
                 onError: Fail
-                timeout: 10s
 ---
 apiVersion: velero.io/v1
 kind: Schedule
