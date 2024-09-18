@@ -40,6 +40,25 @@ spec:
                   - /usr/local/bin/php /var/www/html/occ maintenance:mode --off
                 onError: Fail
                 timeout: 10s
+        - name: onlyoffice-database-backup
+          includedNamespaces:
+            - "{{ .Release.Namespace }}"
+          labelSelector:
+            matchLabels:
+              application: spilo
+              cluster-name: fairagro-nextcloud-fairagro-onlyoffice-postgresql
+              spilo-role: master
+          pre:
+            - exec:
+                container: postgres
+                command:
+                  - /usr/bin/su
+                  - -l
+                  - postgres
+                  - -c
+                  - psql -c "SELECT pg_backup_start('daily_backup');"
+                onError: Fail
+                timeout: 10s
 ---
 apiVersion: velero.io/v1
 kind: Schedule
