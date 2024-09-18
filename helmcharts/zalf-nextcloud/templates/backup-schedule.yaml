@@ -26,6 +26,8 @@ spec:
             - exec:
                 container: nextcloud
                 command:
+                  - /bin/sh
+                  - c
                   - /usr/local/bin/php /var/www/html/occ maintenance:mode --on
                 onError: Fail
           post:
