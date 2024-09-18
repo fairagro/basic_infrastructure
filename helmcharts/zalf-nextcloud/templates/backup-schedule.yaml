@@ -31,7 +31,7 @@ spec:
                 container: nextcloud
                 command:
                   - /usr/local/bin/php
-                  - /var/www/html/occ maintenance:mode --on
+                  - /var/www/html/occ maintenance:mode --off
                 onError: Fail
                 timeout: 10s
 ---
