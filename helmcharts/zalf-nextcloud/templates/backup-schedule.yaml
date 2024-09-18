@@ -18,8 +18,10 @@ spec:
         - name: nextcloud-maintenance
           includedNamespaces:
             - "{{ .Release.Namespace }}"
-          includedResources:
-            - pods
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: nextcloud
+              app.kubernetes.io/component: app
           pre:
             - exec:
                 container: nextcloud
