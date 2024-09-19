@@ -36,7 +36,7 @@ spec:
           key: CLONE_AWS_SECRET_ACCESS_KEY
     # disable automatic base backups by setting a cron schedule that never triggers
     - name: BACKUP_SCHEDULE
-      value: 59 59 23 31 2 *
+      value: 59 23 31 2 *
     # disable WAL archiving by clearing the target bucket
     - name: WAL_S3_BUCKET
       value: ~

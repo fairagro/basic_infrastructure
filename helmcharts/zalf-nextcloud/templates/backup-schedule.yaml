@@ -5,7 +5,7 @@ metadata:
   namespace: velero
 spec:
   # this schedule will never run
-  schedule: 59 59 23 31 2 *
+  schedule: 59 23 31 2 *
   skipImmediately: false
   template:
     includeClusterResources: true
