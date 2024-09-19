@@ -5,8 +5,8 @@ metadata:
   # name of the postgres cluster / this could be build from input from the intranet website
   name: fairagro-postgresql-nextcloud
   # do not perform velero backup
-  labels:
-    velero.io/exclude-from-backup: "true"
+  # labels:
+  #   velero.io/exclude-from-backup: "true"
   annotations:
     backup.velero.io/backup-volumes-excludes: pgdata  # this is the volume name in the pod
     backup.velero.io/backup-volumes: ""
