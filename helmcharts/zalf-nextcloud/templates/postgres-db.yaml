@@ -5,10 +5,12 @@ metadata:
   # name of the postgres cluster / this could be build from input from the intranet website
   name: fairagro-postgresql-nextcloud
   # do not perform velero backup
+  labels:
+    velero.io/exclude-from-backup: "true"
   annotations:
-    backup.velero.io/backup-volumes-excludes: pgdata
+    backup.velero.io/backup-volumes-excludes: pgdata  # this is the volume name in the pod
     pre.hook.backup.velero.io/container: postgres
-    pre.hook.backup.velero.io/command: '["bash", "-c", "envdir /run/etc/wal-e.d/env /scripts/postgres_backup.sh /home/postgres/pgdata/pgroot/data"]'
+    pre.hook.backup.velero.io/command: '["sh", "-c", "envdir /run/etc/wal-e.d/env /scripts/postgres_backup.sh /home/postgres/pgdata/pgroot/data"]'
 spec:
   # We do not use the PostgreSQL operator backup feature. All backups will be managed by
   # velero on its own. So we deactivate all preconfigured operator-based backups here.
