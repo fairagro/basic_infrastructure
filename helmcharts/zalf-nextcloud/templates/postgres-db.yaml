@@ -6,7 +6,7 @@ metadata:
   name: fairagro-postgresql-nextcloud
   # do not perform velero backup
   annotations:
-    backup.velero.io/backup-volumes-excludes: pgdata-fairagro-postgresql-nextcloud-0, pgdata-fairagro-postgresql-nextcloud-1
+    backup.velero.io/backup-volumes-excludes: "{{ .Release.Namespace }}/pgdata-fairagro-postgresql-nextcloud-0, {{ .Release.Namespace }}/pgdata-fairagro-postgresql-nextcloud-1"
     pre.hook.backup.velero.io/command: '["envdir", "/run/etc/wal-e.d/env", "/scripts/postgres_backup.sh", "/home/postgres/pgdata/pgroot/data"]'
 spec:
   # We do not use the PostgreSQL operator backup feature. All backups will be managed by
