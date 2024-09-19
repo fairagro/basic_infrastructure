@@ -1,0 +1,16 @@
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: fairagro-nextcloud-backup-manually
+spec:
+  # this schedule will never run
+  schedule: 59 59 23 31 2 *
+  skipImmediately: false
+  template:
+    includeClusterResources: true
+    includedNamespaces:
+      - fairagro-nextcloud
+    includedResources:
+      - "*"
+    storageLocation: default
+    ttl: 87600h0m0s
