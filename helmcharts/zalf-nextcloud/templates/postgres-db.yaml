@@ -9,6 +9,7 @@ metadata:
     velero.io/exclude-from-backup: "true"
   annotations:
     backup.velero.io/backup-volumes-excludes: pgdata  # this is the volume name in the pod
+    backup.velero.io/backup-volumes: ""
     pre.hook.backup.velero.io/container: postgres
     pre.hook.backup.velero.io/command: '["sh", "-c", "envdir /run/etc/wal-e.d/env /scripts/postgres_backup.sh /home/postgres/pgdata/pgroot/data"]'
 spec:
