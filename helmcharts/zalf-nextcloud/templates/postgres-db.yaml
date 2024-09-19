@@ -7,7 +7,8 @@ metadata:
   # do not perform velero backup
   annotations:
     backup.velero.io/backup-volumes-excludes: pgdata
-    pre.hook.backup.velero.io/command: '["envdir", "/run/etc/wal-e.d/env", "/scripts/postgres_backup.sh", "/home/postgres/pgdata/pgroot/data"]'
+    pre.hook.backup.velero.io/container: postgres
+    pre.hook.backup.velero.io/command: '["bash", "-c", "envdir /run/etc/wal-e.d/env /scripts/postgres_backup.sh /home/postgres/pgdata/pgroot/data"]'
 spec:
   # We do not use the PostgreSQL operator backup feature. All backups will be managed by
   # velero on its own. So we deactivate all preconfigured operator-based backups here.
