@@ -34,4 +34,4 @@ spec:
                 command:
                   - "/usr/bin/bash"
                   - "-c"
-                  - "su -l postgres -c 'envdir /run/etc/wal-e.d/env /scripts/postgres_backup.sh /home/postgres/pgdata/pgroot/data' 2>/dev/null"
+                  - "su -l postgres -c 'envdir /run/etc/wal-e.d/env /scripts/postgres_backup.sh /home/postgres/pgdata/pgroot/data'"
