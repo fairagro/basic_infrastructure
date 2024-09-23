@@ -6,7 +6,6 @@ metadata:
 spec:
   # this schedule will never run
   schedule: "0 0 31 2 ?" # this is non-standard cron syntax with seconds as firt part
-  skipImmediately: true
   template:
     includeClusterResources: true
     includedNamespaces:
@@ -30,4 +29,4 @@ spec:
                 command:
                   - "/usr/bin/bash"
                   - "-c"
-                  - "su -l postgres -c 'envdir /run/etc/wal-e.d/env /scripts/postgres_backup.sh /home/postgres/pgdata/pgroot/data'"
+                  - "su -l postgres -c 'envdir /run/etc/wal-e.d/env /scripts/postgres_backup.sh /home/postgres/pgdata/pgroot/data' 2>/dev/null"
