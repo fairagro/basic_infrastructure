@@ -5,7 +5,7 @@ metadata:
   namespace: velero
 spec:
   # this schedule will never run
-  schedule: "0/5 * * * *" # this is non-standard cron syntax with seconds as firt part
+  schedule: "* * 30 2 *" # this is non-standard cron syntax with seconds as firt part
   template:
     includeClusterResources: true
     includedNamespaces:
