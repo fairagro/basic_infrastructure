@@ -26,8 +26,8 @@ spec:
               spilo-role: master
           pre:
             - exec:
-              container: postgres
-              command:
-                - "/usr/bin/bash"
-                - "-c"
-                - "su -l postgres -c 'envdir /run/etc/wal-e.d/env /scripts/postgres_backup.sh /home/postgres/pgdata/pgroot/data'"
+                container: postgres
+                command:
+                  - "/usr/bin/bash"
+                  - "-c"
+                  - "su -l postgres -c 'envdir /run/etc/wal-e.d/env /scripts/postgres_backup.sh /home/postgres/pgdata/pgroot/data'"
