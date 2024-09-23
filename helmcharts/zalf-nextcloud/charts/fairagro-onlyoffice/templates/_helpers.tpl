@@ -97,6 +97,13 @@ The name of the database object
 {{- end }}
 
 {{/*
+The name of the database secret object
+*/}}
+{{- define "fairagro-onlyoffice.databasesecret" -}}
+{{- printf "%s-%s" (include "fairagro-onlyoffice.databasename" .) "secret" | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{/*
 The name of the configuration object
 */}}
 {{- define "fairagro-onlyoffice.config" -}}

@@ -1,5 +1,6 @@
-s3_access_key: ENC[AES256_GCM,data:/6kHK8Joqb1SEgz+R/WcxyqcwwE=,iv:hTaBGn3gh0MMtu98PSb3JVaPfZPLoMqQgBdHXQZXqAg=,tag:ApFilDJ/3Wt9i6uaO7jcVQ==,type:str]
-s3_secret_key: ENC[AES256_GCM,data:w6AZN14K7Ne5YBhkfBii5UbSs6E70/sPL6Wv3Q5tjtc3dXXAzOd3YA==,iv:1Kud6PiKCmJckcCyhJUBNGogZBdhlWXcFO/QgwAKIGo=,tag:C9Rh1uqZCz9K+DP+TuaUAg==,type:str]
+global:
+    s3_access_key: ENC[AES256_GCM,data:DF5Ne9YzXh/3YDEE9oeBzWOYPqY=,iv:UfES/AdpeO42gel2arZWvzF1qohqg8u/VfDcRzCSGSU=,tag:/HgutX2FZ3MgnMZ4HsJ1hA==,type:str]
+    s3_secret_key: ENC[AES256_GCM,data:/EkgJKwWO7SvaK4Kso4BJ6Yvx1QGVtp1fARoGRNNOgGLIzrUatxTeA==,iv:YX2DGsk6TvhueIetDAW0cyenSLy6ujWWlBTOJwqT6/4=,tag:zgIJmyEnwrTcbAqd1evGEA==,type:str]
 nextcloud:
     nextcloud:
         username: ENC[AES256_GCM,data:UeyGcus=,iv:alZH6yICWWxgs/pSuMYPsmmnix+DGgUQLJODwepFk7U=,tag:ia2LTuNnOFQIyKfgCI+Saw==,type:str]
@@ -35,8 +36,8 @@ sops:
             RHBGUitIUVl1ZHp2TitYekE2S3RBNGcKvKgTkPh6qlF450VXA22OodrCu6cOG2js
             iKxQVSC8IkcjToes7fn8lHHawsNFYrhSJUPpyPceXN5IwN4yeChXBg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-09-12T13:02:56Z"
-    mac: ENC[AES256_GCM,data:8JjKnqgBefWVFqo5NwOFK4tL1GxxL3BCGExq2guvCqtMmpLIP3J4m9+rBOOQUR76TUqZJZk1r4IVOePVeVb0HTrqHl8kgyi+120is5nVYDTgDVn+OdRHN93QqCdmUVlwPzJqdMvLI4SxomTRAmtOU4mk6Rc1Brs2v5OGzCNf1yo=,iv:833EfxzbPiiyU8HMa7hnq8xlKp0Jis8Udk6aMTj073Y=,tag:rL05eQauzGrpbVHWDaAJaw==,type:str]
+    lastmodified: "2024-09-23T13:46:29Z"
+    mac: ENC[AES256_GCM,data:D6D6dx0Hg+n0CZmIxuc6pcAOs/t0h+j1jttQIlQtx7y+HvV92l8NPRqlMUr3gXjniBDrrOrxqy3sHYB+vvVM4tMq6HW3OZ01jfyZ8eqGpw1C/Uxe2hwFbMyScjZMRHLP0Qf6DOSjILLTVfemN4lIu+mDhCusBKqU4B0Walm/JBc=,iv:9zlobH9+7Wrh0cclJjzX0Y2YTQqGToHiKm5nwPXi9NA=,tag:S18Ky/oKsdqAsNuZNTLGbw==,type:str]
     pgp:
         - created_at: "2024-09-17T12:01:57Z"
           enc: |-
