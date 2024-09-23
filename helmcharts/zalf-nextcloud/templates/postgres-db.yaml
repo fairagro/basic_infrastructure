@@ -7,7 +7,8 @@ metadata:
   annotations:
     pre.hook.backup.velero.io/container: postgres
     pre.hook.backup.velero.io/command: >
-      ["/usr/bin/su", "-l", "postgres", "-c", "'stat /usr/bin/envdir'"]
+      ["/usr/bin/bash", "-c", "/usr/bin/su -l postgres -c 'ls'"]
+    # ["/usr/bin/su", "-l", "postgres", "-c", "'stat /usr/bin/envdir'"]
     # ["/usr/bin/su", "-l", "postgres", "-c", "'/usr/bin/envdir /run/etc/wal-e.d/env /scripts/postgres_backup.sh /home/postgres/pgdata/pgroot/data'"]
 spec:
   # We do not use the PostgreSQL operator backup feature. All backups will be managed by
