@@ -4,10 +4,10 @@ kind: postgresql
 metadata:
   # name of the postgres cluster / this could be build from input from the intranet website
   name: fairagro-postgresql-nextcloud
-  annotations:
-    pre.hook.backup.velero.io/container: postgres
-    pre.hook.backup.velero.io/command: >
-      ["/usr/bin/bash", "-c", "su -l postgres -c 'envdir /run/etc/wal-e.d/env /scripts/postgres_backup.sh /home/postgres/pgdata/pgroot/data'"]
+  # annotations:
+  #   pre.hook.backup.velero.io/container: postgres
+  #   pre.hook.backup.velero.io/command: >
+  #     ["/usr/bin/bash", "-c", "su -l postgres -c 'envdir /run/etc/wal-e.d/env /scripts/postgres_backup.sh /home/postgres/pgdata/pgroot/data'"]
 spec:
   # We do not use the PostgreSQL operator backup feature. All backups will be managed by
   # velero on its own. So we deactivate all preconfigured operator-based backups here.

@@ -24,3 +24,10 @@ spec:
             matchLabels:
               application: spilo
               spilo-role: master
+          pre:
+            - exec:
+              container: postgres
+              command:
+                - "/usr/bin/bash"
+                - "-c"
+                - "su -l postgres -c 'envdir /run/etc/wal-e.d/env /scripts/postgres_backup.sh /home/postgres/pgdata/pgroot/data'"
