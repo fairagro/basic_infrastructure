@@ -1,17 +1,26 @@
-# apiVersion: velero.io/v1
-# kind: Schedule
-# metadata:
-#   name: fairagro-nextcloud-backup-manually
-#   namespace: velero
-# spec:
-#   # this schedule will never run
-#   schedule: 59 23 31 2 *
-#   skipImmediately: false
-#   template:
-#     includeClusterResources: true
-#     includedNamespaces:
-#       - fairagro-nextcloud
-#     includedResources:
-#       - "*"
-#     storageLocation: default
-#     ttl: 87600h0m0s
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: fairagro-nextcloud-backup-manually
+  namespace: velero
+spec:
+  # this schedule will never run
+  schedule: 59 23 31 2 *
+  skipImmediately: true
+  template:
+    includeClusterResources: true
+    includedNamespaces:
+      - fairagro-nextcloud
+    includedResources:
+      - "*"
+    storageLocation: default
+    ttl: 87600h0m0s
+    hooks:
+      resources:
+        - name: backup-postgresql-master
+          includedNamespaces:
+            - fairagro-nextcloud
+          labelSelector:
+            matchLabels:
+              application: spilo
+              spilo-role: master
