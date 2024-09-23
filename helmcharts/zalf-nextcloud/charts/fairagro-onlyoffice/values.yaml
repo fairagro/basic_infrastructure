@@ -11,6 +11,7 @@ global:
 
 postgres:
   dbsize: 1Gi
+  storageClass: postgres
   username: onlyoffice
   dbname: onlyoffice
 

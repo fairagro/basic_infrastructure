@@ -1,0 +1,10 @@
+version: v1
+metadata:
+  name: skip-postgres-volume-backup
+volumePolicies:
+  - conditions:
+      # pv matches one of the storage class list
+      storageClass:
+        - postgres
+    action:
+      type: skip
