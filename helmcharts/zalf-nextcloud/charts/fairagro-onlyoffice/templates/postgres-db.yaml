@@ -6,7 +6,7 @@ metadata:
   name: '{{ include "fairagro-onlyoffice.databasename" . }}'
 spec:
   env:
-{{- if .Values.global.enable_restore }}
+{{- if or .Values.global.enable_backup .Values.global.enable_restore }}
     - name: AWS_ACCESS_KEY_ID
       valueFrom:
         secretKeyRef:

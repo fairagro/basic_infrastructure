@@ -10,6 +10,7 @@ allowed_collabora_ips: ~
 allowed_reverse_proxy_ips: ~
 
 global:
+  enable_backup: true
   enable_restore: true
 
 postgres_db:

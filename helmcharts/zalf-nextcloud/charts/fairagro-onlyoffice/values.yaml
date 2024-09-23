@@ -6,6 +6,7 @@ enabled: true
 jwt_secret: ~
 
 global:
+  enable_backup: ~
   enable_restore: ~
 
 postgres:
