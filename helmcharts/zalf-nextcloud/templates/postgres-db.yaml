@@ -33,8 +33,11 @@ spec:
     # - name: BACKUP_SCHEDULE
     #   value: 59 23 31 2 *
     # # disable WAL archiving by clearing the target bucket
-    - name: WAL_S3_BUCKET
-      value: ~
+    - name: SPILO_CONFIGURATION
+      value:
+        postgresql:
+          parameters:
+            archive_command: /bin/true
 {{- else }}
     # We need do undefine a bunch of backup and restore related env vars, as otherwise
     # things might break (we could not identify a single variable or a small set of them
