@@ -29,15 +29,9 @@ spec:
         secretKeyRef:
           name: postgres-operator
           key: CLONE_AWS_SECRET_ACCESS_KEY
-    # disable automatic base backups by setting a cron schedule that never triggers
-    # - name: BACKUP_SCHEDULE
-    #   value: 59 23 31 2 *
-    # # disable WAL archiving by clearing the target bucket
-    # - name: PATRONI_CONFIGURATION
-    #   value: |
-    #     postgresql:
-    #       parameters:
-    #         archive_command: /bin/true
+    # disable automatic base backups by setting a cron schedule that nearly never triggers
+    - name: BACKUP_SCHEDULE
+      value: "0 0 1 */1000 *"
 {{- else }}
     # We need do undefine a bunch of backup and restore related env vars, as otherwise
     # things might break (we could not identify a single variable or a small set of them
@@ -118,10 +112,10 @@ spec:
     version: "15"
     parameters:
       password_encryption: scram-sha-256
-      archive_command: /bin/true
+      archive_command: /bin/true    # turn off wal file backup
 
 {{- if .Values.global.enable_restore }}
   clone:
     cluster: fairagro-postgresql-nextcloud # Inplace restore
-    timestamp: "2050-01-01T00:00:00+00:00" # A future timestamp, so we allways clone the latest version
+    # we do no specify a timetime, so the last base backup will be used
 {{- end }}
