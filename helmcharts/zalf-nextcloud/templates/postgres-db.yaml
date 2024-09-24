@@ -34,7 +34,7 @@ spec:
     #   value: 59 23 31 2 *
     # # disable WAL archiving by clearing the target bucket
     - name: PATRONI_CONFIGURATION
-      value: |-
+      value: |
         postgresql:
           parameters:
             archive_command: /bin/true
