@@ -33,11 +33,11 @@ spec:
     # - name: BACKUP_SCHEDULE
     #   value: 59 23 31 2 *
     # # disable WAL archiving by clearing the target bucket
-    - name: PATRONI_CONFIGURATION
-      value: |
-        postgresql:
-          parameters:
-            archive_command: /bin/true
+    # - name: PATRONI_CONFIGURATION
+    #   value: |
+    #     postgresql:
+    #       parameters:
+    #         archive_command: /bin/true
 {{- else }}
     # We need do undefine a bunch of backup and restore related env vars, as otherwise
     # things might break (we could not identify a single variable or a small set of them
@@ -118,6 +118,7 @@ spec:
     version: "15"
     parameters:
       password_encryption: scram-sha-256
+      archive_command: /bin/true
 
 {{- if .Values.global.enable_restore }}
   clone:
