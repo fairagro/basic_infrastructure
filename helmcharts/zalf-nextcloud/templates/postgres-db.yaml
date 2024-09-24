@@ -33,7 +33,7 @@ spec:
     # - name: BACKUP_SCHEDULE
     #   value: 59 23 31 2 *
     # # disable WAL archiving by clearing the target bucket
-    - name: SPILO_CONFIGURATION
+    - name: PATRONI_CONFIGURATION
       value: |-
         postgresql:
           parameters:
