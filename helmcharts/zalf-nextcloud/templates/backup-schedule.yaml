@@ -40,4 +40,4 @@ spec:
                 command:
                   - "/usr/bin/bash"
                   - "-c"
-                  - 'su -l postgres -c ''''envdir /run/etc/wal-e.d/env wal-g wal-push "%p"'''
+                  - 'su -l postgres -c ''envdir /run/etc/wal-e.d/env wal-g wal-push "%p"'''
