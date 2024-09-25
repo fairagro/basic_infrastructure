@@ -117,5 +117,6 @@ spec:
 {{- if .Values.global.enable_restore }}
   clone:
     cluster: fairagro-postgresql-nextcloud # Inplace restore
+    timestamp: "2050-01-01T00:00:00.000+00:00"
     # we do no specify a timetime, so the last base backup will be used
 {{- end }}
