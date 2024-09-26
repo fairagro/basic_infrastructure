@@ -113,7 +113,8 @@ spec:
     parameters:
       password_encryption: scram-sha-256
       archive_command: /bin/true    # turn off wal file backup
-      restore_command: /bin/true    # turn off point-in-time recovery
+      recovery_conf:
+        restore_command: /bin/true    # turn off point-in-time recovery
 
 {{- if .Values.global.enable_restore }}
   clone:
