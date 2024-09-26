@@ -114,11 +114,6 @@ spec:
       password_encryption: scram-sha-256
       archive_command: /bin/true    # turn off wal file backup
 
-  # bootstrap:
-  #   clone_with_wale:
-  #     recovery_conf:
-  #       restore_command: /bin/true
-
 {{- if .Values.global.enable_restore }}
   clone:
     cluster: fairagro-postgresql-nextcloud  # Inplace restore
