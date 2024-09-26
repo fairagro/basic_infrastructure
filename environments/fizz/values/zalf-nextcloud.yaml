@@ -1,5 +1,5 @@
 global:
-  enable_restore: false
+  enable_restore: true
 
 allowed_collabora_ips:
   - 10.0.0.0/8
