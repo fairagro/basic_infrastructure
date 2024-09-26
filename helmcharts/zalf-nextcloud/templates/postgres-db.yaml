@@ -115,7 +115,7 @@ spec:
       archive_command: /bin/true    # turn off wal file backup
 
   additionalVolumes:
-    - name: clone_with_wale
+    - name: clone-with-wale
       subPath: clone_with_wale.py
       mountPath: /scripts/clone_with_wale.py
       targetContainers:
