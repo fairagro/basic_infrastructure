@@ -32,8 +32,6 @@ spec:
     # disable automatic base backups by setting a cron schedule that nearly never triggers
     - name: BACKUP_SCHEDULE
       value: "0 0 1 */1000 *"
-    - name: CLONE_METHOD
-      value: CLONE_WITH_WALE
 {{- else }}
     # We need do undefine a bunch of backup and restore related env vars, as otherwise
     # things might break (we could not identify a single variable or a small set of them
@@ -118,6 +116,6 @@ spec:
 
 {{- if .Values.global.enable_restore }}
   clone:
-    cluster: fairagro-postgresql-nextcloud # Inplace restore
-    # we do no specify a timetime, so the last base backup will be used
+    cluster: fairagro-postgresql-nextcloud  # Inplace restore
+    timestamp: "2050-01-01T00:00:00+00:00"  # we need to specify a timestamp to trigger S3 restore
 {{- end }}
