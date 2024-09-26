@@ -112,7 +112,7 @@ spec:
     version: "15"
     parameters:
       password_encryption: scram-sha-256
-      archive_command: /bin/true    # turn off wal file backup
+#      archive_command: /bin/true    # turn off wal file backup
 
   additionalVolumes:
     # - name: clone-with-wale
@@ -123,14 +123,14 @@ spec:
     #   volumeSource:
     #     configMap:
     #       name: postgres-additional-config
-    - name: maybe-pg-upgrade
-      subPath: maybe_pg_upgrade.py
-      mountPath: /scripts/maybe_pg_upgrade.py
-      targetContainers:
-        - postgres
-      volumeSource:
-        configMap:
-          name: postgres-additional-config
+    # - name: maybe-pg-upgrade
+    #   subPath: maybe_pg_upgrade.py
+    #   mountPath: /scripts/maybe_pg_upgrade.py
+    #   targetContainers:
+    #     - postgres
+    #   volumeSource:
+    #     configMap:
+    #       name: postgres-additional-config
 
 {{- if .Values.global.enable_restore }}
   clone:
