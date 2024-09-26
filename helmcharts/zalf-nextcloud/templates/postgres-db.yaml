@@ -34,9 +34,10 @@ spec:
       value: "0 0 1 */1000 *"
     - name: SPILO_CONFIGURATION
       value: |
-        method: test
-        test:
-          comannd: /bin/true
+        bootstrap:
+          method: test
+          test:
+            comannd: /bin/true
 {{- else }}
     # We need do undefine a bunch of backup and restore related env vars, as otherwise
     # things might break (we could not identify a single variable or a small set of them
