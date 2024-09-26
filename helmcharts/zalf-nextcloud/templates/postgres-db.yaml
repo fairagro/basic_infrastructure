@@ -123,14 +123,14 @@ spec:
     #   volumeSource:
     #     configMap:
     #       name: postgres-additional-config
-    # - name: maybe-pg-upgrade
-    #   subPath: maybe_pg_upgrade.py
-    #   mountPath: /scripts/maybe_pg_upgrade.py
-    #   targetContainers:
-    #     - postgres
-    #   volumeSource:
-    #     configMap:
-    #       name: postgres-additional-config
+    - name: maybe-pg-upgrade
+      subPath: maybe_pg_upgrade.py
+      mountPath: /scripts/maybe_pg_upgrade.py
+      targetContainers:
+        - postgres
+      volumeSource:
+        configMap:
+          name: postgres-additional-config
 
 {{- if .Values.global.enable_restore }}
   clone:
