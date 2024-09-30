@@ -30,8 +30,8 @@ spec:
           name: postgres-operator
           key: CLONE_AWS_SECRET_ACCESS_KEY
     # disable automatic base backups by setting a cron schedule that nearly never triggers
-    - name: BACKUP_SCHEDULE
-      value: "0 0 1 */1000 *"
+    # - name: BACKUP_SCHEDULE
+    #   value: "0 0 1 */1000 *"
 {{- else }}
     # We need do undefine a bunch of backup and restore related env vars, as otherwise
     # things might break (we could not identify a single variable or a small set of them
@@ -112,25 +112,6 @@ spec:
     version: "15"
     parameters:
       password_encryption: scram-sha-256
-      #archive_command: /bin/true    # turn off wal file backup
-
-  additionalVolumes:
-    # - name: clone-with-wale
-    #   subPath: clone_with_wale.py
-    #   mountPath: /scripts/clone_with_wale.py
-    #   targetContainers:
-    #     - postgres
-    #   volumeSource:
-    #     configMap:
-    #       name: postgres-additional-config
-    - name: maybe-pg-upgrade
-      subPath: maybe_pg_upgrade.py
-      mountPath: /scripts/maybe_pg_upgrade.py
-      targetContainers:
-        - postgres
-      volumeSource:
-        configMap:
-          name: postgres-additional-config
 
 {{- if .Values.global.enable_restore }}
   clone:
