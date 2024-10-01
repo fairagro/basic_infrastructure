@@ -1,38 +1,22 @@
-# apiVersion: velero.io/v1
-# kind: Schedule
-# metadata:
-#   name: fairagro-nextcloud-backup-manually
-#   namespace: velero
-# spec:
-#   # We would like to disable automatic base backups by setting a cron schedule that will never run.
-#   # velero does not accept the usual trick to run on Feb 30th, so we run every 1000 months instead -- almost never.
-#   schedule: "0 0 1 */1000 *"
-#   template:
-#     includeClusterResources: true
-#     includedNamespaces:
-#       - fairagro-nextcloud
-#     includedResources:
-#       - "*"
-#     storageLocation: default
-#     # skip all volume with the storageClass 'postgres'.
-#     # You will find this configmap in the velero namespace/helm chart.
-#     resourcePolicy:
-#       kind: configmap
-#       name: skip-postgres-volume-backup
-#     ttl: 87600h0m0s
-#     hooks:
-#       resources:
-#         - name: backup-postgresql-master
-#           includedNamespaces:
-#             - fairagro-nextcloud
-#           labelSelector:
-#             matchLabels:
-#               application: spilo
-#               spilo-role: master
-#           pre:
-#             - exec:
-#                 container: postgres
-#                 command:
-#                   - "/usr/bin/bash"
-#                   - "-c"
-#                   - "su -l postgres -c 'envdir /run/etc/wal-e.d/env /scripts/postgres_backup.sh /home/postgres/pgdata/pgroot/data'"
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: fairagro-nextcloud-backup-manually
+  namespace: velero
+spec:
+  # We would like to disable automatic base backups by setting a cron schedule that will never run.
+  # velero does not accept the usual trick to run on Feb 30th, so we run every 1000 months instead -- almost never.
+  schedule: "0 0 1 */1000 *"
+  template:
+    includeClusterResources: true
+    includedNamespaces:
+      - fairagro-nextcloud
+    includedResources:
+      - "*"
+    storageLocation: default
+    # skip all volume with the storageClass 'postgres'.
+    # You will find this configmap in the velero namespace/helm chart.
+    resourcePolicy:
+      kind: configmap
+      name: skip-postgres-volume-backup
+    ttl: 87600h0m0s
