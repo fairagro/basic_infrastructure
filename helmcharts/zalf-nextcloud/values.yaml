@@ -128,6 +128,9 @@ nextcloud:
       - name: additional-config
         mountPath: /usr/local/etc/php-fpm.d/www.conf
         subPath: php-fpm-www.conf # replace default www.conf, refer to https://tideways.com/profiler/blog/an-introduction-to-php-fpm-tuning
+      - name: additional-config
+        mountPath: /var/spool/cron/crontabs/www-data
+        subPath: crontab # an attempt to modify the crontab
     extraVolumes:
       - name: installation-scripts
         configMap:

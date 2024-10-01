@@ -512,3 +512,6 @@ data:
     ;php_admin_value[error_log] = /var/log/fpm-php.www.log
     ;php_admin_flag[log_errors] = on
     ;php_admin_value[memory_limit] = 32M
+  crontab: |
+    */5 * * * * php -f /var/www/html/cron.php
+    1   1 * * * /bin/true
