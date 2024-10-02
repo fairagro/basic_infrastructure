@@ -29,19 +29,19 @@ jobs:
       Patch: ${{ steps.gitversion.outputs.Patch }}
     steps:
       - name: Checkout git repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.2.0
         with:
           fetch-depth: 0 # This is needed for GitVersion not to crash
 
       - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v0
+        uses: gittools/actions/gitversion/setup@v3.0.0
         with:
           versionSpec: "5.x"
           preferLatestVersion: true
 
       - name: Determine Version
         id: gitversion # id to later be referenced
-        uses: gittools/actions/gitversion/execute@v0
+        uses: gittools/actions/gitversion/execute@v3.0.0
 
       - name: Create version tag
         if: github.event_name != 'pull_request'
@@ -60,14 +60,14 @@ jobs:
 
     steps:
       - name: Checkout git repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.2.0
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@v3.6.1
 
       - name: Docker metadata
         id: metadata
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v5.5.1
         with:
           images: zalf/fairagro_nextcloud_backup-${{ matrix.python_version }}
           tags: |
@@ -76,30 +76,32 @@ jobs:
             type=raw,value=${{ needs.version.outputs.Major }}
 
       - name: Build and export to Docker
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6.9.0
         with:
+          context: docker/nextcloud-backup
           load: true
-          tags: middleware:test
+          tags: nextcloud-backup:test
           labels: ${{ steps.metadata.outputs.labels }} # we need the labels as they're checked for
           build-args: python_version=${{ matrix.python_version }}
 
       # - name: Test image
       #   uses: plexsystems/container-structure-test-action@v0.3.0
       #   with:
-      #     image: middleware:test
+      #     image: nextcloud-backup:test
       #     config: test/container-structure-test/container-structure-test-config.yml
 
       # Secrets are managed within the github GUI
       - name: Log in to Docker Hub
         if: github.event_name != 'pull_request'
-        uses: docker/login-action@v3
+        uses: docker/login-action@v3.3.0
         with:
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and Push
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6.9.0
         with:
+          context: docker/nextcloud-backup
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.metadata.outputs.tags }}
           labels: ${{ steps.metadata.outputs.labels }}
