@@ -19,7 +19,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: nextcloud-backup-account
-    namespace: { { .Release.Namespace } }
+    namespace: "{{ .Release.Namespace }}"
 roleRef:
   kind: Role
   name: nextcloud-backup-role
