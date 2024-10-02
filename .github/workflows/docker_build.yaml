@@ -92,7 +92,7 @@ jobs:
 
       # Secrets are managed within the github GUI
       - name: Log in to Docker Hub
-        if: github.event_name != 'pull_request'
+        #        if: github.event_name != 'pull_request'
         uses: docker/login-action@v3.3.0
         with:
           username: ${{ secrets.DOCKERHUB_USER }}
