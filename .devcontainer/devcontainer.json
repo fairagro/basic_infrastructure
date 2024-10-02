@@ -23,11 +23,12 @@
 		"ghcr.io/mpriscella/features/helm-chart-testing:1.0.0": {
 			"version": "v3.11.0"
 		},
+		// feature version 1.0.15 does not support higher age versions than 1.1.1
 		"ghcr.io/devcontainers-contrib/features/age:1.0.15": {
-			"version": "v1.2.0"
+			"version": "v1.1.1"
 		},
 		"ghcr.io/devcontainers-contrib/features/age-keygen:1.0.14": {
-			"version": "v1.2.0"
+			"version": "v1.1.1"
 		},
 		"ghcr.io/devcontainers-contrib/features/argo-cd:1.0.2": {
 			"version": "2.12.4"
@@ -47,7 +48,7 @@
 			"jqVersion": "1.7.1",
 			"yqVersion": "4.44.3",
 			"gojqVersion": "none",
-			"xqVersion": "1.2.5",
+			"xqVersion": "0.4.1",
 			"jaqVersion": "none"
 		},
 		"ghcr.io/guiyomh/features/vim:0.0.1": {},
@@ -113,7 +114,8 @@
 			"settings": {
 				"sops.creationEnabled": true,
 				"sops.binPath": "sops",
-				"sops.configPath": "./.sopsrc"
+				"sops.configPath": "./.sopsrc",
+				"hadolint.hadolintPath": "/usr/local/bin/hadolint"
 			}
 		}
 	}
