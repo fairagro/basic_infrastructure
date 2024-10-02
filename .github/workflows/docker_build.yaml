@@ -1,0 +1,106 @@
+name: Docker Build
+
+# Although we only want to push docker images to docker hub on pushes to main (that result from
+# pull requests), we also subscribe to the pull request event itself. In this case we won't upload
+# the image, but still build it so we are noticed if it fails.
+on:
+  # A successful merge request to main will result into a push to main.
+  push:
+    branches:
+      - "main"
+  pull_request:
+    branches:
+      - "main"
+  # For manual triggering
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # so we're allowed to push the new tag
+    outputs:
+      SemVer: ${{ steps.gitversion.outputs.SemVer }}
+      Major: ${{ steps.gitversion.outputs.Major }}
+      Minor: ${{ steps.gitversion.outputs.Minor }}
+      Patch: ${{ steps.gitversion.outputs.Patch }}
+    steps:
+      - name: Checkout git repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # This is needed for GitVersion not to crash
+
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0
+        with:
+          versionSpec: "5.x"
+          preferLatestVersion: true
+
+      - name: Determine Version
+        id: gitversion # id to later be referenced
+        uses: gittools/actions/gitversion/execute@v0
+
+      - name: Create version tag
+        if: github.event_name != 'pull_request'
+        run: |
+          git config --global user.email "github_pipeline@fairagro.net"
+          git config --global user.name "Github Pipeline"
+          git tag -a v${{ steps.gitversion.outputs.SemVer }} -m "release ${{ steps.gitversion.outputs.SemVer }}"
+          git push origin v${{ steps.gitversion.outputs.SemVer }}
+
+  docker_build:
+    runs-on: ubuntu-latest
+    needs: version
+    strategy:
+      matrix:
+        python_version: ["3.12"]
+
+    steps:
+      - name: Checkout git repo
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Docker metadata
+        id: metadata
+        uses: docker/metadata-action@v5
+        with:
+          images: zalf/fairagro_nextcloud_backup-${{ matrix.python_version }}
+          tags: |
+            type=semver,pattern={{version}},value=${{ needs.version.outputs.SemVer }}
+            type=raw,value=${{ needs.version.outputs.Major }}.${{ needs.version.outputs.Minor }}
+            type=raw,value=${{ needs.version.outputs.Major }}
+
+      - name: Build and export to Docker
+        uses: docker/build-push-action@v5
+        with:
+          load: true
+          tags: middleware:test
+          labels: ${{ steps.metadata.outputs.labels }} # we need the labels as they're checked for
+          build-args: python_version=${{ matrix.python_version }}
+
+      # - name: Test image
+      #   uses: plexsystems/container-structure-test-action@v0.3.0
+      #   with:
+      #     image: middleware:test
+      #     config: test/container-structure-test/container-structure-test-config.yml
+
+      # Secrets are managed within the github GUI
+      - name: Log in to Docker Hub
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and Push
+        uses: docker/build-push-action@v5
+        with:
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.metadata.outputs.tags }}
+          labels: ${{ steps.metadata.outputs.labels }}
+          build-args: python_version=${{ matrix.python_version }}
