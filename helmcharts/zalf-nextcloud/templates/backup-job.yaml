@@ -1,0 +1,26 @@
+# apiVersion: batch/v1
+# kind: CronJob
+# metadata:
+#   name: nextcloud-backup-cronjob
+# spec:
+#   schedule: "0 2 * * *" # run every day at 2am
+#   jobTemplate:
+#     spec:
+#       template:
+#         spec:
+#           serviceAccountName: nextcloud-backup-account
+#           containers:
+#             - name: nextcloud-backup
+#               image: <your-image-name>
+#               command:
+#                 [
+#                   "kubectl",
+#                   "exec",
+#                   "-it",
+#                   "<your-pod-name>",
+#                   "--",
+#                   "bash",
+#                   "-c",
+#                   "your-backup-command",
+#                 ]
+#           restartPolicy: OnFailure
