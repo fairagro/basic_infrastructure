@@ -11,7 +11,8 @@ spec:
           serviceAccountName: nextcloud-backup-account
           containers:
             - name: nextcloud-backup
-              image: zalf/fairagro_nextcloud_backup-3.12
+              image: zalf/fairagro_nextcloud_backup-3.12:0
+              imagePullPolicy: Always
               command:
                 - python
                 - /nextcloud-backup/main.py
