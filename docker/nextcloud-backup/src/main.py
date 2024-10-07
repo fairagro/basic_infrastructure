@@ -27,17 +27,23 @@ def main():
 
     # Exceptions known to be raised:
     # * kubernetes.client.exceptions.ApiException
+    # * kubernetes.config.config_exception.ConfigException
 
     # Set the logging level to DEBUG
     logging.basicConfig(level=logging.DEBUG)
 
-    config.load_incluster_config()
+    try:
+        # Load in-cluster configuration when running in a pod
+        config.load_incluster_config()
+    except config.config_exception.ConfigException:
+        # Load out-of-cluster configuration from KUBECONFIG
+        config.load_kube_config()
 
     # Create a Kubernetes API client configuration and enable debug output
     configuration = client.Configuration()
     configuration.debug = True
 
-    api_client = client.ApiClient(configuration)
+    api_client = client.ApiClient(configuration=configuration)
     core_api = client.CoreV1Api(api_client)
     apps_api = api.AppsV1Api(api_client)
 
