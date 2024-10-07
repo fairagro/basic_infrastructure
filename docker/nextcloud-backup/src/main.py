@@ -1,30 +1,48 @@
+"""
+A backup script for Nextcloud, running in docker.
+"""
+
 from kubernetes import client, config
+from kubernetes.client import api
 from kubernetes.stream import stream
 
 # Usage example
-namespace = "fairagro-nexctloud"
-deployment_name = "fairagro-nextcloud"
-container_name = "nextcloud"
-command = ["/var/www/html/occ", "maintenance:mode", "--on"]
+NAMESPACE = "fairagro-nexctloud"
+DEPLOYMENT_NAME = "fairagro-nextcloud"
+CONTAINER_NAME = "nextcloud"
+COMMAND = ["/var/www/html/occ", "maintenance:mode", "--on"]
+
 
 def main():
+    """
+    Connects to a container running in a pod and runs a command there.
+
+    This is a simple example of how to use the kubernetes python client to
+    connect to a pod's container and run a command there. The command is
+    executed in the default shell of the container.
+
+    :raises: kubernetes.client.exceptions.ApiException
+    """
+
     config.load_incluster_config()
 
     core_api = client.CoreV1Api()
-    apps_api = client.apps_v1beta1_api.AppsV1beta1Api()
+    apps_api = api.AppsV1Api()
 
     # Find desired deployment
-    deployment = apps_api.read_namespaced_deployment(deployment_name, namespace)
+    deployment = apps_api.read_namespaced_deployment(
+        DEPLOYMENT_NAME, NAMESPACE)
 
     # Get any pod associated with the deployment
-    pods = core_api.list_namespaced_pod(namespace, label_selector=f"app={deployment.metadata.labels['app']}")
+    pods = core_api.list_namespaced_pod(NAMESPACE, label_selector=f"app={
+                                        deployment.metadata.labels['app']}")
     pod = any(pods.items)
 
     # Execute the command in the container
-    exec_command = ["/bin/sh", "-c"] + command
+    exec_command = ["/bin/sh", "-c"] + COMMAND
     resp = stream(core_api.connect_get_namespaced_pod_exec,
                   pod.metadata.name,
-                  namespace,
+                  NAMESPACE,
                   command=exec_command,
                   stderr=True,
                   stdin=False,

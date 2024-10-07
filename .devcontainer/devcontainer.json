@@ -109,7 +109,8 @@
 				"adamhartford.vscode-base64",
 				"redhat.vscode-yaml",
 				"rogalmic.bash-debug",
-				"davidanson.vscode-markdownlint"
+				"davidanson.vscode-markdownlint",
+				"ms-python.pylint"
 			],
 			"settings": {
 				"sops.creationEnabled": true,
