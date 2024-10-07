@@ -2,6 +2,7 @@
 A backup script for Nextcloud, running in docker.
 """
 
+import logging
 from kubernetes import client, config
 from kubernetes.client import api
 from kubernetes.stream import stream
@@ -24,10 +25,21 @@ def main():
     :raises: kubernetes.client.exceptions.ApiException
     """
 
+    # Exceptions known to be raised:
+    # * kubernetes.client.exceptions.ApiException
+
+    # Set the logging level to DEBUG
+    logging.basicConfig(level=logging.DEBUG)
+
     config.load_incluster_config()
 
-    core_api = client.CoreV1Api()
-    apps_api = api.AppsV1Api()
+    # Create a Kubernetes API client configuration and enable debug output
+    configuration = client.Configuration()
+    configuration.debug = True
+
+    api_client = client.ApiClient(configuration)
+    core_api = client.CoreV1Api(api_client)
+    apps_api = api.AppsV1Api(api_client)
 
     # Find desired deployment
     deployment = apps_api.read_namespaced_deployment(
