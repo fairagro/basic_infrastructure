@@ -11,7 +11,7 @@ def main():
     config.load_incluster_config()
 
     core_api = client.CoreV1Api()
-    apps_api = client.AppsApi()
+    apps_api = client.AppsV1beta1Api()
 
     # Find desired deployment
     deployment = apps_api.read_namespaced_deployment(deployment_name, namespace)
