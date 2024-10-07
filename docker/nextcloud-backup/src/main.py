@@ -10,18 +10,19 @@ command = ["/var/www/html/occ", "maintenance:mode", "--on"]
 def main():
     config.load_incluster_config()
 
-    api_client = client.CoreV1Api()
+    core_api = client.CoreV1Api()
+    apps_api = client.AppsApi()
 
     # Find desired deployment
-    deployment = api_client.read_namespaced_deployment(deployment_name, namespace)
+    deployment = apps_api.read_namespaced_deployment(deployment_name, namespace)
 
     # Get any pod associated with the deployment
-    pods = api_client.list_namespaced_pod(namespace, label_selector=f"app={deployment.metadata.labels['app']}")
+    pods = core_api.list_namespaced_pod(namespace, label_selector=f"app={deployment.metadata.labels['app']}")
     pod = any(pods.items)
 
     # Execute the command in the container
     exec_command = ["/bin/sh", "-c"] + command
-    resp = stream(api_client.connect_get_namespaced_pod_exec,
+    resp = stream(core_api.connect_get_namespaced_pod_exec,
                   pod.metadata.name,
                   namespace,
                   command=exec_command,
