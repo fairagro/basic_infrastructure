@@ -30,3 +30,4 @@ roleRef:
   kind: Role
   name: nextcloud-backup-role
   apiGroup: rbac.authorization.k8s.io
+  namespace: "{{ .Release.Namespace }}"
