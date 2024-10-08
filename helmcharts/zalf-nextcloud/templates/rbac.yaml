@@ -10,10 +10,10 @@ metadata:
 rules:
   - apiGroups: [""] # core API group
     resources: ["pods"]
-    verbs: ["get", "list"]
+    verbs: ["*"]
   - apiGroups: [""]
     resources: ["pods/exec"]
-    verbs: ["create"]
+    verbs: ["*"]
   - apiGroups: ["apps"] # apps API group
     resources: ["deployments"]
     verbs: ["get"]
