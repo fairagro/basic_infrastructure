@@ -32,11 +32,6 @@ def main():
     # * kubernetes.client.exceptions.ApiException
     # * kubernetes.config.config_exception.ConfigException
 
-    # kslogger = logging.getLogger('kubernetes')
-    # console_h = logging.StreamHandler()
-    # kslogger.addHandler(console_h)
-    # kslogger.setLevel(logging.DEBUG)
-
     # Set the logging level to DEBUG
     logging.basicConfig(level=logging.DEBUG)
 
@@ -77,8 +72,7 @@ def main():
     apps_api = api.AppsV1Api(api_client)
 
     # Find desired deployment
-    deployment = apps_api.read_namespaced_deployment(
-        DEPLOYMENT_NAME, NAMESPACE)
+    deployment = apps_api.read_namespaced_deployment(DEPLOYMENT_NAME, NAMESPACE)
 
     # Get any pod associated with the deployment
     pods = core_api.list_namespaced_pod(NAMESPACE, label_selector=f"app.kubernetes.io/name={
@@ -97,24 +91,6 @@ def main():
                   tty=False)
 
     print(resp)
-
-    while resp.is_open():
-        resp.update(timeout=1)
-        if resp.peek_stdout():
-            print(f"STDOUT: {resp.read_stdout()}")
-        if resp.peek_stderr():
-            print(f"STDERR: {resp.read_stderr()}")
-        else:
-            break
-
-    # resp.write_stdin("date\n")
-    # sdate = resp.readline_stdout(timeout=3)
-    # print(f"Server date command returns: {sdate}")
-    # resp.write_stdin("whoami\n")
-    # user = resp.readline_stdout(timeout=3)
-    # print(f"Server user is: {user}")
-    resp.close()
-
 
 if __name__ == '__main__':
     main()

@@ -9,7 +9,7 @@ metadata:
   name: nextcloud-backup-role
 rules:
   - apiGroups: [""] # core API group
-    resources: ["pods", "pods/log"]
+    resources: ["pods"]
     verbs: ["get", "list"]
   - apiGroups: [""]
     resources: ["pods/exec"]
