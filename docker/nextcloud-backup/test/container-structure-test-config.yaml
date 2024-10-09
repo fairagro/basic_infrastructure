@@ -1,0 +1,37 @@
+schemaVersion: 2.0.0
+
+metadataTest:
+  labels:
+    - key: org.opencontainers.image.source
+      value: https://github.com/fairagro/basic_infrastructure
+    - key: org.opencontainers.image.title
+      value: basic_infrastructure
+  exposedPorts: []
+  entrypoint: []
+  cmd: ["python", "main.py"]
+  workdir: /nextcloud-backup
+  user: nonroot
+
+fileExistenceTests:
+  - name: "middleware is present"
+    path: /nextcloud-backup/main.py
+    shouldExist: true
+# commandTests:
+#   - name: "middleware test run has correct output"
+#     command: "python"
+#     args:
+#       [
+#         "main.py",
+#         "-c",
+#         "test/container-structure-test/image_test_config.yml",
+#         "--no-git",
+#       ]
+#     expectedOutput:
+#       - |-
+#         [
+#           {
+#             "failed_entries": 0,
+#             "repo_name": "test",
+#             "valid_entries": 1
+#           }
+#         ]
