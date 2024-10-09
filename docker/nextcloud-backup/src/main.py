@@ -48,8 +48,8 @@ def main():
 
     # Create a Kubernetes API client configuration and enable debug output
     api_client = client.ApiClient()
-    api_client.configuration.debug = True
-    logger.debug("ApiClient configuration: %s", api_client.configuration)
+    #api_client.configuration.debug = True
+    logger.debug("ApiClient configuration: %s", api_client.configuration.__dict__)
 
     # In case we're not running in a pod, the api_key is not set and has to be created
     # by issuing token request to the authentication API.
