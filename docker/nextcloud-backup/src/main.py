@@ -3,7 +3,7 @@ A backup script for Nextcloud, running in docker.
 """
 
 import logging
-#import subprocess
+# import subprocess
 from kubernetes import client, config
 from kubernetes.client import api
 from kubernetes.stream import stream
@@ -37,12 +37,17 @@ def main():
     # kslogger.setLevel(logging.DEBUG)
 
     # Set the logging level to DEBUG
+    logger = logging.getLogger(__name__)
     logging.basicConfig(level=logging.DEBUG)
 
     try:
         # Load in-cluster configuration when running in a pod
+        logger.info("Trying to load in-cluster config")
         config.load_incluster_config()
-    except config.config_exception.ConfigException:
+    except config.config_exception.ConfigException as e:
+        logger.info(
+            "Could not load in-cluster config, trying to load $KUBECONFIG")
+        logger.debug(e)
         # Load out-of-cluster configuration from KUBECONFIG
         config.load_kube_config()
 
@@ -58,14 +63,16 @@ def main():
         body = client.AuthenticationV1TokenRequest(
             spec=client.V1TokenRequestSpec(audiences=[""])
         )
-        token = core_api.create_namespaced_service_account_token(SERVICE_ACCOUNT, NAMESPACE, body)
+        token = core_api.create_namespaced_service_account_token(
+            SERVICE_ACCOUNT, NAMESPACE, body)
         # command = ["kubectl", "create", "token", "-n", NAMESPACE, SERVICE_ACCOUNT]
         # token = subprocess.check_output(command).decode("utf-8")
         api_client.configuration.api_key['authorization'] = token.status.token
         api_client.configuration.api_key_prefix['authorization'] = 'Bearer'
         api_client.configuration.key_file = None
         api_client.configuration.cert_file = None
-        api_client.configuration.username = "system:serviceaccount:" + NAMESPACE + ":" + SERVICE_ACCOUNT
+        api_client.configuration.username = "system:serviceaccount:" + \
+            NAMESPACE + ":" + SERVICE_ACCOUNT
 
     core_api = client.CoreV1Api(api_client)
     apps_api = api.AppsV1Api(api_client)
