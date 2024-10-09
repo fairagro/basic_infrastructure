@@ -59,6 +59,7 @@ def main():
     # by issuing token request to the authentication API.
     # Therefore we assume that we have the required permissions.
     if not api_client.configuration.api_key:
+        logger.info("No API key found, creating one")
         core_api = client.CoreV1Api(api_client)
         body = client.AuthenticationV1TokenRequest(
             spec=client.V1TokenRequestSpec(audiences=[""])
@@ -71,8 +72,6 @@ def main():
         api_client.configuration.api_key_prefix['authorization'] = 'Bearer'
         api_client.configuration.key_file = None
         api_client.configuration.cert_file = None
-        api_client.configuration.username = "system:serviceaccount:" + \
-            NAMESPACE + ":" + SERVICE_ACCOUNT
 
     core_api = client.CoreV1Api(api_client)
     apps_api = api.AppsV1Api(api_client)
@@ -97,7 +96,7 @@ def main():
                   stdout=True,
                   tty=False)
 
-    print(resp.output)
+    print(resp)
 
     while resp.is_open():
         resp.update(timeout=1)
