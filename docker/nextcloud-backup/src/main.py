@@ -15,6 +15,7 @@ CONTAINER_NAME = "nextcloud"
 SERVICE_ACCOUNT = "nextcloud-backup-account"
 COMMAND = ["/var/www/html/occ", "maintenance:mode", "--on"]
 
+logger = logging.getLogger(__name__)
 
 def main():
     """
@@ -37,7 +38,6 @@ def main():
     # kslogger.setLevel(logging.DEBUG)
 
     # Set the logging level to DEBUG
-    logger = logging.getLogger(__name__)
     logging.basicConfig(level=logging.DEBUG)
 
     try:
@@ -52,7 +52,7 @@ def main():
         config.load_kube_config()
 
     # Create a Kubernetes API client configuration and enable debug output
-    api_client = config.new_client_from_config()
+    api_client = client.ApiClient()
     api_client.configuration.debug = True
 
     # In case we're not running in a pod, the api_key is not set and has to be created
