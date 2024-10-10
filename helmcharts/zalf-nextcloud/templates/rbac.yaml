@@ -4,20 +4,6 @@ metadata:
   name: nextcloud-backup-account
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  name: velero-backup-creator
-  namespace: velero
-  labels:
-    component: velero
-rules:
-  - apiGroups: ["velero.io"]
-    # resources: ["backups"]
-    # verbs: ["get", "create"]
-    resources: ["*"]
-    verbs: ["*"]
----
-apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: velero-clusterrole
@@ -41,6 +27,11 @@ rules:
       - "customresourcedefinitions"
     verbs:
       - get
+  - apiGroups: ["velero.io"]
+    # resources: ["backups"]
+    # verbs: ["get", "create"]
+    resources: ["*"]
+    verbs: ["*"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -56,20 +47,6 @@ rules:
   - apiGroups: ["apps"] # apps API group
     resources: ["deployments"]
     verbs: ["get"]
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: velero-backup-creator-binding
-  namespace: velero
-subjects:
-  - kind: ServiceAccount
-    name: nextcloud-backup-account
-    namespace: "{{ .Release.Namespace }}"
-roleRef:
-  kind: Role
-  name: velero-backup-creator
-  apiGroup: rbac.authorization.k8s.io
 ---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
