@@ -86,7 +86,7 @@ def main():
                   stdout=True,
                   tty=False)
 
-    backup_name=f'nextcloud-backup-{backup_time.strftime("%Y-%m-%dT%H-%M-%S")}'
+    backup_name=f'nextcloud-backup-{backup_time.strftime("%Y-%m-%dt%H-%M-%S")}'
     backup_object = {
         "apiVersion": "velero.io/v1",
         "kind": "Backup",
