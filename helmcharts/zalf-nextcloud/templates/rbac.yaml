@@ -11,8 +11,10 @@ metadata:
     component: velero
 rules:
   - apiGroups: ["velero.io"]
-    resources: ["backups"]
-    verbs: ["get", "create"]
+    # resources: ["backups"]
+    # verbs: ["get", "create"]
+    resources: ["*"]
+    verbs: ["*"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
