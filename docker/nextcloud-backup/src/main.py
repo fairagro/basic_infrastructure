@@ -4,7 +4,7 @@ A backup script for Nextcloud, running in docker.
 
 import logging
 from datetime import datetime
-import jsonpickle
+from jsonpickle import encode as json_encode
 # import subprocess
 from kubernetes import client, config
 from kubernetes.client import api
@@ -19,7 +19,8 @@ MAINTENANCE_COMMAND = ["/var/www/html/occ", "maintenance:mode"]
 BACKUP_STORAGE_LOCATION = "default"
 BACKUP_TIME_TO_LIVE = "87600h0m0s"
 VELERO_PHASES_SUCCESS = ["Completed"]
-VELERO_PHASES_ERROR = ["FailedValidation", "PartiallyFailed", "Failed", "Deleting"]
+VELERO_PHASES_ERROR = ["FailedValidation",
+                       "PartiallyFailed", "Failed", "Deleting"]
 
 logger = logging.getLogger(__name__)
 
@@ -60,8 +61,8 @@ def main():
     # Create a Kubernetes API client configuration and enable debug output
     api_client = client.ApiClient()
     # api_client.configuration.debug = True
-    config_json = jsonpickle.encode(api_client.configuration.__dict__)
-    logger.debug("ApiClient configuration: %s", config_json)
+    logger.debug("ApiClient configuration: %s",
+                 json_encode(api_client.configuration.__dict__))
 
     logger.info("About to instantiate the needed Kubernetes APIs...")
     core_api = client.CoreV1Api(api_client)
@@ -70,7 +71,8 @@ def main():
 
     # Find desired deployment
     logger.info("About to find the desired deployment...")
-    deployment = apps_api.read_namespaced_deployment(DEPLOYMENT_NAME, NAMESPACE)
+    deployment = apps_api.read_namespaced_deployment(
+        DEPLOYMENT_NAME, NAMESPACE)
 
     # Get any pod associated with the deployment
     logger.info("About to get the pods associated with the deployment...")
@@ -94,7 +96,8 @@ def main():
 
     # Create velero backup
     logger.info("About to create velero backup...")
-    backup_name=f'faiagro-nextcloud-backup-{backup_time.strftime("%Y-%m-%dt%H-%M-%S")}'
+    backup_name = f'faiagro-nextcloud-backup-{
+        backup_time.strftime("%Y-%m-%dt%H-%M-%S")}'
     backup_object = {
         "apiVersion": "velero.io/v1",
         "kind": "Backup",
@@ -134,6 +137,7 @@ def main():
     backup_success = False
     w = Watch()
     for backup in w.stream(
+        logger.debug("backup watcher: %s", json_encode(backup)),
         custom_api.list_namespaced_custom_object,
         group="velero.io",
         version="v1",
@@ -162,6 +166,7 @@ def main():
                   stdin=False,
                   stdout=True,
                   tty=False)
+
 
 if __name__ == '__main__':
     main()
