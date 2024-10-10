@@ -146,7 +146,7 @@ def main():
     ):
         logger.debug("backup watcher: %s", json_encode(backup))
         if backup['object']['metadata']['name'] == backup_name:
-            backup_phase = backup['object']['status']['phase']
+            backup_phase = backup['object'].get('status', {}).get('phase')
             if backup_phase in VELERO_PHASES_SUCCESS:
                 backup_success = True
                 logger.info("Backup complete")
