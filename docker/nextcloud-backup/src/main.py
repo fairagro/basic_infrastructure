@@ -137,7 +137,6 @@ def main():
     backup_success = False
     w = Watch()
     for backup in w.stream(
-        logger.debug("backup watcher: %s", json_encode(backup)),
         custom_api.list_namespaced_custom_object,
         group="velero.io",
         version="v1",
@@ -145,6 +144,7 @@ def main():
         plural="backups",
         timeout_seconds=300
     ):
+        logger.debug("backup watcher: %s", json_encode(backup))
         if backup['object']['metadata']['name'] == backup_name:
             backup_phase = backup['object']['status']['phase']
             if backup_phase in VELERO_PHASES_SUCCESS:
