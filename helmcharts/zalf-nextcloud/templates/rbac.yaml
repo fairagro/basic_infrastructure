@@ -17,6 +17,9 @@ rules:
   - apiGroups: ["apps"] # apps API group
     resources: ["deployments"]
     verbs: ["get"]
+  - apiGroups: ["velero.io"] # velero API group
+    resources: ["backups"]
+    verbs: ["create"]
 ---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
