@@ -3,6 +3,7 @@ A backup script for Nextcloud, running in docker.
 """
 
 import logging
+import jsonpickle
 # import subprocess
 from kubernetes import client, config
 from kubernetes.client import api
@@ -49,7 +50,8 @@ def main():
     # Create a Kubernetes API client configuration and enable debug output
     api_client = client.ApiClient()
     #api_client.configuration.debug = True
-    logger.debug("ApiClient configuration: %s", api_client.configuration.__dict__)
+    config_json = jsonpickle.encode(api_client.configuration.__dict__)
+    logger.debug("ApiClient configuration: %s", config_json)
 
     # In case we're not running in a pod, the api_key is not set and has to be created
     # by issuing token request to the authentication API.
