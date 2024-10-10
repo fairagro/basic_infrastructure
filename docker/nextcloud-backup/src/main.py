@@ -4,6 +4,7 @@ A backup script for Nextcloud, running in docker.
 
 import logging
 import jsonpickle
+from pathlib import Path
 # import subprocess
 from kubernetes import client, config
 from kubernetes.client import api
@@ -52,6 +53,8 @@ def main():
     #api_client.configuration.debug = True
     config_json = jsonpickle.encode(api_client.configuration.__dict__)
     logger.debug("ApiClient configuration: %s", config_json)
+    ca_cert = Path(api_client.configuration.ssl_ca_cert).read_text()
+    logger.debug("kubernets CA cert: %s", ca_cert)
 
     # In case we're not running in a pod, the api_key is not set and has to be created
     # by issuing token request to the authentication API.
@@ -70,6 +73,7 @@ def main():
         api_client.configuration.api_key_prefix['authorization'] = 'Bearer'
         api_client.configuration.key_file = None
         api_client.configuration.cert_file = None
+        api_client.configuration.host = "https://172.16.128.1:443"
 
     core_api = client.CoreV1Api(api_client)
     apps_api = api.AppsV1Api(api_client)
