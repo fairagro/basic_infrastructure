@@ -109,7 +109,7 @@ def main():
                 "velero.io/storage-location": VELERO_BACKUP_STORAGE_LOCATION
             },
             "name": backup_name,
-            "namespace": "velero"
+            "namespace": NEXTCLOUD_NAMESPACE
         },
         "spec": {
             "csiSnapshotTimeout": "10m0s",
