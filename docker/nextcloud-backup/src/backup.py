@@ -130,7 +130,7 @@ def main():
     resp = custom_api.create_namespaced_custom_object(
         group="velero.io",
         version="v1",
-        namespace="velero",
+        namespace=NEXTCLOUD_NAMESPACE,
         plural="backups",
         body=backup_object
     )
@@ -143,7 +143,7 @@ def main():
         custom_api.list_namespaced_custom_object,
         group="velero.io",
         version="v1",
-        namespace="velero",
+        namespace=NEXTCLOUD_NAMESPACE,
         plural="backups",
         timeout_seconds=VELERO_BACKUP_TIMEOUT
     ):
