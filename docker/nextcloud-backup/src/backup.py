@@ -99,7 +99,7 @@ def main():
 
     # Create velero backup
     logger.info("About to create velero backup...")
-    backup_name = f'faiagro-nextcloud-backup-{
+    backup_name = f'{NEXTCLOUD_NAMESPACE}-{NEXTCLOUD_DEPLOYMENT_NAME}-{
         backup_time.strftime("%Y-%m-%dt%H-%M-%S")}'
     backup_object = {
         "apiVersion": "velero.io/v1",
