@@ -114,7 +114,7 @@ def main():
         "spec": {
             "csiSnapshotTimeout": "10m0s",
             "defaultVolumesToFsBackup": False,
-            "includeClusterResources": True,
+#            "includeClusterResources": True,
             "includedNamespaces": [NEXTCLOUD_NAMESPACE],
             "includedResources": ["*"],
             "itemOperationTimeout": "4h0m0s",
