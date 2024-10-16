@@ -17,7 +17,7 @@ rules:
   - apiGroups: ["apps"] # apps API group
     resources: ["deployments"]
     verbs: ["get"]
-  - apiGroups: ["acid.zalan.do/v1"]
+  - apiGroups: ["acid.zalan.do"]
     resources: ["postgresqls"]
     verbs: ["get", "list", "patch"]
 ---
