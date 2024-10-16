@@ -16,6 +16,7 @@ NEXTCLOUD_NAMESPACE = "fairagro-nextcloud"
 NEXTCLOUD_DEPLOYMENT_NAME = "fairagro-nextcloud"
 NEXTCLOUD_CONTAINER_NAME = "nextcloud"
 NEXTCLOUD_MAINTENANCE_COMMAND = ["/var/www/html/occ", "maintenance:mode"]
+NEXTCLOUD_POSTGRESQL_NAME = "fairagro-postgresql-nextcloud"
 VELERO_BACKUP_STORAGE_LOCATION = "default"
 VELERO_BACKUP_TIME_TO_LIVE = "87600h0m0s"
 VELERO_PHASES_SUCCESS = ["Completed"]
@@ -28,13 +29,7 @@ logger = logging.getLogger(__name__)
 
 def main():
     """
-    Connects to a container running in a pod and runs a command there.
-
-    This is a simple example of how to use the kubernetes python client to
-    connect to a pod's container and run a command there. The command is
-    executed in the default shell of the container.
-
-    :raises: kubernetes.client.exceptions.ApiException
+    Perform a nextcloud backup.
     """
 
     # Exceptions known to be raised:
@@ -97,6 +92,28 @@ def main():
 
     backup_time = datetime.now()
 
+    # Update postgres object with the correct restore timestamp
+    # (Note: this timestamp will be stored in the velero backup and then applied by zalanda spilo
+    # after the velero backup has been restored)
+    logger.info(
+        "About to patch the nextcloud postgres object with the correct restore timestamp...")
+    postgres_patch = {
+        "spec": {
+            "clone": {
+                "cluster": NEXTCLOUD_POSTGRESQL_NAME,
+                "timestamp": backup_time.isoformat()
+            }
+        }
+    }
+    resp = custom_api.patch_namespaced_custom_object(
+        group="acid.zalan.do",
+        version="v1",
+        namespace=NEXTCLOUD_NAMESPACE,
+        plural="postgresqls",
+        name=NEXTCLOUD_POSTGRESQL_NAME,
+        body=postgres_patch
+    )
+
     # Create velero backup
     logger.info("About to create velero backup...")
     backup_name = f'{NEXTCLOUD_NAMESPACE}-{NEXTCLOUD_DEPLOYMENT_NAME}-{
@@ -114,7 +131,7 @@ def main():
         "spec": {
             "csiSnapshotTimeout": "10m0s",
             "defaultVolumesToFsBackup": False,
-#            "includeClusterResources": True,
+            #            "includeClusterResources": True,
             "includedNamespaces": [NEXTCLOUD_NAMESPACE],
             "includedResources": ["*"],
             "itemOperationTimeout": "4h0m0s",
