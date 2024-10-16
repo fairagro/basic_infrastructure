@@ -37,4 +37,3 @@ COPY src/ /nextcloud-backup/
 # COPY test/container-structure-test /middleware/test/container-structure-test
 # Set the command to run when the container starts
 CMD [ "/bin/sh" ]
-#CMD [ "python", "main.py", "-c", "config.yml" ]

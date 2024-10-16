@@ -12,15 +12,16 @@ from kubernetes.stream import stream
 from kubernetes.watch import Watch
 
 # Usage example
-NAMESPACE = "fairagro-nextcloud"
-DEPLOYMENT_NAME = "fairagro-nextcloud"
-CONTAINER_NAME = "nextcloud"
-MAINTENANCE_COMMAND = ["/var/www/html/occ", "maintenance:mode"]
-BACKUP_STORAGE_LOCATION = "default"
-BACKUP_TIME_TO_LIVE = "87600h0m0s"
+NEXTCLOUD_NAMESPACE = "fairagro-nextcloud"
+NEXTCLOUD_DEPLOYMENT_NAME = "fairagro-nextcloud"
+NEXTCLOUD_CONTAINER_NAME = "nextcloud"
+NEXTCLOUD_MAINTENANCE_COMMAND = ["/var/www/html/occ", "maintenance:mode"]
+VELERO_BACKUP_STORAGE_LOCATION = "default"
+VELERO_BACKUP_TIME_TO_LIVE = "87600h0m0s"
 VELERO_PHASES_SUCCESS = ["Completed"]
 VELERO_PHASES_ERROR = ["FailedValidation",
                        "PartiallyFailed", "Failed", "Deleting"]
+VELERO_BACKUP_TIMEOUT = 300
 
 logger = logging.getLogger(__name__)
 
@@ -72,21 +73,23 @@ def main():
     # Find desired deployment
     logger.info("About to find the desired deployment...")
     deployment = apps_api.read_namespaced_deployment(
-        DEPLOYMENT_NAME, NAMESPACE)
+        NEXTCLOUD_DEPLOYMENT_NAME, NEXTCLOUD_NAMESPACE)
 
     # Get any pod associated with the deployment
     logger.info("About to get the pods associated with the deployment...")
-    pods = core_api.list_namespaced_pod(NAMESPACE, label_selector=f"app.kubernetes.io/name={
-                                        deployment.metadata.labels['app.kubernetes.io/name']}")
+    pods = core_api.list_namespaced_pod(
+        NEXTCLOUD_NAMESPACE,
+        label_selector=f"app.kubernetes.io/name={
+            deployment.metadata.labels['app.kubernetes.io/name']}")
     pod = pods.items[0]
 
     # Enter nextcloud mainenance mode
     logger.info("About to enter nextcloud maintenance mode..")
     resp = stream(core_api.connect_get_namespaced_pod_exec,
                   pod.metadata.name,
-                  NAMESPACE,
-                  container=CONTAINER_NAME,
-                  command=MAINTENANCE_COMMAND + ["--on"],
+                  NEXTCLOUD_NAMESPACE,
+                  container=NEXTCLOUD_CONTAINER_NAME,
+                  command=NEXTCLOUD_MAINTENANCE_COMMAND + ["--on"],
                   stderr=True,
                   stdin=False,
                   stdout=True,
@@ -103,7 +106,7 @@ def main():
         "kind": "Backup",
         "metadata": {
             "labels": {
-                "velero.io/storage-location": BACKUP_STORAGE_LOCATION
+                "velero.io/storage-location": VELERO_BACKUP_STORAGE_LOCATION
             },
             "name": backup_name,
             "namespace": "velero"
@@ -112,7 +115,7 @@ def main():
             "csiSnapshotTimeout": "10m0s",
             "defaultVolumesToFsBackup": False,
             "includeClusterResources": True,
-            "includedNamespaces": [NAMESPACE],
+            "includedNamespaces": [NEXTCLOUD_NAMESPACE],
             "includedResources": ["*"],
             "itemOperationTimeout": "4h0m0s",
             "resourcePolicy": {
@@ -120,8 +123,8 @@ def main():
                 "name": "skip-postgres-volume-backup"
             },
             "snapshotMoveData": True,
-            "storageLocation": BACKUP_STORAGE_LOCATION,
-            "ttl": BACKUP_TIME_TO_LIVE
+            "storageLocation": VELERO_BACKUP_STORAGE_LOCATION,
+            "ttl": VELERO_BACKUP_TIME_TO_LIVE
         }
     }
     resp = custom_api.create_namespaced_custom_object(
@@ -142,7 +145,7 @@ def main():
         version="v1",
         namespace="velero",
         plural="backups",
-        timeout_seconds=300
+        timeout_seconds=VELERO_BACKUP_TIMEOUT
     ):
         logger.debug("backup watcher: %s", json_encode(backup))
         if backup['object']['metadata']['name'] == backup_name:
@@ -159,9 +162,9 @@ def main():
     logger.info("About to leave nextcloud maintenance mode...")
     resp = stream(core_api.connect_get_namespaced_pod_exec,
                   pod.metadata.name,
-                  NAMESPACE,
-                  container=CONTAINER_NAME,
-                  command=MAINTENANCE_COMMAND + ["--off"],
+                  NEXTCLOUD_NAMESPACE,
+                  container=NEXTCLOUD_CONTAINER_NAME,
+                  command=NEXTCLOUD_MAINTENANCE_COMMAND + ["--off"],
                   stderr=True,
                   stdin=False,
                   stdout=True,

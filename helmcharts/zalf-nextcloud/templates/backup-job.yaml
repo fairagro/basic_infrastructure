@@ -15,5 +15,5 @@ spec:
               imagePullPolicy: Always
               command:
                 - python
-                - /nextcloud-backup/main.py
+                - /nextcloud-backup/backup.py
           restartPolicy: OnFailure
