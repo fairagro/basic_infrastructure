@@ -109,7 +109,7 @@ def main():
                 "velero.io/storage-location": VELERO_BACKUP_STORAGE_LOCATION
             },
             "name": backup_name,
-            "namespace": NEXTCLOUD_NAMESPACE
+            "namespace": "velero"
         },
         "spec": {
             "csiSnapshotTimeout": "10m0s",
@@ -130,7 +130,7 @@ def main():
     resp = custom_api.create_namespaced_custom_object(
         group="velero.io",
         version="v1",
-        namespace=NEXTCLOUD_NAMESPACE,
+        namespace="velero",
         plural="backups",
         body=backup_object
     )
@@ -143,7 +143,7 @@ def main():
         custom_api.list_namespaced_custom_object,
         group="velero.io",
         version="v1",
-        namespace=NEXTCLOUD_NAMESPACE,
+        namespace="velero",
         plural="backups",
         timeout_seconds=VELERO_BACKUP_TIMEOUT
     ):

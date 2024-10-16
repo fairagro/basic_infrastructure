@@ -2,7 +2,7 @@
 
 ## Some useful shell commands ##
 
-### To trigger the nextclou backup CronJob ###
+### To trigger the nextcloud backup CronJob ###
 
 e.g. for testing puposes:
 
@@ -29,3 +29,32 @@ kubectl exec -it -n fairagro-nextcloud temporary-nextcloud-backup-pod \
 ```
 
 Note that `jq` is executed inside the pod. If it's not installed, consider using a local `jq` installation.
+
+### To debug a failed backup ###
+
+#### Check the cronjob pod logs ####
+
+```bash
+kubectl logs -n fairagro-nextcloud -l batch.kubernetes.io/job-name=backup-test
+```
+
+#### Check the backup state ####
+
+First find your new backup:
+
+```bash
+velero backup get
+```
+
+Now investigate it:
+
+```bash
+velero backup describe <backup-name>
+kubectl describe backups.velero.io -n fairagro-nextcloud <backup-name>
+```
+
+#### Investigate the backup logs ####
+
+```bash
+velero backup logs <backup-name>
+```
