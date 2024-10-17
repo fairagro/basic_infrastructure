@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: limesurvey
+  namespace: fairagro-applications
+spec:
+  project: fairagro
+  source:
+    repoURL: "git@github.com:fairagro/basic_infrastructure.git"
+    path: helmcharts/fairagro-survey
+    targetRevision: "{{ limesurvey_revision }}"
+    helm:
+      valueFiles:
+        - ../../environments/fizz/values/fairagro-survey.yaml
+        - ../../environments/fizz/values/fairagro-survey.enc.yaml
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: fairagro-survey
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - Prune=true

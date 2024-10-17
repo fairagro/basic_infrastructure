@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nextcloud
+  namespace: fairagro-applications
+spec:
+  project: fairagro
+  source:
+    repoURL: "git@github.com:fairagro/basic_infrastructure.git"
+    path: helmcharts/zalf-nextcloud
+    targetRevision: "{{ nextcloud_revision }}"
+    helm:
+      valueFiles:
+        - ../../environments/fizz/values/zalf-nextcloud.yaml
+        - ../../environments/fizz/values/zalf-nextcloud.enc.yaml
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: fairagro-nextcloud
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - Prune=true
