@@ -22,6 +22,11 @@ spec:
       name: "{{ .Values.nextcloud_db_name }}"
       jsonPointers:
         - /spec/clone
+    - group: ""
+      kind: Secret
+      name: nextcloud
+      jsonPointers:
+        - data/nextcloud-token
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
