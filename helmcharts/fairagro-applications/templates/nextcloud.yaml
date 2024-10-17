@@ -20,11 +20,12 @@ spec:
     - group: postgresqls.acid.zalan.do
       kind: Postgresql
       name: "{{ .Values.nextcloud_db_name }}"
+      namespace: fairagro-nextcloud
       jsonPointers:
         - /spec/clone
-    - group: ""
-      kind: Secret
+    - kind: Secret
       name: nextcloud
+      namespace: fairagro-nextcloud
       jsonPointers:
         - data/nextcloud-token
   syncPolicy:
