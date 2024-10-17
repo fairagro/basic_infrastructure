@@ -9,9 +9,13 @@ allowed_collabora_ips: ~
 # This should be set yo the 'kube_pods_subnet' variable in the kubespray group_vars file 'k8s-cluster.yml'.
 allowed_reverse_proxy_ips: ~
 
+global:
+  enable_backup: true
+  enable_restore: true
+
 postgres_db:
   size: 4Gi
-  storageClass: ~
+  storageClass: postgres
 
 # ## Liveness and readiness probe values
 # ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
@@ -124,6 +128,9 @@ nextcloud:
       - name: additional-config
         mountPath: /usr/local/etc/php-fpm.d/www.conf
         subPath: php-fpm-www.conf # replace default www.conf, refer to https://tideways.com/profiler/blog/an-introduction-to-php-fpm-tuning
+      - name: additional-config
+        mountPath: /var/spool/cron/crontabs/www-data
+        subPath: crontab # an attempt to modify the crontab
     extraVolumes:
       - name: installation-scripts
         configMap:
