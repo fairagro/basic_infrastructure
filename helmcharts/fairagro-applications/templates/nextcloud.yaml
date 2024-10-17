@@ -16,7 +16,14 @@ spec:
   destination:
     server: "https://kubernetes.default.svc"
     namespace: fairagro-nextcloud
+  ignoreDifferences:
+    - group: postgresqls.acid.zalan.do
+      kind: Postgresql
+      name: "{{ .Values.nextcloud_db_name }}"
+      jsonPointers:
+        - /spec/clone
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
       - Prune=true
+      - RespectIgnoreDifferences=true
