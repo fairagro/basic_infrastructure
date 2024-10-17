@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: "git@github.com:fairagro/basic_infrastructure.git"
     path: helmcharts/fairagro-datahub
-    targetRevision: "{{ datahub_revision }}"
+    targetRevision: "{{ .Values.datahub_revision }}"
     helm:
       valueFiles:
         - ../../environments/fizz/values/fairagro-datahub.yaml

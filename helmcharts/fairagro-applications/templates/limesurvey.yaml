@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: "git@github.com:fairagro/basic_infrastructure.git"
     path: helmcharts/fairagro-survey
-    targetRevision: "{{ limesurvey_revision }}"
+    targetRevision: "{{ .Values.limesurvey_revision }}"
     helm:
       valueFiles:
         - ../../environments/fizz/values/fairagro-survey.yaml

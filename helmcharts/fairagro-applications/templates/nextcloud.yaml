@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: "git@github.com:fairagro/basic_infrastructure.git"
     path: helmcharts/zalf-nextcloud
-    targetRevision: "{{ nextcloud_revision }}"
+    targetRevision: "{{ .Values.nextcloud_revision }}"
     helm:
       valueFiles:
         - ../../environments/fizz/values/zalf-nextcloud.yaml

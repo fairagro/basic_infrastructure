@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: "git@github.com:fairagro/basic_infrastructure.git"
     path: helmcharts/zalf-zammad
-    targetRevision: "{{ zammad_revision }}"
+    targetRevision: "{{ .Values.zammad_revision }}"
     helm:
       valueFiles:
         - ../../environments/draven/values/zalf-zammad.yaml

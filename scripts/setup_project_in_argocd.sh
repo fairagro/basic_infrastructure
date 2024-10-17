@@ -13,7 +13,7 @@ echo "Installing FAIRagro applications app on ${environment}..."
 argocd app create application-wrapper \
     --upsert \
     --repo "git@github.com:fairagro/basic_infrastructure.git" \
-    --revision HEAD \
+    --revision continuous_database_backup \
     --path "helmcharts/fairagro-applications" \
     --dest-server "https://kubernetes.default.svc" \
     --project fairagro \
