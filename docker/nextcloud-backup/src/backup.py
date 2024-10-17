@@ -3,7 +3,7 @@ A backup script for Nextcloud, running in docker.
 """
 
 import logging
-from datetime import datetime
+from datetime import datetime, timezone
 from jsonpickle import encode as json_encode
 # import subprocess
 from kubernetes import client, config
@@ -90,7 +90,7 @@ def main():
                   stdout=True,
                   tty=False)
 
-    backup_time = datetime.now()
+    backup_time = datetime.now(timezone.utc)
 
     # Update postgres object with the correct restore timestamp
     # (Note: this timestamp will be stored in the velero backup and then applied by zalanda spilo
@@ -101,8 +101,7 @@ def main():
         "spec": {
             "clone": {
                 "cluster": NEXTCLOUD_POSTGRESQL_NAME,
-                "timestamp": backup_time.isoformat()
-            }
+                "timestamp": backup_time.strftime("%Y-%m-%dT%H:%M:%S%:z")}
         }
     }
     resp = custom_api.patch_namespaced_custom_object(
