@@ -13,7 +13,7 @@ from kubernetes.watch import Watch
 
 # Usage example
 NEXTCLOUD_NAMESPACE = "fairagro-nextcloud"
-NEXTCLOUD_DEPLOYMENT_NAME = "fairagro-nextcloud"
+NEXTCLOUD_DEPLOYMENT_NAME = "nextcloud"
 NEXTCLOUD_CONTAINER_NAME = "nextcloud"
 NEXTCLOUD_MAINTENANCE_COMMAND = ["/var/www/html/occ", "maintenance:mode"]
 NEXTCLOUD_POSTGRESQL_NAME = "fairagro-postgresql-nextcloud"
