@@ -10,7 +10,7 @@ environment_path="$mydir/../environments/$environment"
 sops exec-env "${environment_path}/credentials/argocd_secrets.enc.yaml" 'argocd login $ARGOCD_SERVER --insecure --grpc-web-root-path $ARGOCD_PREFIX --username=$ARGOCD_ADMIN_USER --password=$ARGOCD_ADMIN_PASSWORD'
 
 echo "Installing FAIRagro applications app on ${environment}..."
-argocd app create application-wrapper \
+argocd app create fairagro-application-wrapper \
     --upsert \
     --repo "git@github.com:fairagro/basic_infrastructure.git" \
     --revision continuous_database_backup \
