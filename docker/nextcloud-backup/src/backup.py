@@ -130,9 +130,17 @@ def main():
         "spec": {
             "csiSnapshotTimeout": "10m0s",
             "defaultVolumesToFsBackup": False,
-            #            "includeClusterResources": True,
             "includedNamespaces": [NEXTCLOUD_NAMESPACE],
             "includedResources": ["*"],
+            "labelSelector": {
+                # omit pods that where created from backup jobs
+                "matchExpressions": [
+                    {
+                        "key": "batch.kubernetes.io/job-name",
+                        "operator": "DoesNotExist"
+                    }
+                ]
+            },
             "itemOperationTimeout": "4h0m0s",
             "resourcePolicy": {
                 "kind": "configmap",
