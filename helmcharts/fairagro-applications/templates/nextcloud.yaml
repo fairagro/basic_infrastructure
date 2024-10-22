@@ -28,7 +28,7 @@ spec:
       name: "{{ .Values.nextcloud_db_name }}"
       namespace: fairagro-nextcloud
       jqPathExpressions:
-        - .spec.env[] | select(.name == 'CLONE_TARGET_TIMELINE')
+        - .spec.env[] | select(.name == "CLONE_TARGET_TIMELINE")
     - kind: Secret
       name: nextcloud
       namespace: fairagro-nextcloud
