@@ -63,6 +63,7 @@ source <(kubectl completion bash)
 source <(helm completion bash)
 source <(helmfile completion bash)
 source <(argocd completion bash)
+source <(velero completion bash)
 
 # Set default namespace
 #kubectl config use-context $environment
