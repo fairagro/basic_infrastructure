@@ -80,7 +80,8 @@ kubectl get all -n fairagro-nextcloud
 This won't really list everything. Instead you can use:
 
 ```bash
-kubectl api-resources --namespaced=true --verbs=list -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found -n fairagro-nextcloud
+kubectl api-resources --namespaced=true --verbs=list -o name \
+| xargs -n 1 kubectl get --show-kind --ignore-not-found -n fairagro-nextcloud
 ```
 
 ### Delete 'everything' from a namespace ###
@@ -108,4 +109,5 @@ kubectl delete all,configmap,secret,pvc,ingress,serviceaccount --all -n fairagro
 ```
 
 Consider to [list all resources](#list-everything-within-a-namespace) to check if really
-everything except `Roles`s and `RoleBindings` has been deleted.
+everything except `Roles`s and `RoleBindings` has been deleted. Note that kubernetes will
+automatically recreate `configmap/kube-root-ca.crt` and `serviceaccount/default`.

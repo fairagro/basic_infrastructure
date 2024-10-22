@@ -77,12 +77,12 @@ def main():
         NEXTCLOUD_NAMESPACE,
         label_selector=f"app.kubernetes.io/name={
             deployment.metadata.labels['app.kubernetes.io/name']}")
-    pod = pods.items[0]
+    nextcloud_pod = pods.items[0]
 
     # Enter nextcloud mainenance mode
     logger.info("About to enter nextcloud maintenance mode..")
     resp = stream(core_api.connect_get_namespaced_pod_exec,
-                  pod.metadata.name,
+                  nextcloud_pod.metadata.name,
                   NEXTCLOUD_NAMESPACE,
                   container=NEXTCLOUD_CONTAINER_NAME,
                   command=NEXTCLOUD_MAINTENANCE_COMMAND + ["--on"],
@@ -96,12 +96,12 @@ def main():
     pods = core_api.list_namespaced_pod(
         NEXTCLOUD_NAMESPACE,
         label_selector=f"cluster-name={NEXTCLOUD_POSTGRESQL_NAME}")
-    pod = pods.items[0]
+    postgres_pod = pods.items[0]
 
     # Query current PostgreSQL backup timeline
     logger.info("About to query most recent PostgreSQL backup timeline...")
     resp = stream(core_api.connect_get_namespaced_pod_exec,
-                  pod.metadata.name,
+                  postgres_pod.metadata.name,
                   NEXTCLOUD_NAMESPACE,
                   command=POSTGRESQL_TIMELINE_COMMAND,
                   stderr=True,
@@ -131,14 +131,14 @@ def main():
     # after the velero backup has been restored)
     logger.info(
         "About to patch the nextcloud postgres object with the correct restore timestamp...")
+    # add or replace env var 'CLONE_TARGET_TIMELINE'
+    env_vars = [v for v in postgres["spec"]["env"] if v["name"] != "CLONE_TARGET_TIMELINE"] + [{
+        "name": "CLONE_TARGET_TIMELINE",
+        "value": timeline_id
+    }]
     postgres_patch = {
         "spec": {
-            "env": postgres["spec"]["env"] + [
-                {
-                    "name": "CLONE_TARGET_TIMELINE",
-                    "value": timeline_id
-                }
-            ],
+            "env": env_vars,
             "clone": {
                 "cluster": NEXTCLOUD_POSTGRESQL_NAME,
                 "timestamp": backup_time.strftime("%Y-%m-%dT%H:%M:%S%:z")}
@@ -252,7 +252,7 @@ def main():
     # Leave nextcloud mainenance mode
     logger.info("About to leave nextcloud maintenance mode...")
     resp = stream(core_api.connect_get_namespaced_pod_exec,
-                  pod.metadata.name,
+                  nextcloud_pod.metadata.name,
                   NEXTCLOUD_NAMESPACE,
                   container=NEXTCLOUD_CONTAINER_NAME,
                   command=NEXTCLOUD_MAINTENANCE_COMMAND + ["--off"],
@@ -260,6 +260,8 @@ def main():
                   stdin=False,
                   stdout=True,
                   tty=False)
+
+    logger.info("Backup finished")
 
 
 if __name__ == '__main__':
