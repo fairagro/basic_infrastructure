@@ -17,6 +17,7 @@ NEXTCLOUD_DEPLOYMENT_NAME = "nextcloud"
 NEXTCLOUD_CONTAINER_NAME = "nextcloud"
 NEXTCLOUD_MAINTENANCE_COMMAND = ["/var/www/html/occ", "maintenance:mode"]
 NEXTCLOUD_POSTGRESQL_NAME = "fairagro-postgresql-nextcloud"
+POSTGRESQL_TIMELINE_COMMAND = ["pg_controldata"]
 VELERO_BACKUP_STORAGE_LOCATION = "default"
 VELERO_BACKUP_TIME_TO_LIVE = "87600h0m0s"
 VELERO_PHASES_SUCCESS = ["Completed"]
@@ -70,7 +71,7 @@ def main():
     deployment = apps_api.read_namespaced_deployment(
         NEXTCLOUD_DEPLOYMENT_NAME, NEXTCLOUD_NAMESPACE)
 
-    # Get any pod associated with the deployment
+    # Get any pod associated with the PostgreSQL service
     logger.info("About to get the pods associated with the deployment...")
     pods = core_api.list_namespaced_pod(
         NEXTCLOUD_NAMESPACE,
@@ -90,6 +91,39 @@ def main():
                   stdout=True,
                   tty=False)
 
+    # Get any pod associated with the deployment
+    logger.info("About to get the pods associated with PostgreSQL...")
+    pods = core_api.list_namespaced_pod(
+        NEXTCLOUD_NAMESPACE,
+        label_selector=f"cluster-name={NEXTCLOUD_POSTGRESQL_NAME}")
+    pod = pods.items[0]
+
+    # Query current PostgreSQL backup timeline
+    logger.info("About to query most recent PostgreSQL backup timeline...")
+    resp = stream(core_api.connect_get_namespaced_pod_exec,
+                  pod.metadata.name,
+                  NEXTCLOUD_NAMESPACE,
+                  command=POSTGRESQL_TIMELINE_COMMAND,
+                  stderr=True,
+                  stdin=False,
+                  stdout=True,
+                  tty=False)
+    timeline_id = 0
+    for line in resp.splitlines():
+        if line.startswith("Latest checkpoint's TimeLineID"):
+            timeline_id = line.split(":")[1].strip()
+    if timeline_id == 0:
+        raise ValueError("Could not find latest PostgreSQL backup timeline")
+
+    # Query current PostgreSQL object
+    logger.info("About to query currebt PostgreSQL object...")
+    postgres = custom_api.get_namespaced_custom_object(
+        group="acid.zalan.do",
+        version="v1",
+        namespace=NEXTCLOUD_NAMESPACE,
+        plural="postgresqls",
+        name=NEXTCLOUD_POSTGRESQL_NAME)
+
     backup_time = datetime.now(timezone.utc)
 
     # Update postgres object with the correct restore timestamp
@@ -99,11 +133,38 @@ def main():
         "About to patch the nextcloud postgres object with the correct restore timestamp...")
     postgres_patch = {
         "spec": {
+            "env": postgres["spec"]["env"] + [
+                {
+                    "name": "CLONE_TARGET_TIMELINE",
+                    "value": timeline_id
+                }
+            ],
             "clone": {
                 "cluster": NEXTCLOUD_POSTGRESQL_NAME,
                 "timestamp": backup_time.strftime("%Y-%m-%dT%H:%M:%S%:z")}
         }
     }
+    # Actually we would like to ptach the PostgreSQL object using the merge strategy, because this
+    # would reduce the need to query the object and raeading out the env vars before patching it. 
+    # But it results in an error. Maybe kubernetes-python does not support this?
+    # postgres_patch = [
+    #     {
+    #         "op": "add",
+    #         "path": "/spec/clone",
+    #         "value": {
+    #             "cluster": NEXTCLOUD_POSTGRESQL_NAME,
+    #             "timestamp": backup_time.strftime("%Y-%m-%dT%H:%M:%S%:z")
+    #         }
+    #     },
+    #     {
+    #         "op": "add",
+    #         "path": "/spec/env/-",
+    #         "value": {
+    #             "name": "CLONE_TARGET_TIMELINE",
+    #             "value": timeline_id
+    #         }
+    #     }
+    # ]
     resp = custom_api.patch_namespaced_custom_object(
         group="acid.zalan.do",
         version="v1",
@@ -133,13 +194,19 @@ def main():
             "includedNamespaces": [NEXTCLOUD_NAMESPACE],
             "includedResources": ["*"],
             "labelSelector": {
-                # omit pods that where created from backup jobs
                 "matchExpressions": [
+                    # omit Pods that where created from backup jobs
                     {
                         "key": "batch.kubernetes.io/job-name",
                         "operator": "DoesNotExist"
+                    },
+                    # omit Pods and StatefulSets that belong to PostgreSQL databases
+                    {
+                        "key": "application",
+                        "operator": "NotIn",
+                        "values": ["spilo"]
                     }
-                ]
+                ],
             },
             "itemOperationTimeout": "4h0m0s",
             "resourcePolicy": {
