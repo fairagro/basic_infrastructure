@@ -200,14 +200,6 @@ def main():
                         "key": "batch.kubernetes.io/job-name",
                         "operator": "DoesNotExist"
                     }
-                    # omit Pods and StatefulSets that belong to PostgreSQL databases
-                    # unfortunetly this also includes posgtres Secrets which definitively must
-                    # be backed up
-                    # {
-                    #     "key": "application",
-                    #     "operator": "NotIn",
-                    #     "values": ["spilo"]
-                    # }
                 ],
             },
             "itemOperationTimeout": "4h0m0s",
