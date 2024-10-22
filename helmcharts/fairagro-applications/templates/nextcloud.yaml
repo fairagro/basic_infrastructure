@@ -30,6 +30,5 @@ spec:
         - /data/nextcloud-token
   syncPolicy:
     syncOptions:
-      - CreateNamespace=true
       - Prune=true
       - RespectIgnoreDifferences=true

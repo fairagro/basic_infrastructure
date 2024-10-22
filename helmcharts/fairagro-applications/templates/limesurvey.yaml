@@ -18,5 +18,4 @@ spec:
     namespace: fairagro-survey
   syncPolicy:
     syncOptions:
-      - CreateNamespace=true
       - Prune=true

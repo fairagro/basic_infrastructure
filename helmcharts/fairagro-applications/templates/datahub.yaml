@@ -18,5 +18,4 @@ spec:
     namespace: fairagro-datahub
   syncPolicy:
     syncOptions:
-      - CreateNamespace=true
       - Prune=true
