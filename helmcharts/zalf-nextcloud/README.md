@@ -47,7 +47,7 @@ this script does still not exist, so we describe a manual restore here:
 2. restore that backup:
 
    ```bash
-   velero create restore restore-01 --from-back=<backup name>
+   velero create restore restore-01 --from-backup=<backup name>
    ```
 
 3. observe the restore process:
@@ -91,6 +91,15 @@ envdir "/run/etc/wal-e.d/env" wal-g wal-show --detailed-json | jq '. | max_by(.i
 ```
 
 This needs to be done within the `PostgreSQL` object when also setting the recovery time.
+
+#### Failing database and creation of new timeline during backup ####
+
+This is just an information to prevent from confusion.
+
+During backup you can observe that both database instances will terminate and restart. The reason for this is
+unknown. Restart of the primary database instance will trigger a failover. This will implicitely create a new
+PostgreSQL timeline. So a database backup will also create a new timelime. During restore the original timeline
+will be restored.
 
 ## Some useful shell commands ##
 
