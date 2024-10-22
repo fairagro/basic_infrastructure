@@ -17,23 +17,24 @@ spec:
     server: "https://kubernetes.default.svc"
     namespace: fairagro-nextcloud
   ignoreDifferences:
-    - group: postgresqls.acid.zalan.do
-      kind: Postgresql
-      name: "{{ .Values.nextcloud_db_name }}"
-      namespace: fairagro-nextcloud
-      jsonPointers:
-        - /spec/clone
-    - group: postgresqls.acid.zalan.do
-      kind: Postgresql
-      name: "{{ .Values.nextcloud_db_name }}"
-      namespace: fairagro-nextcloud
-      jqPathExpressions:
-        - '.spec.env[] | select(.name == "CLONE_TARGET_TIMELINE")'
-    - kind: Secret
-      name: nextcloud
-      namespace: fairagro-nextcloud
-      jsonPointers:
-        - /data/nextcloud-token
+    []
+    # - group: postgresqls.acid.zalan.do
+    #   kind: Postgresql
+    #   name: "{{ .Values.nextcloud_db_name }}"
+    #   namespace: fairagro-nextcloud
+    #   jsonPointers:
+    #     - /spec/clone
+    # - group: postgresqls.acid.zalan.do
+    #   kind: Postgresql
+    #   name: "{{ .Values.nextcloud_db_name }}"
+    #   namespace: fairagro-nextcloud
+    #   jqPathExpressions:
+    #     - '.spec.env[] | select(.name == "CLONE_TARGET_TIMELINE")'
+    # - kind: Secret
+    #   name: nextcloud
+    #   namespace: fairagro-nextcloud
+    #   jsonPointers:
+    #     - /data/nextcloud-token
   syncPolicy:
     syncOptions:
       - Prune=true
