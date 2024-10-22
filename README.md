@@ -105,7 +105,7 @@ that are created by the `zalf-rdm/misc` project and are thus not easy to re-crea
 Instead this is a good alternative:
 
 ```bash
-kubectl delete all,configmap,secret,pvc,ingress,serviceaccount --all -n fairagro-nextcloud
+kubectl delete all,pdb,configmap,secret,pvc,ingress,serviceaccount --all -n fairagro-nextcloud
 ```
 
 Consider to [list all resources](#list-everything-within-a-namespace) to check if really
