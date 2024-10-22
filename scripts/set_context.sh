@@ -57,13 +57,22 @@ for file in "$public_key_path"/*.asc; do
     gpg --import "$file"
 done
 
-# Create Bash autocompletion for kubectl and helm
+# Create Bash autocompletion for installed tools
 source /etc/bash_completion
 source <(kubectl completion bash)
 source <(helm completion bash)
 source <(helmfile completion bash)
 source <(argocd completion bash)
 source <(velero completion bash)
+source <(docker completion bash)
+
+# Setup aliases
+alias k=kubectl
+alias d=docker
+
+# Set bash completion for aliases
+complete -o default -F __start_kubectl k
+complete -o default -F __start_docker d
 
 # Set default namespace
 #kubectl config use-context $environment
