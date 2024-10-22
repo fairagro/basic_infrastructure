@@ -145,7 +145,7 @@ def main():
         }
     }
     # Actually we would like to ptach the PostgreSQL object using the merge strategy, because this
-    # would reduce the need to query the object and raeading out the env vars before patching it. 
+    # would reduce the need to query the object and raeading out the env vars before patching it.
     # But it results in an error. Maybe kubernetes-python does not support this?
     # postgres_patch = [
     #     {
@@ -199,13 +199,15 @@ def main():
                     {
                         "key": "batch.kubernetes.io/job-name",
                         "operator": "DoesNotExist"
-                    },
-                    # omit Pods and StatefulSets that belong to PostgreSQL databases
-                    {
-                        "key": "application",
-                        "operator": "NotIn",
-                        "values": ["spilo"]
                     }
+                    # omit Pods and StatefulSets that belong to PostgreSQL databases
+                    # unfortunetly this also includes posgtres Secrets which definitively must
+                    # be backed up
+                    # {
+                    #     "key": "application",
+                    #     "operator": "NotIn",
+                    #     "values": ["spilo"]
+                    # }
                 ],
             },
             "itemOperationTimeout": "4h0m0s",
