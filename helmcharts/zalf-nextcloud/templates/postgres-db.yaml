@@ -29,11 +29,6 @@ spec:
         secretKeyRef:
           name: postgres-operator
           key: CLONE_AWS_SECRET_ACCESS_KEY
-    - name: CLONE_TARGET_TIMELINE
-      value: '1'
-    # disable automatic base backups by setting a cron schedule that nearly never triggers
-    # - name: BACKUP_SCHEDULE
-    #   value: "0 0 1 */1000 *"
 {{- else }}
     # We need do undefine a bunch of backup and restore related env vars, as otherwise
     # things might break (we could not identify a single variable or a small set of them
