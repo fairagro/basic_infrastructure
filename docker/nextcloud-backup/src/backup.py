@@ -3,7 +3,10 @@ A backup script for Nextcloud, running in docker.
 """
 
 import logging
+import time
 from datetime import datetime, timezone
+
+import requests
 from jsonpickle import encode as json_encode
 # import subprocess
 from kubernetes import client, config
@@ -12,11 +15,15 @@ from kubernetes.stream import stream
 from kubernetes.watch import Watch
 
 # Usage example
+NEXTCLOUD_URL="https://nextcloud.fizz.dataservice.zalf.de"
 NEXTCLOUD_NAMESPACE = "fairagro-nextcloud"
 NEXTCLOUD_DEPLOYMENT_NAME = "nextcloud"
 NEXTCLOUD_CONTAINER_NAME = "nextcloud"
 NEXTCLOUD_MAINTENANCE_COMMAND = ["/var/www/html/occ", "maintenance:mode"]
 NEXTCLOUD_POSTGRESQL_NAME = "fairagro-postgresql-nextcloud"
+NEXTCLOUD_WAIT_FOR_STATUS_ATTEMPTS = 600
+NEXTCLOUD_WAIT_FOR_STATUS_INTERVAL = 1
+NEXTCLOUD_WAIT_FOR_STATUS_TIMEOUT = 10
 POSTGRESQL_TIMELINE_COMMAND = ["pg_controldata"]
 VELERO_BACKUP_STORAGE_LOCATION = "default"
 VELERO_BACKUP_TIME_TO_LIVE = "87600h0m0s"
@@ -71,13 +78,20 @@ def main():
     deployment = apps_api.read_namespaced_deployment(
         NEXTCLOUD_DEPLOYMENT_NAME, NEXTCLOUD_NAMESPACE)
 
-    # Get any pod associated with the PostgreSQL service
+    # Get any pod associated with the nextcloud deployment
     logger.info("About to get the pods associated with the deployment...")
     pods = core_api.list_namespaced_pod(
         NEXTCLOUD_NAMESPACE,
         label_selector=f"app.kubernetes.io/name={
             deployment.metadata.labels['app.kubernetes.io/name']}")
     nextcloud_pod = pods.items[0]
+
+    # Get any pod associated with the PostgreSQL service
+    logger.info("About to get the pods associated with PostgreSQL...")
+    pods = core_api.list_namespaced_pod(
+        NEXTCLOUD_NAMESPACE,
+        label_selector=f"cluster-name={NEXTCLOUD_POSTGRESQL_NAME}")
+    postgres_pod = pods.items[0]
 
     # Enter nextcloud mainenance mode
     logger.info("About to enter nextcloud maintenance mode..")
@@ -91,12 +105,15 @@ def main():
                   stdout=True,
                   tty=False)
 
-    # Get any pod associated with the deployment
-    logger.info("About to get the pods associated with PostgreSQL...")
-    pods = core_api.list_namespaced_pod(
-        NEXTCLOUD_NAMESPACE,
-        label_selector=f"cluster-name={NEXTCLOUD_POSTGRESQL_NAME}")
-    postgres_pod = pods.items[0]
+    # Wait for maintenance mode to enter
+    logger.info("About to wait for maintenance mode to enter...")
+    attempts = 0
+    while attempts < NEXTCLOUD_WAIT_FOR_STATUS_ATTEMPTS:
+        resp = requests.get(NEXTCLOUD_URL, timeout=NEXTCLOUD_WAIT_FOR_STATUS_TIMEOUT)
+        if resp.status_code == 503:
+            break
+        attempts += 1
+        time.sleep(NEXTCLOUD_WAIT_FOR_STATUS_INTERVAL)
 
     # Query current PostgreSQL backup timeline
     logger.info("About to query most recent PostgreSQL backup timeline...")
@@ -116,7 +133,7 @@ def main():
         raise ValueError("Could not find latest PostgreSQL backup timeline")
 
     # Query current PostgreSQL object
-    logger.info("About to query currebt PostgreSQL object...")
+    logger.info("About to query current PostgreSQL object...")
     postgres = custom_api.get_namespaced_custom_object(
         group="acid.zalan.do",
         version="v1",
