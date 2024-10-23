@@ -27,8 +27,10 @@ spec:
       kind: postgresql
       name: "{{ .Values.nextcloud_db_name }}"
       namespace: fairagro-nextcloud
-      jqPathExpressions:
-        - '.spec.env[] | select(.name == "CLONE_TARGET_TIMELINE")'
+      jsonPointers:
+        - /spec/env
+      # jqPathExpressions:
+      #   - '.spec.env[] | select(.name == "CLONE_TARGET_TIMELINE")'
     - kind: Secret
       name: nextcloud
       namespace: fairagro-nextcloud
