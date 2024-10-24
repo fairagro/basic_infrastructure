@@ -225,20 +225,21 @@ def main():
             "csiSnapshotTimeout": "10m0s",
             "defaultVolumesToFsBackup": False,
             "includedNamespaces": [NEXTCLOUD_NAMESPACE],
-            "includedResources": [
-                "configmaps",
-                "cronjobs",
-                "deployments",
-                "ingresses",
-                "persistentvolumeclaims",
-                "postgresqls",
-                "rolebindings",
-                "roles",
-                "secrets",
-                "serviceaccounts",
-                "services",
-                "statefulsets"
-            ],
+            "includedResources": ["*"],
+            # "includedResources": [
+            #     "configmaps",
+            #     "cronjobs",
+            #     "deployments",
+            #     "ingresses",
+            #     "persistentvolumeclaims",
+            #     "postgresqls",
+            #     "rolebindings",
+            #     "roles",
+            #     "secrets",
+            #     "serviceaccounts",
+            #     "services",
+            #     "statefulsets"
+            # ],
             "labelSelector": {
                 "matchExpressions": [
                     # omit Pods that where created from backup jobs
