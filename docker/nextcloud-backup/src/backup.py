@@ -15,7 +15,7 @@ from kubernetes.stream import stream
 from kubernetes.watch import Watch
 
 # Usage example
-NEXTCLOUD_URL="https://nextcloud.fizz.dataservice.zalf.de"
+NEXTCLOUD_URL = "https://nextcloud.fizz.dataservice.zalf.de"
 NEXTCLOUD_NAMESPACE = "fairagro-nextcloud"
 NEXTCLOUD_DEPLOYMENT_NAME = "nextcloud"
 NEXTCLOUD_CONTAINER_NAME = "nextcloud"
@@ -24,7 +24,7 @@ NEXTCLOUD_POSTGRESQL_NAME = "fairagro-postgresql-nextcloud"
 NEXTCLOUD_WAIT_FOR_STATUS_ATTEMPTS = 600
 NEXTCLOUD_WAIT_FOR_STATUS_INTERVAL = 1
 NEXTCLOUD_WAIT_FOR_STATUS_TIMEOUT = 10
-POSTGRESQL_TIMELINE_COMMAND = ["pg_controldata"]
+# POSTGRESQL_TIMELINE_COMMAND = ["pg_controldata"]
 VELERO_BACKUP_STORAGE_LOCATION = "default"
 VELERO_BACKUP_TIME_TO_LIVE = "87600h0m0s"
 VELERO_PHASES_SUCCESS = ["Completed"]
@@ -87,11 +87,11 @@ def main():
     nextcloud_pod = pods.items[0]
 
     # Get any pod associated with the PostgreSQL service
-    logger.info("About to get the pods associated with PostgreSQL...")
-    pods = core_api.list_namespaced_pod(
-        NEXTCLOUD_NAMESPACE,
-        label_selector=f"cluster-name={NEXTCLOUD_POSTGRESQL_NAME}")
-    postgres_pod = pods.items[0]
+    # logger.info("About to get the pods associated with PostgreSQL...")
+    # pods = core_api.list_namespaced_pod(
+    #     NEXTCLOUD_NAMESPACE,
+    #     label_selector=f"cluster-name={NEXTCLOUD_POSTGRESQL_NAME}")
+    # postgres_pod = pods.items[0]
 
     # Enter nextcloud mainenance mode
     logger.info("About to enter nextcloud maintenance mode..")
@@ -109,7 +109,8 @@ def main():
     logger.info("About to wait for maintenance mode to enter...")
     attempts = 0
     while attempts < NEXTCLOUD_WAIT_FOR_STATUS_ATTEMPTS:
-        resp = requests.get(NEXTCLOUD_URL, timeout=NEXTCLOUD_WAIT_FOR_STATUS_TIMEOUT)
+        resp = requests.get(
+            NEXTCLOUD_URL, timeout=NEXTCLOUD_WAIT_FOR_STATUS_TIMEOUT)
         if resp.status_code == 503:
             break
         attempts += 1
@@ -190,6 +191,21 @@ def main():
         name=NEXTCLOUD_POSTGRESQL_NAME,
         body=postgres_patch
     )
+
+    # Patching the PostgreSQL object triggers a PostgreSQL cluster restart, including a
+    # failover and a new backup. Wait for that to finish.
+    logger.info("Waiting for PostgreSQL cluster restart to be finished...")
+    w = Watch()
+    for postgres in w.stream(
+        custom_api.list_namespaced_custom_object,
+        group="acid.zalan.do",
+        version="v1",
+        namespace=NEXTCLOUD_NAMESPACE,
+        plural="postgresqls"
+    ):
+        if postgres['object'].get('metadata', {}).get('name') == NEXTCLOUD_POSTGRESQL_NAME and \
+            postgres['object'].get('status', {}).get('PostgresClusterStatus') == "Running":
+            w.stop()
 
     # Create velero backup
     logger.info("About to create velero backup...")
