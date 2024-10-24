@@ -3,35 +3,29 @@ A backup script for Nextcloud, running in docker.
 """
 
 import logging
-import time
 from datetime import datetime, timezone
-from typing import Literal
 
-import requests
 from jsonpickle import encode as json_encode
-from kubernetes import client, config
+from kubernetes import client
 from kubernetes.client import api
-from kubernetes.stream import stream
 from kubernetes.watch import Watch
 
-NEXTCLOUD_URL = "https://nextcloud.fizz.dataservice.zalf.de"
-NEXTCLOUD_NAMESPACE = "fairagro-nextcloud"
-NEXTCLOUD_DEPLOYMENT_NAME = "nextcloud"
-NEXTCLOUD_CONTAINER_NAME = "nextcloud"
-NEXTCLOUD_MAINTENANCE_COMMAND = ["/var/www/html/occ", "maintenance:mode"]
+from util.kubernetes import (
+    change_nextcloud_maintenance_mode,
+    get_nextcloud_deployment,
+    get_nextcloud_pod,
+    load_kubeconf,
+    wait_nextcloud_maintenance_mode_to_change,
+    NEXTCLOUD_DEPLOYMENT_NAME,
+    NEXTCLOUD_NAMESPACE,
+    VELERO_PHASES_ERROR,
+    VELERO_PHASES_SUCCESS
+)
+
+
 NEXTCLOUD_POSTGRESQL_NAME = "fairagro-postgresql-nextcloud"
-NEXTCLOUD_WAIT_FOR_STATUS_ATTEMPTS = 600
-NEXTCLOUD_WAIT_FOR_STATUS_INTERVAL = 1
-NEXTCLOUD_WAIT_FOR_STATUS_TIMEOUT = 10
-NEXTCLOUD_MAINTENANCE_HTTP_STATUS_CODE = {
-    'on': 503,
-    'off': 302
-}
 VELERO_BACKUP_STORAGE_LOCATION = "default"
 VELERO_BACKUP_TIME_TO_LIVE = "87600h0m0s"
-VELERO_PHASES_SUCCESS = ["Completed"]
-VELERO_PHASES_ERROR = ["FailedValidation",
-                       "PartiallyFailed", "Failed", "Deleting"]
 VELERO_BACKUP_TIMEOUT = 300
 POSTGRESQL_RESTART_TIMEOUT = 300
 
@@ -76,51 +70,6 @@ def main() -> None:
     change_nextcloud_maintenance_mode(core_api, nextcloud_pod, "off")
 
     logger.info("Backup finished")
-
-
-def change_nextcloud_maintenance_mode(
-        core_api: client.CoreV1Api,
-        nextcloud_pod: client.V1Pod,
-        on_off: Literal["on", "off"]
-) -> None:
-    """
-    Change the Nextcloud maintenance mode.
-
-    Parameters:
-    core_api (CoreV1Api): The Kubernetes core API client.
-    nextcloud_pod (V1Pod): The Nextcloud pod object.
-    on_off (Literal["on", "off"]): The desired maintenance mode state.
-
-    Returns:
-        None
-
-    This function executes a command in the Nextcloud pod to change its
-    maintenance mode to the specified state using Kubernetes API.
-    """
-    logger.info("About to change nextcloud maintenance mode to '%s'...", on_off)
-    valid_responses = {
-        "on": [
-            "Maintenance mode enabled\n",
-            "Maintenance mode already enabled\n"
-        ],
-        "off": [
-            "Maintenance mode disabled\n",
-            "Maintenance mode already enabled\n"
-        ]
-    }
-    command = NEXTCLOUD_MAINTENANCE_COMMAND + [f'--{on_off}']
-    resp = stream(core_api.connect_get_namespaced_pod_exec,
-                  nextcloud_pod.metadata.name,
-                  NEXTCLOUD_NAMESPACE,
-                  container=NEXTCLOUD_CONTAINER_NAME,
-                  command=command,
-                  stderr=True,
-                  stdin=False,
-                  stdout=True,
-                  tty=False)
-    if resp not in valid_responses[on_off]:
-        raise RuntimeError(
-            f"Unexpected response from nextcloud {command}: {resp}")
 
 
 def create_velero_backup(custom_api: client.CustomObjectsApi, backup_time: datetime) -> None:
@@ -253,91 +202,6 @@ def patch_postgresql_object_with_restore_timestamp(
         if postgres['object'].get('metadata', {}).get('name') == NEXTCLOUD_POSTGRESQL_NAME and \
                 postgres['object'].get('status', {}).get('PostgresClusterStatus') == "Running":
             w.stop()
-
-
-def wait_nextcloud_maintenance_mode_to_change(on_off: Literal["on", "off"]) -> None:
-    """
-    Waits for the nextcloud maintenance mode to change to the desired state.
-
-    :param on_off: The desired state of the maintenance mode, either 'on' or 'off'.
-    """
-    logger.info(
-        "About to wait for nextcloud maintenance mode to switch to '%s'...", on_off)
-    attempts = 0
-    while attempts < NEXTCLOUD_WAIT_FOR_STATUS_ATTEMPTS:
-        resp = requests.get(
-            NEXTCLOUD_URL, timeout=NEXTCLOUD_WAIT_FOR_STATUS_TIMEOUT)
-        if resp.status_code == NEXTCLOUD_MAINTENANCE_HTTP_STATUS_CODE[on_off]:
-            break
-        attempts += 1
-        time.sleep(NEXTCLOUD_WAIT_FOR_STATUS_INTERVAL)
-
-
-def get_nextcloud_pod(core_api: client.CoreV1Api, deployment: client.V1Deployment) -> client.V1Pod:
-    """
-    Get a pod associated with a Nextcloud deployment.
-
-    Parameters:
-    core_api (CoreV1Api): The Kubernetes core API client.
-    deployment (V1Deployment): The Nextcloud deployment object.
-
-    Returns:
-    V1Pod: A pod associated with the Nextcloud deployment.
-    """
-    logger.info("About to get the pods associated with the deployment...")
-    pods = core_api.list_namespaced_pod(
-        NEXTCLOUD_NAMESPACE,
-        label_selector=f"app.kubernetes.io/name={
-            deployment.metadata.labels['app.kubernetes.io/name']}")
-    nextcloud_pod: client.V1Pod = pods.items[0]
-    return nextcloud_pod
-
-
-def get_nextcloud_deployment(apps_api: api.AppsV1Api) -> client.V1Deployment:
-    """
-    Get a Nextcloud deployment object.
-
-    Parameters:
-    apps_api (api.AppsV1Api): The Kubernetes apps API client.
-
-    Returns:
-    client.V1Deployment: The Nextcloud deployment object.
-    """
-    logger.info("About to find the nextcloud deployment...")
-    return apps_api.read_namespaced_deployment(
-        NEXTCLOUD_DEPLOYMENT_NAME, NEXTCLOUD_NAMESPACE)
-
-
-def load_kubeconf() -> None:
-    """
-    Load the Kubernetes configuration.
-
-    This function attempts to load the Kubernetes configuration for the
-    environment in which it is running. If running inside a Kubernetes pod,
-    it loads the in-cluster configuration. If that fails, it falls back to
-    loading the configuration from the KUBECONFIG environment variable, 
-    which is typically used for out-of-cluster configurations.
-
-    The function logs the progress and any exceptions encountered during 
-    the configuration loading process.
-
-    Returns:
-        None
-    """
-    try:
-        # Load in-cluster configuration when running in a pod
-        logger.info("About to load in-cluster config...")
-        config.load_incluster_config()
-        logger.info("Loaded in-cluster config")
-    except config.config_exception.ConfigException as e:
-        logger.info(
-            "Could not load in-cluster config, trying to load $KUBECONFIG...")
-        logger.debug(e)
-        # Load out-of-cluster configuration from KUBECONFIG
-        config.load_kube_config()
-        logger.info("Loaded out-of-cluster config from $KUBECONFIG. \
-                    Note that we're not using the intended service account with \
-                    its RBAC permissions, but the user from your $KUBECONFIG.")
 
 
 if __name__ == '__main__':

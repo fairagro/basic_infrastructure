@@ -3,101 +3,138 @@ A backup script for Nextcloud, running in docker.
 """
 
 import logging
-from datetime import datetime
+import sys
+from datetime import datetime, timezone
+from typing import Any, Dict
+
+import requests
 from jsonpickle import encode as json_encode
-# import subprocess
-from kubernetes import client, config
+from kubernetes import client
 from kubernetes.client import api
-from kubernetes.stream import stream
 from kubernetes.watch import Watch
 
-# Usage example
-NEXTCLOUD_NAMESPACE = "fairagro-nextcloud"
-NEXTCLOUD_DEPLOYMENT_NAME = "fairagro-nextcloud"
-NEXTCLOUD_CONTAINER_NAME = "nextcloud"
-NEXTCLOUD_MAINTENANCE_COMMAND = ["/var/www/html/occ", "maintenance:mode"]
-VELERO_BACKUP_STORAGE_LOCATION = "default"
-VELERO_BACKUP_TIME_TO_LIVE = "87600h0m0s"
-VELERO_PHASES_SUCCESS = ["Completed"]
-VELERO_PHASES_ERROR = ["FailedValidation",
-                       "PartiallyFailed", "Failed", "Deleting"]
-VELERO_BACKUP_TIMEOUT = 300
+from util.kubernetes import (
+    change_nextcloud_maintenance_mode,
+    exec_command_in_nextcloud_container,
+    get_nextcloud_deployment,
+    get_nextcloud_pod,
+    load_kubeconf,
+    wait_nextcloud_maintenance_mode_to_change,
+    NEXTCLOUD_URL,
+    VELERO_PHASES_ERROR,
+    VELERO_PHASES_SUCCESS
+)
+
+
+NEXTCLOUD_STATUS_URL = NEXTCLOUD_URL + "/status.php"
+NEXTCLOUD_QUERY_STATUS_TIMEOUT = 10
+NEXTCLOUD_CLIENT_SYNC_COMMAND = ["/var/www/html/occ", "maintenance:data-fingerprint"]
+NEXTCLOUD_FILES_SCAN_COMMAND = ["/var/www/html/occ", "files:scan", "--all"]
+VELERO_RESTORE_TIMEOUT = 300
+
 
 logger = logging.getLogger(__name__)
 
 
-def main():
+def main() -> None:
     """
-    Perform a nextcloud backup restore.
+    Perform a Nextcloud backup.
+
+    This function configures logging, loads Kubernetes configuration,
+    creates necessary API clients, and performs the backup process for Nextcloud.
     """
-
-    # Exceptions known to be raised:
-    # * kubernetes.client.exceptions.ApiException
-    # * kubernetes.config.config_exception.ConfigException
-
     # Set the logging level to DEBUG
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(
+        level=logging.DEBUG,
+        format="%(asctime)s %(module)s %(levelname)s: %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S"
+    )
 
-    try:
-        # Load in-cluster configuration when running in a pod
-        logger.info("About to load in-cluster config...")
-        config.load_incluster_config()
-        logger.info("Loaded in-cluster config")
-    except config.config_exception.ConfigException as e:
-        logger.info(
-            "Could not load in-cluster config, trying to load $KUBECONFIG...")
-        logger.debug(e)
-        # Load out-of-cluster configuration from KUBECONFIG
-        config.load_kube_config()
-        logger.info("Loaded out-of-cluster config from $KUBECONFIG. \
-                    Note that we're not using the intended service account with \
-                    its RBAC permissions, but the user from your $KUBECONFIG.")
+    load_kubeconf()
 
-    # Create a Kubernetes API client configuration and enable debug output
-    api_client = client.ApiClient()
+    # Create a Kubernetes API client configuration
+    api_client: client.ApiClient = client.ApiClient()
+    # enable debug output
     # api_client.configuration.debug = True
     logger.debug("ApiClient configuration: %s",
                  json_encode(api_client.configuration.__dict__))
 
     logger.info("About to instantiate the needed Kubernetes APIs...")
-    core_api = client.CoreV1Api(api_client)
-    apps_api = api.AppsV1Api(api_client)
-    custom_api = client.CustomObjectsApi(api_client)
+    core_api: client.CoreV1Api = client.CoreV1Api(api_client)
+    apps_api: api.AppsV1Api = api.AppsV1Api(api_client)
+    custom_api: client.CustomObjectsApi = client.CustomObjectsApi(api_client)
 
-    # Find desired deployment
-    logger.info("About to find the desired deployment...")
-    deployment = apps_api.read_namespaced_deployment(
-        NEXTCLOUD_DEPLOYMENT_NAME, NEXTCLOUD_NAMESPACE)
+    if check_nextcloud_is_running():
+        logger.info("Nextcloud is already running. Exiting.")
+        sys.exit(0)
+    backup_name = get_newest_backup_name(custom_api)
+    create_velero_restore(custom_api, backup_name)
+    deployment: client.V1Deployment = get_nextcloud_deployment(apps_api)
+    nextcloud_pod: client.V1Pod = get_nextcloud_pod(core_api, deployment)
+    change_nextcloud_maintenance_mode(core_api, nextcloud_pod, "off")
+    wait_nextcloud_maintenance_mode_to_change("off")
+    exec_command_in_nextcloud_container(
+        core_api, nextcloud_pod.metadata.name, NEXTCLOUD_FILES_SCAN_COMMAND
+    )
+    exec_command_in_nextcloud_container(
+        core_api, nextcloud_pod.metadata.name, NEXTCLOUD_CLIENT_SYNC_COMMAND
+    )
 
-    # Get any pod associated with the deployment
-    logger.info("About to get the pods associated with the deployment...")
-    pods = core_api.list_namespaced_pod(
-        NEXTCLOUD_NAMESPACE,
-        label_selector=f"app.kubernetes.io/name={
-            deployment.metadata.labels['app.kubernetes.io/name']}")
-    pod = pods.items[0]
+    logger.info("Restore finished")
 
-    # Enter nextcloud mainenance mode
-    logger.info("About to enter nextcloud maintenance mode..")
-    resp = stream(core_api.connect_get_namespaced_pod_exec,
-                  pod.metadata.name,
-                  NEXTCLOUD_NAMESPACE,
-                  container=NEXTCLOUD_CONTAINER_NAME,
-                  command=NEXTCLOUD_MAINTENANCE_COMMAND + ["--on"],
-                  stderr=True,
-                  stdin=False,
-                  stdout=True,
-                  tty=False)
+def check_nextcloud_is_running() -> bool:
+    """
+    Check if Nextcloud is currently running.
 
-    backup_time = datetime.now()
+    Checks the /status.php URL of the Nextcloud instance to see if it is currently running.
 
-    # Create velero backup
-    logger.info("About to create velero backup...")
-    backup_name = f'{NEXTCLOUD_NAMESPACE}-{NEXTCLOUD_DEPLOYMENT_NAME}-{
-        backup_time.strftime("%Y-%m-%dt%H-%M-%S")}'
-    restore_time = datetime.now()
+    Returns:
+        bool: Whether Nextcloud is currently running.
+    """
+    logger.info("About to requery nextcloud status")
+    try:
+        resp = requests.get(NEXTCLOUD_STATUS_URL, timeout=NEXTCLOUD_QUERY_STATUS_TIMEOUT)
+        status: Dict[str, Any] = resp.json()
+        return status.get("installed", False)
+    except requests.exceptions.RequestException:
+        return False
+
+def get_newest_backup_name(
+    custom_api: client.CustomObjectsApi
+) -> Dict[str, Any]:
+    """Get the newest Velero backup.
+
+    Args:
+        custom_api (client.CustomObjectsApi): The Kubernetes custom objects API client.
+
+    Returns:
+        Dict: The newest Velero backup object.
+    """
+    backups = custom_api.list_namespaced_custom_object(
+        group="velero.io",
+        version="v1",
+        namespace="velero",
+        plural="backups")
+    backup = max(backups["items"], key=lambda b: datetime.fromisoformat(b.get(
+        "status", {}).get("completionTimestamp", datetime(2010, 1, 1).isoformat())))
+    return backup["metadata"]["name"]
+
+def create_velero_restore(
+    custom_api: client.CustomObjectsApi,
+    backup_name: str
+) -> None:
+    """Create a Velero restore.
+
+    Args:
+        custom_api (client.CustomObjectsApi): The Kubernetes custom objects API client.
+        backup_name (str): The name of the Velero backup to restore.
+
+    Returns:
+        None
+    """
+    restore_time = datetime.now(timezone.utc)
     restore_name = f'{backup_name}-{restore_time.strftime("%Y%m%d%H%M%S")}'
-    restore_object = {
+    restore_object: Dict[str, Any] = {
         "apiVersion": "velero.io/v1",
         "kind": "Restore",
         "metadata": {
@@ -123,74 +160,33 @@ def main():
             "uploaderConfig": {}
         }
     }
-    backup_object = {
-        "apiVersion": "velero.io/v1",
-        "kind": "Backup",
-        "metadata": {
-            "labels": {
-                "velero.io/storage-location": VELERO_BACKUP_STORAGE_LOCATION
-            },
-            "name": backup_name,
-            "namespace": "velero"
-        },
-        "spec": {
-            "csiSnapshotTimeout": "10m0s",
-            "defaultVolumesToFsBackup": False,
-#            "includeClusterResources": True,
-            "includedNamespaces": [NEXTCLOUD_NAMESPACE],
-            "includedResources": ["*"],
-            "itemOperationTimeout": "4h0m0s",
-            "resourcePolicy": {
-                "kind": "configmap",
-                "name": "skip-postgres-volume-backup"
-            },
-            "snapshotMoveData": True,
-            "storageLocation": VELERO_BACKUP_STORAGE_LOCATION,
-            "ttl": VELERO_BACKUP_TIME_TO_LIVE
-        }
-    }
-    resp = custom_api.create_namespaced_custom_object(
+    custom_api.create_namespaced_custom_object(
         group="velero.io",
         version="v1",
         namespace="velero",
-        plural="backups",
-        body=backup_object
+        plural="restores",
+        body=restore_object
     )
 
-    # Wait for backup to complete
-    logger.info("Waiting for velero backup to be finished...")
-    backup_success = False
+    # Wait for restore to complete
+    logger.info("Waiting for velero restore to be finished...")
     w = Watch()
-    for backup in w.stream(
+    for restore in w.stream(
         custom_api.list_namespaced_custom_object,
         group="velero.io",
         version="v1",
         namespace="velero",
-        plural="backups",
-        timeout_seconds=VELERO_BACKUP_TIMEOUT
+        plural="restores",
+        timeout_seconds=VELERO_RESTORE_TIMEOUT
     ):
-        logger.debug("backup watcher: %s", json_encode(backup))
-        if backup['object']['metadata']['name'] == backup_name:
-            backup_phase = backup['object'].get('status', {}).get('phase')
-            if backup_phase in VELERO_PHASES_SUCCESS:
-                backup_success = True
-                logger.info("Backup complete")
+        if restore['object'].get('metadata', {}).get('name') == restore_name:
+            restore_phase = restore['object'].get('status', {}).get('phase')
+            if restore_phase in VELERO_PHASES_SUCCESS:
+                logger.info("Restore complete")
                 w.stop()
-            if backup_phase in VELERO_PHASES_ERROR:
-                logger.error("Backup failed with phase %s", backup_phase)
+            if restore_phase in VELERO_PHASES_ERROR:
+                logger.error("Restore failed with phase %s", restore_phase)
                 w.stop()
-
-    # Leave nextcloud mainenance mode
-    logger.info("About to leave nextcloud maintenance mode...")
-    resp = stream(core_api.connect_get_namespaced_pod_exec,
-                  pod.metadata.name,
-                  NEXTCLOUD_NAMESPACE,
-                  container=NEXTCLOUD_CONTAINER_NAME,
-                  command=NEXTCLOUD_MAINTENANCE_COMMAND + ["--off"],
-                  stderr=True,
-                  stdin=False,
-                  stdout=True,
-                  tty=False)
 
 
 if __name__ == '__main__':
