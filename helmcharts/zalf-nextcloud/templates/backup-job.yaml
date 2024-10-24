@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: nextcloud-backup-cronjob
+spec:
+  schedule: "0 2 * * *" # run every day at 2am
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: nextcloud-backup-account
+          containers:
+            - name: nextcloud-backup
+              image: zalf/fairagro_nextcloud_backup-3.12:0
+              imagePullPolicy: Always
+              command:
+                - python
+                - /nextcloud-backup/backup.py
+          restartPolicy: OnFailure

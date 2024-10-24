@@ -1,0 +1,918 @@
+NAME                                             DATA   AGE
+configmap/kube-root-ca.crt                       1      20m
+configmap/nextcloud-additional-config            4      19m
+configmap/nextcloud-config                       9      19m
+configmap/nextcloud-fairagro-onlyoffice-config   1      19m
+configmap/nextcloud-installation-scripts         2      19m
+configmap/nextcloud-nginxconfig                  2      19m
+configmap/nextcloud-redis-configuration          3      19m
+configmap/nextcloud-redis-health                 6      19m
+configmap/nextcloud-redis-scripts                1      19m
+NAME                                                        ENDPOINTS             AGE
+endpoints/fairagro-postgresql-nextcloud                     172.16.203.136:5432   19m
+endpoints/fairagro-postgresql-nextcloud-config              <none>                19m
+endpoints/fairagro-postgresql-nextcloud-failover            <none>                9m11s
+endpoints/fairagro-postgresql-nextcloud-repl                172.16.249.51:5432    19m
+endpoints/nextcloud                                         172.16.222.54:8080    19m
+endpoints/nextcloud-fairagro-onlyoffice                     172.16.249.9:80       19m
+endpoints/nextcloud-fairagro-onlyoffice-postgresql          172.16.249.28:5432    19m
+endpoints/nextcloud-fairagro-onlyoffice-postgresql-config   <none>                19m
+endpoints/nextcloud-fairagro-onlyoffice-postgresql-repl     172.16.222.27:5432    19m
+endpoints/nextcloud-redis-headless                          172.16.222.22:6379    19m
+endpoints/nextcloud-redis-master                            172.16.222.22:6379    19m
+LAST SEEN   TYPE      REASON                   OBJECT                                                                      MESSAGE
+2m10s       Normal    Scheduled                pod/backup-01-5q8bz                                                         Successfully assigned fairagro-nextcloud/backup-01-5q8bz to fizz-03
+2m9s        Normal    Pulling                  pod/backup-01-5q8bz                                                         Pulling image "zalf/fairagro_nextcloud_backup-3.12:0"
+2m4s        Normal    Pulled                   pod/backup-01-5q8bz                                                         Successfully pulled image "zalf/fairagro_nextcloud_backup-3.12:0" in 4.878s (4.878s including waiting)
+2m4s        Normal    Created                  pod/backup-01-5q8bz                                                         Created container nextcloud-backup
+2m4s        Normal    Started                  pod/backup-01-5q8bz                                                         Started container nextcloud-backup
+10m         Normal    Scheduled                pod/backup-01-fbldk                                                         Successfully assigned fairagro-nextcloud/backup-01-fbldk to fizz-03
+8m5s        Normal    Pulling                  pod/backup-01-fbldk                                                         Pulling image "zalf/fairagro_nextcloud_backup-3.12:0"
+10m         Normal    Pulled                   pod/backup-01-fbldk                                                         Successfully pulled image "zalf/fairagro_nextcloud_backup-3.12:0" in 4.883s (4.883s including waiting)
+8m1s        Normal    Created                  pod/backup-01-fbldk                                                         Created container nextcloud-backup
+8m47s       Normal    Started                  pod/backup-01-fbldk                                                         Started container nextcloud-backup
+9m29s       Normal    Pulled                   pod/backup-01-fbldk                                                         Successfully pulled image "zalf/fairagro_nextcloud_backup-3.12:0" in 1.124s (1.124s including waiting)
+8m20s       Warning   BackOff                  pod/backup-01-fbldk                                                         Back-off restarting failed container nextcloud-backup in pod backup-01-fbldk_fairagro-nextcloud(d5e10fbd-04b3-45c9-a913-4ad2e922a12a)
+9m12s       Normal    Pulled                   pod/backup-01-fbldk                                                         Successfully pulled image "zalf/fairagro_nextcloud_backup-3.12:0" in 1.089s (1.089s including waiting)
+8m47s       Normal    Pulled                   pod/backup-01-fbldk                                                         Successfully pulled image "zalf/fairagro_nextcloud_backup-3.12:0" in 1.158s (1.158s including waiting)
+8m1s        Normal    Pulled                   pod/backup-01-fbldk                                                         Successfully pulled image "zalf/fairagro_nextcloud_backup-3.12:0" in 3.126s (3.126s including waiting)
+10m         Normal    SuccessfulCreate         job/backup-01                                                               Created pod: backup-01-fbldk
+5m46s       Normal    Completed                job/backup-01                                                               Job completed
+2m10s       Normal    SuccessfulCreate         job/backup-01                                                               Created pod: backup-01-5q8bz
+66s         Normal    Completed                job/backup-01                                                               Job completed
+6m32s       Normal    Scheduled                pod/backup-02-mxb6p                                                         Successfully assigned fairagro-nextcloud/backup-02-mxb6p to fizz-03
+6m31s       Normal    Pulling                  pod/backup-02-mxb6p                                                         Pulling image "zalf/fairagro_nextcloud_backup-3.12:0"
+6m30s       Normal    Pulled                   pod/backup-02-mxb6p                                                         Successfully pulled image "zalf/fairagro_nextcloud_backup-3.12:0" in 1.088s (1.088s including waiting)
+6m30s       Normal    Created                  pod/backup-02-mxb6p                                                         Created container nextcloud-backup
+6m30s       Normal    Started                  pod/backup-02-mxb6p                                                         Started container nextcloud-backup
+5m31s       Normal    Killing                  pod/backup-02-mxb6p                                                         Stopping container nextcloud-backup
+6m32s       Normal    SuccessfulCreate         job/backup-02                                                               Created pod: backup-02-mxb6p
+47m         Normal    Killing                  pod/fairagro-postgresql-nextcloud-0                                         Stopping container postgres
+45m         Warning   FailedScheduling         pod/fairagro-postgresql-nextcloud-0                                         0/3 nodes are available: pod has unbound immediate PersistentVolumeClaims. preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling..
+45m         Normal    Scheduled                pod/fairagro-postgresql-nextcloud-0                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-0 to fizz-01
+45m         Normal    SuccessfulAttachVolume   pod/fairagro-postgresql-nextcloud-0                                         AttachVolume.Attach succeeded for volume "pvc-e8bb3744-d888-4cdf-816d-fd5153cab0c2"
+45m         Normal    Pulled                   pod/fairagro-postgresql-nextcloud-0                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+45m         Normal    Created                  pod/fairagro-postgresql-nextcloud-0                                         Created container postgres
+45m         Normal    Started                  pod/fairagro-postgresql-nextcloud-0                                         Started container postgres
+38m         Normal    Killing                  pod/fairagro-postgresql-nextcloud-0                                         Stopping container postgres
+38m         Normal    Scheduled                pod/fairagro-postgresql-nextcloud-0                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-0 to fizz-01
+38m         Normal    Pulled                   pod/fairagro-postgresql-nextcloud-0                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+38m         Normal    Created                  pod/fairagro-postgresql-nextcloud-0                                         Created container postgres
+38m         Normal    Started                  pod/fairagro-postgresql-nextcloud-0                                         Started container postgres
+27m         Normal    Killing                  pod/fairagro-postgresql-nextcloud-0                                         Stopping container postgres
+26m         Normal    Scheduled                pod/fairagro-postgresql-nextcloud-0                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-0 to fizz-01
+26m         Normal    Pulled                   pod/fairagro-postgresql-nextcloud-0                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+26m         Normal    Created                  pod/fairagro-postgresql-nextcloud-0                                         Created container postgres
+26m         Normal    Started                  pod/fairagro-postgresql-nextcloud-0                                         Started container postgres
+24m         Normal    Killing                  pod/fairagro-postgresql-nextcloud-0                                         Stopping container postgres
+24m         Normal    Scheduled                pod/fairagro-postgresql-nextcloud-0                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-0 to fizz-01
+24m         Normal    Pulled                   pod/fairagro-postgresql-nextcloud-0                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+24m         Normal    Created                  pod/fairagro-postgresql-nextcloud-0                                         Created container postgres
+24m         Normal    Started                  pod/fairagro-postgresql-nextcloud-0                                         Started container postgres
+20m         Normal    Killing                  pod/fairagro-postgresql-nextcloud-0                                         Stopping container postgres
+19m         Warning   FailedScheduling         pod/fairagro-postgresql-nextcloud-0                                         0/3 nodes are available: pod has unbound immediate PersistentVolumeClaims. preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling..
+19m         Normal    Scheduled                pod/fairagro-postgresql-nextcloud-0                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-0 to fizz-03
+19m         Normal    SuccessfulAttachVolume   pod/fairagro-postgresql-nextcloud-0                                         AttachVolume.Attach succeeded for volume "pvc-a3a9a884-30e2-4806-ac82-3bd09bbe4232"
+19m         Normal    Pulled                   pod/fairagro-postgresql-nextcloud-0                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+19m         Normal    Created                  pod/fairagro-postgresql-nextcloud-0                                         Created container postgres
+19m         Normal    Started                  pod/fairagro-postgresql-nextcloud-0                                         Started container postgres
+9m9s        Normal    Killing                  pod/fairagro-postgresql-nextcloud-0                                         Stopping container postgres
+8m57s       Normal    Scheduled                pod/fairagro-postgresql-nextcloud-0                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-0 to fizz-03
+8m55s       Normal    Pulled                   pod/fairagro-postgresql-nextcloud-0                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+8m55s       Normal    Created                  pod/fairagro-postgresql-nextcloud-0                                         Created container postgres
+8m55s       Normal    Started                  pod/fairagro-postgresql-nextcloud-0                                         Started container postgres
+8m45s       Normal    Killing                  pod/fairagro-postgresql-nextcloud-0                                         Stopping container postgres
+8m36s       Normal    Scheduled                pod/fairagro-postgresql-nextcloud-0                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-0 to fizz-03
+8m32s       Normal    Pulled                   pod/fairagro-postgresql-nextcloud-0                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+8m32s       Normal    Created                  pod/fairagro-postgresql-nextcloud-0                                         Created container postgres
+8m32s       Normal    Started                  pod/fairagro-postgresql-nextcloud-0                                         Started container postgres
+7m30s       Normal    Killing                  pod/fairagro-postgresql-nextcloud-0                                         Stopping container postgres
+7m19s       Normal    Scheduled                pod/fairagro-postgresql-nextcloud-0                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-0 to fizz-03
+7m17s       Normal    Pulled                   pod/fairagro-postgresql-nextcloud-0                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+7m17s       Normal    Created                  pod/fairagro-postgresql-nextcloud-0                                         Created container postgres
+7m17s       Normal    Started                  pod/fairagro-postgresql-nextcloud-0                                         Started container postgres
+6m30s       Normal    Killing                  pod/fairagro-postgresql-nextcloud-0                                         Stopping container postgres
+6m20s       Normal    Scheduled                pod/fairagro-postgresql-nextcloud-0                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-0 to fizz-03
+6m17s       Normal    Pulled                   pod/fairagro-postgresql-nextcloud-0                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+6m17s       Normal    Created                  pod/fairagro-postgresql-nextcloud-0                                         Created container postgres
+6m17s       Normal    Started                  pod/fairagro-postgresql-nextcloud-0                                         Started container postgres
+5m6s        Normal    Killing                  pod/fairagro-postgresql-nextcloud-0                                         Stopping container postgres
+4m56s       Normal    Scheduled                pod/fairagro-postgresql-nextcloud-0                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-0 to fizz-03
+4m54s       Normal    Pulled                   pod/fairagro-postgresql-nextcloud-0                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+4m54s       Normal    Created                  pod/fairagro-postgresql-nextcloud-0                                         Created container postgres
+4m54s       Normal    Started                  pod/fairagro-postgresql-nextcloud-0                                         Started container postgres
+100s        Normal    Killing                  pod/fairagro-postgresql-nextcloud-0                                         Stopping container postgres
+91s         Normal    Scheduled                pod/fairagro-postgresql-nextcloud-0                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-0 to fizz-03
+88s         Normal    Pulled                   pod/fairagro-postgresql-nextcloud-0                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+88s         Normal    Created                  pod/fairagro-postgresql-nextcloud-0                                         Created container postgres
+88s         Normal    Started                  pod/fairagro-postgresql-nextcloud-0                                         Started container postgres
+47m         Normal    Killing                  pod/fairagro-postgresql-nextcloud-1                                         Stopping container postgres
+45m         Warning   FailedScheduling         pod/fairagro-postgresql-nextcloud-1                                         0/3 nodes are available: pod has unbound immediate PersistentVolumeClaims. preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling..
+45m         Normal    Scheduled                pod/fairagro-postgresql-nextcloud-1                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-1 to fizz-03
+45m         Normal    SuccessfulAttachVolume   pod/fairagro-postgresql-nextcloud-1                                         AttachVolume.Attach succeeded for volume "pvc-d18ba112-f0f8-42eb-9682-388605150a36"
+45m         Normal    Pulled                   pod/fairagro-postgresql-nextcloud-1                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+45m         Normal    Created                  pod/fairagro-postgresql-nextcloud-1                                         Created container postgres
+45m         Normal    Started                  pod/fairagro-postgresql-nextcloud-1                                         Started container postgres
+37m         Normal    Killing                  pod/fairagro-postgresql-nextcloud-1                                         Stopping container postgres
+37m         Normal    Scheduled                pod/fairagro-postgresql-nextcloud-1                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-1 to fizz-02
+37m         Warning   FailedAttachVolume       pod/fairagro-postgresql-nextcloud-1                                         Multi-Attach error for volume "pvc-d18ba112-f0f8-42eb-9682-388605150a36" Volume is already exclusively attached to one node and can't be attached to another
+37m         Normal    SuccessfulAttachVolume   pod/fairagro-postgresql-nextcloud-1                                         AttachVolume.Attach succeeded for volume "pvc-d18ba112-f0f8-42eb-9682-388605150a36"
+37m         Normal    Pulled                   pod/fairagro-postgresql-nextcloud-1                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+37m         Normal    Created                  pod/fairagro-postgresql-nextcloud-1                                         Created container postgres
+37m         Normal    Started                  pod/fairagro-postgresql-nextcloud-1                                         Started container postgres
+27m         Normal    Killing                  pod/fairagro-postgresql-nextcloud-1                                         Stopping container postgres
+27m         Normal    Scheduled                pod/fairagro-postgresql-nextcloud-1                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-1 to fizz-02
+27m         Normal    Pulled                   pod/fairagro-postgresql-nextcloud-1                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+27m         Normal    Created                  pod/fairagro-postgresql-nextcloud-1                                         Created container postgres
+27m         Normal    Started                  pod/fairagro-postgresql-nextcloud-1                                         Started container postgres
+24m         Normal    Killing                  pod/fairagro-postgresql-nextcloud-1                                         Stopping container postgres
+24m         Normal    Scheduled                pod/fairagro-postgresql-nextcloud-1                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-1 to fizz-02
+24m         Normal    Pulled                   pod/fairagro-postgresql-nextcloud-1                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+24m         Normal    Created                  pod/fairagro-postgresql-nextcloud-1                                         Created container postgres
+23m         Normal    Started                  pod/fairagro-postgresql-nextcloud-1                                         Started container postgres
+20m         Normal    Killing                  pod/fairagro-postgresql-nextcloud-1                                         Stopping container postgres
+19m         Warning   FailedScheduling         pod/fairagro-postgresql-nextcloud-1                                         0/3 nodes are available: pod has unbound immediate PersistentVolumeClaims. preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling..
+19m         Normal    Scheduled                pod/fairagro-postgresql-nextcloud-1                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-1 to fizz-02
+19m         Normal    SuccessfulAttachVolume   pod/fairagro-postgresql-nextcloud-1                                         AttachVolume.Attach succeeded for volume "pvc-892f494b-c99f-4bce-b7a3-b40e70c429be"
+18m         Normal    Pulled                   pod/fairagro-postgresql-nextcloud-1                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+18m         Normal    Created                  pod/fairagro-postgresql-nextcloud-1                                         Created container postgres
+18m         Normal    Started                  pod/fairagro-postgresql-nextcloud-1                                         Started container postgres
+9m29s       Normal    Killing                  pod/fairagro-postgresql-nextcloud-1                                         Stopping container postgres
+9m19s       Normal    Scheduled                pod/fairagro-postgresql-nextcloud-1                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-1 to fizz-02
+9m16s       Normal    Pulled                   pod/fairagro-postgresql-nextcloud-1                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+9m16s       Normal    Created                  pod/fairagro-postgresql-nextcloud-1                                         Created container postgres
+9m16s       Normal    Started                  pod/fairagro-postgresql-nextcloud-1                                         Started container postgres
+8m24s       Normal    Killing                  pod/fairagro-postgresql-nextcloud-1                                         Stopping container postgres
+8m12s       Normal    Scheduled                pod/fairagro-postgresql-nextcloud-1                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-1 to fizz-02
+8m          Normal    Pulled                   pod/fairagro-postgresql-nextcloud-1                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+8m          Normal    Created                  pod/fairagro-postgresql-nextcloud-1                                         Created container postgres
+8m          Normal    Started                  pod/fairagro-postgresql-nextcloud-1                                         Started container postgres
+7m51s       Normal    Killing                  pod/fairagro-postgresql-nextcloud-1                                         Stopping container postgres
+7m42s       Normal    Scheduled                pod/fairagro-postgresql-nextcloud-1                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-1 to fizz-02
+7m39s       Normal    Pulled                   pod/fairagro-postgresql-nextcloud-1                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+7m39s       Normal    Created                  pod/fairagro-postgresql-nextcloud-1                                         Created container postgres
+7m39s       Normal    Started                  pod/fairagro-postgresql-nextcloud-1                                         Started container postgres
+6m10s       Normal    Killing                  pod/fairagro-postgresql-nextcloud-1                                         Stopping container postgres
+5m58s       Normal    Scheduled                pod/fairagro-postgresql-nextcloud-1                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-1 to fizz-02
+5m47s       Normal    Pulled                   pod/fairagro-postgresql-nextcloud-1                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+5m47s       Normal    Created                  pod/fairagro-postgresql-nextcloud-1                                         Created container postgres
+5m47s       Normal    Started                  pod/fairagro-postgresql-nextcloud-1                                         Started container postgres
+5m38s       Normal    Killing                  pod/fairagro-postgresql-nextcloud-1                                         Stopping container postgres
+5m28s       Normal    Scheduled                pod/fairagro-postgresql-nextcloud-1                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-1 to fizz-02
+5m16s       Normal    Pulled                   pod/fairagro-postgresql-nextcloud-1                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+5m16s       Normal    Created                  pod/fairagro-postgresql-nextcloud-1                                         Created container postgres
+5m16s       Normal    Started                  pod/fairagro-postgresql-nextcloud-1                                         Started container postgres
+79s         Normal    Killing                  pod/fairagro-postgresql-nextcloud-1                                         Stopping container postgres
+67s         Normal    Scheduled                pod/fairagro-postgresql-nextcloud-1                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-1 to fizz-02
+56s         Normal    Pulled                   pod/fairagro-postgresql-nextcloud-1                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+56s         Normal    Created                  pod/fairagro-postgresql-nextcloud-1                                         Created container postgres
+56s         Normal    Started                  pod/fairagro-postgresql-nextcloud-1                                         Started container postgres
+47m         Normal    Delete                   postgresql/fairagro-postgresql-nextcloud                                    Started deletion of cluster resources
+45m         Normal    Create                   postgresql/fairagro-postgresql-nextcloud                                    Started creation of new cluster resources
+45m         Warning   Create                   postgresql/fairagro-postgresql-nextcloud                                    could not create cluster: could not create master endpoint: could not create master endpoint: endpoints "fairagro-postgresql-nextcloud" already exists
+24m         Normal    Update                   postgresql/fairagro-postgresql-nextcloud                                    Performing rolling update
+38m         Warning   RecreatingFailedPod      statefulset/fairagro-postgresql-nextcloud                                   StatefulSet fairagro-nextcloud/fairagro-postgresql-nextcloud is recreating failed Pod fairagro-postgresql-nextcloud-0
+38m         Normal    SuccessfulDelete         statefulset/fairagro-postgresql-nextcloud                                   delete Pod fairagro-postgresql-nextcloud-0 in StatefulSet fairagro-postgresql-nextcloud successful
+38m         Warning   FailedDelete             statefulset/fairagro-postgresql-nextcloud                                   delete Pod fairagro-postgresql-nextcloud-0 in StatefulSet fairagro-postgresql-nextcloud failed error: pods "fairagro-postgresql-nextcloud-0" not found
+38m         Normal    SuccessfulCreate         statefulset/fairagro-postgresql-nextcloud                                   create Pod fairagro-postgresql-nextcloud-0 in StatefulSet fairagro-postgresql-nextcloud successful
+24m         Normal    Switchover               postgresql/fairagro-postgresql-nextcloud                                    Switching over from "fairagro-postgresql-nextcloud-1" to "fairagro-nextcloud/fairagro-postgresql-nextcloud-0"
+24m         Normal    Switchover               postgresql/fairagro-postgresql-nextcloud                                    Successfully switched over from "fairagro-postgresql-nextcloud-1" to "fairagro-nextcloud/fairagro-postgresql-nextcloud-0"
+27m         Warning   RecreatingFailedPod      statefulset/fairagro-postgresql-nextcloud                                   StatefulSet fairagro-nextcloud/fairagro-postgresql-nextcloud is recreating failed Pod fairagro-postgresql-nextcloud-1
+27m         Normal    SuccessfulDelete         statefulset/fairagro-postgresql-nextcloud                                   delete Pod fairagro-postgresql-nextcloud-1 in StatefulSet fairagro-postgresql-nextcloud successful
+23m         Normal    Update                   postgresql/fairagro-postgresql-nextcloud                                    Rolling update done - pods have been recreated
+27m         Normal    Switchover               postgresql/fairagro-postgresql-nextcloud                                    Switching over from "fairagro-postgresql-nextcloud-0" to "fairagro-nextcloud/fairagro-postgresql-nextcloud-1"
+27m         Normal    Switchover               postgresql/fairagro-postgresql-nextcloud                                    Successfully switched over from "fairagro-postgresql-nextcloud-0" to "fairagro-nextcloud/fairagro-postgresql-nextcloud-1"
+20m         Normal    Delete                   postgresql/fairagro-postgresql-nextcloud                                    Started deletion of cluster resources
+19m         Normal    Create                   postgresql/fairagro-postgresql-nextcloud                                    Started creation of new cluster resources
+19m         Normal    Endpoints                postgresql/fairagro-postgresql-nextcloud                                    Endpoint "fairagro-nextcloud/fairagro-postgresql-nextcloud" has been successfully created
+19m         Normal    Services                 postgresql/fairagro-postgresql-nextcloud                                    The service "fairagro-nextcloud/fairagro-postgresql-nextcloud" for role master has been successfully created
+19m         Normal    Services                 postgresql/fairagro-postgresql-nextcloud                                    The service "fairagro-nextcloud/fairagro-postgresql-nextcloud-repl" for role replica has been successfully created
+19m         Normal    Secrets                  postgresql/fairagro-postgresql-nextcloud                                    The secrets have been successfully created
+19m         Normal    StatefulSet              postgresql/fairagro-postgresql-nextcloud                                    Statefulset "fairagro-nextcloud/fairagro-postgresql-nextcloud" has been successfully created
+19m         Normal    SuccessfulCreate         statefulset/fairagro-postgresql-nextcloud                                   create Claim pgdata-fairagro-postgresql-nextcloud-0 Pod fairagro-postgresql-nextcloud-0 in StatefulSet fairagro-postgresql-nextcloud success
+19m         Normal    SuccessfulCreate         statefulset/fairagro-postgresql-nextcloud                                   create Pod fairagro-postgresql-nextcloud-0 in StatefulSet fairagro-postgresql-nextcloud successful
+19m         Normal    SuccessfulCreate         statefulset/fairagro-postgresql-nextcloud                                   create Claim pgdata-fairagro-postgresql-nextcloud-1 Pod fairagro-postgresql-nextcloud-1 in StatefulSet fairagro-postgresql-nextcloud success
+9m19s       Normal    SuccessfulCreate         statefulset/fairagro-postgresql-nextcloud                                   create Pod fairagro-postgresql-nextcloud-1 in StatefulSet fairagro-postgresql-nextcloud successful
+18m         Normal    StatefulSet              postgresql/fairagro-postgresql-nextcloud                                    Pods are ready
+101s        Normal    Update                   postgresql/fairagro-postgresql-nextcloud                                    Performing rolling update
+9m19s       Warning   RecreatingFailedPod      statefulset/fairagro-postgresql-nextcloud                                   StatefulSet fairagro-nextcloud/fairagro-postgresql-nextcloud is recreating failed Pod fairagro-postgresql-nextcloud-1
+9m19s       Normal    SuccessfulDelete         statefulset/fairagro-postgresql-nextcloud                                   delete Pod fairagro-postgresql-nextcloud-1 in StatefulSet fairagro-postgresql-nextcloud successful
+9m19s       Warning   FailedDelete             statefulset/fairagro-postgresql-nextcloud                                   delete Pod fairagro-postgresql-nextcloud-1 in StatefulSet fairagro-postgresql-nextcloud failed error: pods "fairagro-postgresql-nextcloud-1" not found
+5m10s       Normal    Switchover               postgresql/fairagro-postgresql-nextcloud                                    Switching over from "fairagro-postgresql-nextcloud-0" to "fairagro-nextcloud/fairagro-postgresql-nextcloud-1"
+5m8s        Normal    Switchover               postgresql/fairagro-postgresql-nextcloud                                    Successfully switched over from "fairagro-postgresql-nextcloud-0" to "fairagro-nextcloud/fairagro-postgresql-nextcloud-1"
+91s         Warning   RecreatingFailedPod      statefulset/fairagro-postgresql-nextcloud                                   StatefulSet fairagro-nextcloud/fairagro-postgresql-nextcloud is recreating failed Pod fairagro-postgresql-nextcloud-0
+8m58s       Normal    SuccessfulDelete         statefulset/fairagro-postgresql-nextcloud                                   delete Pod fairagro-postgresql-nextcloud-0 in StatefulSet fairagro-postgresql-nextcloud successful
+4m48s       Normal    Update                   postgresql/fairagro-postgresql-nextcloud                                    Rolling update done - pods have been recreated
+6m12s       Normal    Switchover               postgresql/fairagro-postgresql-nextcloud                                    Switching over from "fairagro-postgresql-nextcloud-1" to "fairagro-nextcloud/fairagro-postgresql-nextcloud-0"
+6m10s       Normal    Switchover               postgresql/fairagro-postgresql-nextcloud                                    Successfully switched over from "fairagro-postgresql-nextcloud-1" to "fairagro-nextcloud/fairagro-postgresql-nextcloud-0"
+20m         Normal    Scheduled                pod/nextcloud-8586cf4859-229bs                                              Successfully assigned fairagro-nextcloud/nextcloud-8586cf4859-229bs to fizz-01
+20m         Warning   FailedAttachVolume       pod/nextcloud-8586cf4859-229bs                                              Multi-Attach error for volume "pvc-bfae035e-a762-4e90-86c4-231057e72ebe" Volume is already used by pod(s) nextcloud-8586cf4859-9fqqj
+20m         Warning   FailedAttachVolume       pod/nextcloud-8586cf4859-229bs                                              Multi-Attach error for volume "pvc-b741b793-3578-497e-b743-f66cebbef0e1" Volume is already used by pod(s) nextcloud-8586cf4859-9fqqj
+19m         Warning   FailedScheduling         pod/nextcloud-8586cf4859-2vz6g                                              0/3 nodes are available: pod has unbound immediate PersistentVolumeClaims. preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling..
+19m         Normal    Scheduled                pod/nextcloud-8586cf4859-2vz6g                                              Successfully assigned fairagro-nextcloud/nextcloud-8586cf4859-2vz6g to fizz-01
+19m         Normal    SuccessfulAttachVolume   pod/nextcloud-8586cf4859-2vz6g                                              AttachVolume.Attach succeeded for volume "pvc-557d9305-692f-4245-adc7-9da6767bb938"
+19m         Normal    SuccessfulAttachVolume   pod/nextcloud-8586cf4859-2vz6g                                              AttachVolume.Attach succeeded for volume "pvc-4dfbae06-e71b-450b-ad51-feb5f17f2ac6"
+19m         Normal    Pulled                   pod/nextcloud-8586cf4859-2vz6g                                              Container image "nextcloud@sha256:d0d13d935eaa9219bfa89fd8213b3ede6431e04685f0a25f6f764f5e5dcfe990" already present on machine
+19m         Normal    Created                  pod/nextcloud-8586cf4859-2vz6g                                              Created container nextcloud
+19m         Normal    Started                  pod/nextcloud-8586cf4859-2vz6g                                              Started container nextcloud
+19m         Normal    Pulled                   pod/nextcloud-8586cf4859-2vz6g                                              Container image "nginxinc/nginx-unprivileged@sha256:a2e2a031969b6fc6107537901a04c354b38e1708ba3a5e1042b390277b55780e" already present on machine
+19m         Normal    Created                  pod/nextcloud-8586cf4859-2vz6g                                              Created container nextcloud-nginx
+19m         Normal    Started                  pod/nextcloud-8586cf4859-2vz6g                                              Started container nextcloud-nginx
+19m         Normal    Pulled                   pod/nextcloud-8586cf4859-2vz6g                                              Container image "nextcloud@sha256:d0d13d935eaa9219bfa89fd8213b3ede6431e04685f0a25f6f764f5e5dcfe990" already present on machine
+19m         Normal    Created                  pod/nextcloud-8586cf4859-2vz6g                                              Created container nextcloud-cron
+19m         Normal    Started                  pod/nextcloud-8586cf4859-2vz6g                                              Started container nextcloud-cron
+17m         Warning   Unhealthy                pod/nextcloud-8586cf4859-2vz6g                                              Startup probe failed: HTTP probe failed with statuscode: 502
+47m         Normal    Killing                  pod/nextcloud-8586cf4859-9fqqj                                              Stopping container nextcloud
+47m         Normal    Killing                  pod/nextcloud-8586cf4859-9fqqj                                              Stopping container nextcloud-cron
+47m         Normal    Killing                  pod/nextcloud-8586cf4859-9fqqj                                              Stopping container nextcloud-nginx
+47m         Warning   Unhealthy                pod/nextcloud-8586cf4859-9fqqj                                              Readiness probe failed: Get "http://172.16.203.184:8080/status.php": dial tcp 172.16.203.184:8080: connect: connection refused
+45m         Warning   FailedScheduling         pod/nextcloud-8586cf4859-9fqqj                                              0/3 nodes are available: pod has unbound immediate PersistentVolumeClaims. preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling..
+44m         Normal    Scheduled                pod/nextcloud-8586cf4859-9fqqj                                              Successfully assigned fairagro-nextcloud/nextcloud-8586cf4859-9fqqj to fizz-03
+44m         Normal    SuccessfulAttachVolume   pod/nextcloud-8586cf4859-9fqqj                                              AttachVolume.Attach succeeded for volume "pvc-bfae035e-a762-4e90-86c4-231057e72ebe"
+44m         Normal    SuccessfulAttachVolume   pod/nextcloud-8586cf4859-9fqqj                                              AttachVolume.Attach succeeded for volume "pvc-b741b793-3578-497e-b743-f66cebbef0e1"
+44m         Normal    Pulled                   pod/nextcloud-8586cf4859-9fqqj                                              Container image "nextcloud@sha256:d0d13d935eaa9219bfa89fd8213b3ede6431e04685f0a25f6f764f5e5dcfe990" already present on machine
+44m         Normal    Created                  pod/nextcloud-8586cf4859-9fqqj                                              Created container nextcloud
+44m         Normal    Started                  pod/nextcloud-8586cf4859-9fqqj                                              Started container nextcloud
+44m         Normal    Pulled                   pod/nextcloud-8586cf4859-9fqqj                                              Container image "nginxinc/nginx-unprivileged@sha256:a2e2a031969b6fc6107537901a04c354b38e1708ba3a5e1042b390277b55780e" already present on machine
+44m         Normal    Created                  pod/nextcloud-8586cf4859-9fqqj                                              Created container nextcloud-nginx
+44m         Normal    Started                  pod/nextcloud-8586cf4859-9fqqj                                              Started container nextcloud-nginx
+44m         Normal    Pulled                   pod/nextcloud-8586cf4859-9fqqj                                              Container image "nextcloud@sha256:d0d13d935eaa9219bfa89fd8213b3ede6431e04685f0a25f6f764f5e5dcfe990" already present on machine
+44m         Normal    Created                  pod/nextcloud-8586cf4859-9fqqj                                              Created container nextcloud-cron
+44m         Normal    Started                  pod/nextcloud-8586cf4859-9fqqj                                              Started container nextcloud-cron
+20m         Normal    Killing                  pod/nextcloud-8586cf4859-9fqqj                                              Stopping container nextcloud
+20m         Normal    Killing                  pod/nextcloud-8586cf4859-9fqqj                                              Stopping container nextcloud-cron
+20m         Normal    Killing                  pod/nextcloud-8586cf4859-9fqqj                                              Stopping container nextcloud-nginx
+20m         Warning   Unhealthy                pod/nextcloud-8586cf4859-9fqqj                                              Readiness probe failed: Get "http://172.16.203.171:8080/status.php": dial tcp 172.16.203.171:8080: connect: connection refused
+47m         Normal    Scheduled                pod/nextcloud-8586cf4859-cc9bx                                              Successfully assigned fairagro-nextcloud/nextcloud-8586cf4859-cc9bx to fizz-03
+47m         Normal    SuccessfulCreate         replicaset/nextcloud-8586cf4859                                             Created pod: nextcloud-8586cf4859-cc9bx
+20m         Normal    SuccessfulCreate         replicaset/nextcloud-8586cf4859                                             Created pod: nextcloud-8586cf4859-229bs
+19m         Normal    SuccessfulCreate         replicaset/nextcloud-8586cf4859                                             Created pod: nextcloud-8586cf4859-2vz6g
+2m10s       Warning   UnexpectedJob            cronjob/nextcloud-backup-cronjob                                            Saw a job that the controller did not create or forgot: backup-01
+5m46s       Warning   UnexpectedJob            cronjob/nextcloud-backup-cronjob                                            Saw a job that the controller did not create or forgot: backup-02
+20m         Normal    Scheduled                pod/nextcloud-fairagro-onlyoffice-66b5b747d5-bt6sg                          Successfully assigned fairagro-nextcloud/nextcloud-fairagro-onlyoffice-66b5b747d5-bt6sg to fizz-03
+20m         Normal    Pulled                   pod/nextcloud-fairagro-onlyoffice-66b5b747d5-bt6sg                          Container image "onlyoffice/documentserver@sha256:5ed447a097b368e97de8c25ba5ef53c425acfa1bb084e33b8a0de4a7a1e2099c" already present on machine
+20m         Warning   Failed                   pod/nextcloud-fairagro-onlyoffice-66b5b747d5-bt6sg                          Error: secret "onlyoffice.nextcloud-fairagro-onlyoffice-postgresql.credentials.postgresql.acid.zalan.do" not found
+19m         Normal    Scheduled                pod/nextcloud-fairagro-onlyoffice-66b5b747d5-fjh5v                          Successfully assigned fairagro-nextcloud/nextcloud-fairagro-onlyoffice-66b5b747d5-fjh5v to fizz-02
+19m         Normal    Pulled                   pod/nextcloud-fairagro-onlyoffice-66b5b747d5-fjh5v                          Container image "onlyoffice/documentserver@sha256:5ed447a097b368e97de8c25ba5ef53c425acfa1bb084e33b8a0de4a7a1e2099c" already present on machine
+19m         Warning   Failed                   pod/nextcloud-fairagro-onlyoffice-66b5b747d5-fjh5v                          Error: secret "onlyoffice.nextcloud-fairagro-onlyoffice-postgresql.credentials.postgresql.acid.zalan.do" not found
+19m         Normal    Created                  pod/nextcloud-fairagro-onlyoffice-66b5b747d5-fjh5v                          Created container fairagro-onlyoffice-wait-for-postgres
+19m         Normal    Started                  pod/nextcloud-fairagro-onlyoffice-66b5b747d5-fjh5v                          Started container fairagro-onlyoffice-wait-for-postgres
+16m         Normal    Pulled                   pod/nextcloud-fairagro-onlyoffice-66b5b747d5-fjh5v                          Container image "onlyoffice/documentserver@sha256:5ed447a097b368e97de8c25ba5ef53c425acfa1bb084e33b8a0de4a7a1e2099c" already present on machine
+16m         Normal    Created                  pod/nextcloud-fairagro-onlyoffice-66b5b747d5-fjh5v                          Created container fairagro-onlyoffice
+16m         Normal    Started                  pod/nextcloud-fairagro-onlyoffice-66b5b747d5-fjh5v                          Started container fairagro-onlyoffice
+16m         Warning   Unhealthy                pod/nextcloud-fairagro-onlyoffice-66b5b747d5-fjh5v                          Readiness probe failed: Get "http://172.16.249.9:80/": dial tcp 172.16.249.9:80: connect: connection refused
+16m         Warning   Unhealthy                pod/nextcloud-fairagro-onlyoffice-66b5b747d5-fjh5v                          Liveness probe failed: Get "http://172.16.249.9:80/": dial tcp 172.16.249.9:80: connect: connection refused
+47m         Normal    Scheduled                pod/nextcloud-fairagro-onlyoffice-66b5b747d5-jndvj                          Successfully assigned fairagro-nextcloud/nextcloud-fairagro-onlyoffice-66b5b747d5-jndvj to fizz-02
+47m         Normal    Pulled                   pod/nextcloud-fairagro-onlyoffice-66b5b747d5-jndvj                          Container image "onlyoffice/documentserver@sha256:5ed447a097b368e97de8c25ba5ef53c425acfa1bb084e33b8a0de4a7a1e2099c" already present on machine
+47m         Warning   Failed                   pod/nextcloud-fairagro-onlyoffice-66b5b747d5-jndvj                          Error: secret "onlyoffice.nextcloud-fairagro-onlyoffice-postgresql.credentials.postgresql.acid.zalan.do" not found
+60m         Warning   Unhealthy                pod/nextcloud-fairagro-onlyoffice-66b5b747d5-zjhl6                          Readiness probe failed: Get "http://172.16.249.4:80/": dial tcp 172.16.249.4:80: connect: connection refused
+50m         Warning   BackOff                  pod/nextcloud-fairagro-onlyoffice-66b5b747d5-zjhl6                          Back-off restarting failed container fairagro-onlyoffice in pod nextcloud-fairagro-onlyoffice-66b5b747d5-zjhl6_fairagro-nextcloud(f112424a-a62f-4444-9d5c-80b29dd2d47a)
+45m         Normal    Scheduled                pod/nextcloud-fairagro-onlyoffice-66b5b747d5-zjhl6                          Successfully assigned fairagro-nextcloud/nextcloud-fairagro-onlyoffice-66b5b747d5-zjhl6 to fizz-02
+45m         Normal    Pulled                   pod/nextcloud-fairagro-onlyoffice-66b5b747d5-zjhl6                          Container image "onlyoffice/documentserver@sha256:5ed447a097b368e97de8c25ba5ef53c425acfa1bb084e33b8a0de4a7a1e2099c" already present on machine
+45m         Normal    Created                  pod/nextcloud-fairagro-onlyoffice-66b5b747d5-zjhl6                          Created container fairagro-onlyoffice-wait-for-postgres
+45m         Normal    Started                  pod/nextcloud-fairagro-onlyoffice-66b5b747d5-zjhl6                          Started container fairagro-onlyoffice-wait-for-postgres
+35m         Normal    Pulled                   pod/nextcloud-fairagro-onlyoffice-66b5b747d5-zjhl6                          Container image "onlyoffice/documentserver@sha256:5ed447a097b368e97de8c25ba5ef53c425acfa1bb084e33b8a0de4a7a1e2099c" already present on machine
+35m         Normal    Created                  pod/nextcloud-fairagro-onlyoffice-66b5b747d5-zjhl6                          Created container fairagro-onlyoffice
+35m         Normal    Started                  pod/nextcloud-fairagro-onlyoffice-66b5b747d5-zjhl6                          Started container fairagro-onlyoffice
+30m         Warning   Unhealthy                pod/nextcloud-fairagro-onlyoffice-66b5b747d5-zjhl6                          Readiness probe failed: Get "http://172.16.249.39:80/": dial tcp 172.16.249.39:80: connect: connection refused
+35m         Warning   Unhealthy                pod/nextcloud-fairagro-onlyoffice-66b5b747d5-zjhl6                          Liveness probe failed: Get "http://172.16.249.39:80/": dial tcp 172.16.249.39:80: connect: connection refused
+35m         Normal    Killing                  pod/nextcloud-fairagro-onlyoffice-66b5b747d5-zjhl6                          Container fairagro-onlyoffice failed liveness probe, will be restarted
+20m         Warning   BackOff                  pod/nextcloud-fairagro-onlyoffice-66b5b747d5-zjhl6                          Back-off restarting failed container fairagro-onlyoffice in pod nextcloud-fairagro-onlyoffice-66b5b747d5-zjhl6_fairagro-nextcloud(b0f2d77a-6a08-4a15-a026-81f6456983f1)
+47m         Normal    SuccessfulCreate         replicaset/nextcloud-fairagro-onlyoffice-66b5b747d5                         Created pod: nextcloud-fairagro-onlyoffice-66b5b747d5-jndvj
+20m         Normal    SuccessfulCreate         replicaset/nextcloud-fairagro-onlyoffice-66b5b747d5                         Created pod: nextcloud-fairagro-onlyoffice-66b5b747d5-bt6sg
+19m         Normal    SuccessfulCreate         replicaset/nextcloud-fairagro-onlyoffice-66b5b747d5                         Created pod: nextcloud-fairagro-onlyoffice-66b5b747d5-fjh5v
+47m         Normal    Killing                  pod/nextcloud-fairagro-onlyoffice-postgresql-0                              Stopping container postgres
+45m         Warning   FailedScheduling         pod/nextcloud-fairagro-onlyoffice-postgresql-0                              0/3 nodes are available: pod has unbound immediate PersistentVolumeClaims. preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling..
+45m         Normal    Scheduled                pod/nextcloud-fairagro-onlyoffice-postgresql-0                              Successfully assigned fairagro-nextcloud/nextcloud-fairagro-onlyoffice-postgresql-0 to fizz-02
+45m         Normal    SuccessfulAttachVolume   pod/nextcloud-fairagro-onlyoffice-postgresql-0                              AttachVolume.Attach succeeded for volume "pvc-892e05fc-decc-4f9d-a53a-7b777f0b54cf"
+45m         Normal    Pulled                   pod/nextcloud-fairagro-onlyoffice-postgresql-0                              Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+45m         Normal    Created                  pod/nextcloud-fairagro-onlyoffice-postgresql-0                              Created container postgres
+45m         Normal    Started                  pod/nextcloud-fairagro-onlyoffice-postgresql-0                              Started container postgres
+20m         Normal    Killing                  pod/nextcloud-fairagro-onlyoffice-postgresql-0                              Stopping container postgres
+19m         Warning   FailedScheduling         pod/nextcloud-fairagro-onlyoffice-postgresql-0                              0/3 nodes are available: pod has unbound immediate PersistentVolumeClaims. preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling..
+19m         Normal    Scheduled                pod/nextcloud-fairagro-onlyoffice-postgresql-0                              Successfully assigned fairagro-nextcloud/nextcloud-fairagro-onlyoffice-postgresql-0 to fizz-02
+19m         Normal    SuccessfulAttachVolume   pod/nextcloud-fairagro-onlyoffice-postgresql-0                              AttachVolume.Attach succeeded for volume "pvc-262360db-2f25-4859-8b3b-2003201ed781"
+19m         Normal    Pulled                   pod/nextcloud-fairagro-onlyoffice-postgresql-0                              Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+19m         Normal    Created                  pod/nextcloud-fairagro-onlyoffice-postgresql-0                              Created container postgres
+19m         Normal    Started                  pod/nextcloud-fairagro-onlyoffice-postgresql-0                              Started container postgres
+47m         Normal    Killing                  pod/nextcloud-fairagro-onlyoffice-postgresql-1                              Stopping container postgres
+45m         Warning   FailedScheduling         pod/nextcloud-fairagro-onlyoffice-postgresql-1                              0/3 nodes are available: pod has unbound immediate PersistentVolumeClaims. preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling..
+45m         Normal    Scheduled                pod/nextcloud-fairagro-onlyoffice-postgresql-1                              Successfully assigned fairagro-nextcloud/nextcloud-fairagro-onlyoffice-postgresql-1 to fizz-01
+45m         Normal    SuccessfulAttachVolume   pod/nextcloud-fairagro-onlyoffice-postgresql-1                              AttachVolume.Attach succeeded for volume "pvc-9c8828a6-6cac-4f53-a91a-ac9d30d9759b"
+44m         Normal    Pulled                   pod/nextcloud-fairagro-onlyoffice-postgresql-1                              Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+44m         Normal    Created                  pod/nextcloud-fairagro-onlyoffice-postgresql-1                              Created container postgres
+44m         Normal    Started                  pod/nextcloud-fairagro-onlyoffice-postgresql-1                              Started container postgres
+20m         Normal    Killing                  pod/nextcloud-fairagro-onlyoffice-postgresql-1                              Stopping container postgres
+19m         Warning   FailedScheduling         pod/nextcloud-fairagro-onlyoffice-postgresql-1                              0/3 nodes are available: pod has unbound immediate PersistentVolumeClaims. preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling..
+19m         Normal    Scheduled                pod/nextcloud-fairagro-onlyoffice-postgresql-1                              Successfully assigned fairagro-nextcloud/nextcloud-fairagro-onlyoffice-postgresql-1 to fizz-01
+19m         Normal    SuccessfulAttachVolume   pod/nextcloud-fairagro-onlyoffice-postgresql-1                              AttachVolume.Attach succeeded for volume "pvc-79fb6974-f49b-46e8-addd-fa40dc49f02f"
+19m         Normal    Pulled                   pod/nextcloud-fairagro-onlyoffice-postgresql-1                              Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+19m         Normal    Created                  pod/nextcloud-fairagro-onlyoffice-postgresql-1                              Created container postgres
+19m         Normal    Started                  pod/nextcloud-fairagro-onlyoffice-postgresql-1                              Started container postgres
+47m         Normal    Delete                   postgresql/nextcloud-fairagro-onlyoffice-postgresql                         Started deletion of cluster resources
+45m         Normal    Create                   postgresql/nextcloud-fairagro-onlyoffice-postgresql                         Started creation of new cluster resources
+45m         Warning   Create                   postgresql/nextcloud-fairagro-onlyoffice-postgresql                         could not create cluster: could not create master endpoint: could not create master endpoint: endpoints "nextcloud-fairagro-onlyoffice-postgresql" already exists
+35m         Normal    Update                   postgresql/nextcloud-fairagro-onlyoffice-postgresql                         restarting Postgres server within  pod fairagro-nextcloud/nextcloud-fairagro-onlyoffice-postgresql-0
+35m         Normal    Update                   postgresql/nextcloud-fairagro-onlyoffice-postgresql                         restarting Postgres server within  pod fairagro-nextcloud/nextcloud-fairagro-onlyoffice-postgresql-1
+20m         Normal    Delete                   postgresql/nextcloud-fairagro-onlyoffice-postgresql                         Started deletion of cluster resources
+19m         Normal    Create                   postgresql/nextcloud-fairagro-onlyoffice-postgresql                         Started creation of new cluster resources
+19m         Normal    Endpoints                postgresql/nextcloud-fairagro-onlyoffice-postgresql                         Endpoint "fairagro-nextcloud/nextcloud-fairagro-onlyoffice-postgresql" has been successfully created
+19m         Normal    Services                 postgresql/nextcloud-fairagro-onlyoffice-postgresql                         The service "fairagro-nextcloud/nextcloud-fairagro-onlyoffice-postgresql" for role master has been successfully created
+19m         Normal    Services                 postgresql/nextcloud-fairagro-onlyoffice-postgresql                         The service "fairagro-nextcloud/nextcloud-fairagro-onlyoffice-postgresql-repl" for role replica has been successfully created
+19m         Normal    Secrets                  postgresql/nextcloud-fairagro-onlyoffice-postgresql                         The secrets have been successfully created
+19m         Normal    StatefulSet              postgresql/nextcloud-fairagro-onlyoffice-postgresql                         Statefulset "fairagro-nextcloud/nextcloud-fairagro-onlyoffice-postgresql" has been successfully created
+19m         Normal    SuccessfulCreate         statefulset/nextcloud-fairagro-onlyoffice-postgresql                        create Claim pgdata-nextcloud-fairagro-onlyoffice-postgresql-0 Pod nextcloud-fairagro-onlyoffice-postgresql-0 in StatefulSet nextcloud-fairagro-onlyoffice-postgresql success
+19m         Normal    SuccessfulCreate         statefulset/nextcloud-fairagro-onlyoffice-postgresql                        create Pod nextcloud-fairagro-onlyoffice-postgresql-0 in StatefulSet nextcloud-fairagro-onlyoffice-postgresql successful
+19m         Normal    SuccessfulCreate         statefulset/nextcloud-fairagro-onlyoffice-postgresql                        create Claim pgdata-nextcloud-fairagro-onlyoffice-postgresql-1 Pod nextcloud-fairagro-onlyoffice-postgresql-1 in StatefulSet nextcloud-fairagro-onlyoffice-postgresql success
+19m         Normal    SuccessfulCreate         statefulset/nextcloud-fairagro-onlyoffice-postgresql                        create Pod nextcloud-fairagro-onlyoffice-postgresql-1 in StatefulSet nextcloud-fairagro-onlyoffice-postgresql successful
+17m         Normal    StatefulSet              postgresql/nextcloud-fairagro-onlyoffice-postgresql                         Pods are ready
+5m4s        Normal    Update                   postgresql/nextcloud-fairagro-onlyoffice-postgresql                         restarting Postgres server within replica pod fairagro-nextcloud/nextcloud-fairagro-onlyoffice-postgresql-1
+4m52s       Normal    Update                   postgresql/nextcloud-fairagro-onlyoffice-postgresql                         Postgres server restart done for replica pod fairagro-nextcloud/nextcloud-fairagro-onlyoffice-postgresql-1
+44m         Normal    Sync                     ingress/nextcloud-fairagro-onlyoffice                                       Scheduled for sync
+44m         Normal    Sync                     ingress/nextcloud-fairagro-onlyoffice                                       Scheduled for sync
+44m         Normal    Sync                     ingress/nextcloud-fairagro-onlyoffice                                       Scheduled for sync
+19m         Normal    ScalingReplicaSet        deployment/nextcloud-fairagro-onlyoffice                                    Scaled up replica set nextcloud-fairagro-onlyoffice-66b5b747d5 to 1
+18m         Normal    Sync                     ingress/nextcloud-fairagro-onlyoffice                                       Scheduled for sync
+18m         Normal    Sync                     ingress/nextcloud-fairagro-onlyoffice                                       Scheduled for sync
+18m         Normal    Sync                     ingress/nextcloud-fairagro-onlyoffice                                       Scheduled for sync
+45m         Normal    ExternalProvisioning     persistentvolumeclaim/nextcloud-nextcloud-data                              Waiting for a volume to be created either by the external provisioner 'csi.hpe.com' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+45m         Normal    Provisioning             persistentvolumeclaim/nextcloud-nextcloud-data                              External provisioner is provisioning volume for claim "fairagro-nextcloud/nextcloud-nextcloud-data"
+45m         Warning   ProvisioningFailed       persistentvolumeclaim/nextcloud-nextcloud-data                              failed to provision volume with StorageClass "readwriteonce": claim Selector is not supported
+45m         Warning   FailedBinding            persistentvolumeclaim/nextcloud-nextcloud-data                              volume "pvc-bfae035e-a762-4e90-86c4-231057e72ebe" already bound to a different claim.
+19m         Normal    ExternalProvisioning     persistentvolumeclaim/nextcloud-nextcloud-data                              Waiting for a volume to be created either by the external provisioner 'csi.hpe.com' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+19m         Normal    Provisioning             persistentvolumeclaim/nextcloud-nextcloud-data                              External provisioner is provisioning volume for claim "fairagro-nextcloud/nextcloud-nextcloud-data"
+19m         Normal    ProvisioningSucceeded    persistentvolumeclaim/nextcloud-nextcloud-data                              Successfully provisioned volume pvc-557d9305-692f-4245-adc7-9da6767bb938
+45m         Normal    ExternalProvisioning     persistentvolumeclaim/nextcloud-nextcloud                                   Waiting for a volume to be created either by the external provisioner 'csi.hpe.com' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+45m         Normal    Provisioning             persistentvolumeclaim/nextcloud-nextcloud                                   External provisioner is provisioning volume for claim "fairagro-nextcloud/nextcloud-nextcloud"
+45m         Warning   ProvisioningFailed       persistentvolumeclaim/nextcloud-nextcloud                                   failed to provision volume with StorageClass "readwriteonce": claim Selector is not supported
+45m         Warning   FailedBinding            persistentvolumeclaim/nextcloud-nextcloud                                   volume "pvc-b741b793-3578-497e-b743-f66cebbef0e1" already bound to a different claim.
+19m         Normal    ExternalProvisioning     persistentvolumeclaim/nextcloud-nextcloud                                   Waiting for a volume to be created either by the external provisioner 'csi.hpe.com' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+19m         Normal    Provisioning             persistentvolumeclaim/nextcloud-nextcloud                                   External provisioner is provisioning volume for claim "fairagro-nextcloud/nextcloud-nextcloud"
+19m         Normal    ProvisioningSucceeded    persistentvolumeclaim/nextcloud-nextcloud                                   Successfully provisioned volume pvc-4dfbae06-e71b-450b-ad51-feb5f17f2ac6
+47m         Normal    Killing                  pod/nextcloud-redis-master-0                                                Stopping container redis
+45m         Normal    Scheduled                pod/nextcloud-redis-master-0                                                Successfully assigned fairagro-nextcloud/nextcloud-redis-master-0 to fizz-01
+45m         Normal    Pulled                   pod/nextcloud-redis-master-0                                                Container image "docker.io/bitnami/redis@sha256:413ba6ab7104ced40c1047451680f0679b235684a14a7db4a05a5990ff4e1e67" already present on machine
+45m         Normal    Created                  pod/nextcloud-redis-master-0                                                Created container redis
+45m         Normal    Started                  pod/nextcloud-redis-master-0                                                Started container redis
+20m         Normal    Killing                  pod/nextcloud-redis-master-0                                                Stopping container redis
+19m         Normal    Scheduled                pod/nextcloud-redis-master-0                                                Successfully assigned fairagro-nextcloud/nextcloud-redis-master-0 to fizz-01
+19m         Normal    Pulled                   pod/nextcloud-redis-master-0                                                Container image "docker.io/bitnami/redis@sha256:413ba6ab7104ced40c1047451680f0679b235684a14a7db4a05a5990ff4e1e67" already present on machine
+19m         Normal    Created                  pod/nextcloud-redis-master-0                                                Created container redis
+19m         Normal    Started                  pod/nextcloud-redis-master-0                                                Started container redis
+19m         Normal    SuccessfulCreate         statefulset/nextcloud-redis-master                                          create Pod nextcloud-redis-master-0 in StatefulSet nextcloud-redis-master successful
+44m         Normal    Sync                     ingress/nextcloud                                                           Scheduled for sync
+44m         Normal    Sync                     ingress/nextcloud                                                           Scheduled for sync
+44m         Normal    Sync                     ingress/nextcloud                                                           Scheduled for sync
+19m         Normal    ScalingReplicaSet        deployment/nextcloud                                                        Scaled up replica set nextcloud-8586cf4859 to 1
+18m         Normal    Sync                     ingress/nextcloud                                                           Scheduled for sync
+18m         Normal    Sync                     ingress/nextcloud                                                           Scheduled for sync
+18m         Normal    Sync                     ingress/nextcloud                                                           Scheduled for sync
+45m         Normal    ExternalProvisioning     persistentvolumeclaim/pgdata-fairagro-postgresql-nextcloud-0                Waiting for a volume to be created either by the external provisioner 'csi.hpe.com' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+45m         Normal    Provisioning             persistentvolumeclaim/pgdata-fairagro-postgresql-nextcloud-0                External provisioner is provisioning volume for claim "fairagro-nextcloud/pgdata-fairagro-postgresql-nextcloud-0"
+45m         Normal    ProvisioningSucceeded    persistentvolumeclaim/pgdata-fairagro-postgresql-nextcloud-0                Successfully provisioned volume pvc-e8bb3744-d888-4cdf-816d-fd5153cab0c2
+19m         Normal    Provisioning             persistentvolumeclaim/pgdata-fairagro-postgresql-nextcloud-0                External provisioner is provisioning volume for claim "fairagro-nextcloud/pgdata-fairagro-postgresql-nextcloud-0"
+19m         Normal    ExternalProvisioning     persistentvolumeclaim/pgdata-fairagro-postgresql-nextcloud-0                Waiting for a volume to be created either by the external provisioner 'csi.hpe.com' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+19m         Normal    ProvisioningSucceeded    persistentvolumeclaim/pgdata-fairagro-postgresql-nextcloud-0                Successfully provisioned volume pvc-a3a9a884-30e2-4806-ac82-3bd09bbe4232
+45m         Normal    ExternalProvisioning     persistentvolumeclaim/pgdata-fairagro-postgresql-nextcloud-1                Waiting for a volume to be created either by the external provisioner 'csi.hpe.com' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+45m         Normal    Provisioning             persistentvolumeclaim/pgdata-fairagro-postgresql-nextcloud-1                External provisioner is provisioning volume for claim "fairagro-nextcloud/pgdata-fairagro-postgresql-nextcloud-1"
+45m         Normal    ProvisioningSucceeded    persistentvolumeclaim/pgdata-fairagro-postgresql-nextcloud-1                Successfully provisioned volume pvc-d18ba112-f0f8-42eb-9682-388605150a36
+19m         Normal    Provisioning             persistentvolumeclaim/pgdata-fairagro-postgresql-nextcloud-1                External provisioner is provisioning volume for claim "fairagro-nextcloud/pgdata-fairagro-postgresql-nextcloud-1"
+19m         Normal    ExternalProvisioning     persistentvolumeclaim/pgdata-fairagro-postgresql-nextcloud-1                Waiting for a volume to be created either by the external provisioner 'csi.hpe.com' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+19m         Normal    ProvisioningSucceeded    persistentvolumeclaim/pgdata-fairagro-postgresql-nextcloud-1                Successfully provisioned volume pvc-892f494b-c99f-4bce-b7a3-b40e70c429be
+45m         Normal    ExternalProvisioning     persistentvolumeclaim/pgdata-nextcloud-fairagro-onlyoffice-postgresql-0     Waiting for a volume to be created either by the external provisioner 'csi.hpe.com' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+45m         Normal    Provisioning             persistentvolumeclaim/pgdata-nextcloud-fairagro-onlyoffice-postgresql-0     External provisioner is provisioning volume for claim "fairagro-nextcloud/pgdata-nextcloud-fairagro-onlyoffice-postgresql-0"
+45m         Normal    ProvisioningSucceeded    persistentvolumeclaim/pgdata-nextcloud-fairagro-onlyoffice-postgresql-0     Successfully provisioned volume pvc-892e05fc-decc-4f9d-a53a-7b777f0b54cf
+19m         Normal    ExternalProvisioning     persistentvolumeclaim/pgdata-nextcloud-fairagro-onlyoffice-postgresql-0     Waiting for a volume to be created either by the external provisioner 'csi.hpe.com' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+19m         Normal    Provisioning             persistentvolumeclaim/pgdata-nextcloud-fairagro-onlyoffice-postgresql-0     External provisioner is provisioning volume for claim "fairagro-nextcloud/pgdata-nextcloud-fairagro-onlyoffice-postgresql-0"
+19m         Normal    ProvisioningSucceeded    persistentvolumeclaim/pgdata-nextcloud-fairagro-onlyoffice-postgresql-0     Successfully provisioned volume pvc-262360db-2f25-4859-8b3b-2003201ed781
+45m         Normal    ExternalProvisioning     persistentvolumeclaim/pgdata-nextcloud-fairagro-onlyoffice-postgresql-1     Waiting for a volume to be created either by the external provisioner 'csi.hpe.com' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+45m         Normal    Provisioning             persistentvolumeclaim/pgdata-nextcloud-fairagro-onlyoffice-postgresql-1     External provisioner is provisioning volume for claim "fairagro-nextcloud/pgdata-nextcloud-fairagro-onlyoffice-postgresql-1"
+45m         Normal    ProvisioningSucceeded    persistentvolumeclaim/pgdata-nextcloud-fairagro-onlyoffice-postgresql-1     Successfully provisioned volume pvc-9c8828a6-6cac-4f53-a91a-ac9d30d9759b
+19m         Normal    Provisioning             persistentvolumeclaim/pgdata-nextcloud-fairagro-onlyoffice-postgresql-1     External provisioner is provisioning volume for claim "fairagro-nextcloud/pgdata-nextcloud-fairagro-onlyoffice-postgresql-1"
+19m         Normal    ExternalProvisioning     persistentvolumeclaim/pgdata-nextcloud-fairagro-onlyoffice-postgresql-1     Waiting for a volume to be created either by the external provisioner 'csi.hpe.com' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+19m         Normal    ProvisioningSucceeded    persistentvolumeclaim/pgdata-nextcloud-fairagro-onlyoffice-postgresql-1     Successfully provisioned volume pvc-79fb6974-f49b-46e8-addd-fa40dc49f02f
+19m         Normal    NoPods                   poddisruptionbudget/postgres-fairagro-postgresql-nextcloud-pdb              No matching pods found
+19m         Normal    NoPods                   poddisruptionbudget/postgres-nextcloud-fairagro-onlyoffice-postgresql-pdb   No matching pods found
+97s         Normal    CreatingSnapshot         volumesnapshot/velero-nextcloud-nextcloud-data-b52bw                        Waiting for a snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-data-b52bw to be created by the CSI driver.
+95s         Normal    SnapshotCreated          volumesnapshot/velero-nextcloud-nextcloud-data-b52bw                        Snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-data-b52bw was successfully created by the CSI driver.
+95s         Normal    SnapshotReady            volumesnapshot/velero-nextcloud-nextcloud-data-b52bw                        Snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-data-b52bw is ready to use.
+23m         Normal    CreatingSnapshot         volumesnapshot/velero-nextcloud-nextcloud-data-bhz7b                        Waiting for a snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-data-bhz7b to be created by the CSI driver.
+23m         Normal    SnapshotCreated          volumesnapshot/velero-nextcloud-nextcloud-data-bhz7b                        Snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-data-bhz7b was successfully created by the CSI driver.
+23m         Normal    SnapshotReady            volumesnapshot/velero-nextcloud-nextcloud-data-bhz7b                        Snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-data-bhz7b is ready to use.
+6m26s       Normal    CreatingSnapshot         volumesnapshot/velero-nextcloud-nextcloud-data-jxb97                        Waiting for a snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-data-jxb97 to be created by the CSI driver.
+6m24s       Normal    SnapshotCreated          volumesnapshot/velero-nextcloud-nextcloud-data-jxb97                        Snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-data-jxb97 was successfully created by the CSI driver.
+6m24s       Normal    SnapshotReady            volumesnapshot/velero-nextcloud-nextcloud-data-jxb97                        Snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-data-jxb97 is ready to use.
+5m35s       Normal    CreatingSnapshot         volumesnapshot/velero-nextcloud-nextcloud-data-x5b6v                        Waiting for a snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-data-x5b6v to be created by the CSI driver.
+5m33s       Normal    SnapshotCreated          volumesnapshot/velero-nextcloud-nextcloud-data-x5b6v                        Snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-data-x5b6v was successfully created by the CSI driver.
+5m33s       Normal    SnapshotReady            volumesnapshot/velero-nextcloud-nextcloud-data-x5b6v                        Snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-data-x5b6v is ready to use.
+23m         Normal    CreatingSnapshot         volumesnapshot/velero-nextcloud-nextcloud-qfs6w                             Waiting for a snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-qfs6w to be created by the CSI driver.
+23m         Normal    SnapshotCreated          volumesnapshot/velero-nextcloud-nextcloud-qfs6w                             Snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-qfs6w was successfully created by the CSI driver.
+23m         Normal    SnapshotReady            volumesnapshot/velero-nextcloud-nextcloud-qfs6w                             Snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-qfs6w is ready to use.
+5m40s       Normal    CreatingSnapshot         volumesnapshot/velero-nextcloud-nextcloud-thl8m                             Waiting for a snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-thl8m to be created by the CSI driver.
+5m39s       Normal    SnapshotCreated          volumesnapshot/velero-nextcloud-nextcloud-thl8m                             Snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-thl8m was successfully created by the CSI driver.
+5m39s       Normal    SnapshotReady            volumesnapshot/velero-nextcloud-nextcloud-thl8m                             Snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-thl8m is ready to use.
+102s        Normal    CreatingSnapshot         volumesnapshot/velero-nextcloud-nextcloud-vctqv                             Waiting for a snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-vctqv to be created by the CSI driver.
+101s        Normal    SnapshotCreated          volumesnapshot/velero-nextcloud-nextcloud-vctqv                             Snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-vctqv was successfully created by the CSI driver.
+101s        Normal    SnapshotReady            volumesnapshot/velero-nextcloud-nextcloud-vctqv                             Snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-vctqv is ready to use.
+6m31s       Normal    CreatingSnapshot         volumesnapshot/velero-nextcloud-nextcloud-xt9mr                             Waiting for a snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-xt9mr to be created by the CSI driver.
+6m30s       Normal    SnapshotCreated          volumesnapshot/velero-nextcloud-nextcloud-xt9mr                             Snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-xt9mr was successfully created by the CSI driver.
+6m30s       Normal    SnapshotReady            volumesnapshot/velero-nextcloud-nextcloud-xt9mr                             Snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-xt9mr is ready to use.
+NAME                                                                      STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS    AGE
+persistentvolumeclaim/nextcloud-nextcloud                                 Bound    pvc-4dfbae06-e71b-450b-ad51-feb5f17f2ac6   4Gi        RWO            readwriteonce   19m
+persistentvolumeclaim/nextcloud-nextcloud-data                            Bound    pvc-557d9305-692f-4245-adc7-9da6767bb938   4Gi        RWO            readwriteonce   19m
+persistentvolumeclaim/pgdata-fairagro-postgresql-nextcloud-0              Bound    pvc-a3a9a884-30e2-4806-ac82-3bd09bbe4232   4Gi        RWO            postgres        19m
+persistentvolumeclaim/pgdata-fairagro-postgresql-nextcloud-1              Bound    pvc-892f494b-c99f-4bce-b7a3-b40e70c429be   4Gi        RWO            postgres        19m
+persistentvolumeclaim/pgdata-nextcloud-fairagro-onlyoffice-postgresql-0   Bound    pvc-262360db-2f25-4859-8b3b-2003201ed781   1Gi        RWO            postgres        19m
+persistentvolumeclaim/pgdata-nextcloud-fairagro-onlyoffice-postgresql-1   Bound    pvc-79fb6974-f49b-46e8-addd-fa40dc49f02f   1Gi        RWO            postgres        19m
+NAME                                                 READY   STATUS      RESTARTS   AGE
+pod/backup-01-5q8bz                                  0/1     Completed   0          2m11s
+pod/fairagro-postgresql-nextcloud-0                  1/1     Running     0          92s
+pod/fairagro-postgresql-nextcloud-1                  1/1     Running     0          68s
+pod/nextcloud-8586cf4859-2vz6g                       3/3     Running     0          19m
+pod/nextcloud-fairagro-onlyoffice-66b5b747d5-fjh5v   1/1     Running     0          19m
+pod/nextcloud-fairagro-onlyoffice-postgresql-0       1/1     Running     0          19m
+pod/nextcloud-fairagro-onlyoffice-postgresql-1       1/1     Running     0          19m
+pod/nextcloud-redis-master-0                         1/1     Running     0          19m
+NAME                                                                                              TYPE                DATA   AGE
+secret/nextcloud                                                                                  Opaque              6      19m
+secret/nextcloud-fairagro-onlyoffice-jwt-secret                                                   Opaque              1      19m
+secret/nextcloud-fairagro-onlyoffice-postgresql-secret                                            Opaque              4      19m
+secret/nextcloud-redis                                                                            Opaque              1      19m
+secret/nextcloud-tls-secret                                                                       kubernetes.io/tls   2      19m
+secret/nextcloud.fairagro-postgresql-nextcloud.credentials.postgresql.acid.zalan.do               Opaque              2      19m
+secret/onlyoffice.nextcloud-fairagro-onlyoffice-postgresql.credentials.postgresql.acid.zalan.do   Opaque              2      19m
+secret/postgres-operator                                                                          Opaque              4      19m
+secret/postgres.fairagro-postgresql-nextcloud.credentials.postgresql.acid.zalan.do                Opaque              2      19m
+secret/postgres.nextcloud-fairagro-onlyoffice-postgresql.credentials.postgresql.acid.zalan.do     Opaque              2      19m
+secret/standby.fairagro-postgresql-nextcloud.credentials.postgresql.acid.zalan.do                 Opaque              2      19m
+secret/standby.nextcloud-fairagro-onlyoffice-postgresql.credentials.postgresql.acid.zalan.do      Opaque              2      19m
+NAME                                           SECRETS   AGE
+serviceaccount/default                         0         20m
+serviceaccount/nextcloud-backup-account        0         19m
+serviceaccount/nextcloud-fairagro-onlyoffice   0         19m
+serviceaccount/nextcloud-redis                 0         19m
+serviceaccount/postgres-pod                    0         19m
+NAME                                                      TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
+service/fairagro-postgresql-nextcloud                     ClusterIP   172.16.151.44    <none>        5432/TCP   19m
+service/fairagro-postgresql-nextcloud-config              ClusterIP   None             <none>        <none>     19m
+service/fairagro-postgresql-nextcloud-repl                ClusterIP   172.16.167.19    <none>        5432/TCP   19m
+service/nextcloud                                         ClusterIP   172.16.191.53    <none>        8080/TCP   19m
+service/nextcloud-fairagro-onlyoffice                     ClusterIP   172.16.176.191   <none>        80/TCP     19m
+service/nextcloud-fairagro-onlyoffice-postgresql          ClusterIP   172.16.160.157   <none>        5432/TCP   19m
+service/nextcloud-fairagro-onlyoffice-postgresql-config   ClusterIP   None             <none>        <none>     19m
+service/nextcloud-fairagro-onlyoffice-postgresql-repl     ClusterIP   172.16.133.202   <none>        5432/TCP   19m
+service/nextcloud-redis-headless                          ClusterIP   None             <none>        6379/TCP   19m
+service/nextcloud-redis-master                            ClusterIP   172.16.178.183   <none>        6379/TCP   19m
+NAME                                                                TEAM       VERSION   PODS   VOLUME   CPU-REQUEST   MEMORY-REQUEST   AGE   STATUS
+postgresql.acid.zalan.do/fairagro-postgresql-nextcloud              fairagro   15        2      4Gi      2             2G               19m   Running
+postgresql.acid.zalan.do/nextcloud-fairagro-onlyoffice-postgresql   fairagro   15        2      1Gi      1             2Gi              19m   Running
+NAME                                                                         CONTROLLER                                                  REVISION   AGE
+controllerrevision.apps/fairagro-postgresql-nextcloud-5c57844bcd             statefulset.apps/fairagro-postgresql-nextcloud              2          9m31s
+controllerrevision.apps/fairagro-postgresql-nextcloud-65cb8b7bbc             statefulset.apps/fairagro-postgresql-nextcloud              6          5m41s
+controllerrevision.apps/fairagro-postgresql-nextcloud-6945fbcf77             statefulset.apps/fairagro-postgresql-nextcloud              7          103s
+controllerrevision.apps/fairagro-postgresql-nextcloud-747454f57c             statefulset.apps/fairagro-postgresql-nextcloud              4          7m54s
+controllerrevision.apps/fairagro-postgresql-nextcloud-76f86d49f6             statefulset.apps/fairagro-postgresql-nextcloud              1          19m
+controllerrevision.apps/fairagro-postgresql-nextcloud-7cdf576964             statefulset.apps/fairagro-postgresql-nextcloud              5          6m32s
+controllerrevision.apps/fairagro-postgresql-nextcloud-df5dfd5f7              statefulset.apps/fairagro-postgresql-nextcloud              3          8m48s
+controllerrevision.apps/nextcloud-fairagro-onlyoffice-postgresql-867bbb6dc   statefulset.apps/nextcloud-fairagro-onlyoffice-postgresql   1          19m
+controllerrevision.apps/nextcloud-redis-master-7c78b65474                    statefulset.apps/nextcloud-redis-master                     1          19m
+NAME                                            READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/nextcloud                       1/1     1            1           19m
+deployment.apps/nextcloud-fairagro-onlyoffice   1/1     1            1           19m
+NAME                                                       DESIRED   CURRENT   READY   AGE
+replicaset.apps/nextcloud-8586cf4859                       1         1         1       19m
+replicaset.apps/nextcloud-fairagro-onlyoffice-66b5b747d5   1         1         1       19m
+NAME                                                        READY   AGE
+statefulset.apps/fairagro-postgresql-nextcloud              2/2     19m
+statefulset.apps/nextcloud-fairagro-onlyoffice-postgresql   2/2     19m
+statefulset.apps/nextcloud-redis-master                     1/1     19m
+NAME                                     SCHEDULE    SUSPEND   ACTIVE   LAST SCHEDULE   AGE
+cronjob.batch/nextcloud-backup-cronjob   0 2 * * *   False     0        <none>          19m
+NAME                  COMPLETIONS   DURATION   AGE
+job.batch/backup-01   1/1           64s        2m13s
+NAME                                                                                 ADDRESSTYPE   PORTS   ENDPOINTS        AGE
+endpointslice.discovery.k8s.io/fairagro-postgresql-nextcloud-6q7gq                   IPv4          5432    172.16.203.136   84s
+endpointslice.discovery.k8s.io/fairagro-postgresql-nextcloud-repl-fprzc              IPv4          5432    172.16.249.51    19m
+endpointslice.discovery.k8s.io/nextcloud-92848                                       IPv4          8080    172.16.222.54    19m
+endpointslice.discovery.k8s.io/nextcloud-fairagro-onlyoffice-grb4t                   IPv4          80      172.16.249.9     19m
+endpointslice.discovery.k8s.io/nextcloud-fairagro-onlyoffice-postgresql-7gpn2        IPv4          5432    172.16.249.28    17m
+endpointslice.discovery.k8s.io/nextcloud-fairagro-onlyoffice-postgresql-repl-x8l6d   IPv4          5432    172.16.222.27    19m
+endpointslice.discovery.k8s.io/nextcloud-redis-headless-j8jpr                        IPv4          6379    172.16.222.22    19m
+endpointslice.discovery.k8s.io/nextcloud-redis-master-rhs8c                          IPv4          6379    172.16.222.22    19m
+LAST SEEN   TYPE      REASON                   OBJECT                                                                      MESSAGE
+2m14s       Normal    Scheduled                pod/backup-01-5q8bz                                                         Successfully assigned fairagro-nextcloud/backup-01-5q8bz to fizz-03
+2m13s       Normal    Pulling                  pod/backup-01-5q8bz                                                         Pulling image "zalf/fairagro_nextcloud_backup-3.12:0"
+2m8s        Normal    Pulled                   pod/backup-01-5q8bz                                                         Successfully pulled image "zalf/fairagro_nextcloud_backup-3.12:0" in 4.878s (4.878s including waiting)
+2m8s        Normal    Created                  pod/backup-01-5q8bz                                                         Created container nextcloud-backup
+2m8s        Normal    Started                  pod/backup-01-5q8bz                                                         Started container nextcloud-backup
+10m         Normal    Scheduled                pod/backup-01-fbldk                                                         Successfully assigned fairagro-nextcloud/backup-01-fbldk to fizz-03
+8m9s        Normal    Pulling                  pod/backup-01-fbldk                                                         Pulling image "zalf/fairagro_nextcloud_backup-3.12:0"
+10m         Normal    Pulled                   pod/backup-01-fbldk                                                         Successfully pulled image "zalf/fairagro_nextcloud_backup-3.12:0" in 4.883s (4.883s including waiting)
+8m5s        Normal    Created                  pod/backup-01-fbldk                                                         Created container nextcloud-backup
+8m51s       Normal    Started                  pod/backup-01-fbldk                                                         Started container nextcloud-backup
+9m33s       Normal    Pulled                   pod/backup-01-fbldk                                                         Successfully pulled image "zalf/fairagro_nextcloud_backup-3.12:0" in 1.124s (1.124s including waiting)
+8m24s       Warning   BackOff                  pod/backup-01-fbldk                                                         Back-off restarting failed container nextcloud-backup in pod backup-01-fbldk_fairagro-nextcloud(d5e10fbd-04b3-45c9-a913-4ad2e922a12a)
+9m16s       Normal    Pulled                   pod/backup-01-fbldk                                                         Successfully pulled image "zalf/fairagro_nextcloud_backup-3.12:0" in 1.089s (1.089s including waiting)
+8m51s       Normal    Pulled                   pod/backup-01-fbldk                                                         Successfully pulled image "zalf/fairagro_nextcloud_backup-3.12:0" in 1.158s (1.158s including waiting)
+8m5s        Normal    Pulled                   pod/backup-01-fbldk                                                         Successfully pulled image "zalf/fairagro_nextcloud_backup-3.12:0" in 3.126s (3.126s including waiting)
+10m         Normal    SuccessfulCreate         job/backup-01                                                               Created pod: backup-01-fbldk
+5m50s       Normal    Completed                job/backup-01                                                               Job completed
+2m14s       Normal    SuccessfulCreate         job/backup-01                                                               Created pod: backup-01-5q8bz
+70s         Normal    Completed                job/backup-01                                                               Job completed
+6m36s       Normal    Scheduled                pod/backup-02-mxb6p                                                         Successfully assigned fairagro-nextcloud/backup-02-mxb6p to fizz-03
+6m35s       Normal    Pulling                  pod/backup-02-mxb6p                                                         Pulling image "zalf/fairagro_nextcloud_backup-3.12:0"
+6m34s       Normal    Pulled                   pod/backup-02-mxb6p                                                         Successfully pulled image "zalf/fairagro_nextcloud_backup-3.12:0" in 1.088s (1.088s including waiting)
+6m34s       Normal    Created                  pod/backup-02-mxb6p                                                         Created container nextcloud-backup
+6m34s       Normal    Started                  pod/backup-02-mxb6p                                                         Started container nextcloud-backup
+5m35s       Normal    Killing                  pod/backup-02-mxb6p                                                         Stopping container nextcloud-backup
+6m36s       Normal    SuccessfulCreate         job/backup-02                                                               Created pod: backup-02-mxb6p
+47m         Normal    Killing                  pod/fairagro-postgresql-nextcloud-0                                         Stopping container postgres
+45m         Warning   FailedScheduling         pod/fairagro-postgresql-nextcloud-0                                         0/3 nodes are available: pod has unbound immediate PersistentVolumeClaims. preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling..
+45m         Normal    Scheduled                pod/fairagro-postgresql-nextcloud-0                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-0 to fizz-01
+45m         Normal    SuccessfulAttachVolume   pod/fairagro-postgresql-nextcloud-0                                         AttachVolume.Attach succeeded for volume "pvc-e8bb3744-d888-4cdf-816d-fd5153cab0c2"
+45m         Normal    Pulled                   pod/fairagro-postgresql-nextcloud-0                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+45m         Normal    Created                  pod/fairagro-postgresql-nextcloud-0                                         Created container postgres
+45m         Normal    Started                  pod/fairagro-postgresql-nextcloud-0                                         Started container postgres
+38m         Normal    Killing                  pod/fairagro-postgresql-nextcloud-0                                         Stopping container postgres
+38m         Normal    Scheduled                pod/fairagro-postgresql-nextcloud-0                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-0 to fizz-01
+38m         Normal    Pulled                   pod/fairagro-postgresql-nextcloud-0                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+38m         Normal    Created                  pod/fairagro-postgresql-nextcloud-0                                         Created container postgres
+38m         Normal    Started                  pod/fairagro-postgresql-nextcloud-0                                         Started container postgres
+27m         Normal    Killing                  pod/fairagro-postgresql-nextcloud-0                                         Stopping container postgres
+26m         Normal    Scheduled                pod/fairagro-postgresql-nextcloud-0                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-0 to fizz-01
+26m         Normal    Pulled                   pod/fairagro-postgresql-nextcloud-0                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+26m         Normal    Created                  pod/fairagro-postgresql-nextcloud-0                                         Created container postgres
+26m         Normal    Started                  pod/fairagro-postgresql-nextcloud-0                                         Started container postgres
+24m         Normal    Killing                  pod/fairagro-postgresql-nextcloud-0                                         Stopping container postgres
+24m         Normal    Scheduled                pod/fairagro-postgresql-nextcloud-0                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-0 to fizz-01
+24m         Normal    Pulled                   pod/fairagro-postgresql-nextcloud-0                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+24m         Normal    Created                  pod/fairagro-postgresql-nextcloud-0                                         Created container postgres
+24m         Normal    Started                  pod/fairagro-postgresql-nextcloud-0                                         Started container postgres
+20m         Normal    Killing                  pod/fairagro-postgresql-nextcloud-0                                         Stopping container postgres
+19m         Warning   FailedScheduling         pod/fairagro-postgresql-nextcloud-0                                         0/3 nodes are available: pod has unbound immediate PersistentVolumeClaims. preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling..
+19m         Normal    Scheduled                pod/fairagro-postgresql-nextcloud-0                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-0 to fizz-03
+19m         Normal    SuccessfulAttachVolume   pod/fairagro-postgresql-nextcloud-0                                         AttachVolume.Attach succeeded for volume "pvc-a3a9a884-30e2-4806-ac82-3bd09bbe4232"
+19m         Normal    Pulled                   pod/fairagro-postgresql-nextcloud-0                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+19m         Normal    Created                  pod/fairagro-postgresql-nextcloud-0                                         Created container postgres
+19m         Normal    Started                  pod/fairagro-postgresql-nextcloud-0                                         Started container postgres
+9m13s       Normal    Killing                  pod/fairagro-postgresql-nextcloud-0                                         Stopping container postgres
+9m1s        Normal    Scheduled                pod/fairagro-postgresql-nextcloud-0                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-0 to fizz-03
+8m59s       Normal    Pulled                   pod/fairagro-postgresql-nextcloud-0                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+8m59s       Normal    Created                  pod/fairagro-postgresql-nextcloud-0                                         Created container postgres
+8m59s       Normal    Started                  pod/fairagro-postgresql-nextcloud-0                                         Started container postgres
+8m49s       Normal    Killing                  pod/fairagro-postgresql-nextcloud-0                                         Stopping container postgres
+8m40s       Normal    Scheduled                pod/fairagro-postgresql-nextcloud-0                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-0 to fizz-03
+8m36s       Normal    Pulled                   pod/fairagro-postgresql-nextcloud-0                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+8m36s       Normal    Created                  pod/fairagro-postgresql-nextcloud-0                                         Created container postgres
+8m36s       Normal    Started                  pod/fairagro-postgresql-nextcloud-0                                         Started container postgres
+7m34s       Normal    Killing                  pod/fairagro-postgresql-nextcloud-0                                         Stopping container postgres
+7m23s       Normal    Scheduled                pod/fairagro-postgresql-nextcloud-0                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-0 to fizz-03
+7m21s       Normal    Pulled                   pod/fairagro-postgresql-nextcloud-0                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+7m21s       Normal    Created                  pod/fairagro-postgresql-nextcloud-0                                         Created container postgres
+7m21s       Normal    Started                  pod/fairagro-postgresql-nextcloud-0                                         Started container postgres
+6m34s       Normal    Killing                  pod/fairagro-postgresql-nextcloud-0                                         Stopping container postgres
+6m24s       Normal    Scheduled                pod/fairagro-postgresql-nextcloud-0                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-0 to fizz-03
+6m21s       Normal    Pulled                   pod/fairagro-postgresql-nextcloud-0                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+6m21s       Normal    Created                  pod/fairagro-postgresql-nextcloud-0                                         Created container postgres
+6m21s       Normal    Started                  pod/fairagro-postgresql-nextcloud-0                                         Started container postgres
+5m10s       Normal    Killing                  pod/fairagro-postgresql-nextcloud-0                                         Stopping container postgres
+5m          Normal    Scheduled                pod/fairagro-postgresql-nextcloud-0                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-0 to fizz-03
+4m58s       Normal    Pulled                   pod/fairagro-postgresql-nextcloud-0                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+4m58s       Normal    Created                  pod/fairagro-postgresql-nextcloud-0                                         Created container postgres
+4m58s       Normal    Started                  pod/fairagro-postgresql-nextcloud-0                                         Started container postgres
+104s        Normal    Killing                  pod/fairagro-postgresql-nextcloud-0                                         Stopping container postgres
+95s         Normal    Scheduled                pod/fairagro-postgresql-nextcloud-0                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-0 to fizz-03
+92s         Normal    Pulled                   pod/fairagro-postgresql-nextcloud-0                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+92s         Normal    Created                  pod/fairagro-postgresql-nextcloud-0                                         Created container postgres
+92s         Normal    Started                  pod/fairagro-postgresql-nextcloud-0                                         Started container postgres
+47m         Normal    Killing                  pod/fairagro-postgresql-nextcloud-1                                         Stopping container postgres
+45m         Warning   FailedScheduling         pod/fairagro-postgresql-nextcloud-1                                         0/3 nodes are available: pod has unbound immediate PersistentVolumeClaims. preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling..
+45m         Normal    Scheduled                pod/fairagro-postgresql-nextcloud-1                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-1 to fizz-03
+45m         Normal    SuccessfulAttachVolume   pod/fairagro-postgresql-nextcloud-1                                         AttachVolume.Attach succeeded for volume "pvc-d18ba112-f0f8-42eb-9682-388605150a36"
+45m         Normal    Pulled                   pod/fairagro-postgresql-nextcloud-1                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+45m         Normal    Created                  pod/fairagro-postgresql-nextcloud-1                                         Created container postgres
+45m         Normal    Started                  pod/fairagro-postgresql-nextcloud-1                                         Started container postgres
+37m         Normal    Killing                  pod/fairagro-postgresql-nextcloud-1                                         Stopping container postgres
+37m         Normal    Scheduled                pod/fairagro-postgresql-nextcloud-1                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-1 to fizz-02
+37m         Warning   FailedAttachVolume       pod/fairagro-postgresql-nextcloud-1                                         Multi-Attach error for volume "pvc-d18ba112-f0f8-42eb-9682-388605150a36" Volume is already exclusively attached to one node and can't be attached to another
+37m         Normal    SuccessfulAttachVolume   pod/fairagro-postgresql-nextcloud-1                                         AttachVolume.Attach succeeded for volume "pvc-d18ba112-f0f8-42eb-9682-388605150a36"
+37m         Normal    Pulled                   pod/fairagro-postgresql-nextcloud-1                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+37m         Normal    Created                  pod/fairagro-postgresql-nextcloud-1                                         Created container postgres
+37m         Normal    Started                  pod/fairagro-postgresql-nextcloud-1                                         Started container postgres
+27m         Normal    Killing                  pod/fairagro-postgresql-nextcloud-1                                         Stopping container postgres
+27m         Normal    Scheduled                pod/fairagro-postgresql-nextcloud-1                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-1 to fizz-02
+27m         Normal    Pulled                   pod/fairagro-postgresql-nextcloud-1                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+27m         Normal    Created                  pod/fairagro-postgresql-nextcloud-1                                         Created container postgres
+27m         Normal    Started                  pod/fairagro-postgresql-nextcloud-1                                         Started container postgres
+24m         Normal    Killing                  pod/fairagro-postgresql-nextcloud-1                                         Stopping container postgres
+24m         Normal    Scheduled                pod/fairagro-postgresql-nextcloud-1                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-1 to fizz-02
+24m         Normal    Pulled                   pod/fairagro-postgresql-nextcloud-1                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+24m         Normal    Created                  pod/fairagro-postgresql-nextcloud-1                                         Created container postgres
+24m         Normal    Started                  pod/fairagro-postgresql-nextcloud-1                                         Started container postgres
+20m         Normal    Killing                  pod/fairagro-postgresql-nextcloud-1                                         Stopping container postgres
+19m         Warning   FailedScheduling         pod/fairagro-postgresql-nextcloud-1                                         0/3 nodes are available: pod has unbound immediate PersistentVolumeClaims. preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling..
+19m         Normal    Scheduled                pod/fairagro-postgresql-nextcloud-1                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-1 to fizz-02
+19m         Normal    SuccessfulAttachVolume   pod/fairagro-postgresql-nextcloud-1                                         AttachVolume.Attach succeeded for volume "pvc-892f494b-c99f-4bce-b7a3-b40e70c429be"
+18m         Normal    Pulled                   pod/fairagro-postgresql-nextcloud-1                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+18m         Normal    Created                  pod/fairagro-postgresql-nextcloud-1                                         Created container postgres
+18m         Normal    Started                  pod/fairagro-postgresql-nextcloud-1                                         Started container postgres
+9m33s       Normal    Killing                  pod/fairagro-postgresql-nextcloud-1                                         Stopping container postgres
+9m23s       Normal    Scheduled                pod/fairagro-postgresql-nextcloud-1                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-1 to fizz-02
+9m20s       Normal    Pulled                   pod/fairagro-postgresql-nextcloud-1                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+9m20s       Normal    Created                  pod/fairagro-postgresql-nextcloud-1                                         Created container postgres
+9m20s       Normal    Started                  pod/fairagro-postgresql-nextcloud-1                                         Started container postgres
+8m28s       Normal    Killing                  pod/fairagro-postgresql-nextcloud-1                                         Stopping container postgres
+8m16s       Normal    Scheduled                pod/fairagro-postgresql-nextcloud-1                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-1 to fizz-02
+8m4s        Normal    Pulled                   pod/fairagro-postgresql-nextcloud-1                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+8m4s        Normal    Created                  pod/fairagro-postgresql-nextcloud-1                                         Created container postgres
+8m4s        Normal    Started                  pod/fairagro-postgresql-nextcloud-1                                         Started container postgres
+7m55s       Normal    Killing                  pod/fairagro-postgresql-nextcloud-1                                         Stopping container postgres
+7m46s       Normal    Scheduled                pod/fairagro-postgresql-nextcloud-1                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-1 to fizz-02
+7m43s       Normal    Pulled                   pod/fairagro-postgresql-nextcloud-1                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+7m43s       Normal    Created                  pod/fairagro-postgresql-nextcloud-1                                         Created container postgres
+7m43s       Normal    Started                  pod/fairagro-postgresql-nextcloud-1                                         Started container postgres
+6m14s       Normal    Killing                  pod/fairagro-postgresql-nextcloud-1                                         Stopping container postgres
+6m2s        Normal    Scheduled                pod/fairagro-postgresql-nextcloud-1                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-1 to fizz-02
+5m51s       Normal    Pulled                   pod/fairagro-postgresql-nextcloud-1                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+5m51s       Normal    Created                  pod/fairagro-postgresql-nextcloud-1                                         Created container postgres
+5m51s       Normal    Started                  pod/fairagro-postgresql-nextcloud-1                                         Started container postgres
+5m42s       Normal    Killing                  pod/fairagro-postgresql-nextcloud-1                                         Stopping container postgres
+5m32s       Normal    Scheduled                pod/fairagro-postgresql-nextcloud-1                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-1 to fizz-02
+5m20s       Normal    Pulled                   pod/fairagro-postgresql-nextcloud-1                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+5m20s       Normal    Created                  pod/fairagro-postgresql-nextcloud-1                                         Created container postgres
+5m20s       Normal    Started                  pod/fairagro-postgresql-nextcloud-1                                         Started container postgres
+83s         Normal    Killing                  pod/fairagro-postgresql-nextcloud-1                                         Stopping container postgres
+71s         Normal    Scheduled                pod/fairagro-postgresql-nextcloud-1                                         Successfully assigned fairagro-nextcloud/fairagro-postgresql-nextcloud-1 to fizz-02
+60s         Normal    Pulled                   pod/fairagro-postgresql-nextcloud-1                                         Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+60s         Normal    Created                  pod/fairagro-postgresql-nextcloud-1                                         Created container postgres
+60s         Normal    Started                  pod/fairagro-postgresql-nextcloud-1                                         Started container postgres
+47m         Normal    Delete                   postgresql/fairagro-postgresql-nextcloud                                    Started deletion of cluster resources
+45m         Normal    Create                   postgresql/fairagro-postgresql-nextcloud                                    Started creation of new cluster resources
+45m         Warning   Create                   postgresql/fairagro-postgresql-nextcloud                                    could not create cluster: could not create master endpoint: could not create master endpoint: endpoints "fairagro-postgresql-nextcloud" already exists
+24m         Normal    Update                   postgresql/fairagro-postgresql-nextcloud                                    Performing rolling update
+38m         Warning   RecreatingFailedPod      statefulset/fairagro-postgresql-nextcloud                                   StatefulSet fairagro-nextcloud/fairagro-postgresql-nextcloud is recreating failed Pod fairagro-postgresql-nextcloud-0
+38m         Normal    SuccessfulDelete         statefulset/fairagro-postgresql-nextcloud                                   delete Pod fairagro-postgresql-nextcloud-0 in StatefulSet fairagro-postgresql-nextcloud successful
+38m         Warning   FailedDelete             statefulset/fairagro-postgresql-nextcloud                                   delete Pod fairagro-postgresql-nextcloud-0 in StatefulSet fairagro-postgresql-nextcloud failed error: pods "fairagro-postgresql-nextcloud-0" not found
+38m         Normal    SuccessfulCreate         statefulset/fairagro-postgresql-nextcloud                                   create Pod fairagro-postgresql-nextcloud-0 in StatefulSet fairagro-postgresql-nextcloud successful
+24m         Normal    Switchover               postgresql/fairagro-postgresql-nextcloud                                    Switching over from "fairagro-postgresql-nextcloud-1" to "fairagro-nextcloud/fairagro-postgresql-nextcloud-0"
+24m         Normal    Switchover               postgresql/fairagro-postgresql-nextcloud                                    Successfully switched over from "fairagro-postgresql-nextcloud-1" to "fairagro-nextcloud/fairagro-postgresql-nextcloud-0"
+27m         Warning   RecreatingFailedPod      statefulset/fairagro-postgresql-nextcloud                                   StatefulSet fairagro-nextcloud/fairagro-postgresql-nextcloud is recreating failed Pod fairagro-postgresql-nextcloud-1
+27m         Normal    SuccessfulDelete         statefulset/fairagro-postgresql-nextcloud                                   delete Pod fairagro-postgresql-nextcloud-1 in StatefulSet fairagro-postgresql-nextcloud successful
+23m         Normal    Update                   postgresql/fairagro-postgresql-nextcloud                                    Rolling update done - pods have been recreated
+27m         Normal    Switchover               postgresql/fairagro-postgresql-nextcloud                                    Switching over from "fairagro-postgresql-nextcloud-0" to "fairagro-nextcloud/fairagro-postgresql-nextcloud-1"
+27m         Normal    Switchover               postgresql/fairagro-postgresql-nextcloud                                    Successfully switched over from "fairagro-postgresql-nextcloud-0" to "fairagro-nextcloud/fairagro-postgresql-nextcloud-1"
+20m         Normal    Delete                   postgresql/fairagro-postgresql-nextcloud                                    Started deletion of cluster resources
+19m         Normal    Create                   postgresql/fairagro-postgresql-nextcloud                                    Started creation of new cluster resources
+19m         Normal    Endpoints                postgresql/fairagro-postgresql-nextcloud                                    Endpoint "fairagro-nextcloud/fairagro-postgresql-nextcloud" has been successfully created
+19m         Normal    Services                 postgresql/fairagro-postgresql-nextcloud                                    The service "fairagro-nextcloud/fairagro-postgresql-nextcloud" for role master has been successfully created
+19m         Normal    Services                 postgresql/fairagro-postgresql-nextcloud                                    The service "fairagro-nextcloud/fairagro-postgresql-nextcloud-repl" for role replica has been successfully created
+19m         Normal    Secrets                  postgresql/fairagro-postgresql-nextcloud                                    The secrets have been successfully created
+19m         Normal    StatefulSet              postgresql/fairagro-postgresql-nextcloud                                    Statefulset "fairagro-nextcloud/fairagro-postgresql-nextcloud" has been successfully created
+19m         Normal    SuccessfulCreate         statefulset/fairagro-postgresql-nextcloud                                   create Claim pgdata-fairagro-postgresql-nextcloud-0 Pod fairagro-postgresql-nextcloud-0 in StatefulSet fairagro-postgresql-nextcloud success
+19m         Normal    SuccessfulCreate         statefulset/fairagro-postgresql-nextcloud                                   create Pod fairagro-postgresql-nextcloud-0 in StatefulSet fairagro-postgresql-nextcloud successful
+19m         Normal    SuccessfulCreate         statefulset/fairagro-postgresql-nextcloud                                   create Claim pgdata-fairagro-postgresql-nextcloud-1 Pod fairagro-postgresql-nextcloud-1 in StatefulSet fairagro-postgresql-nextcloud success
+9m23s       Normal    SuccessfulCreate         statefulset/fairagro-postgresql-nextcloud                                   create Pod fairagro-postgresql-nextcloud-1 in StatefulSet fairagro-postgresql-nextcloud successful
+18m         Normal    StatefulSet              postgresql/fairagro-postgresql-nextcloud                                    Pods are ready
+105s        Normal    Update                   postgresql/fairagro-postgresql-nextcloud                                    Performing rolling update
+9m23s       Warning   RecreatingFailedPod      statefulset/fairagro-postgresql-nextcloud                                   StatefulSet fairagro-nextcloud/fairagro-postgresql-nextcloud is recreating failed Pod fairagro-postgresql-nextcloud-1
+9m23s       Normal    SuccessfulDelete         statefulset/fairagro-postgresql-nextcloud                                   delete Pod fairagro-postgresql-nextcloud-1 in StatefulSet fairagro-postgresql-nextcloud successful
+9m23s       Warning   FailedDelete             statefulset/fairagro-postgresql-nextcloud                                   delete Pod fairagro-postgresql-nextcloud-1 in StatefulSet fairagro-postgresql-nextcloud failed error: pods "fairagro-postgresql-nextcloud-1" not found
+5m14s       Normal    Switchover               postgresql/fairagro-postgresql-nextcloud                                    Switching over from "fairagro-postgresql-nextcloud-0" to "fairagro-nextcloud/fairagro-postgresql-nextcloud-1"
+5m12s       Normal    Switchover               postgresql/fairagro-postgresql-nextcloud                                    Successfully switched over from "fairagro-postgresql-nextcloud-0" to "fairagro-nextcloud/fairagro-postgresql-nextcloud-1"
+95s         Warning   RecreatingFailedPod      statefulset/fairagro-postgresql-nextcloud                                   StatefulSet fairagro-nextcloud/fairagro-postgresql-nextcloud is recreating failed Pod fairagro-postgresql-nextcloud-0
+9m2s        Normal    SuccessfulDelete         statefulset/fairagro-postgresql-nextcloud                                   delete Pod fairagro-postgresql-nextcloud-0 in StatefulSet fairagro-postgresql-nextcloud successful
+4m52s       Normal    Update                   postgresql/fairagro-postgresql-nextcloud                                    Rolling update done - pods have been recreated
+6m16s       Normal    Switchover               postgresql/fairagro-postgresql-nextcloud                                    Switching over from "fairagro-postgresql-nextcloud-1" to "fairagro-nextcloud/fairagro-postgresql-nextcloud-0"
+6m14s       Normal    Switchover               postgresql/fairagro-postgresql-nextcloud                                    Successfully switched over from "fairagro-postgresql-nextcloud-1" to "fairagro-nextcloud/fairagro-postgresql-nextcloud-0"
+20m         Normal    Scheduled                pod/nextcloud-8586cf4859-229bs                                              Successfully assigned fairagro-nextcloud/nextcloud-8586cf4859-229bs to fizz-01
+20m         Warning   FailedAttachVolume       pod/nextcloud-8586cf4859-229bs                                              Multi-Attach error for volume "pvc-bfae035e-a762-4e90-86c4-231057e72ebe" Volume is already used by pod(s) nextcloud-8586cf4859-9fqqj
+20m         Warning   FailedAttachVolume       pod/nextcloud-8586cf4859-229bs                                              Multi-Attach error for volume "pvc-b741b793-3578-497e-b743-f66cebbef0e1" Volume is already used by pod(s) nextcloud-8586cf4859-9fqqj
+19m         Warning   FailedScheduling         pod/nextcloud-8586cf4859-2vz6g                                              0/3 nodes are available: pod has unbound immediate PersistentVolumeClaims. preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling..
+19m         Normal    Scheduled                pod/nextcloud-8586cf4859-2vz6g                                              Successfully assigned fairagro-nextcloud/nextcloud-8586cf4859-2vz6g to fizz-01
+19m         Normal    SuccessfulAttachVolume   pod/nextcloud-8586cf4859-2vz6g                                              AttachVolume.Attach succeeded for volume "pvc-557d9305-692f-4245-adc7-9da6767bb938"
+19m         Normal    SuccessfulAttachVolume   pod/nextcloud-8586cf4859-2vz6g                                              AttachVolume.Attach succeeded for volume "pvc-4dfbae06-e71b-450b-ad51-feb5f17f2ac6"
+19m         Normal    Pulled                   pod/nextcloud-8586cf4859-2vz6g                                              Container image "nextcloud@sha256:d0d13d935eaa9219bfa89fd8213b3ede6431e04685f0a25f6f764f5e5dcfe990" already present on machine
+19m         Normal    Created                  pod/nextcloud-8586cf4859-2vz6g                                              Created container nextcloud
+19m         Normal    Started                  pod/nextcloud-8586cf4859-2vz6g                                              Started container nextcloud
+19m         Normal    Pulled                   pod/nextcloud-8586cf4859-2vz6g                                              Container image "nginxinc/nginx-unprivileged@sha256:a2e2a031969b6fc6107537901a04c354b38e1708ba3a5e1042b390277b55780e" already present on machine
+19m         Normal    Created                  pod/nextcloud-8586cf4859-2vz6g                                              Created container nextcloud-nginx
+19m         Normal    Started                  pod/nextcloud-8586cf4859-2vz6g                                              Started container nextcloud-nginx
+19m         Normal    Pulled                   pod/nextcloud-8586cf4859-2vz6g                                              Container image "nextcloud@sha256:d0d13d935eaa9219bfa89fd8213b3ede6431e04685f0a25f6f764f5e5dcfe990" already present on machine
+19m         Normal    Created                  pod/nextcloud-8586cf4859-2vz6g                                              Created container nextcloud-cron
+19m         Normal    Started                  pod/nextcloud-8586cf4859-2vz6g                                              Started container nextcloud-cron
+17m         Warning   Unhealthy                pod/nextcloud-8586cf4859-2vz6g                                              Startup probe failed: HTTP probe failed with statuscode: 502
+47m         Normal    Killing                  pod/nextcloud-8586cf4859-9fqqj                                              Stopping container nextcloud
+47m         Normal    Killing                  pod/nextcloud-8586cf4859-9fqqj                                              Stopping container nextcloud-cron
+47m         Normal    Killing                  pod/nextcloud-8586cf4859-9fqqj                                              Stopping container nextcloud-nginx
+47m         Warning   Unhealthy                pod/nextcloud-8586cf4859-9fqqj                                              Readiness probe failed: Get "http://172.16.203.184:8080/status.php": dial tcp 172.16.203.184:8080: connect: connection refused
+45m         Warning   FailedScheduling         pod/nextcloud-8586cf4859-9fqqj                                              0/3 nodes are available: pod has unbound immediate PersistentVolumeClaims. preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling..
+45m         Normal    Scheduled                pod/nextcloud-8586cf4859-9fqqj                                              Successfully assigned fairagro-nextcloud/nextcloud-8586cf4859-9fqqj to fizz-03
+44m         Normal    SuccessfulAttachVolume   pod/nextcloud-8586cf4859-9fqqj                                              AttachVolume.Attach succeeded for volume "pvc-bfae035e-a762-4e90-86c4-231057e72ebe"
+44m         Normal    SuccessfulAttachVolume   pod/nextcloud-8586cf4859-9fqqj                                              AttachVolume.Attach succeeded for volume "pvc-b741b793-3578-497e-b743-f66cebbef0e1"
+44m         Normal    Pulled                   pod/nextcloud-8586cf4859-9fqqj                                              Container image "nextcloud@sha256:d0d13d935eaa9219bfa89fd8213b3ede6431e04685f0a25f6f764f5e5dcfe990" already present on machine
+44m         Normal    Created                  pod/nextcloud-8586cf4859-9fqqj                                              Created container nextcloud
+44m         Normal    Started                  pod/nextcloud-8586cf4859-9fqqj                                              Started container nextcloud
+44m         Normal    Pulled                   pod/nextcloud-8586cf4859-9fqqj                                              Container image "nginxinc/nginx-unprivileged@sha256:a2e2a031969b6fc6107537901a04c354b38e1708ba3a5e1042b390277b55780e" already present on machine
+44m         Normal    Created                  pod/nextcloud-8586cf4859-9fqqj                                              Created container nextcloud-nginx
+44m         Normal    Started                  pod/nextcloud-8586cf4859-9fqqj                                              Started container nextcloud-nginx
+44m         Normal    Pulled                   pod/nextcloud-8586cf4859-9fqqj                                              Container image "nextcloud@sha256:d0d13d935eaa9219bfa89fd8213b3ede6431e04685f0a25f6f764f5e5dcfe990" already present on machine
+44m         Normal    Created                  pod/nextcloud-8586cf4859-9fqqj                                              Created container nextcloud-cron
+44m         Normal    Started                  pod/nextcloud-8586cf4859-9fqqj                                              Started container nextcloud-cron
+20m         Normal    Killing                  pod/nextcloud-8586cf4859-9fqqj                                              Stopping container nextcloud
+20m         Normal    Killing                  pod/nextcloud-8586cf4859-9fqqj                                              Stopping container nextcloud-cron
+20m         Normal    Killing                  pod/nextcloud-8586cf4859-9fqqj                                              Stopping container nextcloud-nginx
+20m         Warning   Unhealthy                pod/nextcloud-8586cf4859-9fqqj                                              Readiness probe failed: Get "http://172.16.203.171:8080/status.php": dial tcp 172.16.203.171:8080: connect: connection refused
+47m         Normal    Scheduled                pod/nextcloud-8586cf4859-cc9bx                                              Successfully assigned fairagro-nextcloud/nextcloud-8586cf4859-cc9bx to fizz-03
+47m         Normal    SuccessfulCreate         replicaset/nextcloud-8586cf4859                                             Created pod: nextcloud-8586cf4859-cc9bx
+20m         Normal    SuccessfulCreate         replicaset/nextcloud-8586cf4859                                             Created pod: nextcloud-8586cf4859-229bs
+19m         Normal    SuccessfulCreate         replicaset/nextcloud-8586cf4859                                             Created pod: nextcloud-8586cf4859-2vz6g
+2m14s       Warning   UnexpectedJob            cronjob/nextcloud-backup-cronjob                                            Saw a job that the controller did not create or forgot: backup-01
+5m50s       Warning   UnexpectedJob            cronjob/nextcloud-backup-cronjob                                            Saw a job that the controller did not create or forgot: backup-02
+20m         Normal    Scheduled                pod/nextcloud-fairagro-onlyoffice-66b5b747d5-bt6sg                          Successfully assigned fairagro-nextcloud/nextcloud-fairagro-onlyoffice-66b5b747d5-bt6sg to fizz-03
+20m         Normal    Pulled                   pod/nextcloud-fairagro-onlyoffice-66b5b747d5-bt6sg                          Container image "onlyoffice/documentserver@sha256:5ed447a097b368e97de8c25ba5ef53c425acfa1bb084e33b8a0de4a7a1e2099c" already present on machine
+20m         Warning   Failed                   pod/nextcloud-fairagro-onlyoffice-66b5b747d5-bt6sg                          Error: secret "onlyoffice.nextcloud-fairagro-onlyoffice-postgresql.credentials.postgresql.acid.zalan.do" not found
+19m         Normal    Scheduled                pod/nextcloud-fairagro-onlyoffice-66b5b747d5-fjh5v                          Successfully assigned fairagro-nextcloud/nextcloud-fairagro-onlyoffice-66b5b747d5-fjh5v to fizz-02
+19m         Normal    Pulled                   pod/nextcloud-fairagro-onlyoffice-66b5b747d5-fjh5v                          Container image "onlyoffice/documentserver@sha256:5ed447a097b368e97de8c25ba5ef53c425acfa1bb084e33b8a0de4a7a1e2099c" already present on machine
+19m         Warning   Failed                   pod/nextcloud-fairagro-onlyoffice-66b5b747d5-fjh5v                          Error: secret "onlyoffice.nextcloud-fairagro-onlyoffice-postgresql.credentials.postgresql.acid.zalan.do" not found
+19m         Normal    Created                  pod/nextcloud-fairagro-onlyoffice-66b5b747d5-fjh5v                          Created container fairagro-onlyoffice-wait-for-postgres
+19m         Normal    Started                  pod/nextcloud-fairagro-onlyoffice-66b5b747d5-fjh5v                          Started container fairagro-onlyoffice-wait-for-postgres
+17m         Normal    Pulled                   pod/nextcloud-fairagro-onlyoffice-66b5b747d5-fjh5v                          Container image "onlyoffice/documentserver@sha256:5ed447a097b368e97de8c25ba5ef53c425acfa1bb084e33b8a0de4a7a1e2099c" already present on machine
+17m         Normal    Created                  pod/nextcloud-fairagro-onlyoffice-66b5b747d5-fjh5v                          Created container fairagro-onlyoffice
+17m         Normal    Started                  pod/nextcloud-fairagro-onlyoffice-66b5b747d5-fjh5v                          Started container fairagro-onlyoffice
+16m         Warning   Unhealthy                pod/nextcloud-fairagro-onlyoffice-66b5b747d5-fjh5v                          Readiness probe failed: Get "http://172.16.249.9:80/": dial tcp 172.16.249.9:80: connect: connection refused
+16m         Warning   Unhealthy                pod/nextcloud-fairagro-onlyoffice-66b5b747d5-fjh5v                          Liveness probe failed: Get "http://172.16.249.9:80/": dial tcp 172.16.249.9:80: connect: connection refused
+47m         Normal    Scheduled                pod/nextcloud-fairagro-onlyoffice-66b5b747d5-jndvj                          Successfully assigned fairagro-nextcloud/nextcloud-fairagro-onlyoffice-66b5b747d5-jndvj to fizz-02
+47m         Normal    Pulled                   pod/nextcloud-fairagro-onlyoffice-66b5b747d5-jndvj                          Container image "onlyoffice/documentserver@sha256:5ed447a097b368e97de8c25ba5ef53c425acfa1bb084e33b8a0de4a7a1e2099c" already present on machine
+47m         Warning   Failed                   pod/nextcloud-fairagro-onlyoffice-66b5b747d5-jndvj                          Error: secret "onlyoffice.nextcloud-fairagro-onlyoffice-postgresql.credentials.postgresql.acid.zalan.do" not found
+60m         Warning   Unhealthy                pod/nextcloud-fairagro-onlyoffice-66b5b747d5-zjhl6                          Readiness probe failed: Get "http://172.16.249.4:80/": dial tcp 172.16.249.4:80: connect: connection refused
+50m         Warning   BackOff                  pod/nextcloud-fairagro-onlyoffice-66b5b747d5-zjhl6                          Back-off restarting failed container fairagro-onlyoffice in pod nextcloud-fairagro-onlyoffice-66b5b747d5-zjhl6_fairagro-nextcloud(f112424a-a62f-4444-9d5c-80b29dd2d47a)
+45m         Normal    Scheduled                pod/nextcloud-fairagro-onlyoffice-66b5b747d5-zjhl6                          Successfully assigned fairagro-nextcloud/nextcloud-fairagro-onlyoffice-66b5b747d5-zjhl6 to fizz-02
+45m         Normal    Pulled                   pod/nextcloud-fairagro-onlyoffice-66b5b747d5-zjhl6                          Container image "onlyoffice/documentserver@sha256:5ed447a097b368e97de8c25ba5ef53c425acfa1bb084e33b8a0de4a7a1e2099c" already present on machine
+45m         Normal    Created                  pod/nextcloud-fairagro-onlyoffice-66b5b747d5-zjhl6                          Created container fairagro-onlyoffice-wait-for-postgres
+45m         Normal    Started                  pod/nextcloud-fairagro-onlyoffice-66b5b747d5-zjhl6                          Started container fairagro-onlyoffice-wait-for-postgres
+35m         Normal    Pulled                   pod/nextcloud-fairagro-onlyoffice-66b5b747d5-zjhl6                          Container image "onlyoffice/documentserver@sha256:5ed447a097b368e97de8c25ba5ef53c425acfa1bb084e33b8a0de4a7a1e2099c" already present on machine
+35m         Normal    Created                  pod/nextcloud-fairagro-onlyoffice-66b5b747d5-zjhl6                          Created container fairagro-onlyoffice
+35m         Normal    Started                  pod/nextcloud-fairagro-onlyoffice-66b5b747d5-zjhl6                          Started container fairagro-onlyoffice
+30m         Warning   Unhealthy                pod/nextcloud-fairagro-onlyoffice-66b5b747d5-zjhl6                          Readiness probe failed: Get "http://172.16.249.39:80/": dial tcp 172.16.249.39:80: connect: connection refused
+35m         Warning   Unhealthy                pod/nextcloud-fairagro-onlyoffice-66b5b747d5-zjhl6                          Liveness probe failed: Get "http://172.16.249.39:80/": dial tcp 172.16.249.39:80: connect: connection refused
+35m         Normal    Killing                  pod/nextcloud-fairagro-onlyoffice-66b5b747d5-zjhl6                          Container fairagro-onlyoffice failed liveness probe, will be restarted
+20m         Warning   BackOff                  pod/nextcloud-fairagro-onlyoffice-66b5b747d5-zjhl6                          Back-off restarting failed container fairagro-onlyoffice in pod nextcloud-fairagro-onlyoffice-66b5b747d5-zjhl6_fairagro-nextcloud(b0f2d77a-6a08-4a15-a026-81f6456983f1)
+47m         Normal    SuccessfulCreate         replicaset/nextcloud-fairagro-onlyoffice-66b5b747d5                         Created pod: nextcloud-fairagro-onlyoffice-66b5b747d5-jndvj
+20m         Normal    SuccessfulCreate         replicaset/nextcloud-fairagro-onlyoffice-66b5b747d5                         Created pod: nextcloud-fairagro-onlyoffice-66b5b747d5-bt6sg
+19m         Normal    SuccessfulCreate         replicaset/nextcloud-fairagro-onlyoffice-66b5b747d5                         Created pod: nextcloud-fairagro-onlyoffice-66b5b747d5-fjh5v
+47m         Normal    Killing                  pod/nextcloud-fairagro-onlyoffice-postgresql-0                              Stopping container postgres
+45m         Warning   FailedScheduling         pod/nextcloud-fairagro-onlyoffice-postgresql-0                              0/3 nodes are available: pod has unbound immediate PersistentVolumeClaims. preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling..
+45m         Normal    Scheduled                pod/nextcloud-fairagro-onlyoffice-postgresql-0                              Successfully assigned fairagro-nextcloud/nextcloud-fairagro-onlyoffice-postgresql-0 to fizz-02
+45m         Normal    SuccessfulAttachVolume   pod/nextcloud-fairagro-onlyoffice-postgresql-0                              AttachVolume.Attach succeeded for volume "pvc-892e05fc-decc-4f9d-a53a-7b777f0b54cf"
+45m         Normal    Pulled                   pod/nextcloud-fairagro-onlyoffice-postgresql-0                              Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+45m         Normal    Created                  pod/nextcloud-fairagro-onlyoffice-postgresql-0                              Created container postgres
+45m         Normal    Started                  pod/nextcloud-fairagro-onlyoffice-postgresql-0                              Started container postgres
+20m         Normal    Killing                  pod/nextcloud-fairagro-onlyoffice-postgresql-0                              Stopping container postgres
+19m         Warning   FailedScheduling         pod/nextcloud-fairagro-onlyoffice-postgresql-0                              0/3 nodes are available: pod has unbound immediate PersistentVolumeClaims. preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling..
+19m         Normal    Scheduled                pod/nextcloud-fairagro-onlyoffice-postgresql-0                              Successfully assigned fairagro-nextcloud/nextcloud-fairagro-onlyoffice-postgresql-0 to fizz-02
+19m         Normal    SuccessfulAttachVolume   pod/nextcloud-fairagro-onlyoffice-postgresql-0                              AttachVolume.Attach succeeded for volume "pvc-262360db-2f25-4859-8b3b-2003201ed781"
+19m         Normal    Pulled                   pod/nextcloud-fairagro-onlyoffice-postgresql-0                              Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+19m         Normal    Created                  pod/nextcloud-fairagro-onlyoffice-postgresql-0                              Created container postgres
+19m         Normal    Started                  pod/nextcloud-fairagro-onlyoffice-postgresql-0                              Started container postgres
+47m         Normal    Killing                  pod/nextcloud-fairagro-onlyoffice-postgresql-1                              Stopping container postgres
+45m         Warning   FailedScheduling         pod/nextcloud-fairagro-onlyoffice-postgresql-1                              0/3 nodes are available: pod has unbound immediate PersistentVolumeClaims. preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling..
+45m         Normal    Scheduled                pod/nextcloud-fairagro-onlyoffice-postgresql-1                              Successfully assigned fairagro-nextcloud/nextcloud-fairagro-onlyoffice-postgresql-1 to fizz-01
+45m         Normal    SuccessfulAttachVolume   pod/nextcloud-fairagro-onlyoffice-postgresql-1                              AttachVolume.Attach succeeded for volume "pvc-9c8828a6-6cac-4f53-a91a-ac9d30d9759b"
+45m         Normal    Pulled                   pod/nextcloud-fairagro-onlyoffice-postgresql-1                              Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+45m         Normal    Created                  pod/nextcloud-fairagro-onlyoffice-postgresql-1                              Created container postgres
+45m         Normal    Started                  pod/nextcloud-fairagro-onlyoffice-postgresql-1                              Started container postgres
+20m         Normal    Killing                  pod/nextcloud-fairagro-onlyoffice-postgresql-1                              Stopping container postgres
+19m         Warning   FailedScheduling         pod/nextcloud-fairagro-onlyoffice-postgresql-1                              0/3 nodes are available: pod has unbound immediate PersistentVolumeClaims. preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling..
+19m         Normal    Scheduled                pod/nextcloud-fairagro-onlyoffice-postgresql-1                              Successfully assigned fairagro-nextcloud/nextcloud-fairagro-onlyoffice-postgresql-1 to fizz-01
+19m         Normal    SuccessfulAttachVolume   pod/nextcloud-fairagro-onlyoffice-postgresql-1                              AttachVolume.Attach succeeded for volume "pvc-79fb6974-f49b-46e8-addd-fa40dc49f02f"
+19m         Normal    Pulled                   pod/nextcloud-fairagro-onlyoffice-postgresql-1                              Container image "ghcr.io/zalando/spilo-16:3.3-p1" already present on machine
+19m         Normal    Created                  pod/nextcloud-fairagro-onlyoffice-postgresql-1                              Created container postgres
+19m         Normal    Started                  pod/nextcloud-fairagro-onlyoffice-postgresql-1                              Started container postgres
+47m         Normal    Delete                   postgresql/nextcloud-fairagro-onlyoffice-postgresql                         Started deletion of cluster resources
+45m         Normal    Create                   postgresql/nextcloud-fairagro-onlyoffice-postgresql                         Started creation of new cluster resources
+45m         Warning   Create                   postgresql/nextcloud-fairagro-onlyoffice-postgresql                         could not create cluster: could not create master endpoint: could not create master endpoint: endpoints "nextcloud-fairagro-onlyoffice-postgresql" already exists
+35m         Normal    Update                   postgresql/nextcloud-fairagro-onlyoffice-postgresql                         restarting Postgres server within  pod fairagro-nextcloud/nextcloud-fairagro-onlyoffice-postgresql-0
+35m         Normal    Update                   postgresql/nextcloud-fairagro-onlyoffice-postgresql                         restarting Postgres server within  pod fairagro-nextcloud/nextcloud-fairagro-onlyoffice-postgresql-1
+20m         Normal    Delete                   postgresql/nextcloud-fairagro-onlyoffice-postgresql                         Started deletion of cluster resources
+19m         Normal    Create                   postgresql/nextcloud-fairagro-onlyoffice-postgresql                         Started creation of new cluster resources
+19m         Normal    Endpoints                postgresql/nextcloud-fairagro-onlyoffice-postgresql                         Endpoint "fairagro-nextcloud/nextcloud-fairagro-onlyoffice-postgresql" has been successfully created
+19m         Normal    Services                 postgresql/nextcloud-fairagro-onlyoffice-postgresql                         The service "fairagro-nextcloud/nextcloud-fairagro-onlyoffice-postgresql" for role master has been successfully created
+19m         Normal    Services                 postgresql/nextcloud-fairagro-onlyoffice-postgresql                         The service "fairagro-nextcloud/nextcloud-fairagro-onlyoffice-postgresql-repl" for role replica has been successfully created
+19m         Normal    Secrets                  postgresql/nextcloud-fairagro-onlyoffice-postgresql                         The secrets have been successfully created
+19m         Normal    StatefulSet              postgresql/nextcloud-fairagro-onlyoffice-postgresql                         Statefulset "fairagro-nextcloud/nextcloud-fairagro-onlyoffice-postgresql" has been successfully created
+19m         Normal    SuccessfulCreate         statefulset/nextcloud-fairagro-onlyoffice-postgresql                        create Claim pgdata-nextcloud-fairagro-onlyoffice-postgresql-0 Pod nextcloud-fairagro-onlyoffice-postgresql-0 in StatefulSet nextcloud-fairagro-onlyoffice-postgresql success
+19m         Normal    SuccessfulCreate         statefulset/nextcloud-fairagro-onlyoffice-postgresql                        create Pod nextcloud-fairagro-onlyoffice-postgresql-0 in StatefulSet nextcloud-fairagro-onlyoffice-postgresql successful
+19m         Normal    SuccessfulCreate         statefulset/nextcloud-fairagro-onlyoffice-postgresql                        create Claim pgdata-nextcloud-fairagro-onlyoffice-postgresql-1 Pod nextcloud-fairagro-onlyoffice-postgresql-1 in StatefulSet nextcloud-fairagro-onlyoffice-postgresql success
+19m         Normal    SuccessfulCreate         statefulset/nextcloud-fairagro-onlyoffice-postgresql                        create Pod nextcloud-fairagro-onlyoffice-postgresql-1 in StatefulSet nextcloud-fairagro-onlyoffice-postgresql successful
+17m         Normal    StatefulSet              postgresql/nextcloud-fairagro-onlyoffice-postgresql                         Pods are ready
+5m8s        Normal    Update                   postgresql/nextcloud-fairagro-onlyoffice-postgresql                         restarting Postgres server within replica pod fairagro-nextcloud/nextcloud-fairagro-onlyoffice-postgresql-1
+4m56s       Normal    Update                   postgresql/nextcloud-fairagro-onlyoffice-postgresql                         Postgres server restart done for replica pod fairagro-nextcloud/nextcloud-fairagro-onlyoffice-postgresql-1
+44m         Normal    Sync                     ingress/nextcloud-fairagro-onlyoffice                                       Scheduled for sync
+44m         Normal    Sync                     ingress/nextcloud-fairagro-onlyoffice                                       Scheduled for sync
+44m         Normal    Sync                     ingress/nextcloud-fairagro-onlyoffice                                       Scheduled for sync
+19m         Normal    ScalingReplicaSet        deployment/nextcloud-fairagro-onlyoffice                                    Scaled up replica set nextcloud-fairagro-onlyoffice-66b5b747d5 to 1
+18m         Normal    Sync                     ingress/nextcloud-fairagro-onlyoffice                                       Scheduled for sync
+18m         Normal    Sync                     ingress/nextcloud-fairagro-onlyoffice                                       Scheduled for sync
+18m         Normal    Sync                     ingress/nextcloud-fairagro-onlyoffice                                       Scheduled for sync
+45m         Normal    ExternalProvisioning     persistentvolumeclaim/nextcloud-nextcloud-data                              Waiting for a volume to be created either by the external provisioner 'csi.hpe.com' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+45m         Normal    Provisioning             persistentvolumeclaim/nextcloud-nextcloud-data                              External provisioner is provisioning volume for claim "fairagro-nextcloud/nextcloud-nextcloud-data"
+45m         Warning   ProvisioningFailed       persistentvolumeclaim/nextcloud-nextcloud-data                              failed to provision volume with StorageClass "readwriteonce": claim Selector is not supported
+45m         Warning   FailedBinding            persistentvolumeclaim/nextcloud-nextcloud-data                              volume "pvc-bfae035e-a762-4e90-86c4-231057e72ebe" already bound to a different claim.
+19m         Normal    ExternalProvisioning     persistentvolumeclaim/nextcloud-nextcloud-data                              Waiting for a volume to be created either by the external provisioner 'csi.hpe.com' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+19m         Normal    Provisioning             persistentvolumeclaim/nextcloud-nextcloud-data                              External provisioner is provisioning volume for claim "fairagro-nextcloud/nextcloud-nextcloud-data"
+19m         Normal    ProvisioningSucceeded    persistentvolumeclaim/nextcloud-nextcloud-data                              Successfully provisioned volume pvc-557d9305-692f-4245-adc7-9da6767bb938
+45m         Normal    ExternalProvisioning     persistentvolumeclaim/nextcloud-nextcloud                                   Waiting for a volume to be created either by the external provisioner 'csi.hpe.com' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+45m         Normal    Provisioning             persistentvolumeclaim/nextcloud-nextcloud                                   External provisioner is provisioning volume for claim "fairagro-nextcloud/nextcloud-nextcloud"
+45m         Warning   ProvisioningFailed       persistentvolumeclaim/nextcloud-nextcloud                                   failed to provision volume with StorageClass "readwriteonce": claim Selector is not supported
+45m         Warning   FailedBinding            persistentvolumeclaim/nextcloud-nextcloud                                   volume "pvc-b741b793-3578-497e-b743-f66cebbef0e1" already bound to a different claim.
+19m         Normal    ExternalProvisioning     persistentvolumeclaim/nextcloud-nextcloud                                   Waiting for a volume to be created either by the external provisioner 'csi.hpe.com' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+19m         Normal    Provisioning             persistentvolumeclaim/nextcloud-nextcloud                                   External provisioner is provisioning volume for claim "fairagro-nextcloud/nextcloud-nextcloud"
+19m         Normal    ProvisioningSucceeded    persistentvolumeclaim/nextcloud-nextcloud                                   Successfully provisioned volume pvc-4dfbae06-e71b-450b-ad51-feb5f17f2ac6
+47m         Normal    Killing                  pod/nextcloud-redis-master-0                                                Stopping container redis
+45m         Normal    Scheduled                pod/nextcloud-redis-master-0                                                Successfully assigned fairagro-nextcloud/nextcloud-redis-master-0 to fizz-01
+45m         Normal    Pulled                   pod/nextcloud-redis-master-0                                                Container image "docker.io/bitnami/redis@sha256:413ba6ab7104ced40c1047451680f0679b235684a14a7db4a05a5990ff4e1e67" already present on machine
+45m         Normal    Created                  pod/nextcloud-redis-master-0                                                Created container redis
+45m         Normal    Started                  pod/nextcloud-redis-master-0                                                Started container redis
+20m         Normal    Killing                  pod/nextcloud-redis-master-0                                                Stopping container redis
+19m         Normal    Scheduled                pod/nextcloud-redis-master-0                                                Successfully assigned fairagro-nextcloud/nextcloud-redis-master-0 to fizz-01
+19m         Normal    Pulled                   pod/nextcloud-redis-master-0                                                Container image "docker.io/bitnami/redis@sha256:413ba6ab7104ced40c1047451680f0679b235684a14a7db4a05a5990ff4e1e67" already present on machine
+19m         Normal    Created                  pod/nextcloud-redis-master-0                                                Created container redis
+19m         Normal    Started                  pod/nextcloud-redis-master-0                                                Started container redis
+19m         Normal    SuccessfulCreate         statefulset/nextcloud-redis-master                                          create Pod nextcloud-redis-master-0 in StatefulSet nextcloud-redis-master successful
+44m         Normal    Sync                     ingress/nextcloud                                                           Scheduled for sync
+44m         Normal    Sync                     ingress/nextcloud                                                           Scheduled for sync
+44m         Normal    Sync                     ingress/nextcloud                                                           Scheduled for sync
+19m         Normal    ScalingReplicaSet        deployment/nextcloud                                                        Scaled up replica set nextcloud-8586cf4859 to 1
+18m         Normal    Sync                     ingress/nextcloud                                                           Scheduled for sync
+18m         Normal    Sync                     ingress/nextcloud                                                           Scheduled for sync
+18m         Normal    Sync                     ingress/nextcloud                                                           Scheduled for sync
+45m         Normal    ExternalProvisioning     persistentvolumeclaim/pgdata-fairagro-postgresql-nextcloud-0                Waiting for a volume to be created either by the external provisioner 'csi.hpe.com' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+45m         Normal    Provisioning             persistentvolumeclaim/pgdata-fairagro-postgresql-nextcloud-0                External provisioner is provisioning volume for claim "fairagro-nextcloud/pgdata-fairagro-postgresql-nextcloud-0"
+45m         Normal    ProvisioningSucceeded    persistentvolumeclaim/pgdata-fairagro-postgresql-nextcloud-0                Successfully provisioned volume pvc-e8bb3744-d888-4cdf-816d-fd5153cab0c2
+19m         Normal    Provisioning             persistentvolumeclaim/pgdata-fairagro-postgresql-nextcloud-0                External provisioner is provisioning volume for claim "fairagro-nextcloud/pgdata-fairagro-postgresql-nextcloud-0"
+19m         Normal    ExternalProvisioning     persistentvolumeclaim/pgdata-fairagro-postgresql-nextcloud-0                Waiting for a volume to be created either by the external provisioner 'csi.hpe.com' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+19m         Normal    ProvisioningSucceeded    persistentvolumeclaim/pgdata-fairagro-postgresql-nextcloud-0                Successfully provisioned volume pvc-a3a9a884-30e2-4806-ac82-3bd09bbe4232
+45m         Normal    ExternalProvisioning     persistentvolumeclaim/pgdata-fairagro-postgresql-nextcloud-1                Waiting for a volume to be created either by the external provisioner 'csi.hpe.com' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+45m         Normal    Provisioning             persistentvolumeclaim/pgdata-fairagro-postgresql-nextcloud-1                External provisioner is provisioning volume for claim "fairagro-nextcloud/pgdata-fairagro-postgresql-nextcloud-1"
+45m         Normal    ProvisioningSucceeded    persistentvolumeclaim/pgdata-fairagro-postgresql-nextcloud-1                Successfully provisioned volume pvc-d18ba112-f0f8-42eb-9682-388605150a36
+19m         Normal    Provisioning             persistentvolumeclaim/pgdata-fairagro-postgresql-nextcloud-1                External provisioner is provisioning volume for claim "fairagro-nextcloud/pgdata-fairagro-postgresql-nextcloud-1"
+19m         Normal    ExternalProvisioning     persistentvolumeclaim/pgdata-fairagro-postgresql-nextcloud-1                Waiting for a volume to be created either by the external provisioner 'csi.hpe.com' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+19m         Normal    ProvisioningSucceeded    persistentvolumeclaim/pgdata-fairagro-postgresql-nextcloud-1                Successfully provisioned volume pvc-892f494b-c99f-4bce-b7a3-b40e70c429be
+45m         Normal    ExternalProvisioning     persistentvolumeclaim/pgdata-nextcloud-fairagro-onlyoffice-postgresql-0     Waiting for a volume to be created either by the external provisioner 'csi.hpe.com' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+45m         Normal    Provisioning             persistentvolumeclaim/pgdata-nextcloud-fairagro-onlyoffice-postgresql-0     External provisioner is provisioning volume for claim "fairagro-nextcloud/pgdata-nextcloud-fairagro-onlyoffice-postgresql-0"
+45m         Normal    ProvisioningSucceeded    persistentvolumeclaim/pgdata-nextcloud-fairagro-onlyoffice-postgresql-0     Successfully provisioned volume pvc-892e05fc-decc-4f9d-a53a-7b777f0b54cf
+19m         Normal    ExternalProvisioning     persistentvolumeclaim/pgdata-nextcloud-fairagro-onlyoffice-postgresql-0     Waiting for a volume to be created either by the external provisioner 'csi.hpe.com' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+19m         Normal    Provisioning             persistentvolumeclaim/pgdata-nextcloud-fairagro-onlyoffice-postgresql-0     External provisioner is provisioning volume for claim "fairagro-nextcloud/pgdata-nextcloud-fairagro-onlyoffice-postgresql-0"
+19m         Normal    ProvisioningSucceeded    persistentvolumeclaim/pgdata-nextcloud-fairagro-onlyoffice-postgresql-0     Successfully provisioned volume pvc-262360db-2f25-4859-8b3b-2003201ed781
+45m         Normal    ExternalProvisioning     persistentvolumeclaim/pgdata-nextcloud-fairagro-onlyoffice-postgresql-1     Waiting for a volume to be created either by the external provisioner 'csi.hpe.com' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+45m         Normal    Provisioning             persistentvolumeclaim/pgdata-nextcloud-fairagro-onlyoffice-postgresql-1     External provisioner is provisioning volume for claim "fairagro-nextcloud/pgdata-nextcloud-fairagro-onlyoffice-postgresql-1"
+45m         Normal    ProvisioningSucceeded    persistentvolumeclaim/pgdata-nextcloud-fairagro-onlyoffice-postgresql-1     Successfully provisioned volume pvc-9c8828a6-6cac-4f53-a91a-ac9d30d9759b
+19m         Normal    Provisioning             persistentvolumeclaim/pgdata-nextcloud-fairagro-onlyoffice-postgresql-1     External provisioner is provisioning volume for claim "fairagro-nextcloud/pgdata-nextcloud-fairagro-onlyoffice-postgresql-1"
+19m         Normal    ExternalProvisioning     persistentvolumeclaim/pgdata-nextcloud-fairagro-onlyoffice-postgresql-1     Waiting for a volume to be created either by the external provisioner 'csi.hpe.com' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+19m         Normal    ProvisioningSucceeded    persistentvolumeclaim/pgdata-nextcloud-fairagro-onlyoffice-postgresql-1     Successfully provisioned volume pvc-79fb6974-f49b-46e8-addd-fa40dc49f02f
+19m         Normal    NoPods                   poddisruptionbudget/postgres-fairagro-postgresql-nextcloud-pdb              No matching pods found
+19m         Normal    NoPods                   poddisruptionbudget/postgres-nextcloud-fairagro-onlyoffice-postgresql-pdb   No matching pods found
+101s        Normal    CreatingSnapshot         volumesnapshot/velero-nextcloud-nextcloud-data-b52bw                        Waiting for a snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-data-b52bw to be created by the CSI driver.
+99s         Normal    SnapshotCreated          volumesnapshot/velero-nextcloud-nextcloud-data-b52bw                        Snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-data-b52bw was successfully created by the CSI driver.
+99s         Normal    SnapshotReady            volumesnapshot/velero-nextcloud-nextcloud-data-b52bw                        Snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-data-b52bw is ready to use.
+23m         Normal    CreatingSnapshot         volumesnapshot/velero-nextcloud-nextcloud-data-bhz7b                        Waiting for a snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-data-bhz7b to be created by the CSI driver.
+23m         Normal    SnapshotCreated          volumesnapshot/velero-nextcloud-nextcloud-data-bhz7b                        Snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-data-bhz7b was successfully created by the CSI driver.
+23m         Normal    SnapshotReady            volumesnapshot/velero-nextcloud-nextcloud-data-bhz7b                        Snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-data-bhz7b is ready to use.
+6m30s       Normal    CreatingSnapshot         volumesnapshot/velero-nextcloud-nextcloud-data-jxb97                        Waiting for a snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-data-jxb97 to be created by the CSI driver.
+6m28s       Normal    SnapshotCreated          volumesnapshot/velero-nextcloud-nextcloud-data-jxb97                        Snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-data-jxb97 was successfully created by the CSI driver.
+6m28s       Normal    SnapshotReady            volumesnapshot/velero-nextcloud-nextcloud-data-jxb97                        Snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-data-jxb97 is ready to use.
+5m39s       Normal    CreatingSnapshot         volumesnapshot/velero-nextcloud-nextcloud-data-x5b6v                        Waiting for a snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-data-x5b6v to be created by the CSI driver.
+5m37s       Normal    SnapshotCreated          volumesnapshot/velero-nextcloud-nextcloud-data-x5b6v                        Snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-data-x5b6v was successfully created by the CSI driver.
+5m37s       Normal    SnapshotReady            volumesnapshot/velero-nextcloud-nextcloud-data-x5b6v                        Snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-data-x5b6v is ready to use.
+23m         Normal    CreatingSnapshot         volumesnapshot/velero-nextcloud-nextcloud-qfs6w                             Waiting for a snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-qfs6w to be created by the CSI driver.
+23m         Normal    SnapshotCreated          volumesnapshot/velero-nextcloud-nextcloud-qfs6w                             Snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-qfs6w was successfully created by the CSI driver.
+23m         Normal    SnapshotReady            volumesnapshot/velero-nextcloud-nextcloud-qfs6w                             Snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-qfs6w is ready to use.
+5m44s       Normal    CreatingSnapshot         volumesnapshot/velero-nextcloud-nextcloud-thl8m                             Waiting for a snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-thl8m to be created by the CSI driver.
+5m43s       Normal    SnapshotCreated          volumesnapshot/velero-nextcloud-nextcloud-thl8m                             Snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-thl8m was successfully created by the CSI driver.
+5m43s       Normal    SnapshotReady            volumesnapshot/velero-nextcloud-nextcloud-thl8m                             Snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-thl8m is ready to use.
+106s        Normal    CreatingSnapshot         volumesnapshot/velero-nextcloud-nextcloud-vctqv                             Waiting for a snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-vctqv to be created by the CSI driver.
+105s        Normal    SnapshotCreated          volumesnapshot/velero-nextcloud-nextcloud-vctqv                             Snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-vctqv was successfully created by the CSI driver.
+105s        Normal    SnapshotReady            volumesnapshot/velero-nextcloud-nextcloud-vctqv                             Snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-vctqv is ready to use.
+6m35s       Normal    CreatingSnapshot         volumesnapshot/velero-nextcloud-nextcloud-xt9mr                             Waiting for a snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-xt9mr to be created by the CSI driver.
+6m34s       Normal    SnapshotCreated          volumesnapshot/velero-nextcloud-nextcloud-xt9mr                             Snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-xt9mr was successfully created by the CSI driver.
+6m34s       Normal    SnapshotReady            volumesnapshot/velero-nextcloud-nextcloud-xt9mr                             Snapshot fairagro-nextcloud/velero-nextcloud-nextcloud-xt9mr is ready to use.
+NAME                                                                       CPU        MEMORY     WINDOW
+podmetrics.metrics.k8s.io/fairagro-postgresql-nextcloud-0                  6422854n   278920Ki   15.017s
+podmetrics.metrics.k8s.io/fairagro-postgresql-nextcloud-1                  3511395n   155708Ki   15.006s
+podmetrics.metrics.k8s.io/nextcloud-8586cf4859-2vz6g                       9176592n   813156Ki   14.961s
+podmetrics.metrics.k8s.io/nextcloud-fairagro-onlyoffice-66b5b747d5-fjh5v   1878198n   892916Ki   15.123s
+podmetrics.metrics.k8s.io/nextcloud-fairagro-onlyoffice-postgresql-0       4707750n   213364Ki   16.154s
+podmetrics.metrics.k8s.io/nextcloud-fairagro-onlyoffice-postgresql-1       4758857n   364164Ki   16.032s
+podmetrics.metrics.k8s.io/nextcloud-redis-master-0                         6212050n   8300Ki     15.02s
+NAME                                                      CLASS            HOSTS                                 ADDRESS       PORTS     AGE
+ingress.networking.k8s.io/nextcloud                       nginx-internal   nextcloud.fizz.dataservice.zalf.de    10.10.84.71   80, 443   19m
+ingress.networking.k8s.io/nextcloud-fairagro-onlyoffice   nginx-internal   onlyoffice.fizz.dataservice.zalf.de   10.10.84.71   80, 443   19m
+NAME                                                                               MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
+poddisruptionbudget.policy/postgres-fairagro-postgresql-nextcloud-pdb              1               N/A               0                     19m
+poddisruptionbudget.policy/postgres-nextcloud-fairagro-onlyoffice-postgresql-pdb   1               N/A               0                     19m
+NAME                                                                   ROLE                         AGE
+rolebinding.rbac.authorization.k8s.io/nextcloud-backup-rolebinding     Role/nextcloud-backup-role   44h
+rolebinding.rbac.authorization.k8s.io/postgres-pod                     ClusterRole/postgres-pod     3d
+rolebinding.rbac.authorization.k8s.io/project-admin-binding-fairagro   ClusterRole/cluster-admin    3d
+NAME                                                   CREATED AT
+role.rbac.authorization.k8s.io/nextcloud-backup-role   2024-10-22T16:14:44Z

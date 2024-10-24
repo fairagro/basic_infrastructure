@@ -62,7 +62,10 @@
 		"ghcr.io/devcontainers-contrib/features/sops:1.0.14": {
 			"version": "v3.9.0"
 		},
-		"ghcr.io/dhoeric/features/hadolint:1": {}
+		"ghcr.io/dhoeric/features/hadolint:1": {},
+		"ghcr.io/xfrancois/devcontainers-features/velero:1": {
+			"version": "v1.13.2"
+		}
 	},
 
 	"postCreateCommand": {
