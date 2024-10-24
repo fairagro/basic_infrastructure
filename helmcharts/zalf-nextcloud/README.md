@@ -96,10 +96,11 @@ This needs to be done within the `PostgreSQL` object when also setting the recov
 
 This is just an information to prevent from confusion.
 
-During backup you can observe that both database instances will terminate and restart. The reason for this is
-unknown. Restart of the primary database instance will trigger a failover. This will implicitely create a new
-PostgreSQL timeline. So a database backup will also create a new timelime. During restore the original timeline
-will be restored.
+During backup you can observe that both database instances will terminate and restart. This is triggered by a
+patch of the kubernetes PostgreSQL object. Restart of the primary database instance will trigger a failover.
+This will implicitely create a new PostgreSQL timeline and cause a new basebackup of the new timetime once the
+PostgreSQL cluster is restarted. It is yet unclear if this has any implications (except a waste of storage, CPU
+and network resources because of the additional backup). During restore the original timelinewill be restored.
 
 ## Some useful shell commands ##
 

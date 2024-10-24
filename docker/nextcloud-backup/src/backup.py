@@ -116,30 +116,30 @@ def main():
         time.sleep(NEXTCLOUD_WAIT_FOR_STATUS_INTERVAL)
 
     # Query current PostgreSQL backup timeline
-    logger.info("About to query most recent PostgreSQL backup timeline...")
-    resp = stream(core_api.connect_get_namespaced_pod_exec,
-                  postgres_pod.metadata.name,
-                  NEXTCLOUD_NAMESPACE,
-                  command=POSTGRESQL_TIMELINE_COMMAND,
-                  stderr=True,
-                  stdin=False,
-                  stdout=True,
-                  tty=False)
-    timeline_id = 0
-    for line in resp.splitlines():
-        if line.startswith("Latest checkpoint's TimeLineID"):
-            timeline_id = line.split(":")[1].strip()
-    if timeline_id == 0:
-        raise ValueError("Could not find latest PostgreSQL backup timeline")
+    # logger.info("About to query most recent PostgreSQL backup timeline...")
+    # resp = stream(core_api.connect_get_namespaced_pod_exec,
+    #               postgres_pod.metadata.name,
+    #               NEXTCLOUD_NAMESPACE,
+    #               command=POSTGRESQL_TIMELINE_COMMAND,
+    #               stderr=True,
+    #               stdin=False,
+    #               stdout=True,
+    #               tty=False)
+    # timeline_id = 0
+    # for line in resp.splitlines():
+    #     if line.startswith("Latest checkpoint's TimeLineID"):
+    #         timeline_id = line.split(":")[1].strip()
+    # if timeline_id == 0:
+    #     raise ValueError("Could not find latest PostgreSQL backup timeline")
 
     # Query current PostgreSQL object
-    logger.info("About to query current PostgreSQL object...")
-    postgres = custom_api.get_namespaced_custom_object(
-        group="acid.zalan.do",
-        version="v1",
-        namespace=NEXTCLOUD_NAMESPACE,
-        plural="postgresqls",
-        name=NEXTCLOUD_POSTGRESQL_NAME)
+    # logger.info("About to query current PostgreSQL object...")
+    # postgres = custom_api.get_namespaced_custom_object(
+    #     group="acid.zalan.do",
+    #     version="v1",
+    #     namespace=NEXTCLOUD_NAMESPACE,
+    #     plural="postgresqls",
+    #     name=NEXTCLOUD_POSTGRESQL_NAME)
 
     backup_time = datetime.now(timezone.utc)
 
@@ -149,13 +149,13 @@ def main():
     logger.info(
         "About to patch the nextcloud postgres object with the correct restore timestamp...")
     # add or replace env var 'CLONE_TARGET_TIMELINE'
-    env_vars = [v for v in postgres["spec"]["env"] if v["name"] != "CLONE_TARGET_TIMELINE"] + [{
-        "name": "CLONE_TARGET_TIMELINE",
-        "value": timeline_id
-    }]
+    # env_vars = [v for v in postgres["spec"]["env"] if v["name"] != "CLONE_TARGET_TIMELINE"] + [{
+    #     "name": "CLONE_TARGET_TIMELINE",
+    #     "value": timeline_id
+    # }]
     postgres_patch = {
         "spec": {
-            "env": env_vars,
+            # "env": env_vars,
             "clone": {
                 "cluster": NEXTCLOUD_POSTGRESQL_NAME,
                 "timestamp": backup_time.strftime("%Y-%m-%dT%H:%M:%S%:z")}

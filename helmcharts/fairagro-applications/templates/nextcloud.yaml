@@ -23,8 +23,8 @@ spec:
       namespace: fairagro-nextcloud
       jsonPointers:
         - /spec/clone
-      jqPathExpressions:
-        - '.spec.env[] | select(.name == "CLONE_TARGET_TIMELINE")'
+      # jqPathExpressions:
+      #   - '.spec.env[] | select(.name == "CLONE_TARGET_TIMELINE")'
     - kind: Secret
       name: nextcloud
       namespace: fairagro-nextcloud
