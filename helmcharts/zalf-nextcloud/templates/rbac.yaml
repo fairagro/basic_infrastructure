@@ -19,7 +19,7 @@ rules:
     verbs: ["get"]
   - apiGroups: ["acid.zalan.do"]
     resources: ["postgresqls"]
-    verbs: ["get", "list", "patch"]
+    verbs: ["get", "list", "patch", "watch"]
 ---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
