@@ -1,9 +1,12 @@
+{{- if .Values.backup_spec }}
+{{- range $backup := .Values.backup_spec }}
+---
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: nextcloud-backup-cronjob
+  name: nextcloud-backup-{{ $backup.name }}
 spec:
-  schedule: "0 2 * * *" # run every day at 2am
+  schedule: {{ $backup.schedule }}
   jobTemplate:
     spec:
       template:
@@ -15,5 +18,9 @@ spec:
               imagePullPolicy: Always
               command:
                 - python
+                - -r
+                - {{ $backup.retention }}
                 - /nextcloud-backup/backup.py
           restartPolicy: OnFailure
+{{- end }}
+{{- end }}

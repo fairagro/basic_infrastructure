@@ -2,7 +2,9 @@
 A backup script for Nextcloud, running in docker.
 """
 
+import argparse
 import logging
+import re
 from datetime import datetime, timezone
 
 from jsonpickle import encode as json_encode
@@ -46,6 +48,14 @@ def main() -> None:
         datefmt="%Y-%m-%d %H:%M:%S"
     )
 
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-r', '--retention',
+                        type=validate_backup_retention_time,
+                        required=True,
+                        help='set backup retention time in format HHhMMmSSs')
+    args = parser.parse_args()
+    backup_retention_time = args.retention
+
     load_kubeconf()
 
     # Create a Kubernetes API client configuration
@@ -66,13 +76,35 @@ def main() -> None:
     wait_nextcloud_maintenance_mode_to_change("on")
     backup_time: datetime = datetime.now(timezone.utc)
     patch_postgresql_object_with_restore_timestamp(custom_api, backup_time)
-    create_velero_backup(custom_api, backup_time)
+    create_velero_backup(custom_api, backup_time, backup_retention_time)
     change_nextcloud_maintenance_mode(core_api, nextcloud_pod, "off")
 
     logger.info("Backup finished")
 
 
-def create_velero_backup(custom_api: client.CustomObjectsApi, backup_time: datetime) -> None:
+def validate_backup_retention_time(value: str) -> None:
+    """
+    Validate a backup retention time string.
+
+    Args:
+        value (str): The retention time string to validate.
+
+    Raises:
+        argparse.ArgumentTypeError: If the retention time string does not match
+        the required format or contains negative values.
+    """
+    pattern = re.compile(r'^(\d+)h([0-5][0-9])m([0-5][0-9])s$')
+    match = pattern.match(value)
+    if not match:
+        raise argparse.ArgumentTypeError('retention must be a string in the format HHhMMmSSs')
+    hours = int(match.group(1))
+    if hours < 0:
+        raise argparse.ArgumentTypeError('retention must be a non-negative value')
+
+def create_velero_backup(
+        custom_api: client.CustomObjectsApi,
+        backup_time: datetime,
+        backup_retention_time: str) -> None:
     """
     Create a velero backup for the Nextcloud deployment.
 
@@ -119,7 +151,7 @@ def create_velero_backup(custom_api: client.CustomObjectsApi, backup_time: datet
             },
             "snapshotMoveData": True,
             "storageLocation": VELERO_BACKUP_STORAGE_LOCATION,
-            "ttl": VELERO_BACKUP_TIME_TO_LIVE
+            "ttl": backup_retention_time
         }
     }
     custom_api.create_namespaced_custom_object(
