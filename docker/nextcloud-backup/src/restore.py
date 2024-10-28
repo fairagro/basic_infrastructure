@@ -52,7 +52,7 @@ def main() -> None:
     )
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('-n', '--backupname', type=str,
+    parser.add_argument('-b', '--backupname', type=str,
                         help='the full velero backup name to restore')
     args = parser.parse_args()
 
