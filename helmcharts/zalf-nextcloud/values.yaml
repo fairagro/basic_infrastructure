@@ -19,16 +19,16 @@ postgres_db:
 
 backup_spec:
   - name: daily
-    schedule: 0 2 * * 2-7 # Every day at 2AM, except on mondays
+    schedule: 0 2 * * 1-6 # Every day at 2AM, except on sundays
     retention: "192h0m0s" # 8 days
   - name: weekly
-    schedule: 0 2 8-31 * 1 # Every monday at 2AM, except the first monday of the month
+    schedule: 0 2 8-31 * 1 # Every sunday at 2AM, except the first sunday of the month
     retention: "840h0m0s" # 5 weeks
   - name: monthly
-    schedule: 0 2 1-7 2-12 1 # Every first monday of the month at 2AM, except january
+    schedule: 0 2 1-7 2-12 1 # Every first sunday of the month at 2AM, except january
     retention: "9360h0m0s" # 13 months
   - name: yearly
-    schedule: 0 2 1-7 1 1 # Every first monday in january at 2AM
+    schedule: 0 2 1-7 1 1 # Every first sunday in january at 2AM
     retention: "87600h0m0s" # 10 years
 
 # ## Liveness and readiness probe values
