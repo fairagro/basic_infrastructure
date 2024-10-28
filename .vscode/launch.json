@@ -20,6 +20,15 @@
             "args": ["--retention", "1h0m0s", "--backupname", "test"],
             "console": "integratedTerminal",
             "justMyCode": false
+        },
+        {
+            "name": "Python Debugger: restore.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "docker/nextcloud-backup/src/restore.py",
+            "args": ["--backupname", "fairagro-nextcloud-daily-20241028-153316"],
+            "console": "integratedTerminal",
+            "justMyCode": false
         }
     ]
 }

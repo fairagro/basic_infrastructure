@@ -2,6 +2,7 @@
 A backup script for Nextcloud, running in docker.
 """
 
+import argparse
 import logging
 import sys
 from datetime import datetime, timezone
@@ -50,6 +51,11 @@ def main() -> None:
         datefmt="%Y-%m-%d %H:%M:%S"
     )
 
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-n', '--backupname', type=str,
+                        help='the full velero backup name to restore')
+    args = parser.parse_args()
+
     load_kubeconf()
 
     # Create a Kubernetes API client configuration
@@ -67,7 +73,7 @@ def main() -> None:
     if check_nextcloud_is_running():
         logger.info("Nextcloud is already running. Exiting.")
         sys.exit(0)
-    backup_name = get_newest_backup_name(custom_api)
+    backup_name = args.backupname or get_newest_backup_name(custom_api)
     create_velero_restore(custom_api, backup_name)
     deployment: client.V1Deployment = get_nextcloud_deployment(apps_api)
     nextcloud_pod: client.V1Pod = get_nextcloud_pod(core_api, deployment)
