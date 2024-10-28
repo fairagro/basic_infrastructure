@@ -6,8 +6,8 @@ nextcloud:
         password: ENC[AES256_GCM,data:Rsw4RI53G4b/x6XbsjvVZr9JSu5BMjlqKuCxjA==,iv:lemEZdtRgBX0xoJw94UBQ6nIPUw2vzssz25xuaojLbM=,tag:4gqbNLG5mfLYLf4k5HjVBw==,type:str]
         mail:
             smtp:
-                name: ENC[AES256_GCM,data:zueW9W94iWCTX3TM2fsTGr+2jrcCDA==,iv:dPJoaMzw7zNA1aM+Mi+1Z2tBpREKgbilFhiD0/RmTuI=,tag:+aR9E5Av/H3y0mipcJ2veg==,type:str]
-                password: ENC[AES256_GCM,data:oSUev3LzUNL445IIJqXLd9hLI54H3JYjic4pSpy6JtiP,iv:cRRrHXg8H1Bnryz84VHSxwrOuDrAOkw0UQSDr82R+Gc=,tag:M2XOL7QEz8GUg4VOY+90bQ==,type:str]
+                name: ENC[AES256_GCM,data:yM2eCfTlVu7uVCpzBFuJ23eG9M+eFVT8S3KqpdCmTw==,iv:nE+muZRcK8kzJA0QwMLg3QmhY6IKdoL7C7VSVDaWF6I=,tag:J7GrOkIV3N+bQLi977fviA==,type:str]
+                password: ENC[AES256_GCM,data:MfWemo5U5CxPUrANddEWjBgXHed+ADS2uFKpHRQFFs0=,iv:p4C4afEFn25M1xkMFiwQMuO+0Mn1FPtReiB3JK0KIgg=,tag:87fiu06x00nq5lHOx2FjNA==,type:str]
     redis:
         auth:
             password: ENC[AES256_GCM,data:8VolU7Dv18MX/dW9raDetSvNdqech6XPX57IWstM+R5j3ERIGjH35H4zfPULmW2efg==,iv:lQMycb/As49GB5qIf2n9zNdXmcjfzhBZbaV5ldG4vJU=,tag:zXolidNMezUmYUKKfXSfRA==,type:str]
@@ -32,8 +32,8 @@ sops:
             S2NYVWZYWFBRYjFJNTViV29oK0F4ZnMKzwx/B8YtEvNJrISNWHBdN/A2ZBLAZdLl
             L+qfdgNnFjADrWHqPB8hZ0wWqYaeTw50mh2LdtvlU2CT+YFva2ursg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-04-24T13:15:02Z"
-    mac: ENC[AES256_GCM,data:UvZrqmb2CF727e/OmWoIfTEHJqgH9Y+BupYHALhS5k9mv+MrU2JMKaynK4lun/1AgpkOWthhc1cMEIHwrceCPkX8lY1GullmHkPmdPfJTvill3NR4vnp6YsL+yfuhQs/SDAkNA9CkJeDo3QzQEFdrYBYDaAZXIilqWsvcslpDSA=,iv:TwB0jnpqZwz7IIuwNbQHhhEgeRKI8bPPbkW8KtfZqxQ=,tag:IguFQ/75tCcD/KkEzcZPWg==,type:str]
+    lastmodified: "2024-10-28T09:31:00Z"
+    mac: ENC[AES256_GCM,data:zKKcG3kb+p+Q8UqWdDM3T1hFPaTxIgL40Z6rzqOMcuiwjlBbOHcbNS3zwEg5RrMOIr9AE65WaCevFsE8CILAyi9Gxqgd5JmgP2hyEKna7a1at2p3ILMtyxW/ZPEfMJDFviwE71fNfWrHIIFnwqdUym2t2zhSqD/dE7QYwObaTx8=,iv:U2duEWwUy9aEXbvmhouprZA0WcfD9TDCQevdFR/s6Ww=,tag:2psToAndbBTG+imOVZ7qHQ==,type:str]
     pgp:
         - created_at: "2024-09-17T12:02:06Z"
           enc: |-
@@ -107,4 +107,4 @@ sops:
             -----END PGP MESSAGE-----
           fp: 97BAD070076E18F23DE40CF367FBD7D6A827909E
     unencrypted_suffix: _unencrypted
-    version: 3.8.1
+    version: 3.9.0
