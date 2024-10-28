@@ -53,7 +53,8 @@ def main() -> None:
                         type=validate_backup_retention_time,
                         required=True,
                         help='set backup retention time in format HHhMMmSSs')
-    parser.add_argument('-n', '--backupname', type=str, default=NEXTCLOUD_DEPLOYMENT_NAME,
+    parser.add_argument('-n', '--backupname', type=validate_backup_name,
+                        default=NEXTCLOUD_DEPLOYMENT_NAME,
                         help='the basename for the backup with will be suffixed by the timestamp')
     args = parser.parse_args()
     backup_retention_time = args.retention
@@ -110,6 +111,31 @@ def validate_backup_retention_time(value: str) -> str:
     if hours < 0:
         raise argparse.ArgumentTypeError(
             'retention must be a non-negative value')
+    return value
+
+def validate_backup_name(value: str) -> str:
+    """
+    Validate a backup name string. Velero backups will only permit names
+    compliant with RFC 1123 subdomains.
+
+    Args:
+        value (str): The backup name string to validate.
+
+    Raises:
+        argparse.ArgumentTypeError: If the backup name string does not match
+        the required RFC 1123 subdomain format.
+
+    Returns:
+        str: The validated backup name string.
+    """
+    # Regular expression pattern for RFC 1123 subdomain compliance
+    pattern = re.compile(r'^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$')
+    
+    # Check if the backup name matches the pattern
+    if not pattern.match(value):
+        raise argparse.ArgumentTypeError(
+            'backup name must be a valid RFC 1123 subdomain')
+    
     return value
 
 def create_velero_backup(
