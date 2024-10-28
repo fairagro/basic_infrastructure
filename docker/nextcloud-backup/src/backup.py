@@ -96,7 +96,7 @@ def validate_backup_retention_time(value: str) -> None:
         argparse.ArgumentTypeError: If the retention time string does not match
         the required format or contains negative values.
     """
-    pattern = re.compile(r'^(\d+)h([0-5][0-9])m([0-5][0-9])s$')
+    pattern = re.compile(r'^(\d+)h([0-5]?[0-9])m([0-5]?[0-9])s$')
     match = pattern.match(value)
     if not match:
         raise argparse.ArgumentTypeError('retention must be a string in the format HHhMMmSSs')
