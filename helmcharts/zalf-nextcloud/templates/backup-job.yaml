@@ -18,9 +18,11 @@ spec:
               imagePullPolicy: Always
               command:
                 - python
+                - /nextcloud-backup/backup.py
                 - -r
                 - {{ $backup.retention }}
-                - /nextcloud-backup/backup.py
+                - -n
+                - {{ $backup.name }}
           restartPolicy: OnFailure
 {{- end }}
 {{- end }}

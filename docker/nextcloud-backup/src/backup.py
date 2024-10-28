@@ -53,8 +53,11 @@ def main() -> None:
                         type=validate_backup_retention_time,
                         required=True,
                         help='set backup retention time in format HHhMMmSSs')
+    parser.add_argument('-n', '--backupname', type=str, default=NEXTCLOUD_DEPLOYMENT_NAME,
+                        help='the basename for the backup with will be suffixed by the timestamp')
     args = parser.parse_args()
     backup_retention_time = args.retention
+    backup_basename = args.backupname
 
     load_kubeconf()
 
@@ -76,7 +79,7 @@ def main() -> None:
     wait_nextcloud_maintenance_mode_to_change("on")
     backup_time: datetime = datetime.now(timezone.utc)
     patch_postgresql_object_with_restore_timestamp(custom_api, backup_time)
-    create_velero_backup(custom_api, backup_time, backup_retention_time)
+    create_velero_backup(custom_api, backup_time, backup_basename, backup_retention_time)
     change_nextcloud_maintenance_mode(core_api, nextcloud_pod, "off")
 
     logger.info("Backup finished")
@@ -104,6 +107,7 @@ def validate_backup_retention_time(value: str) -> None:
 def create_velero_backup(
         custom_api: client.CustomObjectsApi,
         backup_time: datetime,
+        backup_basename: str,
         backup_retention_time: str) -> None:
     """
     Create a velero backup for the Nextcloud deployment.
@@ -111,6 +115,8 @@ def create_velero_backup(
     Parameters:
     custom_api (client.CustomObjectsApi): The Kubernetes custom objects API client.
     backup_time (datetime): The time the backup was taken.
+    backup_basename (str): The name of the backup.
+    backup_retention_time (str): The time the backup will be kept.
 
     This function creates a velero backup for the specified Nextcloud deployment
     and waits for it to complete.
@@ -119,8 +125,7 @@ def create_velero_backup(
         None
     """
     logger.info("About to create velero backup...")
-    backup_name = f'{NEXTCLOUD_NAMESPACE}-{NEXTCLOUD_DEPLOYMENT_NAME}-{
-        backup_time.strftime("%Y-%m-%dt%H-%M-%S")}'
+    backup_name = f'{NEXTCLOUD_NAMESPACE}-{backup_basename}-{backup_time.strftime("%Y%m%d-%H%M%S")}'
     backup_object = {
         "apiVersion": "velero.io/v1",
         "kind": "Backup",

@@ -133,7 +133,7 @@ def create_velero_restore(
         None
     """
     restore_time = datetime.now(timezone.utc)
-    restore_name = f'{backup_name}-{restore_time.strftime("%Y%m%d%H%M%S")}'
+    restore_name = f'{backup_name}-restored-{restore_time.strftime("%Y%m%d-%H%M%S")}'
     restore_object: Dict[str, Any] = {
         "apiVersion": "velero.io/v1",
         "kind": "Restore",
