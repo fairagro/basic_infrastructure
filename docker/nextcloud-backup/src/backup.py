@@ -85,24 +85,32 @@ def main() -> None:
     logger.info("Backup finished")
 
 
-def validate_backup_retention_time(value: str) -> None:
+def validate_backup_retention_time(value: str) -> str:
     """
     Validate a backup retention time string.
 
     Args:
-        value (str): The retention time string to validate.
+        value (str): The retention time string to validate. This string must be in
+        the format HHhMMmSSs, i.e. a string consisting of a number of hours, minutes
+        and seconds, separated by 'h', 'm' and 's', respectively.
 
     Raises:
         argparse.ArgumentTypeError: If the retention time string does not match
         the required format or contains negative values.
+
+    Returns:
+        str: The validated retention time string.
     """
     pattern = re.compile(r'^(\d+)h([0-5]?[0-9])m([0-5]?[0-9])s$')
     match = pattern.match(value)
     if not match:
-        raise argparse.ArgumentTypeError('retention must be a string in the format HHhMMmSSs')
+        raise argparse.ArgumentTypeError(
+            'retention must be a string in the format HHhMMmSSs')
     hours = int(match.group(1))
     if hours < 0:
-        raise argparse.ArgumentTypeError('retention must be a non-negative value')
+        raise argparse.ArgumentTypeError(
+            'retention must be a non-negative value')
+    return value
 
 def create_velero_backup(
         custom_api: client.CustomObjectsApi,

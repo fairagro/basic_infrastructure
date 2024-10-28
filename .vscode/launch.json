@@ -11,6 +11,15 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": false
+        },
+        {
+            "name": "Python Debugger: backup.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "docker/nextcloud-backup/src/backup.py",
+            "args": ["--retention", "1h0m0s", "--backupname", "test"],
+            "console": "integratedTerminal",
+            "justMyCode": false
         }
     ]
 }
