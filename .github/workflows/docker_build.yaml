@@ -57,9 +57,6 @@ jobs:
     strategy:
       matrix:
         python_version: ["3.12"]
-        container:
-          - nextcloud-backup
-          - spilo-test
 
     steps:
       - name: Checkout git repo
@@ -72,7 +69,7 @@ jobs:
         id: metadata
         uses: docker/metadata-action@v5.5.1
         with:
-          images: zalf/${{ matrix.container }}-${{ matrix.python_version }}
+          images: zalf/fairagro_nextcloud_backup-${{ matrix.python_version }}
           tags: |
             type=semver,pattern={{version}},value=${{ needs.version.outputs.SemVer }}
             type=raw,value=${{ needs.version.outputs.Major }}.${{ needs.version.outputs.Minor }}
@@ -81,9 +78,9 @@ jobs:
       - name: Build and export to Docker
         uses: docker/build-push-action@v6.9.0
         with:
-          context: docker/${{ matrix.container }}
+          context: docker/nextcloud-backup
           load: true
-          tags: ${{ matrix.container }}:test
+          tags: nextcloud-backup:test
           labels: ${{ steps.metadata.outputs.labels }} # we need the labels as they're checked for
           build-args: python_version=${{ matrix.python_version }}
 
@@ -104,7 +101,7 @@ jobs:
       - name: Build and Push
         uses: docker/build-push-action@v6.9.0
         with:
-          context: docker/${{ matrix.container }}
+          context: docker/nextcloud-backup
           #push: ${{ github.event_name != 'pull_request' }}
           push: true
           tags: ${{ steps.metadata.outputs.tags }}

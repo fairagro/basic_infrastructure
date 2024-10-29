@@ -66,8 +66,8 @@ def main() -> None:
                  json_encode(api_client.configuration.__dict__))
 
     logger.info("About to instantiate the needed Kubernetes APIs...")
-    # core_api: client.CoreV1Api = client.CoreV1Api(api_client)
-    # apps_api: api.AppsV1Api = api.AppsV1Api(api_client)
+    core_api: client.CoreV1Api = client.CoreV1Api(api_client)
+    apps_api: api.AppsV1Api = api.AppsV1Api(api_client)
     custom_api: client.CustomObjectsApi = client.CustomObjectsApi(api_client)
 
     if check_nextcloud_is_running():
@@ -75,16 +75,16 @@ def main() -> None:
         sys.exit(0)
     backup_name = args.backupname or get_newest_backup_name(custom_api)
     create_velero_restore(custom_api, backup_name)
-    # deployment: client.V1Deployment = get_nextcloud_deployment(apps_api)
-    # nextcloud_pod: client.V1Pod = get_nextcloud_pod(core_api, deployment)
-    # change_nextcloud_maintenance_mode(core_api, nextcloud_pod, "off")
-    # wait_nextcloud_maintenance_mode_to_change("off")
-    # exec_command_in_nextcloud_container(
-    #     core_api, nextcloud_pod.metadata.name, NEXTCLOUD_FILES_SCAN_COMMAND
-    # )
-    # exec_command_in_nextcloud_container(
-    #     core_api, nextcloud_pod.metadata.name, NEXTCLOUD_CLIENT_SYNC_COMMAND
-    # )
+    deployment: client.V1Deployment = get_nextcloud_deployment(apps_api)
+    nextcloud_pod: client.V1Pod = get_nextcloud_pod(core_api, deployment)
+    change_nextcloud_maintenance_mode(core_api, nextcloud_pod, "off")
+    wait_nextcloud_maintenance_mode_to_change("off")
+    exec_command_in_nextcloud_container(
+        core_api, nextcloud_pod.metadata.name, NEXTCLOUD_FILES_SCAN_COMMAND
+    )
+    exec_command_in_nextcloud_container(
+        core_api, nextcloud_pod.metadata.name, NEXTCLOUD_CLIENT_SYNC_COMMAND
+    )
 
     logger.info("Restore finished")
 
