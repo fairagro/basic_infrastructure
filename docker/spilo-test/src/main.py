@@ -32,7 +32,7 @@ COLUMN_NAME = sql.Identifier('timestamp')
 # Create a connection to the database
 conn = psycopg.connect(
     host=host,
-    database=database,
+    dbname=database,
     user=username,
     password=password
 )
