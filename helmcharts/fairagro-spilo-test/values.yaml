@@ -81,11 +81,7 @@ tolerations: []
 
 affinity: {}
 
-env:
-  - name: DB_TABLE
-    value: working
-  - name: DB_COLUMN
-    value: timestamp
+env: []
 
 postgres_db:
   storageClass: postgres

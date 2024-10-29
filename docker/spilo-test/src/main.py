@@ -19,14 +19,15 @@ import time
 import os
 
 import psycopg
+from psycopg import sql
 
 # Get the database connection settings from environment variables
 host = os.environ.get('DB_HOST')
 database = os.environ.get('DB_NAME')
 username = os.environ.get('DB_USER')
 password = os.environ.get('DB_PASSWORD')
-table_name = os.environ.get('DB_TABLE')
-column_name = os.environ.get('DB_COLUMN')
+TABBLE_NAME = sql.Identifier('work')
+COLUMN_NAME = sql.Identifier('timestamp')
 
 # Create a connection to the database
 conn = psycopg.connect(
@@ -41,14 +42,14 @@ cur = conn.cursor()
 
 # Create the table and column if they do not exist
 cur.execute(f"""
-    CREATE TABLE IF NOT EXISTS {table_name} (
+    CREATE TABLE IF NOT EXISTS {TABBLE_NAME} (
         id SERIAL PRIMARY KEY
     );
 """)
 
 cur.execute(f"""
-    ALTER TABLE {table_name}
-    ADD COLUMN IF NOT EXISTS {column_name} TIMESTAMP;
+    ALTER TABLE {TABBLE_NAME}
+    ADD COLUMN IF NOT EXISTS {COLUMN_NAME} TIMESTAMP;
 """)
 
 # Commit the changes
@@ -59,8 +60,7 @@ while True:
     current_timestamp = datetime.datetime.now()
 
     # Insert the timestamp into the database
-    cur.execute("INSERT INTO your_table (timestamp) VALUES (%s)",
-                (current_timestamp,))
+    cur.execute(f"INSERT INTO {TABBLE_NAME} ({COLUMN_NAME}) VALUES (NOW())")
 
     # Commit the changes
     conn.commit()
