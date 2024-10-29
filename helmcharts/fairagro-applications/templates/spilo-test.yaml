@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: spilo-test
+  namespace: fairagro-applications
+spec:
+  project: fairagro
+  source:
+    repoURL: "git@github.com:fairagro/basic_infrastructure.git"
+    path: helmcharts/fairagro-spilo-test
+    targetRevision: "{{ .Values.spilo_test_revision }}"
+    helm: {}
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: fairagro-spilo-test
+  syncPolicy:
+    syncOptions:
+      - Prune=true
+      - CreateNamespace=true
