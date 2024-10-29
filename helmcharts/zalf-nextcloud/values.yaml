@@ -21,14 +21,17 @@ backup_spec:
   - name: daily
     schedule: 0 2 * * 1-6 # Every day at 2AM, except on sundays
     retention: "192h0m0s" # 8 days
+  # Note: we use '*/7' instead of '0' to denote sunday, as this causes cron to perform a
+  # boolean "and" operation instead of "or" between the day-of-month and day-of-week fields.
+  # Ref: https://blog.healthchecks.io/2022/09/schedule-cron-job-the-funky-way/
   - name: weekly
-    schedule: 0 2 8-31 * 0 # Every sunday at 2AM, except the first sunday of the month
+    schedule: 0 2 8-31 * */7 # Every sunday at 2AM, except the first sunday of the month
     retention: "840h0m0s" # 5 weeks
   - name: monthly
-    schedule: 0 2 1-7 2-12 0 # Every first sunday of the month at 2AM, except january
+    schedule: 0 2 1-7 2-12 */7 # Every first sunday of the month at 2AM, except january
     retention: "9360h0m0s" # 13 months
   - name: yearly
-    schedule: 0 2 1-7 1 0 # Every first sunday in january at 2AM
+    schedule: 0 2 1-7 1 */7 # Every first sunday in january at 2AM
     retention: "87600h0m0s" # 10 years
 
 # ## Liveness and readiness probe values
