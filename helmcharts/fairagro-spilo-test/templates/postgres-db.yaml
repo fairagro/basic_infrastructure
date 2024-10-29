@@ -1,0 +1,70 @@
+# kubernetes endpoint and type of object definition
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  # name of the postgres cluster / this could be build from input from the intranet website
+  name: {{ include "fairagro-spilo-test.fullname" . }}
+spec:
+  # We do not use the PostgreSQL operator backup feature. All backups will be managed by
+  # velero on its own. So we deactivate all preconfigured operator-based backups here.
+  env:
+    - name: AWS_ACCESS_KEY_ID
+      valueFrom:
+        secretKeyRef:
+          name: postgres-operator
+          key: AWS_ACCESS_KEY_ID
+    - name: AWS_SECRET_ACCESS_KEY
+      valueFrom:
+        secretKeyRef:
+          name: postgres-operator
+          key: AWS_SECRET_ACCESS_KEY
+    - name: CLONE_AWS_ACCESS_KEY_ID
+      valueFrom:
+        secretKeyRef:
+          name: postgres-operator
+          key: CLONE_AWS_ACCESS_KEY_ID
+    - name: CLONE_AWS_SECRET_ACCESS_KEY
+      valueFrom:
+        secretKeyRef:
+          name: postgres-operator
+          key: CLONE_AWS_SECRET_ACCESS_KEY
+
+  # teamIds can be defined for the hole cluster and are there to group cluster e.g. by working group
+  # must be configured in the postgres-operator yaml before using them here.
+  teamId: "fairagro"
+  # we only want to access postgres internally from within the cluster. So deactivate all loadbalancers.
+  enableMasterLoadBalancer: false
+  enableMasterPoolerLoadBalancer: false
+  enableReplicaLoadBalancer: false
+  enableReplicaPoolerLoadBalancer: false
+  # size of the database in GByte
+  volume:
+    size: "{{ .Values.postgres_db.size }}"
+{{- if .Values.postgres_db.storageClass }}
+    storageClass: "{{ .Values.postgres_db.storageClass }}"
+{{- end }}
+  # The database is burstable
+  resources: {}
+  # number of replicas, this can improve performance and failsafe
+  numberOfInstances: 2
+  # list of users and there rights
+  users:
+    # database owner
+    {{ include "fairagro-spilo-test.fullname" . }}:
+      - superuser
+      - createdb
+
+  # database and owner definition
+  # databases: name->owner
+  databases:
+    {{ include "fairagro-spilo-test.fullname" . }}: {{ include "fairagro-spilo-test.fullname" . }}
+  preparedDatabases:
+    {{ include "fairagro-spilo-test.fullname" . }}:
+      schemas:
+        public: {}
+
+  # postgresql database version
+  postgresql:
+    version: "15"
+    parameters:
+      password_encryption: scram-sha-256

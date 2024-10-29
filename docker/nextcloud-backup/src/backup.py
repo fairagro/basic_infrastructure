@@ -130,12 +130,12 @@ def validate_backup_name(value: str) -> str:
     """
     # Regular expression pattern for RFC 1123 subdomain compliance
     pattern = re.compile(r'^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$')
-    
+
     # Check if the backup name matches the pattern
     if not pattern.match(value):
         raise argparse.ArgumentTypeError(
             'backup name must be a valid RFC 1123 subdomain')
-    
+
     return value
 
 def create_velero_backup(
