@@ -9,7 +9,7 @@ replicaCount: 1
 image:
   repository: zalf/fairagro-spilo-test
   # This sets the pull policy for images.
-  pullPolicy: always
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
