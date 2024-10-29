@@ -84,3 +84,12 @@ env: []
 postgres_db:
   storageClass: postgres
   size: 1Gi
+
+pgadmin4:
+  ingress:
+    enabled: true
+    hosts:
+      - host: pgadmin-spilo-test.fizz.dataservice.zalf.de
+        paths:
+          - path: /
+            pathType: Prefix
