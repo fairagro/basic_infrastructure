@@ -9,7 +9,9 @@ spec:
     repoURL: "git@github.com:fairagro/basic_infrastructure.git"
     path: helmcharts/fairagro-spilo-test
     targetRevision: "{{ .Values.spilo_test_revision }}"
-    helm: {}
+    helm:
+      valueFiles:
+        - ../../environments/fizz/values/fairagro-spilo-test.enc.yaml
   destination:
     server: "https://kubernetes.default.svc"
     namespace: fairagro-spilo-test
