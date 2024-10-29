@@ -36,4 +36,4 @@ COPY src/ /spilo-test/
 # We also copy the container-structure-test environment. This make it a lot easier to test the resulting container.
 # COPY test/container-structure-test /middleware/test/container-structure-test
 # Set the command to run when the container starts
-CMD [ "/bin/sh" ]
+CMD [ "/usr/bin/python", "/spilo-test/main.py" ]
