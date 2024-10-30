@@ -41,16 +41,15 @@ conn = psycopg.connect(
 cur = conn.cursor()
 
 # Create the table and column if they do not exist
-cur.execute(f"""
-    CREATE TABLE IF NOT EXISTS {TABBLE_NAME} (
-        id SERIAL PRIMARY KEY
-    );
-""")
+cur.execute(
+    sql.SQL("CREATE TABLE IF NOT EXISTS {} (id SERIAL PRIMARY KEY)")
+        .format(sql.Identifier(TABBLE_NAME))
+)
 
-cur.execute(f"""
-    ALTER TABLE {TABBLE_NAME}
-    ADD COLUMN IF NOT EXISTS {COLUMN_NAME} TIMESTAMP;
-""")
+cur.execute(
+    sql.SQL("ALTER TABLE {} ADD COLUMN IF NOT EXISTS {} TIMESTAMP")
+        .format(sql.Identifier(TABBLE_NAME), sql.Identifier(COLUMN_NAME))
+)
 
 # Commit the changes
 conn.commit()
@@ -60,7 +59,10 @@ while True:
     current_timestamp = datetime.datetime.now()
 
     # Insert the timestamp into the database
-    cur.execute(f"INSERT INTO {TABBLE_NAME} ({COLUMN_NAME}) VALUES (NOW())")
+    cur.execute(
+        sql.SQL("INSERT INTO {} ({}) VALUES (NOW())")
+            .format(sql.Identifier(TABBLE_NAME), sql.Identifier(COLUMN_NAME))
+    )
 
     # Commit the changes
     conn.commit()
