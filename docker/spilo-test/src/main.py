@@ -26,7 +26,7 @@ host = os.environ.get('DB_HOST')
 database = os.environ.get('DB_NAME')
 username = os.environ.get('DB_USER')
 password = os.environ.get('DB_PASSWORD')
-TABBLE_NAME = sql.Identifier('work')
+TABLE_NAME = sql.Identifier('work')
 COLUMN_NAME = sql.Identifier('timestamp')
 
 # Create a connection to the database
@@ -43,12 +43,12 @@ cur = conn.cursor()
 # Create the table and column if they do not exist
 cur.execute(
     sql.SQL("CREATE TABLE IF NOT EXISTS {} (id SERIAL PRIMARY KEY)")
-        .format(sql.Identifier(TABBLE_NAME))
+        .format(TABLE_NAME)
 )
 
 cur.execute(
     sql.SQL("ALTER TABLE {} ADD COLUMN IF NOT EXISTS {} TIMESTAMP")
-        .format(sql.Identifier(TABBLE_NAME), sql.Identifier(COLUMN_NAME))
+        .format(TABLE_NAME, COLUMN_NAME)
 )
 
 # Commit the changes
@@ -61,7 +61,7 @@ while True:
     # Insert the timestamp into the database
     cur.execute(
         sql.SQL("INSERT INTO {} ({}) VALUES (NOW())")
-            .format(sql.Identifier(TABBLE_NAME), sql.Identifier(COLUMN_NAME))
+            .format(TABLE_NAME, COLUMN_NAME)
     )
 
     # Commit the changes
