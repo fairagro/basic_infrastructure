@@ -50,13 +50,13 @@ spec:
             - name: DB_HOST
               value: {{ include "fairagro-spilo-test.fullname" . }}
             - name: DB_NAME
-              value: {{ include "fairagro-spilo-test.fullname" . }}
+              value: {{ include "fairagro-spilo-test.dbname" . }}
             - name: DB_USER
-              value: {{ include "fairagro-spilo-test.fullname" . }}
+              value: {{ include "fairagro-spilo-test.dbname" . }}
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "fairagro-spilo-test.fullname" . }}.{{ include "fairagro-spilo-test.fullname" . }}.credentials.postgresql.acid.zalan.do
+                  name: {{ include "fairagro-spilo-test.dbname" . }}.{{ include "fairagro-spilo-test.dbname" . }}.credentials.postgresql.acid.zalan.do
                   key: password
             {{- with .Values.env }}
             {{- toYaml . | nindent 12 }}
