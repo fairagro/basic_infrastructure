@@ -10,8 +10,20 @@ spec:
     defaultVolumesToFsBackup: False
     includedNamespaces:
       - fairagro-spilo-test
+    # includedResources:
+    #   - "*"
     includedResources:
-      - "*"
+      - configmaps
+      - persistentvolumeclaims
+      - secrets
+      - serviceaccounts
+      - postgresqls
+      - deployments
+      - statefulsets
+      - ingresses
+      - networkpolicies
+      - roles
+      - rolebindings
     # labelSelector:
     #   matchExpressions:
     #     - key: batch.kubernetes.io/job-name
