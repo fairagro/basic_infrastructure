@@ -5,7 +5,7 @@ metadata:
   # name of the postgres cluster / this could be build from input from the intranet website
   name: {{ include "fairagro-spilo-test.fullname" . }}
 spec:
-{{- if .Values.enable_restore }}
+{{- if .Values.global.enable_restore }}
   clone:
     cluster: {{ include "fairagro-spilo-test.fullname" . }}
     timestamp: "2024-10-30T18:48:00+00:00"
