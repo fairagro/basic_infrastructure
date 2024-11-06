@@ -8,7 +8,7 @@ spec:
 {{- if .Values.global.enable_restore }}
   clone:
     cluster: {{ include "fairagro-spilo-test.fullname" . }}
-    timestamp: "2024-10-30T18:48:00+00:00"
+    timestamp: "2024-11-06T16:56:00+00:00"
 {{- end}}
   # We do not use the PostgreSQL operator backup feature. All backups will be managed by
   # velero on its own. So we deactivate all preconfigured operator-based backups here.
