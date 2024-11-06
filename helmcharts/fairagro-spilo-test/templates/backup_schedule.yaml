@@ -1,0 +1,25 @@
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: spilo-test-backup
+  namespace: velero
+spec:
+  schedule: "0 0 */36500 * *"
+  template:
+    csiSnapshotTimeout: 10m0s
+    defaultVolumesToFsBackup: False
+    includedNamespaces:
+      - fairagro-spilo-test
+    includedResources:
+      - "*"
+    # labelSelector:
+    #   matchExpressions:
+    #     - key: batch.kubernetes.io/job-name
+    #       operator: DoesNotExist
+    itemOperationTimeout: 4h0m0s
+    resourcePolicy:
+      kind: configmap
+      name: skip-postgres-volume-backup
+    snapshotMoveData: True
+    storageLocation: default
+    ttl: 168h0m0s
