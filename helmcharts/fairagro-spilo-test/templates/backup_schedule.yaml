@@ -24,10 +24,12 @@ spec:
       - networkpolicies
       - roles
       - rolebindings
-    # labelSelector:
-    #   matchExpressions:
-    #     - key: batch.kubernetes.io/job-name
-    #       operator: DoesNotExist
+    labelSelector:
+      matchExpressions:
+        - key: application
+          operator: NotIn
+          values:
+            - spilo
     itemOperationTimeout: 4h0m0s
     resourcePolicy:
       kind: configmap
