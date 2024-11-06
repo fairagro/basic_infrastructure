@@ -56,7 +56,7 @@ limesurvey:
       'ssl_disable_alert' => true,
       'emailmethod' => 'smtp',
       'protocol' => 'smtp',
-      'emailsmtphost' => 'smtp.hostinger.com:587',
+      'emailsmtphost' => 'www623.your-server.de:587',
       'emailsmtpuser' => getenv('SMTP_USER'),
       'emailsmtppassword' => getenv('SMTP_PASSWORD'),
       'emailsmtpssl' => 'tls',
