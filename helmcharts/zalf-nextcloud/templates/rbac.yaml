@@ -10,10 +10,16 @@ metadata:
 rules:
   - apiGroups: [""] # core API group
     resources: ["pods"]
-    verbs: ["get", "list"]
+    verbs: ["get", "list", "create"]
   - apiGroups: [""]
     resources: ["pods/exec"]
     verbs: ["get", "create"]
+  - apiGroups: [""] # core API group
+    resources: ["persistentvolumeclaims", "services"]
+    verbs: ["delete"]
+  - apiGroups: ["apps"] # core API group
+    resources: ["statefulsets"]
+    verbs: ["delete"]
   - apiGroups: ["apps"] # apps API group
     resources: ["deployments"]
     verbs: ["get"]

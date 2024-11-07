@@ -52,8 +52,13 @@ def main() -> None:
         datefmt="%Y-%m-%d %H:%M:%S"
     )
 
+    # Currently we require to pass the backup name as the function 'get_newest_backup_name'
+    # does currently not work. Firstly because the service account has no permissions to
+    # list backups in the Velero namespace (why). Secondly because the velero namespace
+    # contains all backups -- not just the FAIRagro nextcloud ones. So a filter method is
+    # required. 
     parser = argparse.ArgumentParser()
-    parser.add_argument('-b', '--backupname', type=str,
+    parser.add_argument('-b', '--backupname', type=str, required=True,
                         help='the full velero backup name to restore')
     args = parser.parse_args()
 
@@ -76,7 +81,7 @@ def main() -> None:
         sys.exit(0)
     backup_name = args.backupname or get_newest_backup_name(custom_api)
     create_velero_restore(custom_api, backup_name)
-    delete_obsolete_postgresql_artifacts(core_api)
+    delete_obsolete_postgresql_artifacts(core_api, apps_api)
     deployment: client.V1Deployment = get_nextcloud_deployment(apps_api)
     nextcloud_pod: client.V1Pod = get_nextcloud_pod(core_api, deployment)
     change_nextcloud_maintenance_mode(core_api, nextcloud_pod, "off")
@@ -196,7 +201,10 @@ def create_velero_restore(
                 logger.error("Restore failed with phase %s", restore_phase)
                 w.stop()
 
-def delete_obsolete_postgresql_artifacts(core_api: client.CoreV1Api) -> None:
+def delete_obsolete_postgresql_artifacts(
+        core_api: client.CoreV1Api,
+        apps_api: api.AppsV1Api
+) -> None:
     """
     Delete obsolete PostgreSQL artifacts created by Velero backup.
 
@@ -230,12 +238,12 @@ def delete_obsolete_postgresql_artifacts(core_api: client.CoreV1Api) -> None:
 
     # Deleting obsolete PostgreSQL stateful sets
     logger.info("About to delete obsolete PostgreSQL stateful sets...")
-    statefulsets = core_api.list_namespaced_stateful_set(
+    statefulsets = apps_api.list_namespaced_stateful_set(
         NEXTCLOUD_NAMESPACE,
         label_selector="application=spilo")
     for statefulset in statefulsets.items:
         # Delete each stateful set in the list
-        core_api.delete_namespaced_stateful_set(
+        apps_api.delete_namespaced_stateful_set(
             statefulset.metadata.name, NEXTCLOUD_NAMESPACE)
 
 if __name__ == '__main__':
