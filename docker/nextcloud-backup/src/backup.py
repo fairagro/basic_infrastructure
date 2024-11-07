@@ -174,6 +174,10 @@ def create_velero_backup(
             "csiSnapshotTimeout": "10m0s",
             "defaultVolumesToFsBackup": False,
             "includedNamespaces": [NEXTCLOUD_NAMESPACE],
+            # we need to be very careful about the included resources.
+            # Secrets for the PostgresSQL database credentials must be included,
+            # whereas the PostgreSQL Statefulset must not.
+            # Sadly this means that we cannot use the labelSelectr outcommented below.
             "includedResources": [
                 "configmaps",
                 "persistentvolumeclaims",
@@ -181,23 +185,22 @@ def create_velero_backup(
                 "serviceaccounts",
                 "postgresqls",
                 "deployments",
-                "statefulsets",
                 "ingresses",
-                "networkpolicies",
+                "cronjobs",
                 "roles",
                 "rolebindings"
             ],
-            "labelSelector": {
-                "matchExpressions": [
-                    {
-                        "key": "application",
-                        "operator": "NotIn",
-                        "values": [
-                            "spilo"
-                        ]
-                    }
-                ],
-            },
+            # "labelSelector": {
+            #     "matchExpressions": [
+            #         {
+            #             "key": "application",
+            #             "operator": "NotIn",
+            #             "values": [
+            #                 "spilo"
+            #             ]
+            #         }
+            #     ],
+            # },
             "itemOperationTimeout": "4h0m0s",
             "resourcePolicy": {
                 "kind": "configmap",
