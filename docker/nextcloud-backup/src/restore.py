@@ -218,6 +218,16 @@ def delete_obsolete_postgresql_artifacts(core_api: client.CoreV1Api) -> None:
         core_api.delete_namespaced_persistent_volume_claim(
             pvc.metadata.name, NEXTCLOUD_NAMESPACE)
 
+    # Deleting obsolete PostgreSQL services
+    logger.info("About to delete obsolete PostgreSQL stateful persistent volume claims...")
+    services = core_api.list_namespaced_service(
+        NEXTCLOUD_NAMESPACE,
+        label_selector="application=spilo")
+    for service in services.items:
+        # Delete each PVC in the list
+        core_api.delete_namespaced_service(
+            service.metadata.name, NEXTCLOUD_NAMESPACE)
+
     # Deleting obsolete PostgreSQL stateful sets
     logger.info("About to delete obsolete PostgreSQL stateful sets...")
     statefulsets = core_api.list_namespaced_stateful_set(
