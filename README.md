@@ -111,3 +111,16 @@ kubectl delete all,pdb,configmap,secret,pvc,ingress,serviceaccount --all -n fair
 Consider to [list all resources](#list-everything-within-a-namespace) to check if really
 everything except `Roles`s and `RoleBindings` has been deleted. Note that kubernetes will
 automatically recreate `configmap/kube-root-ca.crt` and `serviceaccount/default`.
+
+### Access kuberenetes cluster using `etcdctl` ###
+
+I case you would like to access the underlying etcd database of kuberentes directly, log
+into one of the kubernetes nodes. Then:
+
+```bash
+sudo -i
+set -a
+. /etc/ssl/etdctl
+set +a
+/usr/local/bin/etcdctl get / --prefix --keys-only  # an example
+```
