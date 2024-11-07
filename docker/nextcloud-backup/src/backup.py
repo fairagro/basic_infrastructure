@@ -292,4 +292,3 @@ def patch_postgresql_object_with_restore_timestamp(
 
 if __name__ == '__main__':
     main()
-
