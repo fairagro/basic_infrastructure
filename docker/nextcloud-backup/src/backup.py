@@ -174,12 +174,27 @@ def create_velero_backup(
             "csiSnapshotTimeout": "10m0s",
             "defaultVolumesToFsBackup": False,
             "includedNamespaces": [NEXTCLOUD_NAMESPACE],
-            "includedResources": ["*"],
+            "includedResources": [
+                "configmaps",
+                "persistentvolumeclaims",
+                "secrets",
+                "serviceaccounts",
+                "postgresqls",
+                "deployments",
+                "statefulsets",
+                "ingresses",
+                "networkpolicies",
+                "roles",
+                "rolebindings"
+            ],
             "labelSelector": {
                 "matchExpressions": [
                     {
-                        "key": "batch.kubernetes.io/job-name",
-                        "operator": "DoesNotExist"
+                        "key": "application",
+                        "operator": "NotIn",
+                        "values": [
+                            "spilo"
+                        ]
                     }
                 ],
             },
