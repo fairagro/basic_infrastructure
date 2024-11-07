@@ -22,6 +22,7 @@ from util.kubernetes import (
     load_kubeconf,
     wait_nextcloud_maintenance_mode_to_change,
     NEXTCLOUD_URL,
+    NEXTCLOUD_NAMESPACE,
     VELERO_PHASES_ERROR,
     VELERO_PHASES_SUCCESS
 )
@@ -75,6 +76,7 @@ def main() -> None:
         sys.exit(0)
     backup_name = args.backupname or get_newest_backup_name(custom_api)
     create_velero_restore(custom_api, backup_name)
+    delete_obsolete_postgresql_artifacts(core_api)
     deployment: client.V1Deployment = get_nextcloud_deployment(apps_api)
     nextcloud_pod: client.V1Pod = get_nextcloud_pod(core_api, deployment)
     change_nextcloud_maintenance_mode(core_api, nextcloud_pod, "off")
@@ -194,6 +196,37 @@ def create_velero_restore(
                 logger.error("Restore failed with phase %s", restore_phase)
                 w.stop()
 
+def delete_obsolete_postgresql_artifacts(core_api: client.CoreV1Api) -> None:
+    """
+    Delete obsolete PostgreSQL artifacts created by Velero backup.
+
+    This function deletes persistent volume claims (PVCs) and stateful sets
+    related to the PostgreSQL operator in the Nextcloud namespace that were 
+    created by a Velero backup. This cleanup is necessary to allow the 
+    PostgreSQL operator to recreate them.
+
+    Args:
+        core_api (client.CoreV1Api): The Kubernetes CoreV1Api client.
+    """
+    # Deleting obsolete PostgreSQL stateful persistent volume claims
+    logger.info("About to delete obsolete PostgreSQL stateful persistent volume claims...")
+    pvcs = core_api.list_namespaced_persistent_volume_claim(
+        NEXTCLOUD_NAMESPACE,
+        label_selector="application=spilo")
+    for pvc in pvcs.items:
+        # Delete each PVC in the list
+        core_api.delete_namespaced_persistent_volume_claim(
+            pvc.metadata.name, NEXTCLOUD_NAMESPACE)
+
+    # Deleting obsolete PostgreSQL stateful sets
+    logger.info("About to delete obsolete PostgreSQL stateful sets...")
+    statefulsets = core_api.list_namespaced_stateful_set(
+        NEXTCLOUD_NAMESPACE,
+        label_selector="application=spilo")
+    for statefulset in statefulsets.items:
+        # Delete each stateful set in the list
+        core_api.delete_namespaced_stateful_set(
+            statefulset.metadata.name, NEXTCLOUD_NAMESPACE)
 
 if __name__ == '__main__':
     main()

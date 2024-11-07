@@ -189,7 +189,8 @@ def create_velero_backup(
                 "cronjobs",
                 "roles",
                 "rolebindings",
-                "services"
+                "services",
+                "statefulsets"
             ],
             # "labelSelector": {
             #     "matchExpressions": [
