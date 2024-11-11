@@ -6,7 +6,7 @@ mydir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 backup=$1
 
 namespace=fairagro-nextcloud
-image=zalf/fairagro_nextcloud_backup-3.12@sha256:5c9c126938f35c6faf25eff80c73a67f4e6a53293f04f181e3a9afb2185f5a39
+image=zalf/fairagro_nextcloud_backup-3.12@sha256:344ee00ee643e0aa4e32ad6c987e63ed475d8d23fc1efeedce5b3dfa7a68efbc
 
 # create a service account and permissions 
 yaml_definition_file="${mydir}/../helmcharts/zalf-nextcloud/templates/rbac.yaml"
