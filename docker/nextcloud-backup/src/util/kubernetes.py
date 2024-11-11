@@ -21,6 +21,7 @@ NEXTCLOUD_DEPLOYMENT_NAME = "nextcloud"
 NEXTCLOUD_WAIT_FOR_STATUS_ATTEMPTS = 600
 NEXTCLOUD_WAIT_FOR_STATUS_INTERVAL = 1
 NEXTCLOUD_WAIT_FOR_STATUS_TIMEOUT = 10
+NEXTCLOUD_CREATION_TIMEOUT = 600
 NEXTCLOUD_MAINTENANCE_HTTP_STATUS_CODES = {
     'on': (500, 599),
     'off': (200, 399),
@@ -211,11 +212,12 @@ def wait_for_container_to_be_running(
     # Stream updates for the pods in the specified namespace
     for pod in w.stream(
             core_api.list_namespaced_pod,
-            namespace=NEXTCLOUD_NAMESPACE):
+            namespace=NEXTCLOUD_NAMESPACE,
+            timeout_seconds=NEXTCLOUD_CREATION_TIMEOUT):
         # Check if the current pod is the one we're interested in
         if pod['object'].metadata.name == pod_name:
             # Iterate over the container statuses in the pod
-            for container in pod['object'].status.container_statuses:
+            for container in (pod['object'].status.container_statuses or []):
                 # Check if the container is the one we're looking for and if it is running
                 if container.name == container_name and \
                     container.state.running is not None:
