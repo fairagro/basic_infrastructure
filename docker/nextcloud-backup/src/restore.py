@@ -25,7 +25,8 @@ from util.kubernetes import (
     NEXTCLOUD_URL,
     NEXTCLOUD_NAMESPACE,
     VELERO_PHASES_ERROR,
-    VELERO_PHASES_SUCCESS
+    VELERO_PHASES_SUCCESS,
+    NEXTCLOUD_POSTGRESQL_NAME
 )
 
 
@@ -34,6 +35,7 @@ NEXTCLOUD_QUERY_STATUS_TIMEOUT = 10
 NEXTCLOUD_CLIENT_SYNC_COMMAND = ["/var/www/html/occ", "maintenance:data-fingerprint"]
 NEXTCLOUD_FILES_SCAN_COMMAND = ["/var/www/html/occ", "files:scan", "--all"]
 VELERO_RESTORE_TIMEOUT = 300
+POSTGRESQL_SERVICE_CREATION_TIMEOUT = 900
 
 
 logger = logging.getLogger(__name__)
@@ -85,6 +87,7 @@ def main() -> None:
     delete_obsolete_postgresql_artifacts(core_api, apps_api)
     deployment: client.V1Deployment = get_nextcloud_deployment(apps_api)
     nextcloud_pod: client.V1Pod = get_nextcloud_pod(core_api, deployment)
+    wait_for_postgresql_service_to_be_available(core_api)
     wait_for_container_to_be_running(core_api, nextcloud_pod.metadata.name, "nextcloud")
     change_nextcloud_maintenance_mode(core_api, nextcloud_pod, "off")
     wait_nextcloud_maintenance_mode_to_change("off")
@@ -218,7 +221,7 @@ def delete_obsolete_postgresql_artifacts(
     Args:
         core_api (client.CoreV1Api): The Kubernetes CoreV1Api client.
     """
-    # Deleting obsolete PostgreSQL stateful persistent volume claims
+    # # Deleting obsolete PostgreSQL stateful persistent volume claims
     logger.info("About to delete obsolete PostgreSQL stateful persistent volume claims...")
     pvcs = core_api.list_namespaced_persistent_volume_claim(
         NEXTCLOUD_NAMESPACE,
@@ -228,25 +231,51 @@ def delete_obsolete_postgresql_artifacts(
         core_api.delete_namespaced_persistent_volume_claim(
             pvc.metadata.name, NEXTCLOUD_NAMESPACE)
 
-    # Deleting obsolete PostgreSQL services
-    logger.info("About to delete obsolete PostgreSQL stateful persistent volume claims...")
-    services = core_api.list_namespaced_service(
-        NEXTCLOUD_NAMESPACE,
-        label_selector="application=spilo")
-    for service in services.items:
-        # Delete each PVC in the list
-        core_api.delete_namespaced_service(
-            service.metadata.name, NEXTCLOUD_NAMESPACE)
+    # # Deleting obsolete PostgreSQL services
+    # logger.info("About to delete obsolete PostgreSQL stateful persistent volume claims...")
+    # services = core_api.list_namespaced_service(
+    #     NEXTCLOUD_NAMESPACE,
+    #     label_selector="application=spilo")
+    # for service in services.items:
+    #     # Delete each PVC in the list
+    #     core_api.delete_namespaced_service(
+    #         service.metadata.name, NEXTCLOUD_NAMESPACE)
 
-    # Deleting obsolete PostgreSQL stateful sets
-    logger.info("About to delete obsolete PostgreSQL stateful sets...")
-    statefulsets = apps_api.list_namespaced_stateful_set(
-        NEXTCLOUD_NAMESPACE,
-        label_selector="application=spilo")
-    for statefulset in statefulsets.items:
-        # Delete each stateful set in the list
-        apps_api.delete_namespaced_stateful_set(
-            statefulset.metadata.name, NEXTCLOUD_NAMESPACE)
+    # # Deleting obsolete PostgreSQL stateful sets
+    # logger.info("About to delete obsolete PostgreSQL stateful sets...")
+    # statefulsets = apps_api.list_namespaced_stateful_set(
+    #     NEXTCLOUD_NAMESPACE,
+    #     label_selector="application=spilo")
+    # for statefulset in statefulsets.items:
+    #     # Delete each stateful set in the list
+    #     apps_api.delete_namespaced_stateful_set(
+    #         statefulset.metadata.name, NEXTCLOUD_NAMESPACE)
+
+def wait_for_postgresql_service_to_be_available(
+    core_api: client.CoreV1Api,
+) -> None:
+    """
+    Wait until the PostgreSQL service is available.
+
+    This function waits until the PostgreSQL service is available in the
+    Nextcloud namespace. If the service is not available within the
+    specified timeout the function will raise a TimeoutError.
+
+    Args:
+        core_api (client.CoreV1Api): The Kubernetes CoreV1Api client.
+
+    Raises:
+        TimeoutError: If the PostgreSQL service is not available within the
+            specified timeout.
+    """
+    logger.info("Waiting for PostgreSQL service to be available...")
+    w = Watch()
+    for service in w.stream(
+            core_api.list_namespaced_service,
+            namespace=NEXTCLOUD_NAMESPACE,
+            timeout_seconds=POSTGRESQL_SERVICE_CREATION_TIMEOUT):
+        if service['object'].metadata.name == NEXTCLOUD_POSTGRESQL_NAME:
+            w.stop()
 
 if __name__ == '__main__':
     main()

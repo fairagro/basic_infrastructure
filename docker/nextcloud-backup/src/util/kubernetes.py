@@ -29,6 +29,7 @@ NEXTCLOUD_MAINTENANCE_HTTP_STATUS_CODES = {
 VELERO_PHASES_SUCCESS = ["Completed"]
 VELERO_PHASES_ERROR = ["FailedValidation",
                        "PartiallyFailed", "Failed", "Deleting"]
+NEXTCLOUD_POSTGRESQL_NAME = "fairagro-postgresql-nextcloud"
 
 
 logger = logging.getLogger(__name__)

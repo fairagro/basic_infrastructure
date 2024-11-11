@@ -21,11 +21,11 @@ from util.kubernetes import (
     NEXTCLOUD_DEPLOYMENT_NAME,
     NEXTCLOUD_NAMESPACE,
     VELERO_PHASES_ERROR,
-    VELERO_PHASES_SUCCESS
+    VELERO_PHASES_SUCCESS,
+    NEXTCLOUD_POSTGRESQL_NAME
 )
 
 
-NEXTCLOUD_POSTGRESQL_NAME = "fairagro-postgresql-nextcloud"
 VELERO_BACKUP_STORAGE_LOCATION = "default"
 VELERO_BACKUP_TIME_TO_LIVE = "87600h0m0s"
 VELERO_BACKUP_TIMEOUT = 300
@@ -189,8 +189,8 @@ def create_velero_backup(
                 "cronjobs",
                 "roles",
                 "rolebindings",
-                "services",
-                "statefulsets"
+                "statefulsets",
+                #"services"
             ],
             # "labelSelector": {
             #     "matchExpressions": [
