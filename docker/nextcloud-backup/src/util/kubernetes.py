@@ -10,6 +10,7 @@ import requests
 from kubernetes import client, config
 from kubernetes.stream import stream
 from kubernetes.client import api
+from kubernetes.watch import Watch
 
 
 NEXTCLOUD_URL = "https://nextcloud.fizz.dataservice.zalf.de"
@@ -133,6 +134,7 @@ def change_nextcloud_maintenance_mode(
     exec_command_in_nextcloud_container(
         core_api, nextcloud_pod.metadata.name, command, valid_responses[on_off])
 
+
 def wait_nextcloud_maintenance_mode_to_change(on_off: Literal["on", "off"]) -> None:
     """
     Waits for the nextcloud maintenance mode to change to the desired state.
@@ -150,6 +152,7 @@ def wait_nextcloud_maintenance_mode_to_change(on_off: Literal["on", "off"]) -> N
             break
         attempts += 1
         time.sleep(NEXTCLOUD_WAIT_FOR_STATUS_INTERVAL)
+
 
 def get_nextcloud_pod(core_api: client.CoreV1Api, deployment: client.V1Deployment) -> client.V1Pod:
     """
@@ -184,3 +187,37 @@ def get_nextcloud_deployment(apps_api: api.AppsV1Api) -> client.V1Deployment:
     logger.info("About to find the nextcloud deployment...")
     return apps_api.read_namespaced_deployment(
         NEXTCLOUD_DEPLOYMENT_NAME, NEXTCLOUD_NAMESPACE)
+
+
+def wait_for_container_to_be_running(
+    core_api: client.CoreV1Api,
+    pod_name: str,
+    container_name: str
+) -> None:
+    """
+    Wait for a specific container in a pod to be in the running state.
+
+    Parameters:
+    core_api (CoreV1Api): The Kubernetes core API client.
+    pod_name (str): The name of the pod containing the container.
+    container_name (str): The name of the container to check.
+
+    This function uses a watch to continuously monitor the status of the specified
+    container within the given pod until it is running.
+    """
+    logger.info("Waiting for container '%s' in pod '%s' to be running...",
+                container_name, pod_name)
+    w = Watch()
+    # Stream updates for the pods in the specified namespace
+    for pod in w.stream(
+            core_api.list_namespaced_pod,
+            namespace=NEXTCLOUD_NAMESPACE):
+        # Check if the current pod is the one we're interested in
+        if pod['object'].metadata.name == pod_name:
+            # Iterate over the container statuses in the pod
+            for container in pod['object'].status.container_statuses:
+                # Check if the container is the one we're looking for and if it is running
+                if container.name == container_name and \
+                    container.state.running is not None:
+                    # Stop the watch as the container is now running
+                    w.stop()

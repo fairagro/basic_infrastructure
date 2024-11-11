@@ -21,6 +21,7 @@ from util.kubernetes import (
     get_nextcloud_pod,
     load_kubeconf,
     wait_nextcloud_maintenance_mode_to_change,
+    wait_for_container_to_be_running,
     NEXTCLOUD_URL,
     NEXTCLOUD_NAMESPACE,
     VELERO_PHASES_ERROR,
@@ -81,9 +82,10 @@ def main() -> None:
         sys.exit(0)
     backup_name = args.backupname or get_newest_backup_name(custom_api)
     create_velero_restore(custom_api, backup_name)
-    #delete_obsolete_postgresql_artifacts(core_api, apps_api)
+    delete_obsolete_postgresql_artifacts(core_api, apps_api)
     deployment: client.V1Deployment = get_nextcloud_deployment(apps_api)
     nextcloud_pod: client.V1Pod = get_nextcloud_pod(core_api, deployment)
+    wait_for_container_to_be_running(core_api, nextcloud_pod.metadata.name, "nextcloud")
     change_nextcloud_maintenance_mode(core_api, nextcloud_pod, "off")
     wait_nextcloud_maintenance_mode_to_change("off")
     exec_command_in_nextcloud_container(
