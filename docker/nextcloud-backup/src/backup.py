@@ -192,17 +192,17 @@ def create_velero_backup(
                 "services",
                 "statefulsets"
             ],
-            # "labelSelector": {
-            #     "matchExpressions": [
-            #         {
-            #             "key": "application",
-            #             "operator": "NotIn",
-            #             "values": [
-            #                 "spilo"
-            #             ]
-            #         }
-            #     ],
-            # },
+            "labelSelector": {
+                "matchExpressions": [
+                    {
+                        "key": "application",
+                        "operator": "NotIn",
+                        "values": [
+                            "spilo"
+                        ]
+                    }
+                ],
+            },
             "itemOperationTimeout": "4h0m0s",
             "resourcePolicy": {
                 "kind": "configmap",
