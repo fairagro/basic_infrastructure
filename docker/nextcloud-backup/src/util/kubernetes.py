@@ -4,7 +4,7 @@ Shared functions for the backup and restore scripts.
 
 import logging
 import time
-from typing import List, Literal
+from typing import List, Literal, Optional
 
 import requests
 from kubernetes import client, config
@@ -22,6 +22,7 @@ NEXTCLOUD_WAIT_FOR_STATUS_ATTEMPTS = 600
 NEXTCLOUD_WAIT_FOR_STATUS_INTERVAL = 1
 NEXTCLOUD_WAIT_FOR_STATUS_TIMEOUT = 10
 NEXTCLOUD_CREATION_TIMEOUT = 600
+NEXTCLOUD_WAIT_FOR_COMMAND_TIMEOUT = 900
 NEXTCLOUD_MAINTENANCE_HTTP_STATUS_CODES = {
     'on': (500, 599),
     'off': (200, 399),
@@ -71,35 +72,52 @@ def exec_command_in_nextcloud_container(
     core_api: client.CoreV1Api,
     pod_name: str,
     command: List[str],
-    valid_responses: List[str] = None
+    valid_responses: Optional[List[str]] = None,
+    repeat_responses: Optional[List[str]] = None
 ) -> None:
     """
-    Execute a command in a pod, using the kubernetes API.
+    Execute a command in a Nextcloud container and wait for the response.
+
+    This function will execute a command in the Nextcloud pod and wait for the
+    response. If the response is in the `repeat_responses` list, it will wait for
+    1 second and then retry the command. If the response is not in the
+    `valid_responses` list, it will raise a RuntimeError.
 
     Parameters:
     core_api (CoreV1Api): The Kubernetes core API client.
-    pod_name (str): The name of the pod.
+    pod_name (str): The name of the Nextcloud pod.
     command (List[str]): The command to execute.
-    valid_responses (List[str]): A list of valid responses from the command.
-
-    Returns:
-        None
-
-    Raises:
-        RuntimeError: If the response from the command is not in the valid_responses list.
+    valid_responses (List[str]): The list of valid responses.
+    repeat_responses (List[str]): The list of responses to repeat the command for.
     """
-    resp = stream(core_api.connect_get_namespaced_pod_exec,
-                  pod_name,
-                  NEXTCLOUD_NAMESPACE,
-                  container=NEXTCLOUD_CONTAINER_NAME,
-                  command=command,
-                  stderr=True,
-                  stdin=False,
-                  stdout=True,
-                  tty=False)
-    if valid_responses and resp not in valid_responses:
-        raise RuntimeError(
-            f"Unexpected response from nextcloud {command}: {resp}")
+    if repeat_responses is None:
+        repeat_responses = [
+            r'Doctrine\DBAL\Exception: Failed to connect to the database'
+        ]
+    attempts = 0
+    while True:
+        if attempts >= NEXTCLOUD_WAIT_FOR_COMMAND_TIMEOUT:
+            raise TimeoutError("Timeout occured when waiting for nextcloud command")
+        resp = stream(core_api.connect_get_namespaced_pod_exec,
+                      pod_name,
+                      NEXTCLOUD_NAMESPACE,
+                      container=NEXTCLOUD_CONTAINER_NAME,
+                      command=command,
+                      stderr=True,
+                      stdin=False,
+                      stdout=True,
+                      tty=False)
+        if any(r in resp for r in repeat_responses):
+            logger.debug(
+                "Response from nextcloud %s was %s. Waiting 1 second and retrying.", command, resp)
+            time.sleep(1)
+            attempts += 1
+            continue
+        if valid_responses and not any(r in resp for r in valid_responses):
+            msg = "Unexpected response from nextcloud %s: %s"
+            logger.debug(msg, command, resp)
+            raise RuntimeError(msg.format(command, resp))
+        break
 
 
 def change_nextcloud_maintenance_mode(
@@ -124,12 +142,12 @@ def change_nextcloud_maintenance_mode(
     logger.info("About to change nextcloud maintenance mode to '%s'...", on_off)
     valid_responses = {
         "on": [
-            "Maintenance mode enabled\n",
-            "Maintenance mode already enabled\n"
+            "Maintenance mode enabled",
+            "Maintenance mode already enabled"
         ],
         "off": [
-            "Maintenance mode disabled\n",
-            "Maintenance mode already disabled\n"
+            "Maintenance mode disabled",
+            "Maintenance mode already disabled"
         ]
     }
     command = NEXTCLOUD_MAINTENANCE_COMMAND + [f"--{on_off}"]
@@ -221,6 +239,6 @@ def wait_for_container_to_be_running(
             for container in (pod['object'].status.container_statuses or []):
                 # Check if the container is the one we're looking for and if it is running
                 if container.name == container_name and \
-                    container.state.running is not None:
+                        container.state.running is not None:
                     # Stop the watch as the container is now running
                     w.stop()

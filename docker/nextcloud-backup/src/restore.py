@@ -25,8 +25,7 @@ from util.kubernetes import (
     NEXTCLOUD_URL,
     NEXTCLOUD_NAMESPACE,
     VELERO_PHASES_ERROR,
-    VELERO_PHASES_SUCCESS,
-    NEXTCLOUD_POSTGRESQL_NAME
+    VELERO_PHASES_SUCCESS
 )
 
 
@@ -59,7 +58,7 @@ def main() -> None:
     # does currently not work. Firstly because the service account has no permissions to
     # list backups in the Velero namespace (why). Secondly because the velero namespace
     # contains all backups -- not just the FAIRagro nextcloud ones. So a filter method is
-    # required. 
+    # required.
     parser = argparse.ArgumentParser()
     parser.add_argument('-b', '--backupname', type=str, required=True,
                         help='the full velero backup name to restore')
@@ -84,15 +83,17 @@ def main() -> None:
         sys.exit(0)
     backup_name = args.backupname or get_newest_backup_name(custom_api)
     create_velero_restore(custom_api, backup_name)
-    delete_obsolete_postgresql_artifacts(core_api, apps_api)
+    delete_obsolete_postgresql_artifacts(core_api)
     deployment: client.V1Deployment = get_nextcloud_deployment(apps_api)
     nextcloud_pod: client.V1Pod = get_nextcloud_pod(core_api, deployment)
-    wait_for_postgresql_service_to_be_available(core_api)
     wait_for_container_to_be_running(core_api, nextcloud_pod.metadata.name, "nextcloud")
     change_nextcloud_maintenance_mode(core_api, nextcloud_pod, "off")
     wait_nextcloud_maintenance_mode_to_change("off")
+    valid_responses = [
+        "Starting scan for user"
+    ]
     exec_command_in_nextcloud_container(
-        core_api, nextcloud_pod.metadata.name, NEXTCLOUD_FILES_SCAN_COMMAND
+        core_api, nextcloud_pod.metadata.name, NEXTCLOUD_FILES_SCAN_COMMAND, valid_responses
     )
     exec_command_in_nextcloud_container(
         core_api, nextcloud_pod.metadata.name, NEXTCLOUD_CLIENT_SYNC_COMMAND
@@ -207,8 +208,7 @@ def create_velero_restore(
                 w.stop()
 
 def delete_obsolete_postgresql_artifacts(
-        core_api: client.CoreV1Api,
-        apps_api: api.AppsV1Api
+        core_api: client.CoreV1Api
 ) -> None:
     """
     Delete obsolete PostgreSQL artifacts created by Velero backup.
@@ -231,51 +231,6 @@ def delete_obsolete_postgresql_artifacts(
         core_api.delete_namespaced_persistent_volume_claim(
             pvc.metadata.name, NEXTCLOUD_NAMESPACE)
 
-    # # Deleting obsolete PostgreSQL services
-    # logger.info("About to delete obsolete PostgreSQL stateful persistent volume claims...")
-    # services = core_api.list_namespaced_service(
-    #     NEXTCLOUD_NAMESPACE,
-    #     label_selector="application=spilo")
-    # for service in services.items:
-    #     # Delete each PVC in the list
-    #     core_api.delete_namespaced_service(
-    #         service.metadata.name, NEXTCLOUD_NAMESPACE)
-
-    # # Deleting obsolete PostgreSQL stateful sets
-    # logger.info("About to delete obsolete PostgreSQL stateful sets...")
-    # statefulsets = apps_api.list_namespaced_stateful_set(
-    #     NEXTCLOUD_NAMESPACE,
-    #     label_selector="application=spilo")
-    # for statefulset in statefulsets.items:
-    #     # Delete each stateful set in the list
-    #     apps_api.delete_namespaced_stateful_set(
-    #         statefulset.metadata.name, NEXTCLOUD_NAMESPACE)
-
-def wait_for_postgresql_service_to_be_available(
-    core_api: client.CoreV1Api,
-) -> None:
-    """
-    Wait until the PostgreSQL service is available.
-
-    This function waits until the PostgreSQL service is available in the
-    Nextcloud namespace. If the service is not available within the
-    specified timeout the function will raise a TimeoutError.
-
-    Args:
-        core_api (client.CoreV1Api): The Kubernetes CoreV1Api client.
-
-    Raises:
-        TimeoutError: If the PostgreSQL service is not available within the
-            specified timeout.
-    """
-    logger.info("Waiting for PostgreSQL service to be available...")
-    w = Watch()
-    for service in w.stream(
-            core_api.list_namespaced_service,
-            namespace=NEXTCLOUD_NAMESPACE,
-            timeout_seconds=POSTGRESQL_SERVICE_CREATION_TIMEOUT):
-        if service['object'].metadata.name == NEXTCLOUD_POSTGRESQL_NAME:
-            w.stop()
 
 if __name__ == '__main__':
     main()
