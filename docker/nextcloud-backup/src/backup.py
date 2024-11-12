@@ -190,7 +190,7 @@ def create_velero_backup(
                 "roles",
                 "rolebindings",
                 "statefulsets",
-                #"services"
+                "services"
             ],
             # "labelSelector": {
             #     "matchExpressions": [
