@@ -291,9 +291,11 @@ def patch_postgresql_object_with_restore_timestamp(
         plural="postgresqls",
         timeout_seconds=POSTGRESQL_RESTART_TIMEOUT
     ):
-        if postgres['object'].get('metadata', {}).get('name') == NEXTCLOUD_POSTGRESQL_NAME and \
-                postgres['object'].get('status', {}).get('PostgresClusterStatus') == "Running":
-            w.stop()
+        if postgres['object'].get('metadata', {}).get('name') == NEXTCLOUD_POSTGRESQL_NAME:
+            status = postgres['object'].get('status', {}).get('PostgresClusterStatus')
+            logger.debug("PostgreSQL cluster state: %s", status)
+            if status == "Running":
+                w.stop()
 
 
 if __name__ == '__main__':
