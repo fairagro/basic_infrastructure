@@ -69,7 +69,7 @@ source <(docker completion bash)
 # Setup aliases
 alias k=kubectl
 alias d=docker
-alias kda="kubectl delete all,pdb,configmap,secret,pvc,ingress,serviceaccount --all"
+alias kda="kubectl delete all,pdb,configmap,secret,pvc,ingress,serviceaccount,endpoint --all"
 
 # Set bash completion for aliases
 complete -o default -F __start_kubectl k
