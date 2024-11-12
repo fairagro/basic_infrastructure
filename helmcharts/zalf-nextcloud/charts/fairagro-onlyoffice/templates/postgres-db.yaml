@@ -4,6 +4,8 @@ kind: postgresql
 metadata:
   # name of the postgres cluster / this could be build from input from the intranet website
   name: '{{ include "fairagro-onlyoffice.databasename" . }}'
+  labels:
+    {{- include "fairagro-onlyoffice.labels" . | nindent 4 }}
 spec:
   env:
 {{- if or .Values.global.enable_backup .Values.global.enable_restore }}
