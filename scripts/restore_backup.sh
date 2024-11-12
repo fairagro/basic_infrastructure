@@ -1,36 +1,22 @@
 #!/usr/bin/env bash
 
+# figure out some paths
+mydir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
+
 backup=$1
 
 namespace=fairagro-nextcloud
-image=zalf/fairagro_nextcloud_backup-3.12@sha256:b7cc08729055f2fc1d6d3537c9d0bf5198b4855f02575dc1eceabed4fc5cef03
+image=zalf/fairagro_nextcloud_backup-3.12@sha256:c10742096f9a3a3cfe97bb51af2537a1ce3f3c1abf6eecc0981be0ca23c437c9
 
 # create a service account and permissions 
-sa=nextcloud-backup-account
-kubectl create serviceaccount $sa -n $namespace
-kubectl create role nextcloud-backup-role-1 \
-  --namespace $namespace \
-  --verb=get,list,create \
-  --resource=pods,deployments
-kubectl create role nextcloud-backup-role-2 \
-  --namespace $namespace \
-  --resource=postgresqls \
-  --verb=get,list,patch,watch
-kubectl create rolebinding nextcloud-backup-rolebinding-1 \
-  --namespace $namespace \
-  --role=nextcloud-backup-role-1 \
-  --serviceaccount=$namespace:$sa
-kubectl create rolebinding nextcloud-backup-rolebinding-2 \
-  --namespace $namespace \
-  --role=nextcloud-backup-role-2 \
-  --serviceaccount=namespace:$sa
-kubectl create clusterrolebinding fairagro-nextcloud-velero-clusterrolebinding \
-  --clusterrole=velero-clusterrole \
-  --serviceaccount=$namespace:$sa
-account=system:serviceaccount:$namespace:$sa
+yaml_definition_file="${mydir}/../helmcharts/zalf-nextcloud/templates/rbac.yaml"
+sed -e "s/{{ .Release.Namespace }}/${namespace}/g" $yaml_definition_file | kubectl apply -f -
 
-# current_context=$(kubectl config current-context)
-# account=$(kubectl config view -o json | jq -r ".contexts[] | select(.name == \"$current_context\") | .context.user")
 timestamp=$(date +"%Y%m%d-%H%M%S")
 
-kubectl run restore-${timestamp} --image=$image --as=$account -n $namespace -- python /nextcloud-backup/restore.py -b $backup
+kubectl run restore-${timestamp} \
+  --image=$image \
+  --namespace $namespace \
+  --restart=Never \
+  --overrides='{ "spec": { "serviceAccount": "nextcloud-backup-account" }  }' \
+  -- python /nextcloud-backup/restore.py -b $backup
