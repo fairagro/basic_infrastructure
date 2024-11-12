@@ -192,17 +192,18 @@ def create_velero_backup(
                 "statefulsets",
                 "services"
             ],
-            # "labelSelector": {
-            #     "matchExpressions": [
-            #         {
-            #             "key": "application",
-            #             "operator": "NotIn",
-            #             "values": [
-            #                 "spilo"
-            #             ]
-            #         }
-            #     ],
-            # },
+            "labelSelector": {
+                # Do not backup OnlyOffice
+                "matchExpressions": [
+                    {
+                        "key": "app.kubernetes.io/name",
+                        "operator": "NotIn",
+                        "values": [
+                            "fairagro-onlyoffice"
+                        ]
+                    }
+                ],
+            },
             "itemOperationTimeout": "4h0m0s",
             "resourcePolicy": {
                 "kind": "configmap",
