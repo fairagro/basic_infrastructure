@@ -33,7 +33,7 @@ nextcloud:
   persistence:
     size: 4Gi
     nextcloudData:
-      size: 4Gi
+      size: 10Gi
 
 fairagro-onlyoffice:
   enabled: true

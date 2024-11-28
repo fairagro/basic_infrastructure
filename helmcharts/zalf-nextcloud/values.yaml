@@ -50,7 +50,7 @@ nextcloud:
     # This requires to install nginx as sidecar container. But currently I receive HTTP 500 when trying this.
     #tag: 0b04a2e2c14672a2fe56ca668a633ed8fc9d2d882df83fdfc6114773f4713a74 # 28.0.2-apache
     #tag: d0d13d935eaa9219bfa89fd8213b3ede6431e04685f0a25f6f764f5e5dcfe990 # 28.0.2-fpm-alpine
-    tag: 0.1.27-nc-28.0.2-fpm-alpine
+    tag: 0.1.28-nc-28.0.2-fpm-alpine
     pullPolicy: IfNotPresent
 
   # nextcloud is burstable
