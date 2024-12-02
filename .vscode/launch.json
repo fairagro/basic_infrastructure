@@ -1,0 +1,34 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Debugger: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": false
+        },
+        {
+            "name": "Python Debugger: backup.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "docker/nextcloud-backup/src/backup.py",
+            "args": ["--retention", "1h0m0s", "--backupname", "test"],
+            "console": "integratedTerminal",
+            "justMyCode": false
+        },
+        {
+            "name": "Python Debugger: restore.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "docker/nextcloud-backup/src/restore.py",
+            "args": ["--backupname", "fairagro-nextcloud-daily-20241112-094224"],
+            "console": "integratedTerminal",
+            "justMyCode": false
+        }
+    ]
+}

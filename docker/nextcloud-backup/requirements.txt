@@ -4,6 +4,7 @@ charset-normalizer==3.3.2
 durationpy==0.8
 google-auth==2.35.0
 idna==3.10
+jsonpickle==3.3.0
 kubernetes==31.0.0
 oauthlib==3.2.2
 pyasn1==0.6.1

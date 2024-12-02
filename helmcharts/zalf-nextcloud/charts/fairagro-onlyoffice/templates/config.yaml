@@ -2,6 +2,8 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: "{{ include "fairagro-onlyoffice.config" . }}"
+  labels:
+    {{- include "fairagro-onlyoffice.labels" . | nindent 4 }}
 data:
   # the postgres operator makes use of self-signed certificates, so we need to tell
   # onlyoffice to skip the certificate validation.

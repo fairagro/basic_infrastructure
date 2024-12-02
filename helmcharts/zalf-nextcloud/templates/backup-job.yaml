@@ -1,0 +1,28 @@
+{{- if .Values.backup_spec }}
+{{- range $backup := .Values.backup_spec }}
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: nextcloud-backup-{{ $backup.name }}
+spec:
+  schedule: {{ $backup.schedule }}
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: nextcloud-backup-account
+          containers:
+            - name: nextcloud-backup
+              image: zalf/fairagro_nextcloud_backup-3.12:0
+              imagePullPolicy: Always
+              command:
+                - python
+                - /nextcloud-backup/backup.py
+                - -r
+                - {{ $backup.retention }}
+                - -n
+                - {{ $backup.name }}
+          restartPolicy: OnFailure
+{{- end }}
+{{- end }}

@@ -3,11 +3,15 @@
 # Declare variables to be passed into your templates.
 
 enabled: true
-
 jwt_secret: ~
+
+global:
+  enable_backup: ~
+  enable_restore: ~
 
 postgres:
   dbsize: 1Gi
+  storageClass: postgres
   username: onlyoffice
   dbname: onlyoffice
 
