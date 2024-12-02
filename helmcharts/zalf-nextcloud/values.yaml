@@ -46,7 +46,7 @@ nextcloud:
     # This works as long as the repository name is only referenced within the chart for generating the image name.
     repository: zalf/fairagro-nextcloud-docker
     favor: fpm
-    tag: 0.1.29-nc-28.0.2-fpm-alpine
+    tag: 0.1.30-nc-28.0.2-fpm-alpine
     pullPolicy: IfNotPresent
 
   # nextcloud is burstable
