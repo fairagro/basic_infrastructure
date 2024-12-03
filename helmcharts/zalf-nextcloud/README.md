@@ -16,8 +16,9 @@ We need some tools to perform the backup, especially the `velero` and PostgreSQL
 
    ```bash
    ssh ansible@10.10.84.64
-   sudo su -i
-   curl -s -L https://github.com/vmware-tanzu/velero/releases/download/v1.15.0/velero-v1.15.0-linux-amd64.tar.gz | tar xzv
+   sudo -i
+   velero_url=https://github.com/vmware-tanzu/velero/releases/download/v1.15.0/velero-v1.15.0-linux-amd64.tar.gz
+   curl -s -L $velero_url | tar xzv
    mv velero-v1.15.0-linux-amd64/velero /usr/local/bin
    rm -rf velero-v1.15.0-linux-amd64
    ```
@@ -26,7 +27,7 @@ We need some tools to perform the backup, especially the `velero` and PostgreSQL
 
 ```bash
 ssh ansible@10.10.84.64
-sudo su -i
+sudo -i
 dnf install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-9-x86_64/pgdg-redhat-repo-latest.noarch.rpm
 dnf install postgresql15
 ```
@@ -49,19 +50,26 @@ These steps are useful to perform for each session:
 
 ```bash
 ssh ansible@10.10.84.64
-sudo su -i
+sudo -i
+PATH=$PATH:/usr/local/bin
 source <(kubectl completion bash)
 source <(velero completion bash)
 ```
 
 ##### Find pods to interact with #####
 
-Manually find the pods we need to interact with:
+Find the pods we need to interact with:
 
 ```bash
-kubectl get pods -n fairagro-nextcloud
-nextcloud=nextcloud-8586cf4859-ckrsw        # to be changed
-postgres=fairagro-postgresql-nextcloud-0    # to be changed
+nextcloud=$(kubectl get pods \
+    -n fairagro-nextcloud \
+    -l app.kubernetes.io/name=nextcloud \
+    -o jsonpath='{.items[0].metadata.name}')
+postgres=$(kubectl get pods \
+    -n fairagro-nextcloud \
+    -l cluster-name=fairagro-postgresql-nextcloud \
+    -l spilo-role=master \
+    -o jsonpath='{.items[0].metadata.name}')
 ```
 
 ##### Find database credentials #####
@@ -100,7 +108,7 @@ backup_name=backup-$(date +"%Y%m%d-%H%M%S")
 velero backup create $backup_name \
     --include-namespaces fairagro-nextcloud \
     --include-namespace-scoped-resources 'persistentvolumeclaims,postgresqls,secrets' \
-    --resource-policies-configmap skip-postgres-volume-backup
+    --resource-policies-configmap skip-postgres-volume-backup \
     --wait
 ```
 
@@ -139,7 +147,7 @@ Additionally we need to figure out the backup name to restore. E.g.:
 
 ```bash
 ssh ansible@10.10.84.64
-sudo su -i
+sudo -i
 velero backup get
 backup_name=backup-20241112-163525
 ```
@@ -168,7 +176,7 @@ kubectl delete secrets \
 
 #### Restore the PostgreSQL database ####
 
-I may take a while until the `PostgreSQL` operator has setup the database.
+It may take a while until the `PostgreSQL` operator has setup the database.
 Please wait for the 'status' to be 'Running':
 
 ```bash
