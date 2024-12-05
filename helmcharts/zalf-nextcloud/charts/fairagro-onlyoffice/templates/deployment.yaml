@@ -64,7 +64,7 @@ spec:
             - /bin/bash
             - -c
             - |
-              MAX_RETRIES=100
+              MAX_RETRIES=300
               retry_count=0
               until psql -h "$DB_HOST" -U "$DB_USER" -d "$DB_NAME" -p "$DB_PORT" -w -c "SELECT 1" >/dev/null 2>&1 || [ "$retry_count" -eq "$MAX_RETRIES" ]; do
                 echo "Waiting for database to be ready..."
