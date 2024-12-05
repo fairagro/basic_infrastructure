@@ -2,21 +2,38 @@
 
 Currently we are only able to perform a manual backup.
 
-All backup steps are peformed on one of the cluster nodes or within ArgoCD.
+All backup steps are peformed on one of the cluster nodes.
+
+### basic preparations ###
+
+All subsequent steps -- for preparation, back and restore -- are to be performed on a kuberentes cluster node
+with `root` permissions. E.g.:
+
+```bash
+ssh ansible@10.10.84.64
+sudo -i
+```
 
 ### Software installations ###
 
-We need some tools to perform the backup, especially the `velero` and PostgreSQL command line tools.
+We need some tools to perform backup and restore. These are `argocd`, `velero` and the PostgreSQL command line
+tools.
 
-#### Install `velero` on an kubernetes cluster node ####
+#### Install `argocd` command line tool on a kuberentes cluster node ####
+
+```bash
+curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
+rm -rf argocd-linux-amd64
+```
+
+#### Install `velero` command line tool on a kubernetes cluster node ####
 
 1. Go to `https://github.com/vmware-tanzu/velero/releases/latest` and copy the URL of
    the desired distribution -- e.g. `velero-v1.15.0-linux-amd64.tar.gz`.
 2. Login on cluster node, download and unpack:
 
    ```bash
-   ssh ansible@10.10.84.64
-   sudo -i
    velero_url=https://github.com/vmware-tanzu/velero/releases/download/v1.15.0/velero-v1.15.0-linux-amd64.tar.gz
    curl -s -L $velero_url | tar xzv
    mv velero-v1.15.0-linux-amd64/velero /usr/local/bin
@@ -26,8 +43,6 @@ We need some tools to perform the backup, especially the `velero` and PostgreSQL
 #### Install PostgreSQL (including the command line tools) ####
 
 ```bash
-ssh ansible@10.10.84.64
-sudo -i
 dnf install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-9-x86_64/pgdg-redhat-repo-latest.noarch.rpm
 dnf install postgresql15
 ```
@@ -49,8 +64,6 @@ The procedur to create a nextcloud backup is:
 These steps are useful to perform for each session:
 
 ```bash
-ssh ansible@10.10.84.64
-sudo -i
 PATH=$PATH:/usr/local/bin
 source <(kubectl completion bash)
 source <(velero completion bash)
@@ -95,6 +108,18 @@ Now exec into it and enable maintenance mode:
 kubectl exec -it -n fairagro-nextcloud $nextcloud -- /var/www/html/occ maintenance:mode --on
 ```
 
+It's also a good idea to wait until the maintenance mode has become active:
+
+```bash
+timeout 300s bash -c \
+'
+url=https://nextcloud.fizz.dataservice.zalf.de
+while ! curl -s -o /dev/null -w "%{http_code}" $url | grep -E "^5[0-9]{2}$"; do
+  sleep 1
+done
+'
+```
+
 #### Backup nextcloud storage ####
 
 In this step we make use of `velero` to backup the two nextcloud volumes (`nextcloud-nextcloud`
@@ -104,7 +129,7 @@ Note that we only backup the `PVCs` themnselves, without the actual backing stor
 by applying the `skip-postgres-volume-backup` `ConfigMap` as resource policy.
 
 ```bash
-backup_name=backup-$(date +"%Y%m%d-%H%M%S")
+backup_name=fairagro-nextcloud-backup-$(date +"%Y%m%d-%H%M%S")
 velero backup create $backup_name \
     --include-namespaces fairagro-nextcloud \
     --include-namespace-scoped-resources 'persistentvolumeclaims,postgresqls,secrets' \
@@ -146,10 +171,8 @@ Please refer to the `misc` repo for more information.
 Additionally we need to figure out the backup name to restore. E.g.:
 
 ```bash
-ssh ansible@10.10.84.64
-sudo -i
 velero backup get
-backup_name=backup-20241112-163525
+backup_name=fairagro-nextcloud-backup-20241112-163525
 ```
 
 #### Restore the `velero` backup ####
@@ -180,12 +203,46 @@ It may take a while until the `PostgreSQL` operator has setup the database.
 Please wait for the 'status' to be 'Running':
 
 ```bash
-watch kubectl get postgresqls.acid.zalan.do -n fairagro-nextcloud fairagro-postgresql-nextcloud
+kubectl wait \
+    --for=jsonpath='{.status.PostgresClusterStatus}'=Running \
+    --timeout=300s \
+    --namespace=fairagro-nextcloud \
+    postgresqls.acid.zalan.do fairagro-postgresql-nextcloud
 ```
 
 Now we need to establish the credentials for the running nextcloud database.
 Please refer to [the corresponding backup section](#find-database-credentials).
 
+To actually restore the database:
+
 ```bash
 pg_restore -C -d nextcloud ${backup_name}.dump
+```
+
+#### Synchronize argocd ####
+
+As the velero restore has only restored a tiny fraction of all needed kubernetes
+objects, we need to perform an argocd sync. Currently this needs to be done
+manually, as otherwise we needed to deal with argocd login credentials on the
+command line.
+
+#### Finalize Nextcloud ####
+
+Nextcloud should come up after a while, but some final steps are missing. Please
+log into the nextcloud container:
+
+```bash
+nextcloud=$(kubectl get pods \
+    -n fairagro-nextcloud \
+    -l app.kubernetes.io/name=nextcloud \
+    -o jsonpath='{.items[0].metadata.name}')
+kubectl exec -it -n fairagro-nextcloud -c nextcloud $nextcloud -- /var/www/html/occ maintenance:mode --off
+timeout 300s bash -c \
+'
+url=https://nextcloud.fizz.dataservice.zalf.de
+while ! curl -s -o /dev/null -w "%{http_code}" $url | grep -E "^(2|3)[0-9]{2}$"; do
+  sleep 1
+done
+'
+kubectl exec -it -n fairagro-nextcloud -c nextcloud $nextcloud -- /var/www/html/occ maintenance:data-fingerprint
 ```
