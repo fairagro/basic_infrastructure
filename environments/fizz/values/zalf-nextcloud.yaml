@@ -24,8 +24,13 @@ nextcloud:
     mail:
       fromAddress: nextcloud
       domain: fairagro.net
-
-  resources: {}
+    resources:
+      requests:
+        cpu: "1"
+        memory: 1Gi
+      limits:
+        cpu: "2"
+        memory: 2Gi
 
   persistence:
     size: 4Gi
