@@ -25,8 +25,13 @@ nextcloud:
     mail:
       fromAddress: nextcloud
       domain: fairagro.net
-
-  resources: {}
+    resources:
+      requests:
+        cpu: "1"
+        memory: 1Gi
+      limits:
+        cpu: "2"
+        memory: 2Gi
 
   persistence:
     size: 4Gi
@@ -36,7 +41,7 @@ nextcloud:
       storageClass: truenas-delete
 
 fairagro-onlyoffice:
-  enabled: false
+  enabled: true
 
   postgres:
     storageClass: truenas-delete
@@ -55,7 +60,7 @@ fairagro-onlyoffice:
           - onlyoffice.fizz.dataservice.zalf.de
 
 collabora-online:
-  enabled: true
+  enabled: false
 
   collabora:
     aliasgroups:
