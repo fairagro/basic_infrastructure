@@ -3,6 +3,13 @@ allowed_collabora_ips:
 allowed_reverse_proxy_ips: 10.0.0.0/8
 postgres_db:
   size: 4Gi
+  resources:
+    requests:
+      cpu: '1'
+      memory: 1G
+    limits:
+      cpu: '1'
+      memory: 1G
 
 nextcloud:
   # ## Allowing use of ingress controllers

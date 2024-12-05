@@ -19,12 +19,7 @@ spec:
     storageClass: "{{ .Values.postgres_db.storageClass }}"
   # The database is burstable
   resources:
-    requests:
-      cpu: '2'
-      memory: 2G
-    limits:
-      cpu: '4'
-      memory: 8G
+    {{- toYaml .Values.postgres_db.resources | nindent 4 }}
   # number of replicas, this can improve performance and failsafe
   numberOfInstances: 2
   # list of users and there rights
