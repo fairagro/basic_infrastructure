@@ -15,11 +15,8 @@ postgres:
 replicaCount: 1
 
 image:
-  repository: onlyoffice/documentserver-ee
+  repository: onlyoffice/documentserver
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: 8.2.2.1
-  digest: sha256:97475275c84857de7102058bde2acc0af8651e3cd0b137c766d5153ca193081e # 8.2.2.1
 
 imagePullSecrets: []
 nameOverride: ""

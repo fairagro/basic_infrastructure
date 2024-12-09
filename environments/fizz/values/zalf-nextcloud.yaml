@@ -47,6 +47,10 @@ nextcloud:
 fairagro-onlyoffice:
   enabled: true
 
+  image:
+    repository: onlyoffice/documentserver
+    digest: sha256:3489a54c581414055dd9bfa3890435e5e6fc8c4ce0ffdd65cf3c7869f680cf81 # 8.2.2.1
+
   postgres:
     dbsize: 1Gi
 
