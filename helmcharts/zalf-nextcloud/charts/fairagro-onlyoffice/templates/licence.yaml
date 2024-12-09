@@ -5,5 +5,5 @@ metadata:
   name: "{{ include "fairagro-onlyoffice.licence" . }}"
 type: Opaque
 stringData:
-  licence.lic: "{{ .Values.licence }}"
+  licence.lic: | {{ .Values.licence | nindent 4 }}
 {{- end }}
