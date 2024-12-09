@@ -51,8 +51,10 @@ fairagro-onlyoffice:
   enabled: true
 
   image:
-    repository: onlyoffice/documentserver
-    digest: sha256:3489a54c581414055dd9bfa3890435e5e6fc8c4ce0ffdd65cf3c7869f680cf81 # 8.2.2.1
+    # repository: onlyoffice/documentserver
+    # digest: sha256:3489a54c581414055dd9bfa3890435e5e6fc8c4ce0ffdd65cf3c7869f680cf81 # 8.2.2.1
+    repository: onlyoffice/documentserver-ee
+    digest: sha256:97475275c84857de7102058bde2acc0af8651e3cd0b137c766d5153ca193081e # 8.2.2.1
 
   postgres:
     storageClass: truenas-delete
