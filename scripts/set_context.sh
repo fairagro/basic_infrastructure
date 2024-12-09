@@ -65,11 +65,13 @@ source <(helmfile completion bash)
 source <(argocd completion bash)
 source <(velero completion bash)
 source <(docker completion bash)
+source <(cmctl completion bash)
 
 # Setup aliases
 alias k=kubectl
 alias d=docker
 alias kda="kubectl delete all,pdb,configmap,secret,pvc,ingress,serviceaccount,endpoint --all"
+alias ksn="/workspaces/basic_infrastructure/scripts/set_namespace.sh"
 
 # Set bash completion for aliases
 complete -o default -F __start_kubectl k
