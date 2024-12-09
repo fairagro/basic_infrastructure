@@ -1,9 +1,0 @@
-{{- if .Values.licence }}
-apiVersion: v1
-kind: Secret
-metadata:
-  name: "{{ include "fairagro-onlyoffice.licence" . }}"
-type: Opaque
-stringData:
-  licence.lic: | {{ .Values.licence | nindent 4 }}
-{{- end }}

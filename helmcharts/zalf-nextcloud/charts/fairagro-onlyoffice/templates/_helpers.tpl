@@ -76,10 +76,10 @@ The onlyoffice jwt token secret name
 {{- end }}
 
 {{/*
-The onlyoffice licence secret name
+The onlyoffice license secret name
 */}}
-{{- define "fairagro-onlyoffice.licence" -}}
-{{- printf "%s-%s" (include "fairagro-onlyoffice.fullname" .) "licence" }}
+{{- define "fairagro-onlyoffice.license" -}}
+{{- printf "%s-%s" (include "fairagro-onlyoffice.fullname" .) "license" }}
 {{- end }}
 
 {{/*

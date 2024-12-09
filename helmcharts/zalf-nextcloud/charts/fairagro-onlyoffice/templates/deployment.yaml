@@ -137,7 +137,7 @@ spec:
               # this file name is required, according to:
               # https://forum.onlyoffice.com/t/docker-relation-between-default-json-and-local-json/2232/6
               mountPath: /etc/onlyoffice/documentserver/local-production-linux.json
-            - name: onlyoffice-licence
+            - name: onlyoffice-license
               mountPath: /var/www/onlyoffice/Data
               readOnly: true
           {{- with .Values.volumeMounts }}
@@ -147,9 +147,9 @@ spec:
         - name: onlyoffice-config
           configMap:
             name: "{{ include "fairagro-onlyoffice.config" . }}"
-        - name: onlyoffice-licence
+        - name: onlyoffice-license
           secret:
-            secretName: "{{ include "fairagro-onlyoffice.licence" . }}"
+            secretName: "{{ include "fairagro-onlyoffice.license" . }}"
       {{- with .Values.volumes }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
