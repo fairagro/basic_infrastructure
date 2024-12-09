@@ -138,7 +138,7 @@ spec:
               # https://forum.onlyoffice.com/t/docker-relation-between-default-json-and-local-json/2232/6
               mountPath: /etc/onlyoffice/documentserver/local-production-linux.json
             - name: onlyoffice-licence
-              mountPath: /var/www/onlyoffice/Data/license.lic
+              mountPath: /var/www/onlyoffice/Data
               readOnly: true
           {{- with .Values.volumeMounts }}
             {{- toYaml . | nindent 12 }}
