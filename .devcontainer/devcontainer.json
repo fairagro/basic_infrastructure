@@ -44,7 +44,7 @@
 			"version": "v1.13.0"
 		},
 		"ghcr.io/devcontainers-contrib/features/wget-apt-get:1.0.15": {},
-		"ghcr.io/eitsupi/devcontainer-features/jq-likes:2.1.0": {
+		"ghcr.io/eitsupi/devcontainer-features/jq-likes:2.1.1": {
 			"jqVersion": "1.7.1",
 			"yqVersion": "4.44.3",
 			"gojqVersion": "none",
