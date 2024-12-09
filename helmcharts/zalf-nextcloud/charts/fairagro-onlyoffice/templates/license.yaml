@@ -1,4 +1,4 @@
-{{- if .Values.licence }}
+{{- if .Values.license }}
 apiVersion: v1
 kind: Secret
 metadata:
