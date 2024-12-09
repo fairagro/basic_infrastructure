@@ -5,6 +5,7 @@
 enabled: true
 
 jwt_secret: ~
+licence: ~
 
 postgres:
   dbsize: 1Gi
@@ -16,9 +17,6 @@ replicaCount: 1
 image:
   repository: onlyoffice/documentserver
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: 8.0.1
-  digest: sha256:5ed447a097b368e97de8c25ba5ef53c425acfa1bb084e33b8a0de4a7a1e2099c # 8.0.1
 
 imagePullSecrets: []
 nameOverride: ""

@@ -76,6 +76,13 @@ The onlyoffice jwt token secret name
 {{- end }}
 
 {{/*
+The onlyoffice license secret name
+*/}}
+{{- define "fairagro-onlyoffice.license" -}}
+{{- printf "%s-%s" (include "fairagro-onlyoffice.fullname" .) "license" }}
+{{- end }}
+
+{{/*
 The full image name including version tag or digest
 */}}
 {{- define "fairagro-onlyoffice.imagename" -}}
