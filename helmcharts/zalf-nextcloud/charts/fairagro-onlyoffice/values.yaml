@@ -12,6 +12,10 @@ postgres:
   username: onlyoffice
   dbname: onlyoffice
 
+resources:
+  requests:
+    memory: "1Gi"
+
 replicaCount: 1
 
 image:
