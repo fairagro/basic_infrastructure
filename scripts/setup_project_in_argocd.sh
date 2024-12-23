@@ -27,38 +27,66 @@ environment_path="$mydir/../environments/$environment"
 # Login to argocd
 sops exec-env "${environment_path}/credentials/argocd_secrets.enc.yaml" 'argocd login $ARGOCD_SERVER --insecure --grpc-web-root-path $ARGOCD_PREFIX --username=$ARGOCD_ADMIN_USER --password=$ARGOCD_ADMIN_PASSWORD'
 
-# Install nextcloud app
-# argocd app create fairagro-nextcloud \
-#     --repo "git@github.com:fairagro/basic_infrastructure.git" \
-#     --revision HEAD \
-#     --path "helmcharts/zalf-nextcloud" \
-#     --dest-server "https://kubernetes.default.svc" \
-#     --project fairagro \
-#     --dest-namespace fairagro-nextcloud \
-#     --values "../../environments/${environment}/values/zalf-nextcloud.yaml" \
-#     --values "../../environments/${environment}/values/zalf-nextcloud.enc.yaml" \
-#     --sync-option CreateNamespace=true
+if [[ -f "${environment_path}/values/zalf-nextcloud.yaml" ]]; then
+    # Install nextcloud app
+    echo "Installing nextcloud app on ${environment}..."
+    argocd app create fairagro-nextcloud \
+        --upsert \
+        --repo "git@github.com:fairagro/basic_infrastructure.git" \
+        --revision HEAD \
+        --path "helmcharts/zalf-nextcloud" \
+        --dest-server "https://kubernetes.default.svc" \
+        --project fairagro \
+        --dest-namespace fairagro-nextcloud \
+        --values "../../environments/${environment}/values/zalf-nextcloud.yaml" \
+        --values "../../environments/${environment}/values/zalf-nextcloud.enc.yaml" \
+        --sync-option CreateNamespace=true
+fi
 
-# Install zammad app
-# argocd app create fairagro-zammad \
-#     --repo "git@github.com:fairagro/basic_infrastructure.git" \
-#     --revision HEAD \
-#     --path "helmcharts/zalf-zammad" \
-#     --dest-server "https://kubernetes.default.svc" \
-#     --project fairagro \
-#     --dest-namespace fairagro-zammad \
-#     --values "../../environments/${environment}/values/zalf-zammad.yaml" \
-#     --values "../../environments/${environment}/values/zalf-zammad.enc.yaml" \
-#     --sync-option CreateNamespace=true
+if [[ -f "${environment_path}/values/zalf-zammad.yaml" ]]; then
+    # Install zammad app
+    echo "Installing zammad app on ${environment}..."
+    argocd app create fairagro-zammad \
+        --upsert \
+        --repo "git@github.com:fairagro/basic_infrastructure.git" \
+        --revision HEAD \
+        --path "helmcharts/zalf-zammad" \
+        --dest-server "https://kubernetes.default.svc" \
+        --project fairagro \
+        --dest-namespace fairagro-zammad \
+        --values "../../environments/${environment}/values/zalf-zammad.yaml" \
+        --values "../../environments/${environment}/values/zalf-zammad.enc.yaml" \
+        --sync-option CreateNamespace=true
+fi
 
-# Install datahub app
-argocd app create fairagro-datahub \
-    --repo "git@github.com:fairagro/basic_infrastructure.git" \
-    --revision gitlab \
-    --path "helmcharts/fairagro-datahub" \
-    --dest-server "https://kubernetes.default.svc" \
-    --project fairagro \
-    --dest-namespace fairagro-datahub \
-    --values "../../environments/${environment}/values/fairagro-datahub.yaml" \
-    --values "../../environments/${environment}/values/fairagro-datahub.enc.yaml" \
-    --sync-option CreateNamespace=true
+if [[ -f "${environment_path}/values/fairagro-datahub.yaml" ]]; then
+    # Install datahub app
+    echo "Installing datahub app on ${environment}..."
+    argocd app create fairagro-datahub \
+        --upsert \
+        --repo "git@github.com:fairagro/basic_infrastructure.git" \
+        --revision HEAD \
+        --path "helmcharts/fairagro-datahub" \
+        --dest-server "https://kubernetes.default.svc" \
+        --project fairagro \
+        --dest-namespace fairagro-datahub \
+        --values "../../environments/${environment}/values/fairagro-datahub.yaml" \
+        --values "../../environments/${environment}/values/fairagro-datahub.enc.yaml" \
+        --sync-option CreateNamespace=true
+fi
+
+if [[ -f "${environment_path}/values/fairagro-survey.yaml" ]]; then
+    # Install limesurvey app
+    echo "Installing limesurvey app on ${environment}..."
+    argocd app create fairagro-limesurvey \
+        --upsert \
+        --repo "git@github.com:fairagro/basic_infrastructure.git" \
+        --revision HEAD \
+        --path "helmcharts/fairagro-survey" \
+        --dest-server "https://kubernetes.default.svc" \
+        --project fairagro \
+        --dest-namespace fairagro-survey \
+        --values "../../environments/${environment}/values/fairagro-survey.yaml" \
+        --values "../../environments/${environment}/values/fairagro-survey.enc.yaml" \
+        --sync-option CreateNamespace=true
+fi
