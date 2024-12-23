@@ -19,9 +19,9 @@ events {
 stream {
 
     map $ssl_preread_server_name $name {
-{%- for target in reverse_proxy__forwarding_targets -%}
+{% for target in reverse_proxy__forwarding_targets %}
         {{ target.fqdn }} {{ target.ip | default(reverse_proxy__default_ip) }}:{{ target.port | default(reverse_proxy__default_port) | string }};
-{%- endfor -%}
+{% endfor %}
     }
 
     server {

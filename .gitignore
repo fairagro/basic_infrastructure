@@ -6,3 +6,4 @@ elise_admin.yaml
 helmcharts/*/charts/*.tgz
 helmcharts/*/Chart.lock
 **/.venv/
+**/__pycache__
