@@ -1,0 +1,106 @@
+# Default values for fairagro-onlyoffice.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+enabled: true
+
+jwt_secret: ~
+
+postgres:
+  dbsize: 1Gi
+  username: onlyoffice
+  dbname: onlyoffice
+
+replicaCount: 1
+
+image:
+  repository: onlyoffice/documentserver
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: 8.0.1
+  digest: sha256:5ed447a097b368e97de8c25ba5ef53c425acfa1bb084e33b8a0de4a7a1e2099c # 8.0.1
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+env: []
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Automatically mount a ServiceAccount's API credentials?
+  automount: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext:
+  {}
+  # fsGroup: 2000
+
+securityContext:
+  {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  labels:
+    app: nextcloud
+  path: /
+  pathType: Prefix
+
+resources:
+  limits:
+    cpu: 4
+    memory: 6Gi
+  requests:
+    cpu: 1
+    memory: 2Gi
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+# Additional volumes on the output Deployment definition.
+volumes:
+  - name: file-cache
+    emptyDir:
+      sizeLimit: 1Gi
+
+# Additional volumeMounts on the output Deployment definition.
+volumeMounts:
+  - mountPath: /var/lib/onlyoffice
+    name: file-cache
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

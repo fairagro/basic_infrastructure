@@ -1,0 +1,52 @@
+# kubernetes endpoint and type of object definition
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  # name of the postgres cluster / this could be build from input from the intranet website
+  name: fairagro-postgresql-datahub
+spec:
+  # teamIds can be defined for the hole cluster and are there to group cluster e.g. by working group
+  # must be configured in the postgres-operator yaml before using them here.
+  teamId: "fairagro"
+  # we only want to access postgres internally from within the cluster. So deactivate all loadbalancers.
+  enableMasterLoadBalancer: false
+  enableMasterPoolerLoadBalancer: false
+  enableReplicaLoadBalancer: false
+  enableReplicaPoolerLoadBalancer: false
+  # size of the database in GByte
+  volume:
+    size: "{{ .Values.persistence.postgres_db.size }}"
+{{- if .Values.persistence.postgres_db.storageClass }}
+    storageClass: "{{ .Values.persistence.postgres_db.storageClass }}"
+{{- end }}
+  # The database is burstable
+  resources:
+    requests:
+      cpu: "2"
+      memory: 2G
+    limits:
+      cpu: "4"
+      memory: 8G
+  # number of replicas, this can improve performance and failsafe
+  numberOfInstances: 2
+  # list of users and there rights
+  users:
+    # database owner
+    gitlab:
+      - superuser
+      - createdb
+
+  # database and owner definition
+  # databases: name->owner
+  databases:
+    gitlabhq_production: gitlab
+  preparedDatabases:
+    gitlabhq_production:
+      schemas:
+        public: {}
+
+  # postgresql database version
+  postgresql:
+    version: "15"
+    parameters:
+      password_encryption: scram-sha-256

@@ -1,0 +1,150 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "fairagro-datahub.fullname" . }}
+  labels:
+    {{- include "fairagro-datahub.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  # We're using ReadWriteOnce volumes that cannot be bound to more than one pod.
+  # So that pod needs to be deleted before recreating it.
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      {{- include "fairagro-datahub.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "fairagro-datahub.labels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "fairagro-datahub.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: {{ include "fairagro-datahub.imagename" . }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            # NOTE:
+            # Concerning 'external_url': actually it's a https URL. The TLS endpoint is the kubernetes ingress.
+            # According to the docs (https://docs.gitlab.com/omnibus/settings/ssl/index.html#configure-https-manually)
+            # we should put 'https' here. But this does not work for us because of redirects from http to https.
+            # The exact mechanism why it does not work is unclear, but using 'http' instead of 'https' works. This
+            # only has one caveat: the repo URL shown by gitlab (e.g. used for cloning) is a http URL instead
+            # of https. So actutally we needed to invest more investigation time here and switch to 'https'.
+            - name: GITLAB_OMNIBUS_CONFIG
+              value: |
+                external_url 'http://{{ include "fairagro-datahub.fqdn" . }}';
+                nginx['listen_port'] = {{ .Values.service.port }};
+                nginx['listen_https'] = false;
+                nginx['real_ip_trusted_addresses'] = ['127.0.0.0/8', '172.16.0.0/16'];
+                nginx['real_ip_header'] = 'X-Forwarded-For';
+                nginx['real_ip_recursive'] = 'on';
+                postgresql['enable'] = false;
+                gitlab_rails['db_adapter'] = "postgresql";
+                gitlab_rails['db_encoding'] = "unicode";
+                gitlab_rails['db_database'] = "gitlabhq_production";
+                gitlab_rails['db_username'] = "gitlab";
+                gitlab_rails['db_password'] = ENV['GITLAB_DATABASE_PASSWORD'];
+                gitlab_rails['db_host'] = "fairagro-postgresql-datahub";
+                gitlab_rails['db_port'] = 5432;
+                gitlab_rails['object_store']['enabled'] = false;
+                gitlab_rails['object_store']['objects']['artifacts']['enabled'] = false;
+                gitlab_rails['external_diffs_object_store_enabled'] = false;
+                gitlab_rails['uploads_object_store_enabled'] = false;
+                gitlab_rails['pages_object_store_enabled'] = false;
+                gitlab_rails['dependency_proxy_enabled'] = false;   
+                gitlab_rails['packages_enabled'] = false;
+                gitlab_rails['terraform_state_enabled'] = false;
+                gitlab_rails['smtp_enable'] = true;
+                gitlab_rails['smtp_address'] = "smtp.hostinger.com";
+                gitlab_rails['smtp_port'] = 587;
+                gitlab_rails['smtp_user_name'] = ENV['GITLAB_SMTP_USER'];
+                gitlab_rails['smtp_password'] = ENV['GITLAB_SMTP_PASSWORD'];
+                gitlab_rails['smtp_domain'] = "fairagro.net";
+                gitlab_rails['smtp_authentication'] = "login";
+                gitlab_rails['smtp_enable_starttls_auto'] = true;
+                gitlab_rails['smtp_openssl_verify_mode'] = 'peer';
+                gitlab_rails['gitlab_email_from'] = ENV['GITLAB_SMTP_USER'];
+                puma['worker_processes'] = 4;
+                nginx['worker_processes'] = 4
+            # Setting the root password only has effect if the database is not initialized yet
+            - name: GITLAB_ROOT_PASSWORD
+              value: {{ .Values.rootPassword }}
+            - name: GITLAB_DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: gitlab.fairagro-postgresql-datahub.credentials.postgresql.acid.zalan.do
+                  key: password
+            - name: GITLAB_SMTP_USER
+              value: {{ .Values.smtpUser }}
+            - name: GITLAB_SMTP_PASSWORD
+              value: {{ .Values.smtpPassword }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          livenessProbe:
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
+          startupProbe:
+            {{- toYaml .Values.startupProbe | nindent 12 }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: gitlab-config
+              mountPath: /etc/gitlab
+            - name: gitlab-logs
+              mountPath: /var/log/gitlab
+            - name: gitlab-data
+              mountPath: /var/opt/gitlab
+            - name: datahub-logs
+              mountPath: /var/log/datahub
+          {{- with .Values.volumeMounts }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      volumes:
+        - name: gitlab-config
+          persistentVolumeClaim:
+            claimName: pvc-fairagro-datahub-config
+        - name: gitlab-logs
+          persistentVolumeClaim:
+            claimName: pvc-fairagro-datahub-logs
+        - name: gitlab-data
+          persistentVolumeClaim:
+            claimName: pvc-fairagro-datahub-data
+        - name: datahub-logs
+          persistentVolumeClaim:
+            claimName: pvc-fairagro-datahub-datahub-logs
+      {{- with .Values.volumes }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

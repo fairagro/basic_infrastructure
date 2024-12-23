@@ -1,0 +1,94 @@
+smtp_user: ~
+smtp_passowrd: ~
+
+limesurvey:
+  image:
+    registry: docker.io
+    repository: martialblog/limesurvey
+    # Specify a imagePullPolicy
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion
+    # For security reasons we would prefer the 6-fpm-alpine version, but this (most probably) requires
+    # a nginx sidecar installation. This helmchart is currently not prepared for this. An example would
+    # be the nextcloud helm chart.
+    tag: 6.5.15-240701-apache
+
+  externalDatabase:
+    # Type of external database ("mysql" or "pgsql")
+    type: pgsql
+    # External Database server host
+    host: fairagro-postgresql-limesurvey
+    # External Database server port
+    port: 5432
+    # External Database database name (use existingSecretConfig.databaseField to load from secret)
+    database: limesurvey
+    # Use an existing secret for retrieving the database password.
+    # The secret must contain the field "db-password" (field name configurable via existingSecretConfig.passwordField)
+    existingSecret: limesurvey.fairagro-postgresql-limesurvey.credentials.postgresql.acid.zalan.do
+    existingSecretConfig:
+      passwordField: password
+      usernameField: username
+
+  persistence:
+    enabled: true
+    storageClassName: ~
+    size: 5Gi
+
+  limesurvey:
+    # LimeSurvey initial Administrator Account
+    admin:
+      user: admin
+      name: Administrator
+    env:
+      - name: PGSSLMODE
+        value: require
+      - name: SMTP_USER
+        valueFrom:
+          secretKeyRef:
+            name: limesurvey-smtp-secret
+            key: user
+      - name: SMTP_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: limesurvey-smtp-secret
+            key: password
+    additional_config: |
+      'ssl_disable_alert' => true,
+      'emailmethod' => 'smtp',
+      'protocol' => 'smtp',
+      'emailsmtphost' => 'smtp.hostinger.com:587',
+      'emailsmtpuser' => getenv('SMTP_USER'),
+      'emailsmtppassword' => getenv('SMTP_PASSWORD'),
+      'emailsmtpssl' => 'tls',
+      'siteadminemail' => getenv('SMTP_USER'),
+      'siteadminbounce' => getenv('SMTP_USER'),
+      'siteadminname' => 'FAIRagro survey',
+      'emailsmtpdebug' => 1,
+
+    # LimeSurvey permits the encryption of personal data
+    # These values will be created as secret
+    # https://manual.limesurvey.org/Data_encryption
+    # Not required for LimeSurvey 3
+    # encrypt:
+    #   keypair: ""
+    #   publicKey: ""
+    #   secretKey: ""
+    #   nonce: ""
+    #   # Create with: php -r "var_dump(sodium_bin2hex(sodium_crypto_secretbox_keygen()));"
+    #   secretBoxKey: ""
+    # existingSecret: null
+    # listenPort: 8080
+    # publicUrl: ""
+    # baseUrl: ""
+    # urlFormat: "path"
+
+  ingress:
+    enabled: true
+
+  resources:
+    limits:
+      memory: 1Gi
+      cpu: 1000m
+    requests:
+      memory: 512Mi
+      cpu: 300m

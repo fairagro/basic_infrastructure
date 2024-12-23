@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-fairagro-datahub-config
+  annotations:
+    csi.hpe.com/description: "Created by the fairagro-datahub helm chart as config storage for datahub"
+spec:
+  accessModes:
+    - ReadWriteOnce
+{{- if .Values.persistence.storageClass }}
+  storageClassName: {{ .Values.persistence.storageClass }}
+{{- end }}
+  resources:
+    requests:
+      storage: 100Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-fairagro-datahub-logs
+  annotations:
+    csi.hpe.com/description: "Created by the fairagro-datahub helm chart as log storage for datahub/gitlab"
+spec:
+  accessModes:
+    - ReadWriteOnce
+{{- if .Values.persistence.storageClass }}
+  storageClassName: {{ .Values.persistence.storageClass }}
+{{- end }}
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-fairagro-datahub-data
+  annotations:
+    csi.hpe.com/description: "Created by the fairagro-datahub helm chart as data storage for datahub"
+spec:
+  accessModes:
+    - ReadWriteOnce
+{{- if .Values.persistence.storageClass }}
+  storageClassName: {{ .Values.persistence.storageClass }}
+{{- end }}
+  resources:
+    requests:
+      storage: 50Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-fairagro-datahub-datahub-logs
+  annotations:
+    csi.hpe.com/description: "Created by the fairagro-datahub helm chart as log storage for datahub validation pipelines"
+spec:
+  accessModes:
+    - ReadWriteOnce
+{{- if .Values.persistence.storageClass }}
+  storageClassName: {{ .Values.persistence.storageClass }}
+{{- end }}
+  resources:
+    requests:
+      storage: 1Gi

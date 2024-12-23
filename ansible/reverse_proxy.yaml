@@ -1,0 +1,6 @@
+- hosts: reverse_proxy
+  roles:
+    - firewalld
+    - fail2ban
+    - sshd
+    - reverse_proxy

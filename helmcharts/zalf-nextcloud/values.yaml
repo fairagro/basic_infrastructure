@@ -33,14 +33,13 @@ nextcloud:
   resources:
     requests:
       cpu: "2"
-      memory: 4Gi
+      memory: 6Gi
     limits:
       cpu: "4"
       memory: 8Gi
 
   ingress:
     enabled: true
-    className: nginx-external
     annotations:
       cert-manager.io/issuer: geant
       cert-manager.io/private-key-size: "4096"
@@ -50,6 +49,7 @@ nextcloud:
       cert-manager.io/subject-countries: "DE"
       cert-manager.io/subject-organizations: "NFDI FAIRagro"
       cert-manager.io/subject-organizationalunits: "Measure 4.1"
+      nginx.ingress.kubernetes.io/proxy-body-size: 128m
       nginx.ingress.kubernetes.io/cors-allow-headers: X-Forwarded-For
       nginx.ingress.kubernetes.io/enable-cors: "true"
       nginx.ingress.kubernetes.io/server-snippet: |-
@@ -125,6 +125,9 @@ nextcloud:
       - name: additional-config
         mountPath: /usr/local/etc/php/conf.d/redis-session.ini
         subPath: redis-session.ini
+      - name: additional-config
+        mountPath: /usr/local/etc/php-fpm.d/www.conf
+        subPath: php-fpm-www.conf # replace default www.conf, refer to https://tideways.com/profiler/blog/an-introduction-to-php-fpm-tuning
     extraVolumes:
       - name: installation-scripts
         configMap:
@@ -150,6 +153,7 @@ nextcloud:
           'default_phone_region' => 'DE',
           'overwriteprotocol' => 'https',
           'check_data_directory_permissions' => false,
+          'versions_retention_obligation' => '14, auto',
         );
       cron.config.php: |
         <?php
@@ -266,11 +270,13 @@ nextcloud:
 ### Collabora Online Settings ###
 #################################
 collabora-online:
+  enabled: false
+
   replicaCount: 2
 
   image:
     repository: collabora/code@sha256
-    tag: e0c7ff3cf4ccd49a590980cf83f46f8efd9456f9d173f92d1acfd3f41be09319 # 23.05.9.1.1
+    tag: 1582d87ab06f586e7b0b3cee4ca970393b8f3d5597eb2a9d0a4f5861b1b138c1 # 24.04.5.2.1
     pullPolicy: IfNotPresent
 
   autoscaling:
@@ -286,7 +292,9 @@ collabora-online:
   collabora:
     aliasgroups:
       - host: ~
-    extra_params: --o:ssl.enable=false --o:ssl.termination=true
+    # '--o:mount_namespaces=false' is a workaround needed for CODE version 24.04.5.2.1.
+    # We needed to get rid of it. Refer to: https://github.com/CollaboraOnline/online/issues/9534
+    extra_params: --o:ssl.enable=false --o:ssl.termination=true --o:mount_namespaces=false
     server_name: ~
 
   # collabora is burstable
@@ -300,16 +308,7 @@ collabora-online:
 
   ingress:
     enabled: true
-    className: nginx-external
     annotations:
-      cert-manager.io/issuer: geant
-      cert-manager.io/private-key-size: "4096"
-      cert-manager.io/private-key-rotation-policy: "Always"
-      # It seems the subjects annotation do not have any effect.
-      # Still we keep them...
-      cert-manager.io/subject-countries: "DE"
-      cert-manager.io/subject-organizations: "NFDI FAIRagro"
-      cert-manager.io/subject-organizationalunits: "Measure 4.1"
       nginx.ingress.kubernetes.io/upstream-hash-by: "$arg_WOPISrc"
       nginx.ingress.kubernetes.io/proxy-body-size: "0"
       nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
@@ -321,3 +320,6 @@ collabora-online:
         location /browser/dist/admin/admin.html { deny all; return 403; }
     hosts: ~
     tls: ~
+
+fairagro-onlyoffice:
+  enabled: false

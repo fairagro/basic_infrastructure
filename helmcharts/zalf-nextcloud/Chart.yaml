@@ -24,5 +24,9 @@ dependencies:
     version: 4.6.4
     repository: https://nextcloud.github.io/helm/
   - name: collabora-online
-    version: 1.1.11
+    version: 1.1.20
     repository: https://collaboraonline.github.io/online/
+    condition: collabora-online.enabled
+  - name: fairagro-onlyoffice
+    version: 0.1.0
+    condition: fairagro-onlyoffice.enabled

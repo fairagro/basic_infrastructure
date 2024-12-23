@@ -1,0 +1,31 @@
+cert_email_receiver: carsten.scharfenberg@zalf.de
+geant_acme_key_id: OqJJqONZBNIdYFekHDIDRQ
+
+postgres_db:
+  size: 4Gi
+  storageClass: nfs-csi-delete
+
+limesurvey:
+  persistence:
+    storageClassName: nfs-csi-delete
+    size: 5Gi
+  ingress:
+    className: nginx-external
+    annotations:
+      cert-manager.io/issuer: geant
+      cert-manager.io/private-key-size: "4096"
+      cert-manager.io/private-key-rotation-policy: "Always"
+      # It seems the subjects annotations do not have any effect.
+      # Still we keep them...
+      cert-manager.io/subject-countries: "DE"
+      cert-manager.io/subject-organizations: "NFDI FAIRagro"
+      cert-manager.io/subject-organizationalunits: "Measure 4.1"
+    hosts:
+      - host: survey.fairagro.net
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls:
+      - secretName: limesurvey-tls-secret
+        hosts:
+          - survey.fairagro.net

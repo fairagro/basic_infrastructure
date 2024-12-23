@@ -1,0 +1,27 @@
+- name: scope
+  become: True
+  tags:
+    - firewalld
+  block:
+    - name: install firewalld
+      ansible.builtin.package:
+        name:
+          - firewalld
+        state: present
+
+    - name: remove unneeded default firewall rules
+      ansible.posix.firewalld:
+        service: "{{ item }}"
+        permanent: true
+        state: disabled
+      loop:
+        - cockpit
+        - dhcpv6-client
+      notify: restart firewalld
+
+    - name: ensure firewalld is running
+      ansible.builtin.service:
+        name: firewalld
+        enabled: true
+        state: started
+      register: firewalld__service_state

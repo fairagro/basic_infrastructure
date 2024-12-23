@@ -1,25 +1,4 @@
-apiVersion: cert-manager.io/v1
-kind: Issuer
-metadata:
-  name: letsencrypt
-spec:
-  acme:
-    # The ACME server URL
-    #server: https://acme-staging-v02.api.letsencrypt.org/directory # staging
-    server: https://acme-v02.api.letsencrypt.org/directory # production
-    # Email address used for ACME registration
-    email: "{{ .Values.cert_email_receiver }}"
-    # Name of a secret used to store the ACME account private key
-    privateKeySecretRef:
-      name: cert-issuer-letsencrypt
-    # Enable the DNS-01 challenge provider
-    solvers:
-      - dns01:
-          cloudflare:
-            apiTokenSecretRef:
-              name: cloudflare-api-token-secret
-              key: api-token
----
+{{- if not (and .Values.tls (and .Values.tls.key .Values.tls.crt)) }}
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
@@ -46,3 +25,26 @@ spec:
             apiTokenSecretRef:
               name: cloudflare-api-token-secret
               key: api-token
+{{- end }}
+# ---
+# apiVersion: cert-manager.io/v1
+# kind: Issuer
+# metadata:
+#   name: letsencrypt
+# spec:
+#   acme:
+#     # The ACME server URL
+#     #server: https://acme-staging-v02.api.letsencrypt.org/directory # staging
+#     server: https://acme-v02.api.letsencrypt.org/directory # production
+#     # Email address used for ACME registration
+#     email: "{{ .Values.cert_email_receiver }}"
+#     # Name of a secret used to store the ACME account private key
+#     privateKeySecretRef:
+#       name: cert-issuer-letsencrypt
+#     # Enable the DNS-01 challenge provider
+#     solvers:
+#       - dns01:
+#           cloudflare:
+#             apiTokenSecretRef:
+#               name: cloudflare-api-token-secret
+#               key: api-token

@@ -1,0 +1,11 @@
+- name: scope
+  become: True
+  tags:
+    - firewalld
+  block:
+    - name: restart firewalld
+      # only restart if not just started
+      when: not ((firewalld__service_state is defined) and (firewalld__service_state.changed))
+      ansible.builtin.service:
+        name: firewalld
+        state: restarted

@@ -1,0 +1,4 @@
+reverse_proxy:
+  hosts:
+    reverseproxy:
+      ansible_host: 188.34.195.248
