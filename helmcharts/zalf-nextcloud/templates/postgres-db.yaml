@@ -5,6 +5,65 @@ metadata:
   # name of the postgres cluster / this could be build from input from the intranet website
   name: fairagro-postgresql-nextcloud
 spec:
+  # We do not use the PostgreSQL operator backup feature. All backups will be managed by
+  # velero on its own. So we deactivate all preconfigured operator-based backups here.
+  env:
+{{- if or .Values.global.enable_backup .Values.global.enable_restore }}
+    - name: AWS_ACCESS_KEY_ID
+      valueFrom:
+        secretKeyRef:
+          name: postgres-operator
+          key: AWS_ACCESS_KEY_ID
+    - name: AWS_SECRET_ACCESS_KEY
+      valueFrom:
+        secretKeyRef:
+          name: postgres-operator
+          key: AWS_SECRET_ACCESS_KEY
+    - name: CLONE_AWS_ACCESS_KEY_ID
+      valueFrom:
+        secretKeyRef:
+          name: postgres-operator
+          key: CLONE_AWS_ACCESS_KEY_ID
+    - name: CLONE_AWS_SECRET_ACCESS_KEY
+      valueFrom:
+        secretKeyRef:
+          name: postgres-operator
+          key: CLONE_AWS_SECRET_ACCESS_KEY
+{{- else }}
+    # We need do undefine a bunch of backup and restore related env vars, as otherwise
+    # things might break (we could not identify a single variable or a small set of them
+    # to reliably turn off backup and restore).
+    - name: BACKUP_SCHEDULE
+      value: ~
+    - name: BACKUP_NUM_TO_RETAIN
+      value: ~
+    - name: USE_WALG_BACKUP
+      value: ~
+    - name: USE_WALG_RESTORE
+      value: ~
+    - name: AWS_ENDPOINT
+      value: ~
+    - name: AWS_REGION
+      value: ~
+    - name: AWS_S3_FORCE_PATH_STYLE
+      value: ~
+    - name: CLONE_AWS_ENDPOINT
+      value: ~
+    - name: CLONE_AWS_REGION
+      value: ~
+    - name: CLONE_AWS_S3_FORCE_PATH_STYLE
+      value: ~
+    - name: WAL_S3_BUCKET
+      value: ~
+    - name: CLONE_WAL_S3_BUCKET
+      value: ~
+    - name: CLONE_USE_WALG_RESTORE
+      value: ~
+    - name: WAL_BUCKET_SCOPE_PREFIX
+      value: ~
+    - name: WAL_BUCKET_SCOPE_SUFFIX
+      value: ~
+{{- end }}
   # teamIds can be defined for the hole cluster and are there to group cluster e.g. by working group
   # must be configured in the postgres-operator yaml before using them here.
   teamId: "fairagro"
@@ -16,14 +75,16 @@ spec:
   # size of the database in GByte
   volume:
     size: "{{ .Values.postgres_db.size }}"
+{{- if .Values.postgres_db.storageClass }}
     storageClass: "{{ .Values.postgres_db.storageClass }}"
+{{- end }}
   # The database is burstable
   resources:
     requests:
-      cpu: '2'
+      cpu: "2"
       memory: 2G
     limits:
-      cpu: '4'
+      cpu: "4"
       memory: 8G
   # number of replicas, this can improve performance and failsafe
   numberOfInstances: 2

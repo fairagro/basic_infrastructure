@@ -9,9 +9,30 @@ allowed_collabora_ips: ~
 # This should be set yo the 'kube_pods_subnet' variable in the kubespray group_vars file 'k8s-cluster.yml'.
 allowed_reverse_proxy_ips: ~
 
+global:
+  enable_backup: true
+  enable_restore: true
+
 postgres_db:
   size: 4Gi
-  storageClass: ~
+  storageClass: postgres
+
+backup_spec:
+  - name: daily
+    schedule: 0 2 * * 1-6 # Every day at 2AM, except on sundays
+    retention: "192h0m0s" # 8 days
+  # Note: we use '*/7' instead of '0' to denote sunday, as this causes cron to perform a
+  # boolean "and" operation instead of "or" between the day-of-month and day-of-week fields.
+  # Ref: https://blog.healthchecks.io/2022/09/schedule-cron-job-the-funky-way/
+  - name: weekly
+    schedule: 0 2 8-31 * */7 # Every sunday at 2AM, except the first sunday of the month
+    retention: "840h0m0s" # 5 weeks
+  - name: monthly
+    schedule: 0 2 1-7 2-12 */7 # Every first sunday of the month at 2AM, except january
+    retention: "9360h0m0s" # 13 months
+  - name: yearly
+    schedule: 0 2 1-7 1 */7 # Every first sunday in january at 2AM
+    retention: "87600h0m0s" # 10 years
 
 # ## Liveness and readiness probe values
 # ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
@@ -23,12 +44,9 @@ nextcloud:
     # that the image name is built by concatenating the repository name and the tag, using a colon as separator.
     # Now we can simply add the @sha256 to the repository name and specify the image digest hash in the tag.
     # This works as long as the repository name is only referenced within the chart for generating the image name.
-    repository: nextcloud@sha256
+    repository: zalf/fairagro-nextcloud-docker
     favor: fpm
-    # I would prefer to go for the fpm-alpine version, because it has much less vulnerabilities.
-    # This requires to install nginx as sidecar container. But currently I receive HTTP 500 when trying this.
-    #tag: 0b04a2e2c14672a2fe56ca668a633ed8fc9d2d882df83fdfc6114773f4713a74 # 28.0.2-apache
-    tag: d0d13d935eaa9219bfa89fd8213b3ede6431e04685f0a25f6f764f5e5dcfe990 # 28.0.2-fpm-alpine
+    tag: 0.1.30-nc-28.0.2-fpm-alpine
     pullPolicy: IfNotPresent
 
   # nextcloud is burstable
@@ -124,6 +142,9 @@ nextcloud:
       - name: additional-config
         mountPath: /usr/local/etc/php-fpm.d/www.conf
         subPath: php-fpm-www.conf # replace default www.conf, refer to https://tideways.com/profiler/blog/an-introduction-to-php-fpm-tuning
+      - name: additional-config
+        mountPath: /var/spool/cron/crontabs/www-data
+        subPath: crontab # an attempt to modify the crontab
     extraVolumes:
       - name: installation-scripts
         configMap:
