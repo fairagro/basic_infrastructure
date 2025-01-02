@@ -9,7 +9,7 @@ ENV PYTHONUNBUFFERED=1
 # Set the working directory in the container
 WORKDIR /nextcloud-backup
 # Install python and needed build tools
-RUN apk add --no-cache python-${python_version} py${python_version}-pip python-${python_version}-dev build-base
+RUN apk add --no-cache python-${python_version}=3.12.7-r0 py${python_version}-pip=24.3.1-r0 python-${python_version}-dev=3.12.7-r0 build-base=1-r8
 # Set the user to nonroot. It's defined in the Wolfi base image with the user id 65532
 USER nonroot
 # Copy the requirements.txt file to the container
@@ -28,7 +28,7 @@ WORKDIR /nextcloud-backup
 # copy python packages from builder stage
 COPY --from=builder /home/nonroot/.local /home/nonroot/.local
 # Install python
-RUN apk add --no-cache python-${python_version} py${python_version}-setuptools
+RUN apk add --no-cache python-${python_version}=3.12.7-r0 py${python_version}-setuptools=75.3.0-r0
 # Set the user to nonroot. It's defined in the Wolfi base image with the user id 65532
 USER nonroot
 # Copy the application from host
@@ -37,4 +37,3 @@ COPY src/ /nextcloud-backup/
 # COPY test/container-structure-test /middleware/test/container-structure-test
 # Set the command to run when the container starts
 CMD [ "/bin/sh" ]
-#CMD [ "python", "main.py", "-c", "config.yml" ]
