@@ -33,7 +33,7 @@ nextcloud:
       size: 4Gi
 
 fairagro-onlyoffice:
-  enabled: false
+  enabled: true
 
   postgres:
     dbsize: 1Gi
@@ -51,7 +51,7 @@ fairagro-onlyoffice:
           - onlyoffice.fizz.dataservice.zalf.de
 
 collabora-online:
-  enabled: true
+  enabled: false
 
   collabora:
     aliasgroups:
