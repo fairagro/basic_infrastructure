@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nextcloud
+  namespace: fairagro-applications
+spec:
+  project: fairagro
+  source:
+    repoURL: "git@github.com:fairagro/basic_infrastructure.git"
+    path: helmcharts/zalf-nextcloud
+    targetRevision: "{{ .Values.nextcloud_revision }}"
+    helm:
+      valueFiles:
+        - ../../environments/fizz/values/zalf-nextcloud.yaml
+        - ../../environments/fizz/values/zalf-nextcloud.enc.yaml
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: fairagro-nextcloud
+  ignoreDifferences:
+    - group: acid.zalan.do
+      kind: postgresql
+      name: "{{ .Values.nextcloud_db_name }}"
+      namespace: fairagro-nextcloud
+      jsonPointers:
+        - /spec/clone
+    - kind: Secret
+      name: nextcloud
+      namespace: fairagro-nextcloud
+      jsonPointers:
+        - /data/nextcloud-token
+  syncPolicy:
+    syncOptions:
+      - Prune=true
+      - RespectIgnoreDifferences=true
