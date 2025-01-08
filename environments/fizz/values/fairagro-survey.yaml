@@ -1,5 +1,6 @@
 postgres_db:
   size: 4Gi
+  storageClass: postgres
 
 limesurvey:
   persistence:

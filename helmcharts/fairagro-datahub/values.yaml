@@ -48,7 +48,6 @@ securityContext:
   # runAsUser: 1000
 
 persistence:
-  storageClass: ~
   postgres_db:
     size: 4Gi
     storageClass: postgres
