@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: datahub
+  namespace: fairagro-applications
+spec:
+  project: fairagro
+  source:
+    repoURL: "git@github.com:fairagro/basic_infrastructure.git"
+    path: helmcharts/fairagro-datahub
+    targetRevision: "{{ .Values.datahub_revision }}"
+    helm:
+      valueFiles:
+        - ../../environments/fizz/values/fairagro-datahub.yaml
+        - ../../environments/fizz/values/fairagro-datahub.enc.yaml
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: fairagro-datahub
+  syncPolicy:
+    syncOptions:
+      - Prune=true
