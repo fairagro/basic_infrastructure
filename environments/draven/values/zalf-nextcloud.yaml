@@ -3,6 +3,7 @@ allowed_collabora_ips:
 allowed_reverse_proxy_ips: 161.97.79.221 # the extrenal reverse proxy IP
 postgres_db:
   size: 4Gi
+  storageClass: postgres
   resources:
     requests:
       cpu: '2'
