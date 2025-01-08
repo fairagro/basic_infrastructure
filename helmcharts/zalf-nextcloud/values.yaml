@@ -11,7 +11,6 @@ allowed_reverse_proxy_ips: ~
 
 postgres_db:
   size: 4Gi
-  storageClass: ~
   resources:
     requests:
       cpu: '1'
@@ -19,6 +18,7 @@ postgres_db:
     limits:
       cpu: '1'
       memory: 1G
+  storageClass: postgres
 
 # ## Liveness and readiness probe values
 # ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes

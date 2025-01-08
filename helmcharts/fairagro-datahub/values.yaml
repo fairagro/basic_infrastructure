@@ -51,7 +51,7 @@ persistence:
   storageClass: ~
   postgres_db:
     size: 4Gi
-    storageClass: ~
+    storageClass: postgres
 
 service:
   type: ClusterIP

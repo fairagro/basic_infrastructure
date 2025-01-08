@@ -3,7 +3,6 @@ allowed_collabora_ips:
 allowed_reverse_proxy_ips: 161.97.79.221 # the extrenal reverse proxy IP
 postgres_db:
   size: 4Gi
-  storageClass: nfs-csi-delete
   resources:
     requests:
       cpu: '2'
@@ -39,10 +38,8 @@ nextcloud:
 
   persistence:
     size: 4Gi
-    storageClass: nfs-csi-delete
     nextcloudData:
       size: 100Gi
-      storageClass: nfs-csi-delete
 
 fairagro-onlyoffice:
   enabled: true
@@ -52,7 +49,6 @@ fairagro-onlyoffice:
     digest: sha256:97475275c84857de7102058bde2acc0af8651e3cd0b137c766d5153ca193081e # 8.2.2.1
 
   postgres:
-    storageClass: nfs-csi-delete
     dbsize: 1Gi
 
   ingress:
