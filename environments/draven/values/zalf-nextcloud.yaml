@@ -55,6 +55,14 @@ fairagro-onlyoffice:
   postgres:
     dbsize: 1Gi
 
+  resources:
+    limits:
+      cpu: 4
+      memory: 6Gi
+    requests:
+      cpu: 1
+      memory: 2Gi
+
   ingress:
     className: nginx-external
     annotations:
