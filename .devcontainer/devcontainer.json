@@ -44,7 +44,7 @@
 			"version": "v1.13.0"
 		},
 		"ghcr.io/devcontainers-contrib/features/wget-apt-get:1.0.15": {},
-		"ghcr.io/eitsupi/devcontainer-features/jq-likes:2.1.0": {
+		"ghcr.io/eitsupi/devcontainer-features/jq-likes:2.1.1": {
 			"jqVersion": "1.7.1",
 			"yqVersion": "4.44.3",
 			"gojqVersion": "none",
@@ -55,7 +55,7 @@
 		"ghcr.io/nucleuscloud/devcontainer-features/helmfile:0.1.0": {
 			"version": "v0.168.0"
 		},
-		"ghcr.io/devcontainers/features/python:1.6.5": {
+		"ghcr.io/devcontainers/features/python:1.7.0": {
 			"installTools": true,
 			"version": "3.12"
 		},
@@ -122,8 +122,8 @@
 				"hadolint.hadolintPath": "/usr/local/bin/hadolint"
 			}
 		}
-	}
+	},
 
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
+	"remoteUser": "vscode"
 }

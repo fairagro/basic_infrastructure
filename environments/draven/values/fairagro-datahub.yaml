@@ -7,9 +7,6 @@ geant_acme_key_id: OqJJqONZBNIdYFekHDIDRQ
 image:
   digest: sha256:7199a9783ec03c0fda0efb948e52e6cb4f69e12a2ff4808d49ed0d7c951b7287
 
-persistence:
-  storageClass: nfs-csi-delete
-
 ingress:
   className: nginx-external
   annotations:
@@ -33,7 +30,6 @@ ingress:
 
 postgres_db:
   size: 4Gi
-  storageClass: nfs-csi-delete
 
 gitlabrunner:
   gitlabUrl: https://datahub.fairagro.net

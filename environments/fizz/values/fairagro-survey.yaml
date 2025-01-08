@@ -1,6 +1,5 @@
 postgres_db:
   size: 4Gi
-  storageClass: truenas-delete
 
 limesurvey:
   persistence:
