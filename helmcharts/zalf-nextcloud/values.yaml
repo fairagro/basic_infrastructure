@@ -44,12 +44,9 @@ nextcloud:
     # that the image name is built by concatenating the repository name and the tag, using a colon as separator.
     # Now we can simply add the @sha256 to the repository name and specify the image digest hash in the tag.
     # This works as long as the repository name is only referenced within the chart for generating the image name.
-    repository: nextcloud@sha256
+    repository: zalf/fairagro-nextcloud-docker
     favor: fpm
-    # I would prefer to go for the fpm-alpine version, because it has much less vulnerabilities.
-    # This requires to install nginx as sidecar container. But currently I receive HTTP 500 when trying this.
-    #tag: 0b04a2e2c14672a2fe56ca668a633ed8fc9d2d882df83fdfc6114773f4713a74 # 28.0.2-apache
-    tag: d0d13d935eaa9219bfa89fd8213b3ede6431e04685f0a25f6f764f5e5dcfe990 # 28.0.2-fpm-alpine
+    tag: 0.1.30-nc-28.0.2-fpm-alpine
     pullPolicy: IfNotPresent
 
   # nextcloud is burstable

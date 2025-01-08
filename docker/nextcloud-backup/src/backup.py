@@ -21,11 +21,11 @@ from util.kubernetes import (
     NEXTCLOUD_DEPLOYMENT_NAME,
     NEXTCLOUD_NAMESPACE,
     VELERO_PHASES_ERROR,
-    VELERO_PHASES_SUCCESS
+    VELERO_PHASES_SUCCESS,
+    NEXTCLOUD_POSTGRESQL_NAME
 )
 
 
-NEXTCLOUD_POSTGRESQL_NAME = "fairagro-postgresql-nextcloud"
 VELERO_BACKUP_STORAGE_LOCATION = "default"
 VELERO_BACKUP_TIME_TO_LIVE = "87600h0m0s"
 VELERO_BACKUP_TIMEOUT = 300
@@ -174,12 +174,33 @@ def create_velero_backup(
             "csiSnapshotTimeout": "10m0s",
             "defaultVolumesToFsBackup": False,
             "includedNamespaces": [NEXTCLOUD_NAMESPACE],
-            "includedResources": ["*"],
+            # we need to be very careful about the included resources.
+            # Secrets for the PostgresSQL database credentials must be included,
+            # whereas the PostgreSQL Statefulset must not.
+            # Sadly this means that we cannot use the labelSelectr outcommented below.
+            "includedResources": [
+                "configmaps",
+                "persistentvolumeclaims",
+                "secrets",
+                "serviceaccounts",
+                "postgresqls",
+                "deployments",
+                "ingresses",
+                "cronjobs",
+                "roles",
+                "rolebindings",
+                "statefulsets",
+                "services"
+            ],
             "labelSelector": {
+                # Do not backup OnlyOffice
                 "matchExpressions": [
                     {
-                        "key": "batch.kubernetes.io/job-name",
-                        "operator": "DoesNotExist"
+                        "key": "app.kubernetes.io/name",
+                        "operator": "NotIn",
+                        "values": [
+                            "fairagro-onlyoffice"
+                        ]
                     }
                 ],
             },
@@ -270,9 +291,11 @@ def patch_postgresql_object_with_restore_timestamp(
         plural="postgresqls",
         timeout_seconds=POSTGRESQL_RESTART_TIMEOUT
     ):
-        if postgres['object'].get('metadata', {}).get('name') == NEXTCLOUD_POSTGRESQL_NAME and \
-                postgres['object'].get('status', {}).get('PostgresClusterStatus') == "Running":
-            w.stop()
+        if postgres['object'].get('metadata', {}).get('name') == NEXTCLOUD_POSTGRESQL_NAME:
+            status = postgres['object'].get('status', {}).get('PostgresClusterStatus')
+            logger.debug("PostgreSQL cluster state: %s", status)
+            if status == "Running":
+                w.stop()
 
 
 if __name__ == '__main__':

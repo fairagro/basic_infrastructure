@@ -4,36 +4,10 @@ kind: postgresql
 metadata:
   # name of the postgres cluster / this could be build from input from the intranet website
   name: '{{ include "fairagro-onlyoffice.databasename" . }}'
+  labels:
+    {{- include "fairagro-onlyoffice.labels" . | nindent 4 }}
 spec:
   env:
-{{- if or .Values.global.enable_backup .Values.global.enable_restore }}
-    - name: AWS_ACCESS_KEY_ID
-      valueFrom:
-        secretKeyRef:
-          name: '{{ include "fairagro-onlyoffice.databasesecret" . }}'
-          key: AWS_ACCESS_KEY_ID
-    - name: AWS_SECRET_ACCESS_KEY
-      valueFrom:
-        secretKeyRef:
-          name: '{{ include "fairagro-onlyoffice.databasesecret" . }}'
-          key: AWS_SECRET_ACCESS_KEY
-    - name: CLONE_AWS_ACCESS_KEY_ID
-      valueFrom:
-        secretKeyRef:
-          name: '{{ include "fairagro-onlyoffice.databasesecret" . }}'
-          key: CLONE_AWS_ACCESS_KEY_ID
-    - name: CLONE_AWS_SECRET_ACCESS_KEY
-      valueFrom:
-        secretKeyRef:
-          name: '{{ include "fairagro-onlyoffice.databasesecret" . }}'
-          key: CLONE_AWS_SECRET_ACCESS_KEY
-    # disable automatic base backups by setting a cron schedule that never triggers
-    # - name: BACKUP_SCHEDULE
-    #   value: 59 23 31 2 *
-    # # disable WAL archiving by clearing the target bucket
-    # - name: WAL_S3_BUCKET
-    #   value: ~
-{{- else }}
     - name: BACKUP_SCHEDULE
       value: ~
     - name: BACKUP_NUM_TO_RETAIN
@@ -64,7 +38,6 @@ spec:
       value: ~
     - name: WAL_BUCKET_SCOPE_SUFFIX
       value: ~
-{{- end }}
   # teamIds can be defined for the hole cluster and are there to group cluster e.g. by working group
   # must be configured in the postgres-operator yaml before using them here.
   teamId: "fairagro"
@@ -109,9 +82,3 @@ spec:
     version: "15"
     parameters:
       password_encryption: scram-sha-256
-
-{{- if .Values.global.enable_restore }}
-  clone:
-    cluster: fairagro-postgresql-nextcloud # Inplace restore
-    timestamp: "2050-01-01T00:00:00+00:00" # A future timestamp, so we allways clone the latest version
-{{- end }}

@@ -21,7 +21,9 @@ from util.kubernetes import (
     get_nextcloud_pod,
     load_kubeconf,
     wait_nextcloud_maintenance_mode_to_change,
+    wait_for_container_to_be_running,
     NEXTCLOUD_URL,
+    NEXTCLOUD_NAMESPACE,
     VELERO_PHASES_ERROR,
     VELERO_PHASES_SUCCESS
 )
@@ -32,6 +34,7 @@ NEXTCLOUD_QUERY_STATUS_TIMEOUT = 10
 NEXTCLOUD_CLIENT_SYNC_COMMAND = ["/var/www/html/occ", "maintenance:data-fingerprint"]
 NEXTCLOUD_FILES_SCAN_COMMAND = ["/var/www/html/occ", "files:scan", "--all"]
 VELERO_RESTORE_TIMEOUT = 300
+POSTGRESQL_SERVICE_CREATION_TIMEOUT = 900
 
 
 logger = logging.getLogger(__name__)
@@ -51,8 +54,13 @@ def main() -> None:
         datefmt="%Y-%m-%d %H:%M:%S"
     )
 
+    # Currently we require to pass the backup name as the function 'get_newest_backup_name'
+    # does currently not work. Firstly because the service account has no permissions to
+    # list backups in the Velero namespace (why). Secondly because the velero namespace
+    # contains all backups -- not just the FAIRagro nextcloud ones. So a filter method is
+    # required.
     parser = argparse.ArgumentParser()
-    parser.add_argument('-b', '--backupname', type=str,
+    parser.add_argument('-b', '--backupname', type=str, required=True,
                         help='the full velero backup name to restore')
     args = parser.parse_args()
 
@@ -66,8 +74,8 @@ def main() -> None:
                  json_encode(api_client.configuration.__dict__))
 
     logger.info("About to instantiate the needed Kubernetes APIs...")
-    # core_api: client.CoreV1Api = client.CoreV1Api(api_client)
-    # apps_api: api.AppsV1Api = api.AppsV1Api(api_client)
+    core_api: client.CoreV1Api = client.CoreV1Api(api_client)
+    apps_api: api.AppsV1Api = api.AppsV1Api(api_client)
     custom_api: client.CustomObjectsApi = client.CustomObjectsApi(api_client)
 
     if check_nextcloud_is_running():
@@ -75,16 +83,21 @@ def main() -> None:
         sys.exit(0)
     backup_name = args.backupname or get_newest_backup_name(custom_api)
     create_velero_restore(custom_api, backup_name)
-    # deployment: client.V1Deployment = get_nextcloud_deployment(apps_api)
-    # nextcloud_pod: client.V1Pod = get_nextcloud_pod(core_api, deployment)
-    # change_nextcloud_maintenance_mode(core_api, nextcloud_pod, "off")
-    # wait_nextcloud_maintenance_mode_to_change("off")
-    # exec_command_in_nextcloud_container(
-    #     core_api, nextcloud_pod.metadata.name, NEXTCLOUD_FILES_SCAN_COMMAND
-    # )
-    # exec_command_in_nextcloud_container(
-    #     core_api, nextcloud_pod.metadata.name, NEXTCLOUD_CLIENT_SYNC_COMMAND
-    # )
+    delete_obsolete_postgresql_artifacts(core_api)
+    deployment: client.V1Deployment = get_nextcloud_deployment(apps_api)
+    nextcloud_pod: client.V1Pod = get_nextcloud_pod(core_api, deployment)
+    wait_for_container_to_be_running(core_api, nextcloud_pod.metadata.name, "nextcloud")
+    change_nextcloud_maintenance_mode(core_api, nextcloud_pod, "off")
+    wait_nextcloud_maintenance_mode_to_change("off")
+    valid_responses = [
+        "Starting scan for user"
+    ]
+    exec_command_in_nextcloud_container(
+        core_api, nextcloud_pod.metadata.name, NEXTCLOUD_FILES_SCAN_COMMAND, valid_responses
+    )
+    exec_command_in_nextcloud_container(
+        core_api, nextcloud_pod.metadata.name, NEXTCLOUD_CLIENT_SYNC_COMMAND
+    )
 
     logger.info("Restore finished")
 
@@ -193,6 +206,30 @@ def create_velero_restore(
             if restore_phase in VELERO_PHASES_ERROR:
                 logger.error("Restore failed with phase %s", restore_phase)
                 w.stop()
+
+def delete_obsolete_postgresql_artifacts(
+        core_api: client.CoreV1Api
+) -> None:
+    """
+    Delete obsolete PostgreSQL artifacts created by Velero backup.
+
+    This function deletes persistent volume claims (PVCs) and stateful sets
+    related to the PostgreSQL operator in the Nextcloud namespace that were 
+    created by a Velero backup. This cleanup is necessary to allow the 
+    PostgreSQL operator to recreate them.
+
+    Args:
+        core_api (client.CoreV1Api): The Kubernetes CoreV1Api client.
+    """
+    # # Deleting obsolete PostgreSQL stateful persistent volume claims
+    logger.info("About to delete obsolete PostgreSQL stateful persistent volume claims...")
+    pvcs = core_api.list_namespaced_persistent_volume_claim(
+        NEXTCLOUD_NAMESPACE,
+        label_selector="application=spilo")
+    for pvc in pvcs.items:
+        # Delete each PVC in the list
+        core_api.delete_namespaced_persistent_volume_claim(
+            pvc.metadata.name, NEXTCLOUD_NAMESPACE)
 
 
 if __name__ == '__main__':
