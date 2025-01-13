@@ -34,8 +34,8 @@ sops:
             RHBGUitIUVl1ZHp2TitYekE2S3RBNGcKvKgTkPh6qlF450VXA22OodrCu6cOG2js
             iKxQVSC8IkcjToes7fn8lHHawsNFYrhSJUPpyPceXN5IwN4yeChXBg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-12-09T17:27:43Z"
-    mac: ENC[AES256_GCM,data:BpHgriF8hPHev0X1IG/5SWWWWCHvuHspy45RQi6IPtEeQKh9BPvzkMnO3sFfZ2QAc77+dX5XVUUkbJI4E81bwef8tlAV4RnLEypmGJum8qBWnQVeT5ShufzOYxumDB6oIM+POm6D9FK78w8RdzpyOUKFQQpUMFuTqORvnfTOvXg=,iv:OHj/iFugoBeV9vCiYOYlaY98i4AryVo4BrIj44eClOc=,tag:fXF5//A+F9cej1vQEELzjw==,type:str]
+    lastmodified: "2025-01-08T13:10:56Z"
+    mac: ENC[AES256_GCM,data:0pUl54KBEdRLYV8Rx2NYqXMXOUIcnFELeC/SewRl82IsQArrqCc4kk801YJ8zIG6LTUEJhpvguM4a87lqlk4T8cjYsxbnI1UeyMcoIOJvbQB4mQHKixLqnNyJeElhYSc2Uod2RqOgzYsv/UqUb1tkp00y4cNJxPtZdYTjXyXT4A=,iv:scsJqoIOR7eTlxY8czIwD2tXWipLQ9kUdhvYOTgsAPE=,tag:i7wobltrxzMp6raPofZ3Gw==,type:str]
     pgp:
         - created_at: "2024-09-17T12:01:57Z"
           enc: |-

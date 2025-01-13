@@ -10,7 +10,7 @@ data:
     // Database connection string
     $dsn = "pgsql:host=" . $_ENV['POSTGRES_HOST'] . ";dbname=" . $_ENV['POSTGRES_DB'] . ";user=" . $_ENV['POSTGRES_USER'] . ";password=" . $_ENV['POSTGRES_PASSWORD'];
     // Maximum number of connection attempts
-    $max_attempts = 900;
+    $max_attempts = 900;  // it may take quite some time for the database to be ready
 
     $attempt = 1;
     $connected = false;
