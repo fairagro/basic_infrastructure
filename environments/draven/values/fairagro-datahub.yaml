@@ -30,6 +30,7 @@ ingress:
 
 postgres_db:
   size: 4Gi
+  storageClass: postgres
 
 gitlabrunner:
   gitlabUrl: https://datahub.fairagro.net

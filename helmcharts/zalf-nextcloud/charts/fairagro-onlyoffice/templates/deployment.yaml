@@ -64,7 +64,7 @@ spec:
             - /bin/bash
             - -c
             - |
-              MAX_RETRIES=100
+              MAX_RETRIES=300
               retry_count=0
               until psql -h "$DB_HOST" -U "$DB_USER" -d "$DB_NAME" -p "$DB_PORT" -w -c "SELECT 1" >/dev/null 2>&1 || [ "$retry_count" -eq "$MAX_RETRIES" ]; do
                 echo "Waiting for database to be ready..."
@@ -137,6 +137,9 @@ spec:
               # this file name is required, according to:
               # https://forum.onlyoffice.com/t/docker-relation-between-default-json-and-local-json/2232/6
               mountPath: /etc/onlyoffice/documentserver/local-production-linux.json
+            - name: onlyoffice-license
+              mountPath: /var/www/onlyoffice/Data
+              readOnly: true
           {{- with .Values.volumeMounts }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
@@ -144,6 +147,9 @@ spec:
         - name: onlyoffice-config
           configMap:
             name: "{{ include "fairagro-onlyoffice.config" . }}"
+        - name: onlyoffice-license
+          secret:
+            secretName: "{{ include "fairagro-onlyoffice.license" . }}"
       {{- with .Values.volumes }}
         {{- toYaml . | nindent 8 }}
       {{- end }}

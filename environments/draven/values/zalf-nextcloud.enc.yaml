@@ -17,6 +17,7 @@ collabora-online:
         password: ENC[AES256_GCM,data:NGMgeG8uxW3Y3w/oyZVxAqO2aREiSHF4OaKcusOn,iv:NQhxB6OSHU5360Q0Gpao07uTcEIvuLTc7qZNLUsIXNY=,tag:c3jgqQC0HK8BKdzk/E0MGw==,type:str]
 fairagro-onlyoffice:
     jwt_secret: ENC[AES256_GCM,data:DV9u4okcaKl0OAb/ABjvLebuSFjJUzZH3z2j1ABhZfOAUUWmXMtl8COTiULKXCd+VmBB/f2xBF72tensbqjCS6tFUUtg3W1szmbCtWJ6b7FfwKl4qgmiqM36TkA4Ow1FJEaU+g==,iv:Fy52AQtQZ939Rpzcl3nlt35Mo7z6B7kT6sTNTazTO0s=,tag:l2kwbSZz59Nj7Tu0OwL1hQ==,type:str]
+    license: ENC[AES256_GCM,data:fw/fHyFlauk42FgVP43NG3It2DPooNGml8Tf0yjD/XeOWx9U0LjL7ijhg+g258QA8KVBqDRVf5drOc74zEdCEb+mIgXJlJRcgC5V1dfTdyqwCX48qip4cPtet05tyfUnNIRcmh3Pf2O1zswhWDCh5ZyxFt8EjfCD5JqZ2cj6FSXOWBKls+ZKUT5fEi58c5xNoIaBgYmwmpiGIXVoSS2lXRZL11oGxz7WizigQUhCVH/83BQB4zt/bYpenapZFavBZAvd+tqxBmH6onXG5/DLwW2d76mibaavrIpob6ckZWZxj9fwFye//SXZEb8srRnWZhR1Cv93F4MqVqS3ub9oHV1OGtTCe7ISr/7rynsr1i0arieVlhXApUOIaEutojuJKgeyxY+OEfvXW7eLl/bhUrgcyLiNMbIng57WbydFkO77LwYdxsnzqOXy2S5KWd7y1Vz+PR4ibPwBnCVZCr+MCS34H1xQcuG1H1wOnbpNRicku1PbPd1EhMN0UISsTUByhAcV3mhG0/YcRjGAbYIUHT9BnlqkBIDCnCP2w8SmzcUx+bpDH9BZzIa19N3IGZUmZidJTs6fPp6NHPdD6FUJ07BetRuifOGWPXHqASJYy83XfWqf34VDA2C/vjBfDG1Uz30Qb/BsQ7iJlXD+3Xy8RAahO9V8Wm856sbp6ongT9xb8Ib0Ma37DLOnjZwriepLzy2+f5HfDSmcLOCn9ii+yC937hufJn4fTuswzAkX0C4c/HvfQKeqNofqbX00Twxlf9TQ+UFy+A744u9zEiOP5kC5SbSPl61/CAcaFayCwLLvWXsa9Yk2NYaQc1xVMOBvYPE08hPVOHjSuqqpL71vZWUWSfNheyFtVxDUu+UoUl/ksNiaFNCjMPBiRiLAu+OAyXZenIep04bbgdwETAp7dNHMXVS/e3OULiKsn+Y6nQAC0Tt83ITq+fSEHOn9NqB5RjYCWt5R5NDIcNi2DTeIfk+rQdvvEfGhcQXYLb0lKr3DLgPRJ/4V2w3G6Og9/ovsYAmSmfS4pU98t+T2cI/rjAwcOAzMey+5Om5oymHiPkAwtCzT0AfaSEcD,iv:hCChgcU1z8iMIXkeouqkJvry7Mk8k2v2cCeILbkqTdE=,tag:DvMJtTjMfNL5BCYo5YzBAw==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -32,8 +33,8 @@ sops:
             S2NYVWZYWFBRYjFJNTViV29oK0F4ZnMKzwx/B8YtEvNJrISNWHBdN/A2ZBLAZdLl
             L+qfdgNnFjADrWHqPB8hZ0wWqYaeTw50mh2LdtvlU2CT+YFva2ursg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-04-24T13:15:02Z"
-    mac: ENC[AES256_GCM,data:UvZrqmb2CF727e/OmWoIfTEHJqgH9Y+BupYHALhS5k9mv+MrU2JMKaynK4lun/1AgpkOWthhc1cMEIHwrceCPkX8lY1GullmHkPmdPfJTvill3NR4vnp6YsL+yfuhQs/SDAkNA9CkJeDo3QzQEFdrYBYDaAZXIilqWsvcslpDSA=,iv:TwB0jnpqZwz7IIuwNbQHhhEgeRKI8bPPbkW8KtfZqxQ=,tag:IguFQ/75tCcD/KkEzcZPWg==,type:str]
+    lastmodified: "2024-12-09T17:27:50Z"
+    mac: ENC[AES256_GCM,data:kNUVT/n1c3Wg5eKxXtsqBAkFH2K2HGKWKOnwtZUDBm7EQDcGNd5CdgYvQNH63HXT18G+6JYsRV/y/sVfVl6Ufz4s6yooCxkbOeTphUklmNdOq/RMM9oJ2CzF1NZvInTTCj3r0+C/OX8p0zazc3/8qVQa4i5tKoF9wYyaTWW4qPo=,iv:LpmKA7pUbmeEKhrd+YVvlMDZ/KHaPFFV+p85VYzIO3A=,tag:LZwLGcgQ3Kzz2PfPVjG/pg==,type:str]
     pgp:
         - created_at: "2024-09-17T12:02:06Z"
           enc: |-
@@ -107,4 +108,4 @@ sops:
             -----END PGP MESSAGE-----
           fp: 97BAD070076E18F23DE40CF367FBD7D6A827909E
     unencrypted_suffix: _unencrypted
-    version: 3.8.1
+    version: 3.9.0

@@ -6,6 +6,14 @@ allowed_reverse_proxy_ips: 172.16.64.0/18
 
 postgres_db:
   size: 4Gi
+  storageClass: postgres
+  resources:
+    requests:
+      cpu: '2'
+      memory: 2G
+    limits:
+      cpu: '4'
+      memory: 8G
 cert_email_receiver: carsten.scharfenberg@zalf.de
 geant_acme_key_id: OqJJqONZBNIdYFekHDIDRQ
 
@@ -40,8 +48,20 @@ nextcloud:
 fairagro-onlyoffice:
   enabled: true
 
+  image:
+    repository: onlyoffice/documentserver-ee
+    digest: sha256:97475275c84857de7102058bde2acc0af8651e3cd0b137c766d5153ca193081e # 8.2.2.1
+
   postgres:
     dbsize: 1Gi
+
+  resources:
+    limits:
+      cpu: 4
+      memory: 6Gi
+    requests:
+      cpu: 1
+      memory: 2Gi
 
   ingress:
     className: nginx-external

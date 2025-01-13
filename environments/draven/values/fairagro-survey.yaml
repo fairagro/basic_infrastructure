@@ -3,6 +3,7 @@ geant_acme_key_id: OqJJqONZBNIdYFekHDIDRQ
 
 postgres_db:
   size: 4Gi
+  storageClass: postgres
 
 limesurvey:
   persistence:
