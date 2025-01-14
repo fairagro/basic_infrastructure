@@ -6,7 +6,7 @@ nextcloud:
         password: ENC[AES256_GCM,data:Rsw4RI53G4b/x6XbsjvVZr9JSu5BMjlqKuCxjA==,iv:lemEZdtRgBX0xoJw94UBQ6nIPUw2vzssz25xuaojLbM=,tag:4gqbNLG5mfLYLf4k5HjVBw==,type:str]
         mail:
             smtp:
-                name: ENC[AES256_GCM,data:yM2eCfTlVu7uVCpzBFuJ23eG9M+eFVT8S3KqpdCmTw==,iv:nE+muZRcK8kzJA0QwMLg3QmhY6IKdoL7C7VSVDaWF6I=,tag:J7GrOkIV3N+bQLi977fviA==,type:str]
+                name: ENC[AES256_GCM,data:kOY1wkwRe+dq+Hy3daDSDcFtntjzoQ==,iv:xFJ/ZaE9+wmT2LS44tbjYewIoi/j/l832X+II4Z33CQ=,tag:RbE9S4VHuTkMu1qsyhQYfQ==,type:str]
                 password: ENC[AES256_GCM,data:MfWemo5U5CxPUrANddEWjBgXHed+ADS2uFKpHRQFFs0=,iv:p4C4afEFn25M1xkMFiwQMuO+0Mn1FPtReiB3JK0KIgg=,tag:87fiu06x00nq5lHOx2FjNA==,type:str]
     redis:
         auth:
@@ -32,8 +32,8 @@ sops:
             S2NYVWZYWFBRYjFJNTViV29oK0F4ZnMKzwx/B8YtEvNJrISNWHBdN/A2ZBLAZdLl
             L+qfdgNnFjADrWHqPB8hZ0wWqYaeTw50mh2LdtvlU2CT+YFva2ursg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-10-28T09:31:00Z"
-    mac: ENC[AES256_GCM,data:zKKcG3kb+p+Q8UqWdDM3T1hFPaTxIgL40Z6rzqOMcuiwjlBbOHcbNS3zwEg5RrMOIr9AE65WaCevFsE8CILAyi9Gxqgd5JmgP2hyEKna7a1at2p3ILMtyxW/ZPEfMJDFviwE71fNfWrHIIFnwqdUym2t2zhSqD/dE7QYwObaTx8=,iv:U2duEWwUy9aEXbvmhouprZA0WcfD9TDCQevdFR/s6Ww=,tag:2psToAndbBTG+imOVZ7qHQ==,type:str]
+    lastmodified: "2025-01-14T09:48:19Z"
+    mac: ENC[AES256_GCM,data:xokZ5CIVHn+FlioYNojE8YcMSKk91HTvdQ1+3wl24PuWRFYgIX/1DpxtcoHKdK9kOIxWquIeyJjLI0aMIVPKEs0fCJeqPv+ADnv+RvVRgCpCFr9q0NxNziGFZUBDjVBANnnILHMCYCsbPichFbvuiSMMmIxtLe2UBh6g2VDK67A=,iv:5JFuxmBHT+rjkFoyD+41AgAwAXnv77ln/vbRb3IM7JE=,tag:Rl6wZVNcoQgJFZz71Auh2w==,type:str]
     pgp:
         - created_at: "2024-09-17T12:02:06Z"
           enc: |-
