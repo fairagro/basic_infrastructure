@@ -1,3 +1,4 @@
+#ENC[AES256_GCM,data:SumW8w22lrwxNCI=,iv:/Dy0lB+HWYo79FQJ/cMb5uyjimoxMKMYpBjRtjyk4+4=,tag:Q7i/W+988oBQ3QDlbsIngQ==,type:comment]
 nextcloud:
     nextcloud:
         username: ENC[AES256_GCM,data:UeyGcus=,iv:alZH6yICWWxgs/pSuMYPsmmnix+DGgUQLJODwepFk7U=,tag:ia2LTuNnOFQIyKfgCI+Saw==,type:str]
@@ -33,8 +34,8 @@ sops:
             RHBGUitIUVl1ZHp2TitYekE2S3RBNGcKvKgTkPh6qlF450VXA22OodrCu6cOG2js
             iKxQVSC8IkcjToes7fn8lHHawsNFYrhSJUPpyPceXN5IwN4yeChXBg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-10-28T09:33:23Z"
-    mac: ENC[AES256_GCM,data:1CNWCqNDLTv2rocNH3A6spErQzstvQQI4GbSBFBilfIAytNBS6HvmS/V3wqI4eEOIAmJ3aqaRgNsQMpsMhk2IX+lNHRPBwLWeqtIdnWNhoei1qVpkH3/SlFt/zlXzVhj8ITSuCw6KVvo1wDNwbnB0YcrO7QZUt14E0HVJV+1CWQ=,iv:VAY16YbgckPeQci/eM8oXNYZQjnPtecYAxbvJwzW5u0=,tag:SBY9Fu+bvAF6U29jkqQE/w==,type:str]
+    lastmodified: "2025-01-15T13:59:19Z"
+    mac: ENC[AES256_GCM,data:olAQp8sJ8CRrG1F/xfDcgyzrBr3e2kO92xvTBRYI3emBGR0vWMxMTzCE/oID7wuFkK5q5syudaB3jucIcot1mOn0PjrrAhOt2+rHKbKUMr6n1aV40lwbBj2/fanOvJjQLOAMCO5mzTgoDiZCHh96+SVZ+mmqnEnSnebkzJfqSf4=,iv:Jiq5rx3+YdZR2RxcV82noJIXKZgJlbkMIKyq14X1mEQ=,tag:WvoS+tyQl0JHPaxGIBNVMg==,type:str]
     pgp:
         - created_at: "2024-09-17T12:01:57Z"
           enc: |-
