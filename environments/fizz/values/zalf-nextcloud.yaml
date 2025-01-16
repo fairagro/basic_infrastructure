@@ -3,7 +3,6 @@ allowed_collabora_ips:
 allowed_reverse_proxy_ips: 10.0.0.0/8
 postgres_db:
   size: 4Gi
-  storageClass: truenas-delete
 
 nextcloud:
   # ## Allowing use of ingress controllers
@@ -30,16 +29,13 @@ nextcloud:
 
   persistence:
     size: 4Gi
-    storageClass: truenas-delete
     nextcloudData:
       size: 4Gi
-      storageClass: truenas-delete
 
 fairagro-onlyoffice:
-  enabled: false
+  enabled: true
 
   postgres:
-    storageClass: truenas-delete
     dbsize: 1Gi
 
   ingress:
@@ -55,7 +51,7 @@ fairagro-onlyoffice:
           - onlyoffice.fizz.dataservice.zalf.de
 
 collabora-online:
-  enabled: true
+  enabled: false
 
   collabora:
     aliasgroups:

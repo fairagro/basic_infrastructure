@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: zammad
+  namespace: fairagro-applications
+spec:
+  project: fairagro
+  source:
+    repoURL: "git@github.com:fairagro/basic_infrastructure.git"
+    path: helmcharts/zalf-zammad
+    targetRevision: "{{ .Values.zammad_revision }}"
+    helm:
+      valueFiles:
+        - ../../environments/draven/values/zalf-zammad.yaml
+        - ../../environments/draven/values/zalf-zammad.enc.yaml
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: fairagro-zammad
+  syncPolicy:
+    syncOptions:
+      - Prune=true

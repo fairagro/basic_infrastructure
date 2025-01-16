@@ -1,9 +1,11 @@
+# allow internal IPs for reverse proxy and collabora.
+# All traffic stems from ingress-nginx, which is internal to the cluster.
 allowed_collabora_ips:
-  - 161.97.79.221 # collabora.fairagro.net on external reverse proxy
-allowed_reverse_proxy_ips: 161.97.79.221 # the extrenal reverse proxy IP
+  - 172.16.64.0/18
+allowed_reverse_proxy_ips: 172.16.64.0/18
+
 postgres_db:
   size: 4Gi
-  storageClass: nfs-csi-delete
 cert_email_receiver: carsten.scharfenberg@zalf.de
 geant_acme_key_id: OqJJqONZBNIdYFekHDIDRQ
 
@@ -32,16 +34,13 @@ nextcloud:
 
   persistence:
     size: 4Gi
-    storageClass: nfs-csi-delete
     nextcloudData:
       size: 100Gi
-      storageClass: nfs-csi-delete
 
 fairagro-onlyoffice:
   enabled: true
 
   postgres:
-    storageClass: nfs-csi-delete
     dbsize: 1Gi
 
   ingress:

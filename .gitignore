@@ -5,4 +5,5 @@ elise_admin.yaml
 **/.decrypted~*
 helmcharts/*/charts/*.tgz
 helmcharts/*/Chart.lock
-ansible/.venv/
+**/.venv/
+**/__pycache__/

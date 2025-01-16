@@ -1,6 +1,10 @@
 smtp_user: ~
 smtp_passowrd: ~
 
+postgres_db:
+  size: 5Gi
+  storageClass: postgres
+
 limesurvey:
   image:
     registry: docker.io
