@@ -1,11 +1,12 @@
+#ENC[AES256_GCM,data:lCDg6A8iU3K3x/10v1HkvmXC4DAnL/mwkIa5zg5nqFyuqBXDGkw=,iv:bElPv5ESrD0MdhJG1AYmSGRFcD2wL+0Yma9bA8QzyB0=,tag:kQVuODNeuhTYMJ458Irucg==,type:comment]
 nextcloud:
     nextcloud:
         username: ENC[AES256_GCM,data:UeyGcus=,iv:alZH6yICWWxgs/pSuMYPsmmnix+DGgUQLJODwepFk7U=,tag:ia2LTuNnOFQIyKfgCI+Saw==,type:str]
         password: ENC[AES256_GCM,data:JikvHIdXixfK0qmBlKxfcWUe8tZ9e19Ztz+ZlqiAEFfuu0DSd0N5mIykzM+vSRzgsw==,iv:F2J83qcHf4Q4RoM3mE/PWpYDrutbPQPshwRrKY4BHRU=,tag:HqTFBEGgG9uiepekKHdaTQ==,type:str]
         mail:
             smtp:
-                name: ENC[AES256_GCM,data:OegYjUilkzPvGRzcSl1ONNPfRYWFFw==,iv:pC30qyy5JWGkahlvp0IWlGo5kALzDQDrOV39N7tQElI=,tag:dyJ9kQUsDFHv1htZdzph8Q==,type:str]
-                password: ENC[AES256_GCM,data:RFOTsWmShUqptp5akwiURTJZ0lR8cxE8A1lkd8PgAOB4,iv:Im9SrsvmWwZvAJBp3XaMPJBRlbMq0jss56klchLSB9U=,tag:YFu7yFtSZO4LPUusKGvY0A==,type:str]
+                name: ENC[AES256_GCM,data:9zWC9bbePZ11RXy8nk7rjtta70A3gVtP0mfxWQKGog==,iv:FiyAWsjseLg9+byh7R/xvfsC2gqMhf2mQHTQcGF+cHU=,tag:E0YXwPjVNuuSnoNxgt3V1A==,type:str]
+                password: ENC[AES256_GCM,data:T6+JKmkl9yN8Sl7EaCiWpZOb+jz9DNDyNoKW4JQliTo=,iv:zw/DkQcxRQNDVksVaqwhhhKAMQwc2MGYozN5vP0+RgM=,tag:CAyfyPl4Fmf0z7gcU29gvA==,type:str]
     redis:
         auth:
             password: ENC[AES256_GCM,data:FhTP26kPSRN2waJirbadD2U1IVjiW2GagbaNSaTphKnT+WPkkhlUIQ==,iv:VPA/4SMYoo2x+W05KzdN1ouFZkvhSitKAmrQFcacBfY=,tag:zZtjXEDCNa/vuD2toTMf0Q==,type:str]

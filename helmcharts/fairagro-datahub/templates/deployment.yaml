@@ -73,7 +73,7 @@ spec:
                 gitlab_rails['packages_enabled'] = false;
                 gitlab_rails['terraform_state_enabled'] = false;
                 gitlab_rails['smtp_enable'] = true;
-                gitlab_rails['smtp_address'] = "smtp.hostinger.com";
+                gitlab_rails['smtp_address'] = "www623.your-server.de";
                 gitlab_rails['smtp_port'] = 587;
                 gitlab_rails['smtp_user_name'] = ENV['GITLAB_SMTP_USER'];
                 gitlab_rails['smtp_password'] = ENV['GITLAB_SMTP_PASSWORD'];

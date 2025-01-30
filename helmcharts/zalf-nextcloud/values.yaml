@@ -136,7 +136,7 @@ nextcloud:
     mail:
       enabled: true
       smtp:
-        host: smtp.hostinger.com
+        host: www623.your-server.de
         secure: starttls
         port: 587
         authtype: LOGIN
