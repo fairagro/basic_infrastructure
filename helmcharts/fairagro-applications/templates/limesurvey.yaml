@@ -11,8 +11,8 @@ spec:
     targetRevision: "{{ .Values.limesurvey_revision }}"
     helm:
       valueFiles:
-        - ../../environments/fizz/values/fairagro-survey.yaml
-        - ../../environments/fizz/values/fairagro-survey.enc.yaml
+        - ../../environments/{{ .Values.cluster_name }}/values/fairagro-survey.yaml
+        - ../../environments/{{ .Values.cluster_name }}/values/fairagro-survey.enc.yaml
   destination:
     server: "https://kubernetes.default.svc"
     namespace: fairagro-survey

@@ -11,8 +11,8 @@ spec:
     targetRevision: "{{ .Values.zammad_revision }}"
     helm:
       valueFiles:
-        - ../../environments/draven/values/zalf-zammad.yaml
-        - ../../environments/draven/values/zalf-zammad.enc.yaml
+        - ../../environments/{{ .Values.cluster_name }}/values/zalf-zammad.yaml
+        - ../../environments/{{ .Values.cluster_name }}/values/zalf-zammad.enc.yaml
   destination:
     server: "https://kubernetes.default.svc"
     namespace: fairagro-zammad
