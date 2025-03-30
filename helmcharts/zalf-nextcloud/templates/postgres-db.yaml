@@ -6,8 +6,6 @@ metadata:
   name: fairagro-postgresql-nextcloud
   labels:
     velero.io/exclude-from-backup: "true"
-  annotations:
-    acid.zalan.do/controller: with-backup
 spec:
   # teamIds can be defined for the hole cluster and are there to group cluster e.g. by working group
   # must be configured in the postgres-operator yaml before using them here.
