@@ -36,9 +36,13 @@ nextcloud:
     requests:
       cpu: "2"
       memory: 6Gi
+      hugepages-2Mi: 6Gi
+      hugepages-1Gi: 6Gi
     limits:
       cpu: "4"
       memory: 8Gi
+      hugepages-2Mi: 8Gi
+      hugepages-1Gi: 8Gi
 
   ingress:
     enabled: true
@@ -201,9 +205,13 @@ nextcloud:
       requests:
         cpu: 100m
         memory: 200Mi
+        hugepages-2Mi: 200Mi
+        hugepages-1Gi: 200Mi
       limits:
         cpu: "2"
         memory: 1Gi
+        hugepages-2Mi: 1Gi
+        hugepages-1Gi: 1Gi
     containerPort: 8080
     config:
       default: true
@@ -233,9 +241,13 @@ nextcloud:
       requests:
         cpu: 100m
         memory: 50M
+        hugepages-2Mi: 50m
+        hugepages-1Gi: 50m
       limits:
         cpu: "1"
         memory: 1G
+        hugepages-2Mi: 1G
+        hugepages-1Gi: 1G
       # Cron runs with root permissions (the default for the nextcloud image that is used for cron).
       # Root permissions are needed by cron.
       # securityContext: {}
@@ -256,9 +268,13 @@ nextcloud:
         requests:
           cpu: "1"
           memory: 1G
+          hugepages-2Mi: 1G
+          hugepages-1Gi: 1G
         limits:
           cpu: "1"
           memory: 1G
+          hugepages-2Mi: 1G
+          hugepages-1Gi: 1G
       persistence:
         enabled: false
 
@@ -298,9 +314,13 @@ collabora-online:
     requests:
       cpu: "4"
       memory: 6Gi
+      hugepages-2Mi: 6Gi
+      hugepages-1Gi: 6Gi
     limits:
       cpu: "8"
       memory: 8Gi
+        hugepages-2Mi: 8Gi
+        hugepages-1Gi: 8Gi
 
   ingress:
     enabled: true
