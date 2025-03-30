@@ -93,10 +93,10 @@ limesurvey:
     limits:
       memory: 1Gi
       cpu: 1000m
-      hugepages-2Mi: 0
-      hugepages-1Gi: 0
+      hugepages-2Mi: 0Mi
+      hugepages-1Gi: 0Mi
     requests:
       memory: 512Mi
       cpu: 300m
-      hugepages-2Mi: 0
-      hugepages-1Gi: 0
+      hugepages-2Mi: 0Mi
+      hugepages-1Gi: 0Mi

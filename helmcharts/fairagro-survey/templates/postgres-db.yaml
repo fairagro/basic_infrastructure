@@ -24,13 +24,13 @@ spec:
     requests:
       cpu: "2"
       memory: 2G
-      hugepages-2Mi: 0
-      hugepages-1Gi: 0
+      hugepages-2Mi: 0Mi
+      hugepages-1Gi: 0Mi
     limits:
       cpu: "4"
       memory: 8G
-      hugepages-2Mi: 0
-      hugepages-1Gi: 0
+      hugepages-2Mi: 0Mi
+      hugepages-1Gi: 0Mi
   # number of replicas, this can improve performance and failsafe
   numberOfInstances: 2
   # list of users and there rights
