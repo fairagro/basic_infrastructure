@@ -319,8 +319,8 @@ collabora-online:
     limits:
       cpu: "8"
       memory: 8Gi
-        hugepages-2Mi: 8Gi
-        hugepages-1Gi: 8Gi
+      hugepages-2Mi: 8Gi
+      hugepages-1Gi: 8Gi
 
   ingress:
     enabled: true
