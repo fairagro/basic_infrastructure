@@ -126,7 +126,7 @@ nextcloud:
         mountPath: /usr/local/etc/php/conf.d/redis-session.ini
         subPath: redis-session.ini
       - name: additional-config
-        mountPath: /usr/local/etc/php/conf.d/opcache-recommended.conf
+        mountPath: /usr/local/etc/php/conf.d/opcache-recommended.ini
         subPath: opcache.conf
       - name: additional-config
         mountPath: /usr/local/etc/php-fpm.d/www.conf
