@@ -33,9 +33,13 @@ zammad:
         requests:
           cpu: 1
           memory: 1Gi
+          hugepages-2Mi: 0Mi
+          hugepages-1Gi: 0Mi
         limits:
           cpu: 2
           memory: 2Gi
+          hugepages-2Mi: 0Mi
+          hugepages-1Gi: 0Mi
 
     postgresql:
       enabled: false
