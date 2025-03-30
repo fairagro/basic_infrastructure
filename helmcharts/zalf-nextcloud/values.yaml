@@ -24,7 +24,7 @@ nextcloud:
     # Now we can simply add the @sha256 to the repository name and specify the image digest hash in the tag.
     # This works as long as the repository name is only referenced within the chart for generating the image name.
     repository: nextcloud@sha256
-    favor: fpm
+    flavor: fpm
     # I would prefer to go for the fpm-alpine version, because it has much less vulnerabilities.
     # This requires to install nginx as sidecar container. But currently I receive HTTP 500 when trying this.
     #tag: 0b04a2e2c14672a2fe56ca668a633ed8fc9d2d882df83fdfc6114773f4713a74 # 28.0.2-apache
@@ -125,6 +125,9 @@ nextcloud:
       - name: additional-config
         mountPath: /usr/local/etc/php/conf.d/redis-session.ini
         subPath: redis-session.ini
+      - name: additional-config
+        mountPath: /usr/local/etc/php/conf.d/opcache.conf
+        subPath: opcache.conf
       - name: additional-config
         mountPath: /usr/local/etc/php-fpm.d/www.conf
         subPath: php-fpm-www.conf # replace default www.conf, refer to https://tideways.com/profiler/blog/an-introduction-to-php-fpm-tuning
