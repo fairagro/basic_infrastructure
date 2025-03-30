@@ -36,13 +36,13 @@ nextcloud:
     requests:
       cpu: "2"
       memory: 6Gi
-      hugepages-2Mi: 0
-      hugepages-1Gi: 0
+      hugepages-2Mi: 0Mi
+      hugepages-1Gi: 0Mi
     limits:
       cpu: "4"
       memory: 8Gi
-      hugepages-2Mi: 0
-      hugepages-1Gi: 0
+      hugepages-2Mi: 0Mi
+      hugepages-1Gi: 0Mi
 
   ingress:
     enabled: true
@@ -208,13 +208,13 @@ nextcloud:
       requests:
         cpu: 100m
         memory: 200Mi
-        hugepages-2Mi: 0
-        hugepages-1Gi: 0
+        hugepages-2Mi: 0Mi
+        hugepages-1Gi: 0Mi
       limits:
         cpu: "2"
         memory: 1Gi
-        hugepages-2Mi: 0
-        hugepages-1Gi: 0
+        hugepages-2Mi: 0Mi
+        hugepages-1Gi: 0Mi
     containerPort: 8080
     config:
       default: true
@@ -244,13 +244,13 @@ nextcloud:
       requests:
         cpu: 100m
         memory: 50M
-        hugepages-2Mi: 0
-        hugepages-1Gi: 0
+        hugepages-2Mi: 0Mi
+        hugepages-1Gi: 0Mi
       limits:
         cpu: "1"
         memory: 1G
-        hugepages-2Mi: 0
-        hugepages-1Gi: 0
+        hugepages-2Mi: 0Mi
+        hugepages-1Gi: 0Mi
       # Cron runs with root permissions (the default for the nextcloud image that is used for cron).
       # Root permissions are needed by cron.
       # securityContext: {}
@@ -271,13 +271,13 @@ nextcloud:
         requests:
           cpu: "1"
           memory: 1G
-          hugepages-2Mi: 0
-          hugepages-1Gi: 0
+          hugepages-2Mi: 0Mi
+          hugepages-1Gi: 0Mi
         limits:
           cpu: "1"
           memory: 1G
-          hugepages-2Mi: 0
-          hugepages-1Gi: 0
+          hugepages-2Mi: 0Mi
+          hugepages-1Gi: 0Mi
       persistence:
         enabled: false
 
@@ -317,13 +317,13 @@ collabora-online:
     requests:
       cpu: "4"
       memory: 6Gi
-      hugepages-2Mi: 0
-      hugepages-1Gi: 0
+      hugepages-2Mi: 0Mi
+      hugepages-1Gi: 0Mi
     limits:
       cpu: "8"
       memory: 8Gi
-      hugepages-2Mi: 0
-      hugepages-1Gi: 0
+      hugepages-2Mi: 0Mi
+      hugepages-1Gi: 0Mi
 
   ingress:
     enabled: true
