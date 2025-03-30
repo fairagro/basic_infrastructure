@@ -55,6 +55,7 @@ spec:
     parameters:
       password_encryption: scram-sha-256
       huge_pages: "off"
+
   patroni:
     initdb:
       set: huge_pages="off"
