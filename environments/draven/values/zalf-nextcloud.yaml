@@ -7,7 +7,6 @@ allowed_reverse_proxy_ips: 172.16.64.0/18
 postgres_db:
   size: 4Gi
 cert_email_receiver: carsten.scharfenberg@zalf.de
-geant_acme_key_id: OqJJqONZBNIdYFekHDIDRQ
 
 nextcloud:
 
@@ -76,7 +75,7 @@ collabora-online:
   ingress:
     className: nginx-external
     annotations:
-      cert-manager.io/issuer: geant
+      cert-manager.io/issuer: letsencrypt
       cert-manager.io/private-key-size: "4096"
       cert-manager.io/private-key-rotation-policy: "Always"
       # It seems the subjects annotation do not have any effect.
