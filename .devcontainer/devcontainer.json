@@ -55,7 +55,7 @@
 		"ghcr.io/nucleuscloud/devcontainer-features/helmfile:0.1.0": {
 			"version": "v0.168.0"
 		},
-		"ghcr.io/devcontainers/features/python:1.7.0": {
+		"ghcr.io/devcontainers/features/python:1.7.1": {
 			"installTools": true,
 			"version": "3.12"
 		},
