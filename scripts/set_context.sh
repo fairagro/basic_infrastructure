@@ -71,6 +71,7 @@ source <(cmctl completion bash)
 alias k=kubectl
 alias d=docker
 alias kda="kubectl delete all,pdb,configmap,secret,pvc,ingress,serviceaccount,endpoints --all"
+alias kga="kubectl get all,pdb,configmap,secret,pvc,ingress,serviceaccount,endpoints"
 
 # Set bash completion for aliases
 complete -o default -F __start_kubectl k
