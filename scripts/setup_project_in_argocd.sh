@@ -19,6 +19,5 @@ argocd app create fairagro-application-wrapper \
     --project fairagro \
     --dest-namespace fairagro-applications \
     --values "../../environments/${environment}/values/fairagro-applications.yaml" \
-    --parameter cluster_name=${environment} \
     --sync-option CreateNamespace=true \
     --sync-option Prune=true
