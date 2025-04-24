@@ -12,7 +12,7 @@ replicaCount: 1
 image:
   repository: ghcr.io/nfdi4plants/datahub
   pullPolicy: Always
-  digest: ~
+  digest: sha256:4a8e131b220053c55d3529c9270d7279fe9efa4173dff64efac97c6e6d3195b8 # v17.11.1
   # Overrides the image tag whose default is the chart appVersion.
   # tag: ""
 
