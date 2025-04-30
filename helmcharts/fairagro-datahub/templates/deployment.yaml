@@ -83,7 +83,19 @@ spec:
                 gitlab_rails['smtp_openssl_verify_mode'] = 'peer';
                 gitlab_rails['gitlab_email_from'] = ENV['GITLAB_SMTP_USER'];
                 puma['worker_processes'] = 4;
-                nginx['worker_processes'] = 4
+                nginx['worker_processes'] = 4;
+                gitaly['env'] = {
+                  'AWS_ACCESS_KEY_ID' => 'aws_access_key_id',
+                  'AWS_SECRET_ACCESS_KEY' => 'aws_secret_access_key'
+                };
+                gitaly['configuration'] = {
+                  backup: {
+                    go_cloud_url: 's3://<bucket>?region=us-west-1',
+                    region:
+                    endpoint:
+                    s3ForcePathStyle: true
+                  }
+                }
             # Setting the root password only has effect if the database is not initialized yet
             - name: GITLAB_ROOT_PASSWORD
               value: {{ .Values.rootPassword }}
