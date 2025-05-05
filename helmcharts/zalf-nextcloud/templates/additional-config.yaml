@@ -21,6 +21,8 @@ data:
     redis.session.locking_enabled = 1
     redis.session.lock_retries = -1
     redis.session.lock_wait_time = 10000
+  opcache.conf: |
+    opcache.enable = 0
   php-fpm-www.conf: |
     ; Start a new pool named 'www'.
     ; the variable $pool can be used in any directive and will be replaced by the

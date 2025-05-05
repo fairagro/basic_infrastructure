@@ -11,8 +11,8 @@ spec:
     targetRevision: "{{ .Values.nextcloud_revision }}"
     helm:
       valueFiles:
-        - ../../environments/fizz/values/zalf-nextcloud.yaml
-        - ../../environments/fizz/values/zalf-nextcloud.enc.yaml
+        - ../../environments/{{ .Values.cluster_name }}/values/zalf-nextcloud.yaml
+        - ../../environments/{{ .Values.cluster_name }}/values/zalf-nextcloud.enc.yaml
   destination:
     server: "https://kubernetes.default.svc"
     namespace: fairagro-nextcloud

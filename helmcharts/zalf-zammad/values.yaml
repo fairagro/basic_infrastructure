@@ -7,7 +7,7 @@ zammad:
     enabled: true
     className: nginx-external
     annotations:
-      cert-manager.io/issuer: geant
+      cert-manager.io/issuer: letsencrypt
       cert-manager.io/private-key-size: "4096"
       cert-manager.io/private-key-rotation-policy: "Always"
       # It seems the subjects annotation do not have any effect.
@@ -33,9 +33,13 @@ zammad:
         requests:
           cpu: 1
           memory: 1Gi
+          hugepages-2Mi: 0Mi
+          hugepages-1Gi: 0Mi
         limits:
           cpu: 2
           memory: 2Gi
+          hugepages-2Mi: 0Mi
+          hugepages-1Gi: 0Mi
 
     postgresql:
       enabled: false

@@ -1,22 +1,17 @@
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
-  name: geant
+  name: letsencrypt
 spec:
   acme:
     # The ACME server URL
-    server: https://acme.sectigo.com/v2/OV
+    #server: https://acme-staging-v02.api.letsencrypt.org/directory # staging
+    server: https://acme-v02.api.letsencrypt.org/directory # production
     # Email address used for ACME registration
     email: "{{ .Values.cert_email_receiver }}"
-    externalAccountBinding:
-      keyID: "{{ .Values.geant_acme_key_id }}"
-      keySecretRef:
-        name: geant-acme-account-secret
-        key: secret
-      keyAlgorithm: HS256
     # Name of a secret used to store the ACME account private key
     privateKeySecretRef:
-      name: cert-issuer-geant
+      name: cert-issuer-letsencrypt
     # Enable the DNS-01 challenge provider
     solvers:
       - dns01:

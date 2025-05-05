@@ -1,5 +1,6 @@
 datahub_revision: HEAD
 limesurvey_revision: HEAD
 nextcloud_revision: HEAD
-nextcloud_db_name: fairagro-postgresql-nextcloud
+nextcloud_db_name: nextcloud_db_name
 zammad_revision: HEAD
+cluster_name: ~

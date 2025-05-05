@@ -1,5 +1,4 @@
 cloudflare_api_token: ENC[AES256_GCM,data:+6W8r04gcO1ucAS3KMJbHEHB/zhBuNi/wBaFORxy527QgMPAULIONg==,iv:YDZtbm1Y+yxRJA9oU3l2DHanXWrlsfPMFf/nOO1RqrM=,tag:rNTt1KcFSDfZ9TRagy75Dw==,type:str]
-geant_acme_hmac_key: ENC[AES256_GCM,data:K22VGqI9dcj+la7JrQOHXYHMj34/cv6yLPe4IBMrRpKXiSMkEavWX/L7Gcb9lbynuQxNGzl+D/sbzQdXKBKc3g0ds9IsBhrock28Cl77KEKDXsdVwaI=,iv:UqqIn4pS1Ady4lV18t4NzzLXbbJui4qL2qAOZe5sfzk=,tag:G2nfuuxx4IZE3+hPzZEjsA==,type:str]
 nextcloud:
     nextcloud:
         username: ENC[AES256_GCM,data:M5M0DFE=,iv:OtlBRq//GkjYuEDjVu/pkp+EPqudszEQI3ZXzuddB/Y=,tag:xWmYAdV9ijN1/xM/NfHKDQ==,type:str]
@@ -32,8 +31,8 @@ sops:
             S2NYVWZYWFBRYjFJNTViV29oK0F4ZnMKzwx/B8YtEvNJrISNWHBdN/A2ZBLAZdLl
             L+qfdgNnFjADrWHqPB8hZ0wWqYaeTw50mh2LdtvlU2CT+YFva2ursg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-10-28T09:31:00Z"
-    mac: ENC[AES256_GCM,data:zKKcG3kb+p+Q8UqWdDM3T1hFPaTxIgL40Z6rzqOMcuiwjlBbOHcbNS3zwEg5RrMOIr9AE65WaCevFsE8CILAyi9Gxqgd5JmgP2hyEKna7a1at2p3ILMtyxW/ZPEfMJDFviwE71fNfWrHIIFnwqdUym2t2zhSqD/dE7QYwObaTx8=,iv:U2duEWwUy9aEXbvmhouprZA0WcfD9TDCQevdFR/s6Ww=,tag:2psToAndbBTG+imOVZ7qHQ==,type:str]
+    lastmodified: "2025-04-01T09:43:13Z"
+    mac: ENC[AES256_GCM,data:Jz312ARSIdY2T4gzg5PSuFMMDhBryWxfGgdxgUsCyiGzJ0kg+ewvWQHqqJR0FAyYekB2gKjnUkJkRIk2OJ5VQ2N9XA585ZcAdMM9/2VXyOvCD0v/1HYr7nnRnQ9ZtXir1O7pp+4FawJemhpiKjq9p4pAfxKwK9E2Ru/L51DMczE=,iv:10Ssl1GY9EQHR0tr+d+Y25zJR99GJQwwfmRcetXzy5A=,tag:2XrYtvLGSip2dcT6+CzQ+w==,type:str]
     pgp:
         - created_at: "2024-09-17T12:02:06Z"
           enc: |-

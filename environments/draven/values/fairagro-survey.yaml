@@ -1,5 +1,4 @@
 cert_email_receiver: carsten.scharfenberg@zalf.de
-geant_acme_key_id: OqJJqONZBNIdYFekHDIDRQ
 
 postgres_db:
   size: 4Gi
@@ -10,7 +9,7 @@ limesurvey:
   ingress:
     className: nginx-external
     annotations:
-      cert-manager.io/issuer: geant
+      cert-manager.io/issuer: letsencrypt
       cert-manager.io/private-key-size: "4096"
       cert-manager.io/private-key-rotation-policy: "Always"
       # It seems the subjects annotations do not have any effect.
