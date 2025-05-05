@@ -10,7 +10,11 @@ allowed_collabora_ips: ~
 allowed_reverse_proxy_ips: ~
 
 postgres_db:
-  size: 4Gi
+  # Actually we do not need such a big database, but we had to increase the size of the productive
+  # database to solve a database replication issue. Shrinking again is not possible.
+  # So in case we have to reinstall nextcloud in future, we might decrease the database size again,
+  # but currently it's not possible.
+  size: 10Gi
   storageClass: postgres
 
 # ## Liveness and readiness probe values
