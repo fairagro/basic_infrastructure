@@ -1,0 +1,85 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "fairagro-basic-middleware.fullname" . }}
+  labels:
+    {{- include "fairagro-basic-middleware.labels" . | nindent 4 }}
+spec:
+  schedule: "{{ .Values.schedule }}"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          {{- with .Values.podAnnotations }}
+          annotations:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          labels:
+            {{- include "fairagro-basic-middleware.labels" . | nindent 12 }}
+            {{- with .Values.podLabels }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+        spec:
+          {{- with .Values.imagePullSecrets }}
+          imagePullSecrets:
+            {{- toYaml . | nindent 8 }}
+          {{- end }}
+          containers:
+            - name: middleware
+              image: "{{ .Values.image.repository }}:{{ default .Values.image.tag .Chart.AppVersion }}"
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+              securityContext:
+                {{- toYaml .Values.securityContext | nindent 16 }}
+              env:
+              - name: SSH_PRIVATE_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ include "fairagro-basic-middleware.fullname" . }}
+                    key: secret_key
+              {{- with .Values.env }}
+                {{- toYaml . | nindent 16 }}
+              {{- end }}
+              resources:
+                {{- toYaml .Values.resources | nindent 16 }}
+              volumeMounts:
+                - name: config
+                  mountPath: /middleware/config.yml
+                  subPath: config.yml
+                - name: tmp-ssh
+                  mountPath: /tmp/ssh
+              {{- with .Values.volumeMounts }}
+                {{- toYaml . | nindent 16 }}
+              {{- end }}
+              livenessProbe:
+                {{- toYaml .Values.livenessProbe | nindent 16 }}
+              readinessProbe:
+                {{- toYaml .Values.readinessProbe | nindent 16 }}
+              startupProbe:
+                {{- toYaml .Values.readinessProbe | nindent 16 }}
+          volumes:
+            - name: config
+              configMap:
+                name: {{ include "fairagro-basic-middleware.fullname" . }}
+            - name: tmp-ssh
+              emptyDir:
+                medium: "Memory"
+                sizeLimit: 64Ki
+          {{- with .Values.volumes }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          securityContext:
+            {{- toYaml .Values.podSecurityContext | nindent 12 }}
+          {{- with .Values.nodeSelector }}
+          nodeSelector:
+            {{- toYaml . | nindent 8 }}
+          {{- end }}
+          {{- with .Values.affinity }}
+          affinity:
+            {{- toYaml . | nindent 8 }}
+          {{- end }}
+          {{- with .Values.tolerations }}
+          tolerations:
+            {{- toYaml . | nindent 8 }}
+          {{- end }}
+          restartPolicy: OnFailure
