@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: basic-middleware
+  namespace: fairagro-applications
+spec:
+  project: fairagro
+  source:
+    repoURL: "git@github.com:fairagro/basic_infrastructure.git"
+    path: helmcharts/fairagro-basic-middleware
+    targetRevision: "{{ .Values.basic_middleware_revision }}"
+    helm:
+      valueFiles:
+        - ../../environments/{{ .Values.cluster_name }}/values/fairagro-basic-middleware.yaml
+        - ../../environments/{{ .Values.cluster_name }}/values/fairagro-basic-middleware.enc.yaml
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: fairagro-basic-middleware
+  syncPolicy:
+    syncOptions:
+      - Prune=true

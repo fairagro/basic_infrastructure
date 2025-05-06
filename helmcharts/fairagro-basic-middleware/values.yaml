@@ -1,0 +1,79 @@
+config:
+  output_path: /middleware/output
+  openagrar_max_entries: 5000
+  publisso_max_entries: 5000
+  thuenen_atlas_max_entries: 5000
+
+schedule: "0 2 * * *" # every night at 2AM
+middlewareConfig: ""
+sshPrivateKey: ~
+
+outputVolume:
+  size: 1Gi
+#  storageClassName:
+
+# Default values for fairagro-basic-middleware.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# This is for the secretes for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+imagePullSecrets: []
+# This is to override the chart name.
+nameOverride: ""
+fullnameOverride: ""
+
+# This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
+image:
+  repository: zalf/fairagro_basic_middleware
+  # This sets the pull policy for images.
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+env: []
+
+# This is for setting Kubernetes Annotations to a Pod.
+# For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/ 
+podAnnotations: {}
+# This is for setting Kubernetes Labels to a Pod.
+# For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
+podLabels: {}
+
+podSecurityContext:
+  fsGroup: 65532    # user 'nonroot'
+
+securityContext:
+  runAsUser: 65532  # user 'nonroot'
+  runAsGroup: 65532 # user group 'nonroot'
+  runAsNonRoot: true
+  capabilities:
+    drop: ["ALL"]
+
+resources:
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  limits:
+    cpu: '4'
+    memory: 256Mi
+  requests:
+    cpu: '4'
+    memory: 256Mi
+
+# This is to setup the liveness and readiness probes more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+livenessProbe: {}
+readinessProbe: {}
+startupProbe: {}
+
+# Additional volumes on the output Deployment definition.
+volumes: []
+
+# Additional volumeMounts on the output Deployment definition.
+volumeMounts: []
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
