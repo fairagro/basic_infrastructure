@@ -16,6 +16,6 @@ spec:
   destination:
     server: "https://kubernetes.default.svc"
     namespace: fairagro-basic-middleware
-    syncPolicy:
+  syncPolicy:
     syncOptions:
       - Prune=true
