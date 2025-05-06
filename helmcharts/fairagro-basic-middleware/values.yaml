@@ -43,7 +43,7 @@ podSecurityContext: {}
   # fsGroup: 2000
 
 securityContext:
-  runAsUser: 65534  # typical uid for 'nonroot'
+  runAsUser: 65532  # user 'nonroot'
   runAsNonRoot: true
   capabilities:
     drop: ["ALL"]
