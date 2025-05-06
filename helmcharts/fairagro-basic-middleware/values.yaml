@@ -1,6 +1,16 @@
+config:
+  output_path: /middleware/output
+  openagrar_max_entries: 5000
+  publisso_max_entries: 5000
+  thuenen_atlas_max_entries: 5000
+
 schedule: "0 2 * * *" # every night at 2AM
 middlewareConfig: ""
 sshPrivateKey: ~
+
+outputVolume:
+  size: 1Gi
+#  storageClassName:
 
 # Default values for fairagro-basic-middleware.
 # This is a YAML-formatted file.

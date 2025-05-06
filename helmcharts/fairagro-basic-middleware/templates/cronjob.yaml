@@ -48,6 +48,8 @@ spec:
                   subPath: config.yml
                 - name: tmp-ssh
                   mountPath: /tmp/ssh
+                - name: output
+                  mountPath: {{ .Value.config.output_path }}
               {{- with .Values.volumeMounts }}
                 {{- toYaml . | nindent 16 }}
               {{- end }}
@@ -71,6 +73,9 @@ spec:
               emptyDir:
                 medium: "Memory"
                 sizeLimit: 64Ki
+            - name: output
+              persistentVolumeClaim:
+                claimName: {{ include "fairagro-basic-middleware.fullname" . }}
           {{- with .Values.volumes }}
             {{- toYaml . | nindent 12 }}
           {{- end }}

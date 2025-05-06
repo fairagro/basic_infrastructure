@@ -6,4 +6,52 @@ metadata:
     {{- include "fairagro-basic-middleware.labels" . | nindent 4 }}
 data:
   config.yml: |
-{{ .Values.middlewareConfig | indent 4 }}
+    # The list of repositories to be harvested. The name will be used in logging/tracing and to name the resulting file.
+    # The url denotes the so-called sitemap of the repository (at best it's really a sitemap).
+    # The sitemap specifies the parser for the sitemap url above. Currently two are available:
+    #   - xml (for sitemaps conforming to the xml standard defined a https://sitemaps.org)
+    #   - openagrar (the sitemap conists of a list of datasets from which the ID needs to be extracted and appended to
+    #               the base url for downloading datasets)
+    # metadata denotes the metadata parser. Currently two are available:
+    #   - embedded_jsonld (for schema.org JSON-LD metadata embedded into HTML)
+    #   - jsonld (for standalone schema.org JSON-LD files)
+    sitemaps:
+      - name: bonares
+        url: https://maps.bonares.de/finder/resources/googleds/sitemap.xml
+        sitemap: xml
+        metadata: embedded_jsonld
+      - name: edal
+        url: https://doi.ipk-gatersleben.de/sitemap.xml
+        sitemap: xml
+        metadata: embedded_jsonld
+      - name: openagrar
+        url: "https://www.openagrar.de/servlets/solr/select?core=main&q=category.top%3A%22mir_genres%3Aresearch_data%22+AND+objectType%3Amods+AND+category.top%3A%22state%3Apublished%22&rows={{ .Values.config.openagrar_max_entries }}&fl=id%2Cmods.identifier&wt=json&XSL.Style=xml"
+        sitemap: openagrar
+        metadata: embedded_jsonld
+      - name: publisso
+        url: "https://frl.publisso.de/find?q=contentType:researchData&from=0&until={{ .Values.config.publisso_max_entries }}&format=json"
+        sitemap: publisso
+      - name: thunen_atlas
+        url: "https://atlas.thuenen.de/api/v2/resources?page_size={{ .Values.config.thuenen_atlas_max_entries }}&format=json"
+        sitemap: thunen_atlas
+
+    # Configures the HTTP client uses to download sitemaps and datasets
+    http_client:
+      connection_limit: 20
+      receive_timeout: 120
+      connect_timeout: 60
+
+    # Configures the git client
+    # Note on paths: relative paths refer to the current working directory.
+    # You can omit the ssh_key_path if you have a local git setup with your personal key.
+    # If branch is omitted, the main branch is used
+    git:
+      repo_url: git@github.com:fairagro/middleware_repo.git
+      branch: main
+      local_path: {{ .Value.config.output_path }}
+      user_name: "FAIRagro middleware"
+      user_email: "middleware@fairagro.net"
+
+    # If you operate an opentelemetry endpoint you can configure it here
+    opentelemetry: {}
+    #  endpoint:
