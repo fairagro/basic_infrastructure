@@ -41,10 +41,10 @@ podLabels: {}
 
 podSecurityContext:
   fsGroup: 65532    # user 'nonroot'
-  runAsGroup: 65532 # user group 'nonroot'
 
 securityContext:
   runAsUser: 65532  # user 'nonroot'
+  runAsGroup: 65532 # user group 'nonroot'
   runAsNonRoot: true
   capabilities:
     drop: ["ALL"]
