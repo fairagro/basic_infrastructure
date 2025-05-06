@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: "git@github.com:fairagro/basic_infrastructure.git"
     path: helmcharts/fairagro-basic-middleware
-    targetRevision: "{{ .Values.datahub_revision }}"
+    targetRevision: "{{ .Values.basic-middleware_revision }}"
     helm:
       valueFiles:
         - ../../environments/{{ .Values.cluster_name }}/values/fairagro-basic-middleware.yaml
